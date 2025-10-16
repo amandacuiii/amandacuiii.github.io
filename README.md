@@ -1,44 +1,40 @@
 # Personal Website
 
-A clean, modern personal website built with Tailwind CSS featuring sections for About Me, Projects/Teaching, Pottery Gallery, and Contact.
+A clean, modern personal website built with Tailwind CSS featuring sections for About Me, Photography/Videography/Pottery Portfolio, and Contact.
 
 ## Features
 
 - **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
-- **Modern UI**: Clean, minimalist design with smooth animations
+- **Modern UI**: Clean, minimalist design with smooth animations and warm color scheme
 - **Tailwind CSS**: Utility-first CSS framework for rapid styling
 - **Font Awesome Icons**: Professional icons throughout the site
 - **Smooth Scrolling**: Navigation links smoothly scroll to sections
 - **Mobile Menu**: Collapsible navigation for mobile devices
 - **Contact Form**: Functional contact form with validation
+- **Portfolio Gallery**: Showcase of photography, videography, and pottery work
 
 ## Sections
 
 ### 1. Hero Section
 - Personal introduction with avatar placeholder
-- Professional tagline
-- Brief description
+- Professional tagline: "Photographer, Videographer & Ceramic Artist"
+- Brief description and call-to-action buttons
 
 ### 2. About Me
 - Personal story and background
 - Skills and expertise tags
 - Professional photo placeholder
 
-### 3. Projects & Teaching
-- Portfolio of work and teaching experiences
-- Categorized by type (Design, Teaching)
-- Hover effects and smooth transitions
+### 3. Portfolio
+- Photography work showcase
+- Videography projects
+- Pottery and ceramic art gallery
+- Filterable categories with hover effects
 
-### 4. Pottery Gallery
-- Showcase of ceramic work
-- Grid layout with hover animations
-- Different pottery categories
-
-### 5. Contact
+### 4. Contact
 - Contact form with validation
 - Contact information
 - Social media links
-- Studio hours
 
 ## Customization
 
@@ -50,23 +46,21 @@ Replace the following placeholders with your actual information:
 - `+1 (555) 123-4567` - Your phone number
 - `Your City, State` - Your location
 - Update the About Me section with your personal story
-- Replace project descriptions with your actual work
-- Update pottery gallery items with your ceramic pieces
+- Replace portfolio descriptions with your actual work
 
 ### Colors
-The website uses a custom color scheme defined in the Tailwind config:
-- Primary: Blue (#2563eb)
-- Secondary: Slate (#64748b)
-- Accent: Amber (#f59e0b)
-
-You can modify these colors in the `<script>` section of the HTML file.
+The website uses a custom warm color scheme:
+- Primary: #310b0b (Dark Burgundy)
+- Secondary: #471c1c (Medium Burgundy)
+- Accent: #743a34 (Warm Brown)
+- Tertiary: #ba6b57 (Terracotta)
+- Light: #dda384 (Warm Beige)
 
 ### Images
 Replace the placeholder icons with your actual photos:
 - Hero section avatar
 - About Me section photo
-- Project thumbnails
-- Pottery gallery images
+- Portfolio thumbnails
 
 ### Social Media Links
 Update the social media links in both the contact section and footer with your actual profiles.
