@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Personal Website</title>
+    <title>Amanda Cui - Personal Website</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -26,7 +26,11 @@
                         'fade-in-right': 'fadeInRight 0.8s ease-out',
                         'scale-in': 'scaleIn 0.5s ease-out',
                         'typewriter': 'typewriter 3s steps(40, end)',
-                        'blink': 'blink 1s infinite'
+                        'blink': 'blink 1s infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slide-up': 'slideUp 1s ease-out',
+                        'parallax': 'parallax 20s linear infinite',
+                        'text-reveal': 'textReveal 1.2s ease-out'
                     },
                     keyframes: {
                         float: {
@@ -56,6 +60,23 @@
                         blink: {
                             '0%, 50%': { borderColor: 'transparent' },
                             '51%, 100%': { borderColor: '#310b0b' }
+                        },
+                        glow: {
+                            '0%': { textShadow: '0 0 20px rgba(49, 11, 11, 0.5)' },
+                            '100%': { textShadow: '0 0 40px rgba(49, 11, 11, 0.8), 0 0 60px rgba(49, 11, 11, 0.3)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(100px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        parallax: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(100%)' }
+                        },
+                        textReveal: {
+                            '0%': { opacity: '0', transform: 'translateY(50px) scale(0.8)' },
+                            '50%': { opacity: '0.5', transform: 'translateY(25px) scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' }
                         }
                     }
                 }
@@ -202,7 +223,7 @@
     <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm shadow-sm z-50 transition-all duration-300" id="navbar">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="text-xl font-bold text-primary hover:scale-110 transition-transform duration-300 cursor-pointer">Your Name</div>
+                <div class="text-xl font-bold text-primary hover:scale-110 transition-transform duration-300 cursor-pointer">Amanda Cui</div>
                 <div class="hidden md:flex space-x-8">
                     <a href="#about" class="nav-link text-gray-700 hover:text-primary transition-all duration-300 relative group">
                         About Me
@@ -235,7 +256,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-20 pb-16 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden">
+    <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-primary to-secondary overflow-hidden">
         <!-- Particle Effects -->
         <div id="particles" class="absolute inset-0"></div>
         
@@ -244,18 +265,18 @@
                 <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center animate-float shadow-2xl">
                     <i class="fas fa-user text-4xl text-white"></i>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4 reveal">
-                    <span class="gradient-text">Amanda Cui</span>
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black text-white mb-8 animate-text-reveal tracking-tight">
+                    <span class="gradient-text drop-shadow-2xl animate-glow">Amanda Cui</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-accent mb-6 reveal typewriter-text">Photographer, Videographer & Ceramic Artist</p>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto reveal">Capturing moments through the lens and creating timeless pieces through clay</p>
+                <p class="text-2xl md:text-4xl lg:text-5xl text-white mb-8 animate-slide-up typewriter-text font-light tracking-wide">Photographer, Videographer & Ceramic Artist</p>
+                <p class="text-xl md:text-2xl text-white/80 max-w-4xl mx-auto animate-fade-in-up font-light leading-relaxed">Capturing moments through the lens and creating timeless pieces through clay</p>
                 
                 <!-- Animated CTA Buttons -->
-                <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center reveal">
-                    <button class="px-8 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                <div class="mt-12 flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up">
+                    <button class="px-12 py-4 bg-primary text-white rounded-full hover:bg-primary/90 transition-all duration-500 hover:scale-110 hover:shadow-2xl text-lg font-semibold tracking-wide">
                         View My Work
                     </button>
-                    <button class="px-8 py-3 border-2 border-primary text-primary rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105">
+                    <button class="px-12 py-4 border-2 border-white text-white rounded-full hover:bg-white hover:text-primary transition-all duration-500 hover:scale-110 hover:shadow-2xl text-lg font-semibold tracking-wide">
                         Get In Touch
                     </button>
                 </div>
@@ -267,8 +288,8 @@
     <section id="about" class="py-20 bg-white relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    <span class="gradient-text">About Me</span>
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
+                    <span class="gradient-text drop-shadow-lg">About Me</span>
                 </h2>
                 <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
             </div>
@@ -307,8 +328,8 @@
     <section id="portfolio" class="py-20 bg-gradient-to-br from-gray-50 to-light/10 relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    <span class="gradient-text">Photography / Videography / Pottery</span>
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
+                    <span class="gradient-text drop-shadow-lg">Photography / Videography / Pottery</span>
                 </h2>
                 <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
                 <p class="text-gray-600 mt-6 max-w-2xl mx-auto">
@@ -437,8 +458,8 @@
     <section id="contact" class="py-20 bg-gradient-to-br from-gray-50 to-light/10 relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    <span class="gradient-text">Get In Touch</span>
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
+                    <span class="gradient-text drop-shadow-lg">Get In Touch</span>
                 </h2>
                 <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
                 <p class="text-gray-600 mt-6 max-w-2xl mx-auto">
