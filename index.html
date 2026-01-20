@@ -229,8 +229,16 @@
                         About Me
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="#portfolio" class="nav-link text-gray-700 hover:text-primary transition-all duration-300 relative group">
-                        Photography / Videography / Pottery
+                    <a href="#photography" class="nav-link text-gray-700 hover:text-primary transition-all duration-300 relative group">
+                        Photography
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#videography" class="nav-link text-gray-700 hover:text-primary transition-all duration-300 relative group">
+                        Videography
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#pottery" class="nav-link text-gray-700 hover:text-primary transition-all duration-300 relative group">
+                        Pottery
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                     </a>
                     <a href="#contact" class="nav-link text-gray-700 hover:text-primary transition-all duration-300 relative group">
@@ -249,7 +257,9 @@
         <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-sm border-t">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-light/10 rounded-lg transition-all duration-300">About Me</a>
-                <a href="#portfolio" class="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-light/10 rounded-lg transition-all duration-300">Photography / Videography / Pottery</a>
+                <a href="#photography" class="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-light/10 rounded-lg transition-all duration-300">Photography</a>
+                <a href="#videography" class="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-light/10 rounded-lg transition-all duration-300">Videography</a>
+                <a href="#pottery" class="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-light/10 rounded-lg transition-all duration-300">Pottery</a>
                 <a href="#contact" class="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-light/10 rounded-lg transition-all duration-300">Contact</a>
             </div>
         </div>
@@ -268,8 +278,8 @@
                 <h1 class="text-6xl md:text-8xl lg:text-9xl font-black text-white mb-8 animate-text-reveal tracking-tight">
                     <span class="gradient-text drop-shadow-2xl animate-glow">Amanda Cui</span>
                 </h1>
-                <p class="text-2xl md:text-4xl lg:text-5xl text-white mb-8 animate-slide-up typewriter-text font-light tracking-wide">Photographer, Videographer & Ceramic Artist</p>
-                <p class="text-xl md:text-2xl text-white/80 max-w-4xl mx-auto animate-fade-in-up font-light leading-relaxed">Capturing moments through the lens and creating timeless pieces through clay</p>
+                <p class="text-2xl md:text-4xl lg:text-5xl text-white mb-8 animate-slide-up typewriter-text font-light tracking-wide">Aspiring Storyteller</p>
+                <p class="text-xl md:text-2xl text-white/80 max-w-4xl mx-auto animate-fade-in-up font-light leading-relaxed">Exploring the world as a lifelong learner — through the lens, through clay, and through connection</p>
                 
                 <!-- Animated CTA Buttons -->
                 <div class="mt-12 flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up">
@@ -330,38 +340,22 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20 bg-gradient-to-br from-gray-50 to-light/10 relative">
+    <!-- Photography Section -->
+    <section id="photography" class="py-20 bg-white relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
-                    <span class="gradient-text drop-shadow-lg">Photography / Videography / Pottery</span>
+                    <span class="gradient-text drop-shadow-lg">Photography</span>
                 </h2>
                 <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
                 <p class="text-gray-600 mt-6 max-w-2xl mx-auto">
-                    Explore my creative work across photography, videography, and ceramic arts - each piece telling a unique story.
+                    Capturing moments and stories through the lens, exploring the beauty in everyday life.
                 </p>
             </div>
 
-            <!-- Portfolio Categories -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12 reveal">
-                <button class="portfolio-filter px-6 py-2 bg-primary text-white rounded-full hover:bg-primary/90 transition-all duration-300 active" data-filter="all">
-                    All Work
-                </button>
-                <button class="portfolio-filter px-6 py-2 bg-white text-gray-700 rounded-full hover:bg-primary hover:text-white transition-all duration-300" data-filter="photography">
-                    Photography
-                </button>
-                <button class="portfolio-filter px-6 py-2 bg-white text-gray-700 rounded-full hover:bg-primary hover:text-white transition-all duration-300" data-filter="videography">
-                    Videography
-                </button>
-                <button class="portfolio-filter px-6 py-2 bg-white text-gray-700 rounded-full hover:bg-primary hover:text-white transition-all duration-300" data-filter="pottery">
-                    Pottery
-                </button>
-            </div>
-
-            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6" id="portfolio-grid">
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Photography Item 1 -->
-                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal portfolio-item" data-category="photography">
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal">
                     <div class="aspect-square bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center relative overflow-hidden">
                         <i class="fas fa-camera text-2xl text-amber-600"></i>
                         <div class="absolute inset-0 bg-gradient-to-br from-amber-400/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
@@ -376,8 +370,41 @@
                     </div>
                 </div>
 
+                <!-- Photography Item 2 -->
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal">
+                    <div class="aspect-square bg-gradient-to-br from-purple-100 to-pink-200 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-portrait text-2xl text-purple-600"></i>
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Portrait Sessions</h3>
+                        <p class="text-sm text-gray-600 mb-3">Intimate portraits that capture personality and emotion.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-purple-600 font-medium">Photography</span>
+                            <a href="#" class="text-primary hover:text-primary/80 font-medium hover:translate-x-1 transition-transform duration-300">View Gallery →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videography Section -->
+    <section id="videography" class="py-20 bg-gradient-to-br from-gray-50 to-light/10 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
+                    <span class="gradient-text drop-shadow-lg">Videography</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
+                <p class="text-gray-600 mt-6 max-w-2xl mx-auto">
+                    Cinematic storytelling through documentary films and video projects that bring stories to life.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Videography Item 1 -->
-                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal portfolio-item" data-category="videography">
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal">
                     <div class="aspect-square bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center relative overflow-hidden">
                         <i class="fas fa-video text-2xl text-blue-600"></i>
                         <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
@@ -392,8 +419,41 @@
                     </div>
                 </div>
 
+                <!-- Videography Item 2 -->
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal">
+                    <div class="aspect-square bg-gradient-to-br from-teal-100 to-cyan-200 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-film text-2xl text-teal-600"></i>
+                        <div class="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Wedding Films</h3>
+                        <p class="text-sm text-gray-600 mb-3">Beautiful cinematic wedding videos that preserve precious memories.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-teal-600 font-medium">Videography</span>
+                            <a href="#" class="text-primary hover:text-primary/80 font-medium hover:translate-x-1 transition-transform duration-300">Watch Video →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pottery Section -->
+    <section id="pottery" class="py-20 bg-white relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
+                    <span class="gradient-text drop-shadow-lg">Pottery</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
+                <p class="text-gray-600 mt-6 max-w-2xl mx-auto">
+                    Hand-crafted ceramic pieces that blend functionality with artistic expression.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Pottery Item 1 -->
-                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal portfolio-item" data-category="pottery">
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal">
                     <div class="aspect-square bg-gradient-to-br from-emerald-100 to-green-200 flex items-center justify-center relative overflow-hidden">
                         <i class="fas fa-vase text-2xl text-emerald-600"></i>
                         <div class="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
@@ -408,40 +468,8 @@
                     </div>
                 </div>
 
-                <!-- Photography Item 2 -->
-                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal portfolio-item" data-category="photography">
-                    <div class="aspect-square bg-gradient-to-br from-purple-100 to-pink-200 flex items-center justify-center relative overflow-hidden">
-                        <i class="fas fa-portrait text-2xl text-purple-600"></i>
-                        <div class="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Portrait Sessions</h3>
-                        <p class="text-sm text-gray-600 mb-3">Intimate portraits that capture personality and emotion.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-purple-600 font-medium">Photography</span>
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium hover:translate-x-1 transition-transform duration-300">View Gallery →</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Videography Item 2 -->
-                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal portfolio-item" data-category="videography">
-                    <div class="aspect-square bg-gradient-to-br from-teal-100 to-cyan-200 flex items-center justify-center relative overflow-hidden">
-                        <i class="fas fa-film text-2xl text-teal-600"></i>
-                        <div class="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Wedding Films</h3>
-                        <p class="text-sm text-gray-600 mb-3">Beautiful cinematic wedding videos that preserve precious memories.</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-teal-600 font-medium">Videography</span>
-                            <a href="#" class="text-primary hover:text-primary/80 font-medium hover:translate-x-1 transition-transform duration-300">Watch Video →</a>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Pottery Item 2 -->
-                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal portfolio-item" data-category="pottery">
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden card-hover reveal">
                     <div class="aspect-square bg-gradient-to-br from-orange-100 to-red-200 flex items-center justify-center relative overflow-hidden">
                         <i class="fas fa-coffee text-2xl text-orange-600"></i>
                         <div class="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
@@ -711,36 +739,6 @@
             });
         }
 
-        // Portfolio Filtering
-        function initPortfolioFilter() {
-            const filterButtons = document.querySelectorAll('.portfolio-filter');
-            const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => {
-                        btn.classList.remove('active', 'bg-primary', 'text-white');
-                        btn.classList.add('bg-white', 'text-gray-700');
-                    });
-
-                    // Add active class to clicked button
-                    button.classList.add('active', 'bg-primary', 'text-white');
-                    button.classList.remove('bg-white', 'text-gray-700');
-
-                    const filter = button.getAttribute('data-filter');
-
-                    portfolioItems.forEach(item => {
-                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                            item.style.display = 'block';
-                            item.style.animation = 'fadeInUp 0.5s ease-out';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
-            });
-        }
 
         // Form Enhancement
         function enhanceForm() {
@@ -813,10 +811,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
             initLightbox();
-            initPortfolioFilter();
             enhanceForm();
             revealOnScroll();
         });
     </script>
 </body>
+</html>
 </html>
