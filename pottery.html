@@ -15,7 +15,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background: rgba(255, 219, 187, 0.6);
+            background: transparent;
             font-weight: 400;
             color: #3d2e1c;
             position: relative;
@@ -37,7 +37,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.4;
+            opacity: 0.5;
             filter: grayscale(10%);
         }
         
@@ -176,7 +176,7 @@
         <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
         <div class="lightbox-content" onclick="event.stopPropagation()">
             <div id="lightbox-name" class="mb-6">
-                <h2 class="text-2xl font-light text-white italic"></h2>
+                <h2 class="text-2xl font-bold text-white italic"></h2>
             </div>
             
             <div id="lightbox-description" class="mb-8 text-lg leading-relaxed text-white">
@@ -184,12 +184,12 @@
             </div>
             
             <div id="lightbox-home" class="mb-8">
-                <h3 class="text-sm uppercase tracking-wide mb-4 text-white">Home</h3>
+                <h3 class="text-xl uppercase tracking-wide mb-4 text-white font-bold">Home</h3>
                 <p id="lightbox-home-text" class="text-lg text-white"></p>
             </div>
             
             <div id="lightbox-progress" class="mb-8">
-                <h3 class="text-sm uppercase tracking-wide mb-4 text-white">Progress Photos</h3>
+                <h3 class="text-xl uppercase tracking-wide mb-4 text-white font-bold">Progress Photos</h3>
                 <div id="lightbox-progress-gallery" class="progress-gallery">
                     <!-- Progress photos will be inserted here -->
                 </div>
