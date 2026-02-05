@@ -15,30 +15,18 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background: transparent;
+            background-image: url('photos/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             font-weight: 400;
             color: #3d2e1c;
             position: relative;
         }
         
-        /* Background Image */
-        .background-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .background-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5;
-            filter: grayscale(10%);
+        main {
+            background: transparent !important;
         }
         
         /* Ensure content is above background */
@@ -118,11 +106,6 @@
     </style>
 </head>
 <body>
-    <!-- Background Image -->
-    <div class="background-image">
-        <img src="photos/background.jpg" alt="Background" loading="eager" decoding="async">
-    </div>
-    
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50" style="background: rgba(116, 58, 52, 0.2); backdrop-filter: blur(10px);">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
