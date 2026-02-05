@@ -129,10 +129,6 @@
     <div class="lightbox" id="lightbox" onclick="if(event.target.id === 'lightbox') closeLightbox()">
         <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
         <div class="lightbox-content" onclick="event.stopPropagation()">
-            <div id="lightbox-main-image" class="mb-8">
-                <img id="lightbox-img" src="" alt="" class="w-full max-h-[60vh] object-contain mx-auto">
-            </div>
-            
             <div id="lightbox-description" class="mb-8 text-lg leading-relaxed text-white">
                 <!-- Description will be inserted here -->
             </div>
@@ -223,6 +219,17 @@
                     'photos/Pottery pics/IMG_9689.jpg', // Main image
                     // Add progress photos here
                 ]
+            },
+            {
+                id: 6,
+                mainImage: 'photos/Pottery pics/28) Smiski/smiski.jpg',
+                description: 'A ceramic piece featuring a Smiski character, showcasing playful form and detailed craftsmanship.',
+                home: 'In my collection',
+                progressPhotos: [
+                    'photos/Pottery pics/28) Smiski/smiski.jpg', // Main image
+                    'photos/Pottery pics/28) Smiski/smiski_p1.jpg', // Progress photo 1
+                    'photos/Pottery pics/28) Smiski/smiski_p2.jpeg', // Progress photo 2
+                ]
             }
         ];
 
@@ -241,14 +248,9 @@
         function openLightbox(index) {
             const piece = potteryPieces[index];
             const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
             const lightboxDescription = document.getElementById('lightbox-description');
             const lightboxHome = document.getElementById('lightbox-home-text');
             const lightboxProgress = document.getElementById('lightbox-progress-gallery');
-            
-            // Set main image
-            lightboxImg.src = piece.mainImage;
-            lightboxImg.alt = `Pottery piece ${piece.id}`;
             
             // Set description
             lightboxDescription.textContent = piece.description;
@@ -262,10 +264,6 @@
                 const img = document.createElement('img');
                 img.src = photo;
                 img.alt = 'Progress photo';
-                img.onclick = (e) => {
-                    e.stopPropagation();
-                    lightboxImg.src = photo;
-                };
                 lightboxProgress.appendChild(img);
             });
             
