@@ -107,16 +107,16 @@
         <div class="max-w-6xl mx-auto">
             <section class="py-20">
                 <div class="space-y-12">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch" style="gap: 0;">
-                        <div class="flex items-center">
-                            <h2 class="text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide leading-tight w-full font-bold">
+                    <div class="flex flex-row items-center gap-4 md:gap-8">
+                        <div class="flex-shrink-0">
+                            <h2 class="uppercase tracking-wide font-bold" style="font-size: clamp(1.25rem, 5vw, 5rem); line-height: 1.1; letter-spacing: 0.05em;">
                                 <span class="block">the</span>
                                 <span class="block">first</span>
                                 <span class="block">100</span>
                             </h2>
                         </div>
-                        <div style="min-height: 200px;">
-                            <div class="space-y-6 text-lg leading-relaxed p-6" style="height: 100%;">
+                        <div class="flex-1">
+                            <div class="space-y-6 text-lg leading-relaxed">
                                 <p>
                                     I'm working towards creating 100 ceramic pieces before leaving Taiwan. Each piece represents a moment of learning, experimentation, and growth in my pottery practice.
                                 </p>
@@ -456,6 +456,12 @@
             }
         ];
 
+        // Helper function to encode image paths for URLs
+        function encodeImagePath(path) {
+            // Split path and encode each part, keeping slashes
+            return path.split('/').map(part => encodeURIComponent(part)).join('/');
+        }
+
         // Populate gallery
         function populateGallery() {
             const gallery = document.getElementById('pottery-gallery');
@@ -463,7 +469,20 @@
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
                 item.onclick = () => openLightbox(index);
-                item.innerHTML = `<img src="${piece.mainImage}" alt="Pottery piece ${piece.id}" loading="lazy" decoding="async" fetchpriority="low">`;
+                const img = document.createElement('img');
+                img.src = encodeImagePath(piece.mainImage);
+                img.alt = `Pottery piece ${piece.id}`;
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                img.onerror = function() {
+                    console.error('Failed to load image:', piece.mainImage, 'for piece', piece.id);
+                    this.style.border = '2px solid red';
+                    this.alt = 'Image failed to load: ' + piece.mainImage;
+                };
+                img.onload = function() {
+                    console.log('Successfully loaded:', piece.mainImage);
+                };
+                item.appendChild(img);
                 gallery.appendChild(item);
             });
         }
