@@ -17,7 +17,8 @@
             -moz-osx-font-smoothing: grayscale;
             position: relative;
             overflow-x: hidden;
-            background: rgba(139, 69, 50, 0.15);
+            background: #dda384;
+            font-weight: 600;
         }
         a {
             text-decoration: none;
@@ -38,443 +39,17 @@
         }
         
         .collage-photo {
-            position: absolute;
-            opacity: 1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            filter: grayscale(0%);
+            opacity: 0.5;
+            filter: grayscale(10%);
             display: block;
-        }
-        
-        .collage-photo:nth-child(1) {
-            width: 400px;
-            height: 300px;
-            top: 10%;
-            left: 5%;
-            transform: rotate(-5deg);
-        }
-        
-        .collage-photo:nth-child(2) {
-            width: 350px;
-            height: 280px;
-            top: 25%;
-            right: 10%;
-            transform: rotate(8deg);
-        }
-        
-        .collage-photo:nth-child(3) {
-            width: 380px;
-            height: 320px;
-            top: 50%;
-            left: 8%;
-            transform: rotate(-10deg);
-        }
-        
-        .collage-photo:nth-child(4) {
-            width: 420px;
-            height: 340px;
-            bottom: 20%;
-            right: 5%;
-            transform: rotate(12deg);
-        }
-        
-        .collage-photo:nth-child(5) {
-            width: 340px;
-            height: 300px;
-            top: 15%;
-            left: 50%;
-            transform: rotate(-8deg);
-        }
-        
-        .collage-photo:nth-child(6) {
-            width: 360px;
-            height: 290px;
-            bottom: 30%;
-            left: 40%;
-            transform: rotate(6deg);
-        }
-        
-        .collage-photo:nth-child(7) {
-            width: 400px;
-            height: 310px;
-            top: 60%;
-            right: 25%;
-            transform: rotate(-7deg);
-        }
-        
-        .collage-photo:nth-child(8) {
-            width: 320px;
-            height: 270px;
-            bottom: 10%;
-            left: 20%;
-            transform: rotate(9deg);
-        }
-        
-        .collage-photo:nth-child(9) {
-            width: 300px;
-            height: 250px;
-            top: 5%;
-            right: 30%;
-            transform: rotate(-12deg);
-        }
-        
-        .collage-photo:nth-child(10) {
-            width: 370px;
-            height: 300px;
-            top: 40%;
-            left: 30%;
-            transform: rotate(5deg);
-        }
-        
-        .collage-photo:nth-child(11) {
-            width: 330px;
-            height: 280px;
-            bottom: 40%;
-            right: 35%;
-            transform: rotate(-9deg);
-        }
-        
-        .collage-photo:nth-child(12) {
-            width: 350px;
-            height: 290px;
-            top: 70%;
-            left: 15%;
-            transform: rotate(11deg);
-        }
-        
-        .collage-photo:nth-child(13) {
-            width: 310px;
-            height: 260px;
-            top: 35%;
-            right: 20%;
-            transform: rotate(-6deg);
-        }
-        
-        .collage-photo:nth-child(14) {
-            width: 340px;
-            height: 300px;
-            bottom: 15%;
-            left: 55%;
-            transform: rotate(7deg);
-        }
-        
-        .collage-photo:nth-child(15) {
-            width: 290px;
-            height: 250px;
-            top: 20%;
-            left: 25%;
-            transform: rotate(-11deg);
-        }
-        
-        .collage-photo:nth-child(16) {
-            width: 360px;
-            height: 310px;
-            bottom: 25%;
-            right: 15%;
-            transform: rotate(10deg);
-        }
-        
-        .collage-photo:nth-child(17) {
-            width: 320px;
-            height: 270px;
-            top: 55%;
-            left: 45%;
-            transform: rotate(-8deg);
-        }
-        
-        .collage-photo:nth-child(18) {
-            width: 300px;
-            height: 260px;
-            bottom: 5%;
-            right: 40%;
-            transform: rotate(13deg);
-        }
-        
-        .collage-photo:nth-child(19) {
-            width: 330px;
-            height: 280px;
-            top: 10%;
-            left: 60%;
-            transform: rotate(-4deg);
-        }
-        
-        .collage-photo:nth-child(20) {
-            width: 350px;
-            height: 300px;
-            bottom: 35%;
-            left: 10%;
-            transform: rotate(9deg);
-        }
-        
-        .collage-photo:nth-child(21) {
-            width: 310px;
-            height: 260px;
-            top: 45%;
-            right: 5%;
-            transform: rotate(-7deg);
-        }
-        
-        .collage-photo:nth-child(22) {
-            width: 340px;
-            height: 290px;
-            bottom: 50%;
-            left: 50%;
-            transform: rotate(6deg);
-        }
-        
-        .collage-photo:nth-child(23) {
-            width: 300px;
-            height: 250px;
-            top: 75%;
-            right: 30%;
-            transform: rotate(-10deg);
-        }
-        
-        .collage-photo:nth-child(24) {
-            width: 360px;
-            height: 300px;
-            top: 30%;
-            left: 70%;
-            transform: rotate(8deg);
-        }
-        
-        .collage-photo:nth-child(25) {
-            width: 280px;
-            height: 220px;
-            top: 0%;
-            left: 15%;
-            transform: rotate(15deg);
-        }
-        
-        .collage-photo:nth-child(26) {
-            width: 320px;
-            height: 240px;
-            top: 5%;
-            left: 75%;
-            transform: rotate(-12deg);
-        }
-        
-        .collage-photo:nth-child(27) {
-            width: 300px;
-            height: 230px;
-            top: 12%;
-            left: 35%;
-            transform: rotate(10deg);
-        }
-        
-        .collage-photo:nth-child(28) {
-            width: 290px;
-            height: 220px;
-            top: 18%;
-            right: 20%;
-            transform: rotate(-8deg);
-        }
-        
-        .collage-photo:nth-child(29) {
-            width: 310px;
-            height: 240px;
-            top: 28%;
-            left: 12%;
-            transform: rotate(12deg);
-        }
-        
-        .collage-photo:nth-child(30) {
-            width: 280px;
-            height: 210px;
-            top: 32%;
-            right: 45%;
-            transform: rotate(-15deg);
-        }
-        
-        .collage-photo:nth-child(31) {
-            width: 300px;
-            height: 230px;
-            top: 38%;
-            left: 65%;
-            transform: rotate(9deg);
-        }
-        
-        .collage-photo:nth-child(32) {
-            width: 290px;
-            height: 220px;
-            top: 42%;
-            right: 8%;
-            transform: rotate(-11deg);
-        }
-        
-        .collage-photo:nth-child(33) {
-            width: 320px;
-            height: 250px;
-            top: 48%;
-            left: 22%;
-            transform: rotate(13deg);
-        }
-        
-        .collage-photo:nth-child(34) {
-            width: 280px;
-            height: 210px;
-            top: 52%;
-            right: 50%;
-            transform: rotate(-9deg);
-        }
-        
-        .collage-photo:nth-child(35) {
-            width: 310px;
-            height: 240px;
-            top: 58%;
-            left: 58%;
-            transform: rotate(11deg);
-        }
-        
-        .collage-photo:nth-child(36) {
-            width: 290px;
-            height: 220px;
-            top: 62%;
-            right: 12%;
-            transform: rotate(-14deg);
-        }
-        
-        .collage-photo:nth-child(37) {
-            width: 300px;
-            height: 230px;
-            top: 68%;
-            left: 18%;
-            transform: rotate(8deg);
-        }
-        
-        .collage-photo:nth-child(38) {
-            width: 280px;
-            height: 210px;
-            top: 72%;
-            right: 55%;
-            transform: rotate(-10deg);
-        }
-        
-        .collage-photo:nth-child(39) {
-            width: 310px;
-            height: 240px;
-            top: 78%;
-            left: 52%;
-            transform: rotate(12deg);
-        }
-        
-        .collage-photo:nth-child(40) {
-            width: 290px;
-            height: 220px;
-            bottom: 8%;
-            right: 18%;
-            transform: rotate(-7deg);
-        }
-        
-        .collage-photo:nth-child(41) {
-            width: 300px;
-            height: 230px;
-            bottom: 2%;
-            left: 28%;
-            transform: rotate(14deg);
-        }
-        
-        .collage-photo:nth-child(42) {
-            width: 280px;
-            height: 210px;
-            top: 8%;
-            left: 42%;
-            transform: rotate(-11deg);
-        }
-        
-        .collage-photo:nth-child(43) {
-            width: 310px;
-            height: 240px;
-            top: 22%;
-            right: 28%;
-            transform: rotate(9deg);
-        }
-        
-        .collage-photo:nth-child(44) {
-            width: 290px;
-            height: 220px;
-            top: 65%;
-            left: 35%;
-            transform: rotate(-13deg);
-        }
-        
-        .collage-photo:nth-child(45) {
-            width: 300px;
-            height: 230px;
-            bottom: 45%;
-            right: 25%;
-            transform: rotate(10deg);
-        }
-        
-        .collage-photo:nth-child(46) {
-            width: 280px;
-            height: 210px;
-            top: 3%;
-            left: 55%;
-            transform: rotate(-16deg);
-        }
-        
-        .collage-photo:nth-child(47) {
-            width: 310px;
-            height: 240px;
-            bottom: 38%;
-            left: 15%;
-            transform: rotate(7deg);
-        }
-        
-        .collage-photo:nth-child(48) {
-            width: 290px;
-            height: 220px;
-            top: 80%;
-            right: 22%;
-            transform: rotate(-9deg);
-        }
-        
-        .collage-photo:nth-child(49) {
-            width: 300px;
-            height: 230px;
-            bottom: 52%;
-            left: 48%;
-            transform: rotate(15deg);
-        }
-        
-        .collage-photo:nth-child(50) {
-            width: 280px;
-            height: 210px;
-            top: 15%;
-            right: 38%;
-            transform: rotate(-8deg);
-        }
-        
-        .collage-photo:nth-child(51) {
-            width: 310px;
-            height: 240px;
-            bottom: 28%;
-            right: 32%;
-            transform: rotate(11deg);
-        }
-        
-        .collage-photo:nth-child(52) {
-            width: 290px;
-            height: 220px;
-            top: 85%;
-            left: 38%;
-            transform: rotate(-12deg);
-        }
-        
-        .collage-photo:nth-child(53) {
-            width: 300px;
-            height: 230px;
-            bottom: 15%;
-            left: 62%;
-            transform: rotate(9deg);
-        }
-        
-        .collage-photo:nth-child(54) {
-            width: 280px;
-            height: 210px;
-            top: 2%;
-            right: 15%;
-            transform: rotate(-14deg);
+            transition: opacity 1s ease-in-out;
+            z-index: 0;
         }
         
         /* Ensure content is above background */
@@ -484,80 +59,26 @@
         }
         
         main {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(0.1px);
+            background: rgba(221, 163, 132, 0.3);
+            backdrop-filter: blur(0px);
         }
     </style>
 </head>
-<body class="text-black" style="background: #fafafa;">
+<body class="text-black">
     <!-- Background Collage -->
     <div class="background-collage">
-        <img src="photos/Sony shots/Alan.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/chiangkaishek.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00028.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00042.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00114.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00118.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00143.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00144.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00156.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00178.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00207.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00268.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00269.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00305.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00333.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00335.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00515.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00516.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00605_0.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00653_0.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00654_0.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00706_0.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00776.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00962.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC00968.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01036.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01042.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01125.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01129.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01213.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01215.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01220.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01287.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01352.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01357.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01413.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01428.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01470.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01489.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01556.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01586.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01598.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01716.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01742.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01777.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01810.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01860.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01874.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01889.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01892.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01924.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC01939.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC02105.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/DSC02205.JPG?v=2" alt="" class="collage-photo">
-        <img src="photos/Sony shots/i like this.JPG?v=2" alt="" class="collage-photo">
+        <img id="rotating-photo" src="photos/Sony shots/Alan.JPG" alt="" class="collage-photo">
     </div>
     
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-sm z-50">
+    <nav class="fixed top-0 w-full z-50" style="background: rgba(71, 28, 28, 0.9); backdrop-filter: blur(10px);">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div></div>
                 <div class="flex space-x-8">
-                    <a href="index.html#about" class="text-sm uppercase tracking-wide">hi!</a>
-                    <a href="videography.html" class="text-sm uppercase tracking-wide">video projects</a>
-                    <a href="pottery.html" class="text-sm uppercase tracking-wide">the first 100</a>
+                    <a href="index.html#about" class="text-sm uppercase tracking-wide text-white">hi!</a>
+                    <a href="videography.html" class="text-sm uppercase tracking-wide text-white">video projects</a>
+                    <a href="pottery.html" class="text-sm uppercase tracking-wide text-white">the first 100</a>
                 </div>
             </div>
         </div>
@@ -565,32 +86,34 @@
 
     <!-- Main Content -->
     <main class="pt-20 pb-32 px-6 lg:px-8 min-h-screen">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <!-- About Section -->
             <section id="about" class="py-20">
-                <div class="space-y-8 text-lg leading-relaxed">
-                    <p>
-                        Hi, I'm Amanda — welcome to my corner of the internet!
-                    </p>
-                    <p>
-                        I'm a visual storyteller exploring the intersection of art, culture, and human connection. 
-                        Through photography, filmmaking, and ceramics, I love capturing the beauty in everyday moments
-                        and sharing my thoughts/feelings/observations with the world.
-                    </p>
-                    <p>
-                        After graduating from the University of Pennsylvania with a degree in Finance and a minor in Fine Arts, 
-                        I moved to Taiwan as a Fulbright English Teaching Assistant, where I've been building a creative practice 
-                        rooted in curiosity and community. My projects span across documentary-style videos, travel and lifestyle photography, 
-                        and ceramics.
-                    </p>
-                    <p>
-                        Currently on a little journey seeking comfortable balance 
-                        — a harmony between chasing my goals, learning, and enjoying time.
-                    </p>
-                </div>
-                <div class="mt-16">
-                    <div class="aspect-square max-w-lg overflow-hidden">
-                        <img src="photos/photoshoot-photo.jpg" alt="Amanda Cui" class="w-full h-full object-cover">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <div class="space-y-8 text-lg leading-relaxed">
+                        <p>
+                            Hi, I'm Amanda — welcome to my corner of the internet!
+                        </p>
+                        <p>
+                            I'm a visual storyteller exploring the intersection of art, culture, and human connection. 
+                            Through photography, filmmaking, and ceramics, I love capturing the beauty in everyday moments
+                            and sharing my thoughts/feelings/observations with the world.
+                        </p>
+                        <p>
+                            After graduating from the University of Pennsylvania with a degree in Finance and a minor in Fine Arts, 
+                            I moved to Taiwan as a Fulbright English Teaching Assistant, where I've been building a creative practice 
+                            rooted in curiosity and community. My projects span across documentary-style videos, travel and lifestyle photography, 
+                            and ceramics.
+                        </p>
+                        <p>
+                            Currently on a little journey seeking comfortable balance 
+                            — a harmony between chasing my goals, learning, and enjoying time.
+                        </p>
+                    </div>
+                    <div class="lg:sticky lg:top-24 flex justify-end">
+                        <div class="aspect-square w-full max-w-md overflow-hidden rounded-lg shadow-lg">
+                            <img src="photos/photoshoot-photo.jpg" alt="Amanda Cui" class="w-full h-full object-cover">
+                        </div>
                     </div>
                 </div>
             </section>
@@ -598,10 +121,10 @@
     </main>
 
     <!-- Footer with Name -->
-    <footer class="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-sm z-50">
+    <footer class="fixed bottom-0 left-0 w-full z-50" style="background: rgba(71, 28, 28, 0.9); backdrop-filter: blur(10px);">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="text-sm">Amanda Cui</div>
+                <div class="text-sm text-white">Amanda Cui</div>
                 <div></div>
             </div>
         </div>
@@ -622,15 +145,78 @@
             });
         });
         
-        // Ensure images load and are visible
-        document.querySelectorAll('.collage-photo').forEach(img => {
-            img.addEventListener('error', function() {
-                console.error('Failed to load image:', this.src);
-            });
-            img.addEventListener('load', function() {
-                this.style.display = 'block';
-            });
-        });
+        // Rotate background image every 3 seconds
+        const photos = [
+            'photos/Sony shots/Alan.JPG',
+            'photos/Sony shots/chiangkaishek.JPG',
+            'photos/Sony shots/DSC00028.JPG',
+            'photos/Sony shots/DSC00042.JPG',
+            'photos/Sony shots/DSC00114.JPG',
+            'photos/Sony shots/DSC00118.JPG',
+            'photos/Sony shots/DSC00143.JPG',
+            'photos/Sony shots/DSC00144.JPG',
+            'photos/Sony shots/DSC00156.JPG',
+            'photos/Sony shots/DSC00178.JPG',
+            'photos/Sony shots/DSC00207.JPG',
+            'photos/Sony shots/DSC00268.JPG',
+            'photos/Sony shots/DSC00269.JPG',
+            'photos/Sony shots/DSC00305.JPG',
+            'photos/Sony shots/DSC00333.JPG',
+            'photos/Sony shots/DSC00335.JPG',
+            'photos/Sony shots/DSC00515.JPG',
+            'photos/Sony shots/DSC00516.JPG',
+            'photos/Sony shots/DSC00605_0.JPG',
+            'photos/Sony shots/DSC00653_0.JPG',
+            'photos/Sony shots/DSC00654_0.JPG',
+            'photos/Sony shots/DSC00706_0.JPG',
+            'photos/Sony shots/DSC00776.JPG',
+            'photos/Sony shots/DSC00962.JPG',
+            'photos/Sony shots/DSC00968.JPG',
+            'photos/Sony shots/DSC01036.JPG',
+            'photos/Sony shots/DSC01042.JPG',
+            'photos/Sony shots/DSC01125.JPG',
+            'photos/Sony shots/DSC01129.JPG',
+            'photos/Sony shots/DSC01213.JPG',
+            'photos/Sony shots/DSC01215.JPG',
+            'photos/Sony shots/DSC01220.JPG',
+            'photos/Sony shots/DSC01287.JPG',
+            'photos/Sony shots/DSC01352.JPG',
+            'photos/Sony shots/DSC01357.JPG',
+            'photos/Sony shots/DSC01413.JPG',
+            'photos/Sony shots/DSC01428.JPG',
+            'photos/Sony shots/DSC01470.JPG',
+            'photos/Sony shots/DSC01489.JPG',
+            'photos/Sony shots/DSC01556.JPG',
+            'photos/Sony shots/DSC01586.JPG',
+            'photos/Sony shots/DSC01598.JPG',
+            'photos/Sony shots/DSC01716.JPG',
+            'photos/Sony shots/DSC01742.JPG',
+            'photos/Sony shots/DSC01777.JPG',
+            'photos/Sony shots/DSC01810.JPG',
+            'photos/Sony shots/DSC01860.JPG',
+            'photos/Sony shots/DSC01874.JPG',
+            'photos/Sony shots/DSC01889.JPG',
+            'photos/Sony shots/DSC01892.JPG',
+            'photos/Sony shots/DSC01924.JPG',
+            'photos/Sony shots/DSC01939.JPG',
+            'photos/Sony shots/DSC02105.JPG',
+            'photos/Sony shots/DSC02205.JPG',
+            'photos/Sony shots/i like this.JPG'
+        ];
+        
+        let currentIndex = 0;
+        const rotatingPhoto = document.getElementById('rotating-photo');
+        
+        function changePhoto() {
+            currentIndex = (currentIndex + 1) % photos.length;
+            rotatingPhoto.style.opacity = '0';
+            setTimeout(() => {
+                rotatingPhoto.src = photos[currentIndex];
+                rotatingPhoto.style.opacity = '0.5';
+            }, 500);
+        }
+        
+        setInterval(changePhoto, 3000);
     </script>
 </body>
 </html>
