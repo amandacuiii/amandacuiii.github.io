@@ -43,24 +43,44 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            overflow-y: auto;
         }
         .lightbox.active {
-            display: flex;
+            display: block;
         }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
+        .lightbox-content {
+            margin: 0 auto;
+            padding: 80px 24px 40px;
+            max-width: 1200px;
+            color: white;
         }
         .lightbox-close {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 20px;
             color: white;
-            font-size: 24px;
+            font-size: 32px;
             cursor: pointer;
+            z-index: 1001;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+        }
+        .progress-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .progress-gallery img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -97,32 +117,38 @@
                     </div>
                     
                     <!-- Gallery -->
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-16">
-                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9659.jpg')">
-                            <img src="photos/Pottery pics/IMG_9659.jpg" alt="Pottery piece" loading="lazy">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9668.jpg')">
-                            <img src="photos/Pottery pics/IMG_9668.jpg" alt="Pottery piece" loading="lazy">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9670.jpg')">
-                            <img src="photos/Pottery pics/IMG_9670.jpg" alt="Pottery piece" loading="lazy">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9671.jpg')">
-                            <img src="photos/Pottery pics/IMG_9671.jpg" alt="Pottery piece" loading="lazy">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9689.jpg')">
-                            <img src="photos/Pottery pics/IMG_9689.jpg" alt="Pottery piece" loading="lazy">
-                        </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-16" id="pottery-gallery">
+                        <!-- Gallery items will be populated by JavaScript -->
                     </div>
                 </div>
             </section>
         </div>
     </main>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <!-- Enhanced Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="if(event.target.id === 'lightbox') closeLightbox()">
         <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <img id="lightbox-img" src="" alt="">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <div id="lightbox-main-image" class="mb-8">
+                <img id="lightbox-img" src="" alt="" class="w-full max-h-[60vh] object-contain mx-auto">
+            </div>
+            
+            <div id="lightbox-description" class="mb-8 text-lg leading-relaxed text-white">
+                <!-- Description will be inserted here -->
+            </div>
+            
+            <div id="lightbox-home" class="mb-8">
+                <h3 class="text-sm uppercase tracking-wide mb-4 text-white">Home</h3>
+                <p id="lightbox-home-text" class="text-lg text-white"></p>
+            </div>
+            
+            <div id="lightbox-progress" class="mb-8">
+                <h3 class="text-sm uppercase tracking-wide mb-4 text-white">Progress Photos</h3>
+                <div id="lightbox-progress-gallery" class="progress-gallery">
+                    <!-- Progress photos will be inserted here -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Footer with Name -->
@@ -136,16 +162,107 @@
     </footer>
 
     <script>
-        function openLightbox(imageSrc) {
+        // Pottery pieces data
+        const potteryPieces = [
+            {
+                id: 1,
+                mainImage: 'photos/Pottery pics/IMG_9659.jpg',
+                description: 'A hand-thrown ceramic piece exploring organic forms and natural glazing techniques.',
+                home: 'Gifted to [Name]',
+                progressPhotos: [
+                    'photos/Pottery pics/IMG_9659.jpg'
+                    // Add more progress photos here when available
+                ]
+            },
+            {
+                id: 2,
+                mainImage: 'photos/Pottery pics/IMG_9668.jpg',
+                description: 'Functional tableware piece with unique texture and warm glaze finish.',
+                home: 'Gifted to [Name]',
+                progressPhotos: [
+                    'photos/Pottery pics/IMG_9668.jpg'
+                ]
+            },
+            {
+                id: 3,
+                mainImage: 'photos/Pottery pics/IMG_9670.jpg',
+                description: 'Ceramic vessel showcasing experimentation with form and surface treatment.',
+                home: 'Gifted to [Name]',
+                progressPhotos: [
+                    'photos/Pottery pics/IMG_9670.jpg'
+                ]
+            },
+            {
+                id: 4,
+                mainImage: 'photos/Pottery pics/IMG_9671.jpg',
+                description: 'Hand-crafted piece reflecting the journey of learning and growth in pottery.',
+                home: 'Gifted to [Name]',
+                progressPhotos: [
+                    'photos/Pottery pics/IMG_9671.jpg'
+                ]
+            },
+            {
+                id: 5,
+                mainImage: 'photos/Pottery pics/IMG_9689.jpg',
+                description: 'A piece from the collection, each one a step closer to 100.',
+                home: 'Gifted to [Name]',
+                progressPhotos: [
+                    'photos/Pottery pics/IMG_9689.jpg'
+                ]
+            }
+        ];
+
+        // Populate gallery
+        function populateGallery() {
+            const gallery = document.getElementById('pottery-gallery');
+            potteryPieces.forEach((piece, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.onclick = () => openLightbox(index);
+                item.innerHTML = `<img src="${piece.mainImage}" alt="Pottery piece ${piece.id}" loading="lazy">`;
+                gallery.appendChild(item);
+            });
+        }
+
+        function openLightbox(index) {
+            const piece = potteryPieces[index];
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = imageSrc;
+            const lightboxDescription = document.getElementById('lightbox-description');
+            const lightboxHome = document.getElementById('lightbox-home-text');
+            const lightboxProgress = document.getElementById('lightbox-progress-gallery');
+            
+            // Set main image
+            lightboxImg.src = piece.mainImage;
+            lightboxImg.alt = `Pottery piece ${piece.id}`;
+            
+            // Set description
+            lightboxDescription.textContent = piece.description;
+            
+            // Set home information
+            lightboxHome.textContent = piece.home;
+            
+            // Set progress photos
+            lightboxProgress.innerHTML = '';
+            piece.progressPhotos.forEach(photo => {
+                const img = document.createElement('img');
+                img.src = photo;
+                img.alt = 'Progress photo';
+                img.onclick = (e) => {
+                    e.stopPropagation();
+                    lightboxImg.src = photo;
+                };
+                lightboxProgress.appendChild(img);
+            });
+            
             lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         // Close lightbox on escape key
@@ -154,6 +271,9 @@
                 closeLightbox();
             }
         });
+
+        // Initialize gallery on page load
+        document.addEventListener('DOMContentLoaded', populateGallery);
     </script>
 </body>
 </html>
