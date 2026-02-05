@@ -24,73 +24,57 @@
 </head>
 <body class="bg-white text-black">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white border-b border-gray-200 z-50">
-        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+    <nav class="fixed top-0 w-full bg-white z-50">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="index.html" class="text-lg font-medium">Amanda Cui</a>
-                <div class="hidden md:flex space-x-8">
-                    <a href="index.html#about" class="text-sm hover:opacity-60 transition-opacity">hi!</a>
-                    <a href="videography.html" class="text-sm hover:opacity-60 transition-opacity">video projects</a>
-                    <a href="pottery.html" class="text-sm hover:opacity-60 transition-opacity">the first 100</a>
+                <div></div>
+                <div class="flex space-x-8">
+                    <a href="index.html#about" class="text-sm uppercase tracking-wide">hi!</a>
+                    <a href="videography.html" class="text-sm uppercase tracking-wide">video projects</a>
+                    <a href="pottery.html" class="text-sm uppercase tracking-wide">the first 100</a>
                 </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-sm">
-                        <span>Menu</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-            <div class="px-6 py-4 space-y-3">
-                <a href="index.html#about" class="block text-sm hover:opacity-60">hi!</a>
-                <a href="videography.html" class="block text-sm hover:opacity-60">video projects</a>
-                <a href="pottery.html" class="block text-sm hover:opacity-60">the first 100</a>
             </div>
         </div>
     </nav>
 
-    <!-- Videography Section -->
-    <section class="pt-32 pb-20 px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-light mb-6 tracking-tight">video projects</h1>
-            <p class="text-lg text-gray-600 mb-12 leading-relaxed">
-                Cinematic storytelling through documentary films and video projects that bring stories to life.
-            </p>
-            
-            <div class="space-y-12">
-                <!-- Videography Item 1 -->
-                <div>
-                    <h3 class="text-xl font-light mb-2">Documentary Films</h3>
-                    <p class="text-gray-600 mb-4">Cinematic storytelling that brings real stories to life.</p>
-                </div>
+    <!-- Main Content -->
+    <main class="pt-20 pb-32 px-6 lg:px-8 min-h-screen">
+        <div class="max-w-4xl mx-auto">
+            <section class="py-20">
+                <div class="space-y-12">
+                    <div>
+                        <h2 class="text-sm uppercase tracking-wide mb-8">video projects</h2>
+                        <p class="text-lg text-gray-600 mb-12 leading-relaxed">
+                            Cinematic storytelling through documentary films and video projects that bring stories to life.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <!-- Videography Item 1 -->
+                        <div>
+                            <h3 class="text-lg mb-2">Documentary Films</h3>
+                            <p class="text-gray-600">Cinematic storytelling that brings real stories to life.</p>
+                        </div>
 
-                <!-- Videography Item 2 -->
-                <div>
-                    <h3 class="text-xl font-light mb-2">Wedding Films</h3>
-                    <p class="text-gray-600 mb-4">Beautiful cinematic wedding videos that preserve precious memories.</p>
+                        <!-- Videography Item 2 -->
+                        <div>
+                            <h3 class="text-lg mb-2">Wedding Films</h3>
+                            <p class="text-gray-600">Beautiful cinematic wedding videos that preserve precious memories.</p>
+                        </div>
+                    </div>
                 </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer with Name -->
+    <footer class="fixed bottom-0 left-0 w-full bg-white z-50">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-sm">Amanda Cui</div>
+                <div></div>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 px-6 lg:px-8 border-t border-gray-200">
-        <div class="max-w-3xl mx-auto text-center text-sm text-gray-500">
-            <p>&copy; 2025 Amanda Cui</p>
-        </div>
     </footer>
-
-    <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileMenuButton) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-    </script>
 </body>
 </html>

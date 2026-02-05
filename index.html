@@ -24,140 +24,89 @@
 </head>
 <body class="bg-white text-black">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white border-b border-gray-200 z-50">
-        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+    <nav class="fixed top-0 w-full bg-white z-50">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="index.html" class="text-lg font-medium">Amanda Cui</a>
-                <div class="hidden md:flex space-x-8">
-                    <a href="index.html#about" class="text-sm hover:opacity-60 transition-opacity">hi!</a>
-                    <a href="videography.html" class="text-sm hover:opacity-60 transition-opacity">video projects</a>
-                    <a href="pottery.html" class="text-sm hover:opacity-60 transition-opacity">the first 100</a>
+                <div></div>
+                <div class="flex space-x-8">
+                    <a href="index.html#about" class="text-sm uppercase tracking-wide">hi!</a>
+                    <a href="videography.html" class="text-sm uppercase tracking-wide">video projects</a>
+                    <a href="pottery.html" class="text-sm uppercase tracking-wide">the first 100</a>
                 </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-sm">
-                        <span>Menu</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-            <div class="px-6 py-4 space-y-3">
-                <a href="index.html#about" class="block text-sm hover:opacity-60">hi!</a>
-                <a href="videography.html" class="block text-sm hover:opacity-60">video projects</a>
-                <a href="pottery.html" class="block text-sm hover:opacity-60">the first 100</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto">
-            <h1 class="text-5xl md:text-6xl font-light mb-6 tracking-tight">Amanda Cui</h1>
-            <p class="text-lg text-gray-600 leading-relaxed">
-                Exploring the world as a lifelong learner — through the lens, through clay, and through connection.
-            </p>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <main class="pt-20 pb-32 px-6 lg:px-8 min-h-screen">
+        <div class="max-w-4xl mx-auto">
+            <!-- About Section -->
+            <section id="about" class="py-20">
+                <div class="space-y-8 text-lg leading-relaxed">
+                    <p>
+                        Hi, I'm Amanda — welcome to my corner of the internet!
+                    </p>
+                    <p>
+                        I'm a visual storyteller exploring the intersection of art, culture, and human connection. 
+                        Through photography, filmmaking, and ceramics, I love capturing the beauty in everyday moments
+                        and sharing my thoughts/feelings/observations with the world.
+                    </p>
+                    <p>
+                        After graduating from the University of Pennsylvania with a degree in Finance and a minor in Fine Arts, 
+                        I moved to Taiwan as a Fulbright English Teaching Assistant, where I've been building a creative practice 
+                        rooted in curiosity and community. My projects span across documentary-style videos, travel and lifestyle photography, 
+                        and ceramics.
+                    </p>
+                    <p>
+                        Currently on a little journey seeking comfortable balance 
+                        — a harmony between chasing my goals, learning, and enjoying time.
+                    </p>
+                </div>
+                <div class="mt-16">
+                    <div class="aspect-square max-w-lg overflow-hidden">
+                        <img src="photos/photoshoot-photo.jpg" alt="Amanda Cui" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-2xl font-light mb-8">hi!</h2>
-            <div class="space-y-6 text-gray-700 leading-relaxed">
-                <p>
-                    Hi, I'm Amanda — welcome to my corner of the internet!
+            <!-- Contact Section -->
+            <section id="contact" class="py-20">
+                <h2 class="text-sm uppercase tracking-wide mb-8">Get In Touch</h2>
+                <p class="text-lg mb-8 leading-relaxed">
+                    I'd love to hear from you! Whether you're interested in booking a photo/video session, commissioning pottery pieces, or just want to chat about creative projects.
                 </p>
-                <p>
-                    I'm a visual storyteller exploring the intersection of art, culture, and human connection. 
-                    Through photography, filmmaking, and ceramics, I love capturing the beauty in everyday moments
-                    and sharing my thoughts/feelings/observations with the world.
-                </p>
-                <p>
-                    After graduating from the University of Pennsylvania with a degree in Finance and a minor in Fine Arts, 
-                    I moved to Taiwan as a Fulbright English Teaching Assistant, where I've been building a creative practice 
-                    rooted in curiosity and community. My projects span across documentary-style videos, travel and lifestyle photography, 
-                    and ceramics.
-                </p>
-                <p>
-                    Currently on a little journey seeking comfortable balance 
-                    — a harmony between chasing my goals, learning, and enjoying time.
-                </p>
+                <form class="space-y-6 max-w-md" id="contact-form">
+                    <div>
+                        <input type="text" id="name" name="name" class="w-full px-0 py-2 border-0 border-b border-black focus:outline-none focus:border-black bg-transparent" placeholder="Name" required>
+                    </div>
+                    <div>
+                        <input type="email" id="email" name="email" class="w-full px-0 py-2 border-0 border-b border-black focus:outline-none focus:border-black bg-transparent" placeholder="Email" required>
+                    </div>
+                    <div>
+                        <input type="text" id="subject" name="subject" class="w-full px-0 py-2 border-0 border-b border-black focus:outline-none focus:border-black bg-transparent" placeholder="Subject" required>
+                    </div>
+                    <div>
+                        <textarea id="message" name="message" rows="4" class="w-full px-0 py-2 border-0 border-b border-black focus:outline-none focus:border-black bg-transparent resize-none" placeholder="Message" required></textarea>
+                    </div>
+                    <button type="submit" class="text-sm uppercase tracking-wide mt-4 hover:opacity-60 transition-opacity">
+                        Send →
+                    </button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer with Name -->
+    <footer class="fixed bottom-0 left-0 w-full bg-white z-50">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-sm">Amanda Cui</div>
+                <div></div>
             </div>
-            <div class="mt-12">
-                <div class="aspect-square max-w-md overflow-hidden">
-                    <img src="photos/photoshoot-photo.jpg" alt="Amanda Cui" class="w-full h-full object-cover">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-6 lg:px-8 border-t border-gray-200">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-2xl font-light mb-8">Get In Touch</h2>
-            <p class="text-gray-600 mb-8 leading-relaxed">
-                I'd love to hear from you! Whether you're interested in booking a photo/video session, commissioning pottery pieces, or just want to chat about creative projects.
-            </p>
-            <form class="space-y-6" id="contact-form">
-                <div>
-                    <label for="name" class="block text-sm mb-2">Name</label>
-                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-black transition-colors" placeholder="Your name" required>
-                </div>
-                <div>
-                    <label for="email" class="block text-sm mb-2">Email</label>
-                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-black transition-colors" placeholder="your.email@example.com" required>
-                </div>
-                <div>
-                    <label for="subject" class="block text-sm mb-2">Subject</label>
-                    <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-black transition-colors" placeholder="What's this about?" required>
-                </div>
-                <div>
-                    <label for="message" class="block text-sm mb-2">Message</label>
-                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-black transition-colors resize-none" placeholder="Tell me more..." required></textarea>
-                </div>
-                <button type="submit" class="px-6 py-2 bg-black text-white hover:opacity-80 transition-opacity">
-                    Send Message
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 px-6 lg:px-8 border-t border-gray-200">
-        <div class="max-w-3xl mx-auto text-center text-sm text-gray-500">
-            <p>&copy; 2025 Amanda Cui</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileMenuButton) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    if (mobileMenu) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                }
-            });
-        });
-
         // Form Enhancement
         const form = document.getElementById('contact-form');
         if (form) {
@@ -177,6 +126,20 @@
                 }, 2000);
             });
         }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
