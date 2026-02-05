@@ -102,6 +102,148 @@
                 min-height: 200px;
             }
         }
+        
+        /* Photography Lightbox */
+        .photography-lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(153, 126, 103, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .photography-lightbox.active {
+            display: block;
+        }
+        
+        .photography-lightbox-content {
+            margin: 80px auto;
+            padding: 40px 24px;
+            max-width: 1400px;
+        }
+        
+        .photography-lightbox-close {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            z-index: 1001;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+        }
+        
+        .photography-lightbox-close:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Masonry Gallery */
+        .masonry-gallery {
+            position: relative;
+            width: 100%;
+        }
+        
+        .masonry-column {
+            display: inline-block;
+            vertical-align: top;
+            width: calc(25% - 0.75rem);
+            margin-right: 1rem;
+        }
+        
+        .masonry-column:last-child {
+            margin-right: 0;
+        }
+        
+        .masonry-item {
+            width: 100%;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .masonry-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 1200px) {
+            .masonry-column {
+                width: calc(33.333% - 0.667rem);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .masonry-column {
+                width: calc(50% - 0.5rem);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .masonry-column {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+        
+        /* Image Lightbox */
+        .image-lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            overflow: hidden;
+        }
+        
+        .image-lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .image-lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            z-index: 2001;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
@@ -137,7 +279,7 @@
                         <h3>Fine Arts Minor</h3>
                         <p>A collection of work from my Fine Arts minor at the University of Pennsylvania.</p>
                     </div>
-                    <div class="project-item small">
+                    <div class="project-item small" onclick="openPhotographyGallery()">
                         <h3>Photography</h3>
                         <p>A selection of photographic work exploring people, place, and everyday moments.</p>
                     </div>
@@ -146,14 +288,178 @@
         </div>
     </main>
 
+    <!-- Photography Lightbox -->
+    <div class="photography-lightbox" id="photographyLightbox" onclick="if(event.target.id === 'photographyLightbox') closePhotographyGallery()">
+        <span class="photography-lightbox-close" onclick="closePhotographyGallery()">&times;</span>
+        <div class="photography-lightbox-content" onclick="event.stopPropagation()">
+            <h2 class="text-4xl font-bold text-white mb-8">Photography</h2>
+            <div class="masonry-gallery" id="photographyGallery">
+                <!-- Photos will be inserted here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image Lightbox -->
+    <div class="image-lightbox" id="imageLightbox" onclick="closeImageLightbox()">
+        <span class="image-lightbox-close" onclick="closeImageLightbox()">&times;</span>
+        <img id="lightboxImage" src="" alt="Photography">
+    </div>
+
     <!-- Footer with Name -->
     <footer class="fixed bottom-0 left-0 w-full z-50" style="background: rgba(204, 190, 177, 0.3); backdrop-filter: blur(10px);">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div></div>
-                <div class="text-sm" style="color: #664930;">Amanda Cui</div>
+                <div class="flex items-center space-x-6">
+                    <a href="https://www.instagram.com/amandacuii" target="_blank" rel="noopener noreferrer" class="text-sm font-bold" style="color: #664930;">Instagram</a>
+                    <a href="https://www.linkedin.com/in/amanda-cui-9072381b0" target="_blank" rel="noopener noreferrer" class="text-sm font-bold" style="color: #664930;">LinkedIn</a>
+                    <a href="mailto:amandacuicollab@gmail.com" class="text-sm font-bold" style="color: #664930;">Email</a>
+                </div>
+                <div class="text-sm font-bold" style="color: #664930;">Amanda Cui</div>
             </div>
         </div>
     </footer>
+    
+    <script>
+        // Sony shots photos array
+        const sonyShotsPhotos = [
+            'photos/Sony%20shots/Alan.JPG',
+            'photos/Sony%20shots/chiangkaishek.JPG',
+            'photos/Sony%20shots/DSC00028.JPG',
+            'photos/Sony%20shots/DSC00042.JPG',
+            'photos/Sony%20shots/DSC00178.JPG',
+            'photos/Sony%20shots/DSC00268.JPG',
+            'photos/Sony%20shots/DSC00269.JPG',
+            'photos/Sony%20shots/DSC00515.JPG',
+            'photos/Sony%20shots/DSC00516.JPG',
+            'photos/Sony%20shots/DSC00653_0.JPG',
+            'photos/Sony%20shots/DSC00968.JPG',
+            'photos/Sony%20shots/DSC01036.JPG',
+            'photos/Sony%20shots/DSC01042.JPG',
+            'photos/Sony%20shots/DSC01215.JPG',
+            'photos/Sony%20shots/DSC01352.JPG',
+            'photos/Sony%20shots/DSC01357.JPG',
+            'photos/Sony%20shots/DSC01413.JPG',
+            'photos/Sony%20shots/DSC01470.JPG',
+            'photos/Sony%20shots/DSC01489.JPG',
+            'photos/Sony%20shots/DSC01556.JPG',
+            'photos/Sony%20shots/DSC01586.JPG',
+            'photos/Sony%20shots/DSC01598.JPG',
+            'photos/Sony%20shots/DSC01716.JPG',
+            'photos/Sony%20shots/DSC01777.JPG',
+            'photos/Sony%20shots/DSC01810.JPG',
+            'photos/Sony%20shots/DSC01860.JPG',
+            'photos/Sony%20shots/DSC01874.JPG',
+            'photos/Sony%20shots/DSC01924.JPG',
+            'photos/Sony%20shots/DSC01939.JPG',
+            'photos/Sony%20shots/DSC02105.JPG',
+            'photos/Sony%20shots/DSC02205.JPG',
+            'photos/Sony%20shots/i%20like%20this.JPG'
+        ];
+        
+        function openPhotographyGallery() {
+            const lightbox = document.getElementById('photographyLightbox');
+            const gallery = document.getElementById('photographyGallery');
+            
+            // Clear existing content
+            gallery.innerHTML = '';
+            
+            // Determine number of columns based on screen size
+            let numColumns = 4;
+            if (window.innerWidth <= 480) {
+                numColumns = 1;
+            } else if (window.innerWidth <= 768) {
+                numColumns = 2;
+            } else if (window.innerWidth <= 1200) {
+                numColumns = 3;
+            }
+            
+            // Create columns
+            const columns = [];
+            for (let i = 0; i < numColumns; i++) {
+                const column = document.createElement('div');
+                column.className = 'masonry-column';
+                column.style.height = '0';
+                gallery.appendChild(column);
+                columns.push({ element: column, height: 0 });
+            }
+            
+            // Load images and distribute to columns
+            let loadedCount = 0;
+            const totalPhotos = sonyShotsPhotos.length;
+            
+            sonyShotsPhotos.forEach((photoPath, index) => {
+                const item = document.createElement('div');
+                item.className = 'masonry-item';
+                item.onclick = () => openImageLightbox(photoPath);
+                
+                const img = document.createElement('img');
+                img.src = photoPath;
+                img.alt = `Photography ${index + 1}`;
+                img.loading = 'lazy';
+                
+                img.onload = () => {
+                    // Find the shortest column
+                    let shortestColumn = columns[0];
+                    for (let i = 1; i < columns.length; i++) {
+                        if (columns[i].height < shortestColumn.height) {
+                            shortestColumn = columns[i];
+                        }
+                    }
+                    
+                    // Add item to shortest column
+                    shortestColumn.element.appendChild(item);
+                    
+                    // Update column height after item is added
+                    setTimeout(() => {
+                        shortestColumn.height = shortestColumn.element.offsetHeight;
+                    }, 0);
+                    
+                    loadedCount++;
+                    if (loadedCount === totalPhotos) {
+                        // All images loaded
+                        console.log('All images loaded');
+                    }
+                };
+                
+                img.onerror = () => {
+                    console.error('Failed to load image:', photoPath);
+                    loadedCount++;
+                };
+                
+                item.appendChild(img);
+            });
+            
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePhotographyGallery() {
+            const lightbox = document.getElementById('photographyLightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        function openImageLightbox(imagePath) {
+            const lightbox = document.getElementById('imageLightbox');
+            const img = document.getElementById('lightboxImage');
+            img.src = imagePath;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeImageLightbox() {
+            const lightbox = document.getElementById('imageLightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePhotographyGallery();
+                closeImageLightbox();
+            }
+        });
+    </script>
 </body>
 </html>
