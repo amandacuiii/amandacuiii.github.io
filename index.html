@@ -18,7 +18,7 @@
             position: relative;
             overflow-x: hidden;
             background: rgba(204, 190, 177, 0.3);
-            font-weight: 600;
+            font-weight: 400;
             color: #3d2e1c;
         }
         a {
@@ -68,7 +68,7 @@
 <body>
     <!-- Background Collage -->
     <div class="background-collage">
-        <img id="rotating-photo" src="photos/Sony shots/Alan.JPG" alt="" class="collage-photo" loading="eager" decoding="async">
+        <img id="rotating-photo" src="" alt="" class="collage-photo" loading="eager" decoding="async">
     </div>
     
     <!-- Navigation -->
@@ -87,29 +87,23 @@
         <div class="max-w-6xl mx-auto">
             <!-- About Section -->
             <section id="about" class="py-20">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                    <div class="space-y-8 text-lg leading-relaxed">
+                <div class="flex flex-row gap-8 md:gap-12 items-start">
+                    <div class="flex-1 space-y-8 text-lg leading-relaxed min-w-0">
                         <p>
-                            Hi, I'm Amanda — welcome to my corner of the internet!
+                            Hi, I'm Amanda! Welcome to my corner of the internet.
                         </p>
                         <p>
-                            I'm a visual storyteller exploring the intersection of art, culture, and human connection. 
-                            Through photography, filmmaking, and ceramics, I love capturing the beauty in everyday moments
-                            and sharing my thoughts/feelings/observations with the world.
+                            I'm a visual storyteller interested in people, place, and the small moments that make everyday life feel meaningful. I work across photography, video, and ceramics, mostly as a way of paying attention and making sense of the world around me.
                         </p>
                         <p>
-                            After graduating from the University of Pennsylvania with a degree in Finance and a minor in Fine Arts, 
-                            I moved to Taiwan as a Fulbright English Teaching Assistant, where I've been building a creative practice 
-                            rooted in curiosity and community. My projects span across documentary-style videos, travel and lifestyle photography, 
-                            and ceramics.
+                            After graduating from the University of Pennsylvania with a degree in Finance and a minor in Fine Arts, I moved to Taiwan as a Fulbright English Teaching Assistant. Living abroad pushed me to create more intentionally, and a lot of my work now lives somewhere between documentation and reflection—stories of people, routines, and the things we make by hand.
                         </p>
                         <p>
-                            Currently on a little journey seeking comfortable balance 
-                            — a harmony between chasing my goals, learning, and enjoying time.
+                            Lately, I've been thinking about how to make creativity part of my life instead of something I save for later. This site is where I collect that process: projects, experiments, and in-between thoughts, as I figure out how to keep creating alongside everything else.
                         </p>
                     </div>
-                    <div class="lg:sticky lg:top-24 flex justify-end">
-                        <div class="aspect-square w-full max-w-md overflow-hidden rounded-lg shadow-lg">
+                    <div class="flex-shrink-0 sticky top-24">
+                        <div class="aspect-square w-full max-w-md overflow-hidden rounded-lg shadow-lg" style="min-width: 200px; max-width: 400px;">
                             <img src="photos/Photos of me/photoshoot-photo.jpg" alt="Amanda Cui" class="w-full h-full object-cover" loading="lazy" decoding="async">
                         </div>
                     </div>
@@ -143,6 +137,12 @@
             });
         });
         
+        // Helper function to encode image paths for URLs
+        function encodeImagePath(path) {
+            // Split path and encode each part, keeping slashes
+            return path.split('/').map(part => encodeURIComponent(part)).join('/');
+        }
+
         // Rotate background image every 3 seconds
         const photos = [
             'photos/Sony shots/Alan.JPG',
@@ -205,11 +205,14 @@
         let currentIndex = 0;
         const rotatingPhoto = document.getElementById('rotating-photo');
         
+        // Set initial image with encoding
+        rotatingPhoto.src = encodeImagePath(photos[0]);
+        
         function changePhoto() {
             currentIndex = (currentIndex + 1) % photos.length;
             rotatingPhoto.style.opacity = '0';
             setTimeout(() => {
-                rotatingPhoto.src = photos[currentIndex];
+                rotatingPhoto.src = encodeImagePath(photos[currentIndex]);
                 rotatingPhoto.style.opacity = '0.5';
             }, 500);
         }
