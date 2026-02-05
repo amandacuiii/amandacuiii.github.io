@@ -16,7 +16,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             background: rgba(204, 190, 177, 0.3);
-            font-weight: 600;
+            font-weight: 400;
             color: #3d2e1c;
         }
         a {
@@ -512,7 +512,7 @@
             lightboxProgress.innerHTML = '';
             piece.progressPhotos.forEach(photo => {
                 const img = document.createElement('img');
-                img.src = photo;
+                img.src = encodeImagePath(photo);
                 img.alt = 'Progress photo';
                 img.loading = 'lazy';
                 img.decoding = 'async';
