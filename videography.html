@@ -149,19 +149,17 @@
         
         /* Masonry Gallery */
         .masonry-gallery {
-            position: relative;
+            display: flex;
+            flex-direction: row;
             width: 100%;
+            gap: 1rem;
         }
         
         .masonry-column {
-            display: inline-block;
-            vertical-align: top;
-            width: calc(25% - 0.75rem);
-            margin-right: 1rem;
-        }
-        
-        .masonry-column:last-child {
-            margin-right: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
         }
         
         .masonry-item {
@@ -185,21 +183,20 @@
         }
         
         @media (max-width: 1200px) {
-            .masonry-column {
-                width: calc(33.333% - 0.667rem);
+            .masonry-gallery {
+                gap: 0.75rem;
             }
         }
         
         @media (max-width: 768px) {
-            .masonry-column {
-                width: calc(50% - 0.5rem);
+            .masonry-gallery {
+                gap: 0.5rem;
             }
         }
         
         @media (max-width: 480px) {
-            .masonry-column {
-                width: 100%;
-                margin-right: 0;
+            .masonry-gallery {
+                flex-direction: column;
             }
         }
         
@@ -305,19 +302,6 @@
         <img id="lightboxImage" src="" alt="Photography">
     </div>
 
-    <!-- Footer with Name -->
-    <footer class="fixed bottom-0 left-0 w-full z-50" style="background: rgba(204, 190, 177, 0.3); backdrop-filter: blur(10px);">
-        <div class="max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-6">
-                    <a href="https://www.instagram.com/amandacuii" target="_blank" rel="noopener noreferrer" class="text-sm font-bold" style="color: #664930;">Instagram</a>
-                    <a href="https://www.linkedin.com/in/amanda-cui-9072381b0" target="_blank" rel="noopener noreferrer" class="text-sm font-bold" style="color: #664930;">LinkedIn</a>
-                    <a href="mailto:amandacuicollab@gmail.com" class="text-sm font-bold" style="color: #664930;">Email</a>
-                </div>
-                <div class="text-sm font-bold" style="color: #664930;">Amanda Cui</div>
-            </div>
-        </div>
-    </footer>
     
     <script>
         // Sony shots photos array
@@ -378,7 +362,6 @@
             for (let i = 0; i < numColumns; i++) {
                 const column = document.createElement('div');
                 column.className = 'masonry-column';
-                column.style.height = '0';
                 gallery.appendChild(column);
                 columns.push({ element: column, height: 0 });
             }
@@ -397,26 +380,27 @@
                 img.alt = `Photography ${index + 1}`;
                 img.loading = 'lazy';
                 
-                img.onload = () => {
-                    // Find the shortest column
+                img.onload = function() {
+                    // Find the shortest column by checking actual heights
                     let shortestColumn = columns[0];
+                    let shortestHeight = columns[0].element.offsetHeight;
+                    
                     for (let i = 1; i < columns.length; i++) {
-                        if (columns[i].height < shortestColumn.height) {
+                        const colHeight = columns[i].element.offsetHeight;
+                        if (colHeight < shortestHeight) {
                             shortestColumn = columns[i];
+                            shortestHeight = colHeight;
                         }
                     }
                     
                     // Add item to shortest column
                     shortestColumn.element.appendChild(item);
                     
-                    // Update column height after item is added
-                    setTimeout(() => {
-                        shortestColumn.height = shortestColumn.element.offsetHeight;
-                    }, 0);
+                    // Update the height tracking
+                    shortestColumn.height = shortestColumn.element.offsetHeight;
                     
                     loadedCount++;
                     if (loadedCount === totalPhotos) {
-                        // All images loaded
                         console.log('All images loaded');
                     }
                 };
