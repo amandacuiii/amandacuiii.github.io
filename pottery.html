@@ -455,7 +455,7 @@
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
                 item.onclick = () => openLightbox(index);
-                item.innerHTML = `<img src="${piece.mainImage}" alt="Pottery piece ${piece.id}" loading="lazy">`;
+                item.innerHTML = `<img src="${piece.mainImage}" alt="Pottery piece ${piece.id}" loading="lazy" decoding="async" fetchpriority="low">`;
                 gallery.appendChild(item);
             });
         }
@@ -487,6 +487,8 @@
                 const img = document.createElement('img');
                 img.src = photo;
                 img.alt = 'Progress photo';
+                img.loading = 'lazy';
+                img.decoding = 'async';
                 lightboxProgress.appendChild(img);
             });
             
