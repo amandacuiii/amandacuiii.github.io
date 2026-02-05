@@ -15,9 +15,36 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background: rgba(116, 58, 52, 0.2);
+            background: rgba(255, 219, 187, 0.6);
             font-weight: 400;
             color: #3d2e1c;
+            position: relative;
+        }
+        
+        /* Background Image */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .background-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            filter: grayscale(10%);
+        }
+        
+        /* Ensure content is above background */
+        nav, main, footer {
+            position: relative;
+            z-index: 1;
         }
         a {
             text-decoration: none;
@@ -46,7 +73,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(116, 58, 52, 0.6);
+            background: rgba(153, 126, 103, 0.9);
             z-index: 1000;
             overflow-y: auto;
         }
@@ -91,6 +118,11 @@
     </style>
 </head>
 <body>
+    <!-- Background Image -->
+    <div class="background-image">
+        <img src="photos/background.jpg" alt="Background" loading="eager" decoding="async">
+    </div>
+    
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50" style="background: rgba(116, 58, 52, 0.2); backdrop-filter: blur(10px);">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
@@ -228,6 +260,7 @@
                 home: 'In my collection',
                 progressPhotos: [
                     'photos/Pottery pics/24) Mini Vase/p24_p1.jpg',
+                    'photos/Pottery pics/24) Mini Vase/p24_p2.jpg',
                 ]
             },
             {
