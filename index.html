@@ -63,76 +63,6 @@
             background: rgba(204, 190, 177, 0.2);
             backdrop-filter: blur(0px);
         }
-        
-        /* Other Projects Gallery */
-        .projects-gallery {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: repeat(8, 60px);
-            gap: 1rem;
-            margin-top: 4rem;
-        }
-        
-        .project-item {
-            background: rgba(116, 58, 52, 0.15);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(116, 58, 52, 0.2);
-            border-radius: 8px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .project-item:hover {
-            background: rgba(116, 58, 52, 0.25);
-            transform: translateY(-2px);
-        }
-        
-        .project-item.large {
-            grid-column: span 7;
-            grid-row: span 4;
-        }
-        
-        .project-item.medium {
-            grid-column: span 5;
-            grid-row: span 3;
-        }
-        
-        .project-item.small {
-            grid-column: span 4;
-            grid-row: span 2;
-        }
-        
-        .project-item h3 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: #3d2e1c;
-        }
-        
-        .project-item p {
-            font-size: 0.95rem;
-            color: #664930;
-            line-height: 1.6;
-        }
-        
-        @media (max-width: 768px) {
-            .projects-gallery {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-            }
-            
-            .project-item {
-                grid-column: span 1 !important;
-                grid-row: span 1 !important;
-                min-height: 200px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -173,24 +103,6 @@
                         <div class="aspect-square w-full overflow-hidden rounded-lg shadow-lg" style="min-width: 250px; max-width: 600px; width: clamp(250px, 30vw, 600px);">
                             <img src="photos/Photos of me/photoshoot-photo.jpg" alt="Amanda Cui" class="w-full h-full object-cover" loading="lazy" decoding="async">
                         </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Other Projects Gallery -->
-            <section id="projects" class="w-full mt-20">
-                <div class="projects-gallery">
-                    <div class="project-item large">
-                        <h3>Humans of Shi Yuan</h3>
-                        <p>A documentary series exploring the stories and lives of people in Shi Yuan.</p>
-                    </div>
-                    <div class="project-item medium">
-                        <h3>Taiwan Through Our Eyes</h3>
-                        <p>A visual journey capturing the essence of Taiwan through personal perspectives.</p>
-                    </div>
-                    <div class="project-item small">
-                        <h3>Moments</h3>
-                        <p>Short-form video stories capturing everyday moments and experiences.</p>
                     </div>
                 </div>
             </section>
