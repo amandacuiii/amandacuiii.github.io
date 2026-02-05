@@ -30,6 +30,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
+            filter: sepia(20%) saturate(110%) brightness(105%) contrast(95%);
         }
         .gallery-item:hover img {
             transform: scale(1.05);
@@ -117,7 +118,7 @@
                     </div>
                     
                     <!-- Gallery -->
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-16" id="pottery-gallery">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-16" id="pottery-gallery">
                         <!-- Gallery items will be populated by JavaScript -->
                     </div>
                 </div>
