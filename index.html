@@ -17,6 +17,7 @@
             -moz-osx-font-smoothing: grayscale;
             position: relative;
             overflow-x: hidden;
+            background: rgba(139, 69, 50, 0.15);
         }
         a {
             text-decoration: none;
@@ -33,197 +34,447 @@
             z-index: 0;
             overflow: hidden;
             pointer-events: none;
+            background: transparent;
         }
         
         .collage-photo {
             position: absolute;
-            opacity: 0.6;
+            opacity: 1;
             object-fit: cover;
-            filter: grayscale(20%);
+            filter: grayscale(0%);
+            display: block;
         }
         
         .collage-photo:nth-child(1) {
-            width: 300px;
-            height: 200px;
+            width: 400px;
+            height: 300px;
             top: 10%;
             left: 5%;
             transform: rotate(-5deg);
         }
         
         .collage-photo:nth-child(2) {
-            width: 250px;
-            height: 180px;
+            width: 350px;
+            height: 280px;
             top: 25%;
             right: 10%;
             transform: rotate(8deg);
         }
         
         .collage-photo:nth-child(3) {
-            width: 280px;
-            height: 220px;
+            width: 380px;
+            height: 320px;
             top: 50%;
             left: 8%;
             transform: rotate(-10deg);
         }
         
         .collage-photo:nth-child(4) {
-            width: 320px;
-            height: 240px;
+            width: 420px;
+            height: 340px;
             bottom: 20%;
             right: 5%;
             transform: rotate(12deg);
         }
         
         .collage-photo:nth-child(5) {
-            width: 240px;
-            height: 200px;
+            width: 340px;
+            height: 300px;
             top: 15%;
             left: 50%;
             transform: rotate(-8deg);
         }
         
         .collage-photo:nth-child(6) {
-            width: 260px;
-            height: 190px;
+            width: 360px;
+            height: 290px;
             bottom: 30%;
             left: 40%;
             transform: rotate(6deg);
         }
         
         .collage-photo:nth-child(7) {
-            width: 300px;
-            height: 210px;
+            width: 400px;
+            height: 310px;
             top: 60%;
             right: 25%;
             transform: rotate(-7deg);
         }
         
         .collage-photo:nth-child(8) {
-            width: 220px;
-            height: 170px;
+            width: 320px;
+            height: 270px;
             bottom: 10%;
             left: 20%;
             transform: rotate(9deg);
         }
         
         .collage-photo:nth-child(9) {
-            width: 200px;
-            height: 150px;
+            width: 300px;
+            height: 250px;
             top: 5%;
             right: 30%;
             transform: rotate(-12deg);
         }
         
         .collage-photo:nth-child(10) {
-            width: 270px;
-            height: 200px;
+            width: 370px;
+            height: 300px;
             top: 40%;
             left: 30%;
             transform: rotate(5deg);
         }
         
         .collage-photo:nth-child(11) {
-            width: 230px;
-            height: 180px;
+            width: 330px;
+            height: 280px;
             bottom: 40%;
             right: 35%;
             transform: rotate(-9deg);
         }
         
         .collage-photo:nth-child(12) {
-            width: 250px;
-            height: 190px;
+            width: 350px;
+            height: 290px;
             top: 70%;
             left: 15%;
             transform: rotate(11deg);
         }
         
         .collage-photo:nth-child(13) {
-            width: 210px;
-            height: 160px;
+            width: 310px;
+            height: 260px;
             top: 35%;
             right: 20%;
             transform: rotate(-6deg);
         }
         
         .collage-photo:nth-child(14) {
-            width: 240px;
-            height: 200px;
+            width: 340px;
+            height: 300px;
             bottom: 15%;
             left: 55%;
             transform: rotate(7deg);
         }
         
         .collage-photo:nth-child(15) {
-            width: 190px;
-            height: 150px;
+            width: 290px;
+            height: 250px;
             top: 20%;
             left: 25%;
             transform: rotate(-11deg);
         }
         
         .collage-photo:nth-child(16) {
-            width: 260px;
-            height: 210px;
+            width: 360px;
+            height: 310px;
             bottom: 25%;
             right: 15%;
             transform: rotate(10deg);
         }
         
         .collage-photo:nth-child(17) {
-            width: 220px;
-            height: 170px;
+            width: 320px;
+            height: 270px;
             top: 55%;
             left: 45%;
             transform: rotate(-8deg);
         }
         
         .collage-photo:nth-child(18) {
-            width: 200px;
-            height: 160px;
+            width: 300px;
+            height: 260px;
             bottom: 5%;
             right: 40%;
             transform: rotate(13deg);
         }
         
         .collage-photo:nth-child(19) {
-            width: 230px;
-            height: 180px;
+            width: 330px;
+            height: 280px;
             top: 10%;
             left: 60%;
             transform: rotate(-4deg);
         }
         
         .collage-photo:nth-child(20) {
-            width: 250px;
-            height: 200px;
+            width: 350px;
+            height: 300px;
             bottom: 35%;
             left: 10%;
             transform: rotate(9deg);
         }
         
         .collage-photo:nth-child(21) {
-            width: 210px;
-            height: 160px;
+            width: 310px;
+            height: 260px;
             top: 45%;
             right: 5%;
             transform: rotate(-7deg);
         }
         
         .collage-photo:nth-child(22) {
-            width: 240px;
-            height: 190px;
+            width: 340px;
+            height: 290px;
             bottom: 50%;
             left: 50%;
             transform: rotate(6deg);
         }
         
         .collage-photo:nth-child(23) {
-            width: 200px;
-            height: 150px;
+            width: 300px;
+            height: 250px;
             top: 75%;
             right: 30%;
             transform: rotate(-10deg);
+        }
+        
+        .collage-photo:nth-child(24) {
+            width: 360px;
+            height: 300px;
+            top: 30%;
+            left: 70%;
+            transform: rotate(8deg);
+        }
+        
+        .collage-photo:nth-child(25) {
+            width: 280px;
+            height: 220px;
+            top: 0%;
+            left: 15%;
+            transform: rotate(15deg);
+        }
+        
+        .collage-photo:nth-child(26) {
+            width: 320px;
+            height: 240px;
+            top: 5%;
+            left: 75%;
+            transform: rotate(-12deg);
+        }
+        
+        .collage-photo:nth-child(27) {
+            width: 300px;
+            height: 230px;
+            top: 12%;
+            left: 35%;
+            transform: rotate(10deg);
+        }
+        
+        .collage-photo:nth-child(28) {
+            width: 290px;
+            height: 220px;
+            top: 18%;
+            right: 20%;
+            transform: rotate(-8deg);
+        }
+        
+        .collage-photo:nth-child(29) {
+            width: 310px;
+            height: 240px;
+            top: 28%;
+            left: 12%;
+            transform: rotate(12deg);
+        }
+        
+        .collage-photo:nth-child(30) {
+            width: 280px;
+            height: 210px;
+            top: 32%;
+            right: 45%;
+            transform: rotate(-15deg);
+        }
+        
+        .collage-photo:nth-child(31) {
+            width: 300px;
+            height: 230px;
+            top: 38%;
+            left: 65%;
+            transform: rotate(9deg);
+        }
+        
+        .collage-photo:nth-child(32) {
+            width: 290px;
+            height: 220px;
+            top: 42%;
+            right: 8%;
+            transform: rotate(-11deg);
+        }
+        
+        .collage-photo:nth-child(33) {
+            width: 320px;
+            height: 250px;
+            top: 48%;
+            left: 22%;
+            transform: rotate(13deg);
+        }
+        
+        .collage-photo:nth-child(34) {
+            width: 280px;
+            height: 210px;
+            top: 52%;
+            right: 50%;
+            transform: rotate(-9deg);
+        }
+        
+        .collage-photo:nth-child(35) {
+            width: 310px;
+            height: 240px;
+            top: 58%;
+            left: 58%;
+            transform: rotate(11deg);
+        }
+        
+        .collage-photo:nth-child(36) {
+            width: 290px;
+            height: 220px;
+            top: 62%;
+            right: 12%;
+            transform: rotate(-14deg);
+        }
+        
+        .collage-photo:nth-child(37) {
+            width: 300px;
+            height: 230px;
+            top: 68%;
+            left: 18%;
+            transform: rotate(8deg);
+        }
+        
+        .collage-photo:nth-child(38) {
+            width: 280px;
+            height: 210px;
+            top: 72%;
+            right: 55%;
+            transform: rotate(-10deg);
+        }
+        
+        .collage-photo:nth-child(39) {
+            width: 310px;
+            height: 240px;
+            top: 78%;
+            left: 52%;
+            transform: rotate(12deg);
+        }
+        
+        .collage-photo:nth-child(40) {
+            width: 290px;
+            height: 220px;
+            bottom: 8%;
+            right: 18%;
+            transform: rotate(-7deg);
+        }
+        
+        .collage-photo:nth-child(41) {
+            width: 300px;
+            height: 230px;
+            bottom: 2%;
+            left: 28%;
+            transform: rotate(14deg);
+        }
+        
+        .collage-photo:nth-child(42) {
+            width: 280px;
+            height: 210px;
+            top: 8%;
+            left: 42%;
+            transform: rotate(-11deg);
+        }
+        
+        .collage-photo:nth-child(43) {
+            width: 310px;
+            height: 240px;
+            top: 22%;
+            right: 28%;
+            transform: rotate(9deg);
+        }
+        
+        .collage-photo:nth-child(44) {
+            width: 290px;
+            height: 220px;
+            top: 65%;
+            left: 35%;
+            transform: rotate(-13deg);
+        }
+        
+        .collage-photo:nth-child(45) {
+            width: 300px;
+            height: 230px;
+            bottom: 45%;
+            right: 25%;
+            transform: rotate(10deg);
+        }
+        
+        .collage-photo:nth-child(46) {
+            width: 280px;
+            height: 210px;
+            top: 3%;
+            left: 55%;
+            transform: rotate(-16deg);
+        }
+        
+        .collage-photo:nth-child(47) {
+            width: 310px;
+            height: 240px;
+            bottom: 38%;
+            left: 15%;
+            transform: rotate(7deg);
+        }
+        
+        .collage-photo:nth-child(48) {
+            width: 290px;
+            height: 220px;
+            top: 80%;
+            right: 22%;
+            transform: rotate(-9deg);
+        }
+        
+        .collage-photo:nth-child(49) {
+            width: 300px;
+            height: 230px;
+            bottom: 52%;
+            left: 48%;
+            transform: rotate(15deg);
+        }
+        
+        .collage-photo:nth-child(50) {
+            width: 280px;
+            height: 210px;
+            top: 15%;
+            right: 38%;
+            transform: rotate(-8deg);
+        }
+        
+        .collage-photo:nth-child(51) {
+            width: 310px;
+            height: 240px;
+            bottom: 28%;
+            right: 32%;
+            transform: rotate(11deg);
+        }
+        
+        .collage-photo:nth-child(52) {
+            width: 290px;
+            height: 220px;
+            top: 85%;
+            left: 38%;
+            transform: rotate(-12deg);
+        }
+        
+        .collage-photo:nth-child(53) {
+            width: 300px;
+            height: 230px;
+            bottom: 15%;
+            left: 62%;
+            transform: rotate(9deg);
+        }
+        
+        .collage-photo:nth-child(54) {
+            width: 280px;
+            height: 210px;
+            top: 2%;
+            right: 15%;
+            transform: rotate(-14deg);
         }
         
         /* Ensure content is above background */
@@ -233,41 +484,73 @@
         }
         
         main {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(0.2px);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(0.1px);
         }
     </style>
 </head>
-<body class="bg-gray-50 text-black">
+<body class="text-black" style="background: #fafafa;">
     <!-- Background Collage -->
     <div class="background-collage">
-        <img src="photos/Pottery pics/22) Mini Vase/p23.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/21) Steve Bowl/p22.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/20) Tree of Life/p21.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/20) Joanna matcha bowl/p20.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/19) Beach Bowl/p19.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/18) Galaxy Bowl/p18.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/17) Lulu pot/p17.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/15) Flower Bowl/p15.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/14) Leaf Mug #3/p14.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/13) Leaf Mug #2/p13.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/12) Leaf Mug #1/p12.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/9-11) Simon Pot : tea cup : leaf/p11.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/33) Tea cup/p10.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/9-11) Simon Pot : tea cup : leaf/p9.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/8) Leaf Plate #2/p8.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/7) Leaf Plate #1/p7.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/6) Guitar pipe/p6.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/5) Koi Fish Bowl/p5.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/4) Carved Edges Bowl:Plate/p4.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/3) Purple mug/p3.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/2) Fish Bowl #2/p2.jpg" alt="" class="collage-photo">
-        <img src="photos/Pottery pics/1) Fish Bowl #1/p1.jpg" alt="" class="collage-photo">
+        <img src="photos/Sony shots/Alan.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/chiangkaishek.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00028.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00042.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00114.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00118.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00143.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00144.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00156.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00178.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00207.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00268.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00269.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00305.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00333.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00335.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00515.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00516.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00605_0.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00653_0.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00654_0.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00706_0.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00776.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00962.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC00968.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01036.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01042.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01125.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01129.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01213.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01215.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01220.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01287.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01352.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01357.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01413.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01428.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01470.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01489.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01556.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01586.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01598.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01716.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01742.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01777.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01810.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01860.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01874.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01889.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01892.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01924.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC01939.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC02105.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/DSC02205.JPG?v=2" alt="" class="collage-photo">
+        <img src="photos/Sony shots/i like this.JPG?v=2" alt="" class="collage-photo">
     </div>
     
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white z-50">
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-sm z-50">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div></div>
@@ -315,7 +598,7 @@
     </main>
 
     <!-- Footer with Name -->
-    <footer class="fixed bottom-0 left-0 w-full bg-white z-50">
+    <footer class="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-sm z-50">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="text-sm">Amanda Cui</div>
