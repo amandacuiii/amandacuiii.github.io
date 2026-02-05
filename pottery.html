@@ -163,6 +163,14 @@
 
     <script>
         // Pottery pieces data
+        // 
+        // NAMING CONVENTION (all photos in "Pottery pics" folder):
+        // - Main image: Use the original filename (e.g., IMG_9659.jpg)
+        // - Progress photos: Name them with the same base + _p# 
+        //   Examples: IMG_9659_p1.jpg, IMG_9659_p2.jpg, IMG_9659_p3.jpg
+        //
+        // To add progress photos, simply add them to the progressPhotos array below
+        // The main image is automatically included as the first item
         const potteryPieces = [
             {
                 id: 1,
@@ -170,8 +178,10 @@
                 description: 'A hand-thrown ceramic piece exploring organic forms and natural glazing techniques.',
                 home: 'Gifted to [Name]',
                 progressPhotos: [
-                    'photos/Pottery pics/IMG_9659.jpg'
-                    // Add more progress photos here when available
+                    'photos/Pottery pics/IMG_9659.jpg', // Main image (always first)
+                    // Add progress photos here like:
+                    // 'photos/Pottery pics/IMG_9659_p1.jpg',
+                    // 'photos/Pottery pics/IMG_9659_p2.jpg',
                 ]
             },
             {
@@ -180,7 +190,8 @@
                 description: 'Functional tableware piece with unique texture and warm glaze finish.',
                 home: 'Gifted to [Name]',
                 progressPhotos: [
-                    'photos/Pottery pics/IMG_9668.jpg'
+                    'photos/Pottery pics/IMG_9668.jpg', // Main image
+                    // Add progress photos here
                 ]
             },
             {
@@ -189,7 +200,8 @@
                 description: 'Ceramic vessel showcasing experimentation with form and surface treatment.',
                 home: 'Gifted to [Name]',
                 progressPhotos: [
-                    'photos/Pottery pics/IMG_9670.jpg'
+                    'photos/Pottery pics/IMG_9670.jpg', // Main image
+                    // Add progress photos here
                 ]
             },
             {
@@ -198,7 +210,8 @@
                 description: 'Hand-crafted piece reflecting the journey of learning and growth in pottery.',
                 home: 'Gifted to [Name]',
                 progressPhotos: [
-                    'photos/Pottery pics/IMG_9671.jpg'
+                    'photos/Pottery pics/IMG_9671.jpg', // Main image
+                    // Add progress photos here
                 ]
             },
             {
@@ -207,7 +220,8 @@
                 description: 'A piece from the collection, each one a step closer to 100.',
                 home: 'Gifted to [Name]',
                 progressPhotos: [
-                    'photos/Pottery pics/IMG_9689.jpg'
+                    'photos/Pottery pics/IMG_9689.jpg', // Main image
+                    // Add progress photos here
                 ]
             }
         ];
