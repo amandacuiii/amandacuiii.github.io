@@ -160,77 +160,49 @@
     <script>
         // Pottery pieces data
         // 
-        // NAMING CONVENTION (all photos in "Pottery pics" folder):
-        // - Main image: Use the original filename (e.g., IMG_9659.jpg)
-        // - Progress photos: Name them with the same base + _p# 
-        //   Examples: IMG_9659_p1.jpg, IMG_9659_p2.jpg, IMG_9659_p3.jpg
+        // ORGANIZATION: Each piece should have its own subfolder in "Pottery pics/"
+        // Example structure:
+        //   Pottery pics/
+        //     ├── 28) Smiski/
+        //     │   ├── smiski.jpg          (main image)
+        //     │   ├── smiski_p1.jpg       (progress photo 1)
+        //     │   └── smiski_p2.jpg       (progress photo 2)
+        //     └── 1) Fish Bowl #1/
+        //         ├── fishbowl.jpg        (main image)
+        //         └── fishbowl_p1.jpg    (progress photo)
         //
-        // To add progress photos, simply add them to the progressPhotos array below
-        // The main image is automatically included as the first item
+        // NAMING CONVENTION within each subfolder:
+        // - Main image: [piecename].jpg (e.g., smiski.jpg)
+        // - Progress photos: [piecename]_p1.jpg, [piecename]_p2.jpg, etc.
+        //
+        // To add a new piece:
+        // 1. Create a subfolder in "Pottery pics/" (e.g., "29) Piece Name/")
+        // 2. Add your main image and progress photos with the naming convention above
+        // 3. Add a new object to the potteryPieces array below
         const potteryPieces = [
             {
                 id: 1,
-                mainImage: 'photos/Pottery pics/IMG_9659.jpg',
-                description: 'A hand-thrown ceramic piece exploring organic forms and natural glazing techniques.',
-                home: 'Gifted to [Name]',
-                progressPhotos: [
-                    'photos/Pottery pics/IMG_9659.jpg', // Main image (always first)
-                    // Add progress photos here like:
-                    // 'photos/Pottery pics/IMG_9659_p1.jpg',
-                    // 'photos/Pottery pics/IMG_9659_p2.jpg',
-                ]
-            },
-            {
-                id: 2,
-                mainImage: 'photos/Pottery pics/IMG_9668.jpg',
-                description: 'Functional tableware piece with unique texture and warm glaze finish.',
-                home: 'Gifted to [Name]',
-                progressPhotos: [
-                    'photos/Pottery pics/IMG_9668.jpg', // Main image
-                    // Add progress photos here
-                ]
-            },
-            {
-                id: 3,
-                mainImage: 'photos/Pottery pics/IMG_9670.jpg',
-                description: 'Ceramic vessel showcasing experimentation with form and surface treatment.',
-                home: 'Gifted to [Name]',
-                progressPhotos: [
-                    'photos/Pottery pics/IMG_9670.jpg', // Main image
-                    // Add progress photos here
-                ]
-            },
-            {
-                id: 4,
-                mainImage: 'photos/Pottery pics/IMG_9671.jpg',
-                description: 'Hand-crafted piece reflecting the journey of learning and growth in pottery.',
-                home: 'Gifted to [Name]',
-                progressPhotos: [
-                    'photos/Pottery pics/IMG_9671.jpg', // Main image
-                    // Add progress photos here
-                ]
-            },
-            {
-                id: 5,
-                mainImage: 'photos/Pottery pics/IMG_9689.jpg',
-                description: 'A piece from the collection, each one a step closer to 100.',
-                home: 'Gifted to [Name]',
-                progressPhotos: [
-                    'photos/Pottery pics/IMG_9689.jpg', // Main image
-                    // Add progress photos here
-                ]
-            },
-            {
-                id: 6,
                 mainImage: 'photos/Pottery pics/28) Smiski/smiski.jpg',
                 description: 'A ceramic piece featuring a Smiski character, showcasing playful form and detailed craftsmanship.',
                 home: 'In my collection',
                 progressPhotos: [
-                    'photos/Pottery pics/28) Smiski/smiski.jpg', // Main image
+                    'photos/Pottery pics/28) Smiski/smiski.jpg', // Main image (always first)
                     'photos/Pottery pics/28) Smiski/smiski_p1.jpg', // Progress photo 1
                     'photos/Pottery pics/28) Smiski/smiski_p2.jpeg', // Progress photo 2
                 ]
             }
+            // Add more pieces here following this structure:
+            // {
+            //     id: 2,
+            //     mainImage: 'photos/Pottery pics/[Folder Name]/[piecename].jpg',
+            //     description: 'Description of the piece.',
+            //     home: 'Gifted to [Name]' or 'In my collection',
+            //     progressPhotos: [
+            //         'photos/Pottery pics/[Folder Name]/[piecename].jpg', // Main image
+            //         'photos/Pottery pics/[Folder Name]/[piecename]_p1.jpg', // Progress photo 1
+            //         'photos/Pottery pics/[Folder Name]/[piecename]_p2.jpg', // Progress photo 2
+            //     ]
+            // },
         ];
 
         // Populate gallery
