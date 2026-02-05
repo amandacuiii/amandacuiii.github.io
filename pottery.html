@@ -20,6 +20,48 @@
             text-decoration: none;
             color: inherit;
         }
+        .gallery-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-white text-black">
@@ -39,33 +81,49 @@
 
     <!-- Main Content -->
     <main class="pt-20 pb-32 px-6 lg:px-8 min-h-screen">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <section class="py-20">
                 <div class="space-y-12">
                     <div>
                         <h2 class="text-sm uppercase tracking-wide mb-8">the first 100</h2>
-                        <p class="text-lg text-gray-600 mb-12 leading-relaxed">
-                            Hand-crafted ceramic pieces that blend functionality with artistic expression.
-                        </p>
+                        <div class="space-y-6 text-lg leading-relaxed max-w-3xl">
+                            <p>
+                                I'm working towards creating 100 ceramic pieces before leaving Taiwan. Each piece represents a moment of learning, experimentation, and growth in my pottery practice.
+                            </p>
+                            <p>
+                                I'll be hosting an exhibit in June 2026 to showcase this collection — a journey of 100 pieces that tell the story of my time here.
+                            </p>
+                        </div>
                     </div>
                     
-                    <div class="space-y-8">
-                        <!-- Pottery Item 1 -->
-                        <div>
-                            <h3 class="text-lg mb-2">Ceramic Vase Collection</h3>
-                            <p class="text-gray-600">Hand-thrown vases with unique glazing techniques and organic forms.</p>
+                    <!-- Gallery -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-16">
+                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9659.jpg')">
+                            <img src="photos/Pottery pics/IMG_9659.jpg" alt="Pottery piece" loading="lazy">
                         </div>
-
-                        <!-- Pottery Item 2 -->
-                        <div>
-                            <h3 class="text-lg mb-2">Functional Tableware</h3>
-                            <p class="text-gray-600">Beautiful, functional pottery for daily use and special occasions.</p>
+                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9668.jpg')">
+                            <img src="photos/Pottery pics/IMG_9668.jpg" alt="Pottery piece" loading="lazy">
+                        </div>
+                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9670.jpg')">
+                            <img src="photos/Pottery pics/IMG_9670.jpg" alt="Pottery piece" loading="lazy">
+                        </div>
+                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9671.jpg')">
+                            <img src="photos/Pottery pics/IMG_9671.jpg" alt="Pottery piece" loading="lazy">
+                        </div>
+                        <div class="gallery-item" onclick="openLightbox('photos/Pottery pics/IMG_9689.jpg')">
+                            <img src="photos/Pottery pics/IMG_9689.jpg" alt="Pottery piece" loading="lazy">
                         </div>
                     </div>
                 </div>
             </section>
         </div>
     </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="">
+    </div>
 
     <!-- Footer with Name -->
     <footer class="fixed bottom-0 left-0 w-full bg-white z-50">
@@ -76,5 +134,26 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imageSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+        }
+
+        // Close lightbox on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
 </body>
 </html>
