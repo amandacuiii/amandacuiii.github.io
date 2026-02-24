@@ -28,7 +28,7 @@
         .projects-gallery {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: repeat(5, 60px);
+            grid-template-rows: repeat(6, 60px);
             gap: 1rem;
         }
         
@@ -75,6 +75,11 @@
         .project-item.small:nth-of-type(5) {
             grid-column: 9 / 13;
             grid-row: 4 / 6;
+        }
+        
+        .project-item.small:nth-of-type(6) {
+            grid-column: 1 / 13;
+            grid-row: 6 / 8;
         }
         
         .project-item h3 {
@@ -251,6 +256,7 @@
     </style>
 </head>
 <body>
+    <script src="cursor-dots.js"></script>
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50" style="background: rgba(204, 190, 177, 0.3); backdrop-filter: blur(10px);">
         <div class="max-w-6xl mx-auto px-6 lg:px-8">
@@ -286,6 +292,10 @@
                     <div class="project-item small" onclick="openPhotographyGallery()">
                         <h3>Photography</h3>
                         <p>A selection of photographic work exploring people, place, and everyday moments.</p>
+                    </div>
+                    <div class="project-item small">
+                        <h3>p5.js</h3>
+                        <p>Creative coding sketches and interactive experiments using the p5.js library.</p>
                     </div>
                 </div>
             </section>
