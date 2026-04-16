@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pottery Tracker — Amanda Cui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f9f6f2;
+            --text: #3d2e1c;
+            --accent: #664930;
+            --muted: #9b8472;
+            --border: rgba(102, 73, 48, 0.15);
+            --font: 'Karla', sans-serif;
+            --font-heading: 'Rubik', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            color: var(--text);
+            background: var(--bg);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ── Header ── */
+        header {
+            padding: 2.5rem 3rem 0;
+            display: flex;
+            align-items: flex-end;
+            gap: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-title {
+            padding-bottom: 1.25rem;
+        }
+
+        .header-title h1 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+
+        /* ── Tabs ── */
+        .tabs {
+            display: flex;
+            gap: 0;
+            padding-bottom: 0;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 0.75rem 1.6rem;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: var(--text);
+            border-bottom-color: var(--text);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--accent);
+        }
+
+        /* ── Tab content ── */
+        .tab-pane {
+            display: none;
+            padding: 2.5rem 3rem 5rem;
+            max-width: 1100px;
+        }
+
+        .tab-pane.active { display: block; }
+
+        /* ── Section headings ── */
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        /* ═══════════════════════════════════════
+           PIECE TRACKER
+        ════════════════════════════════════════ */
+
+        .tracker-intro {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .legend {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        .legend-dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .legend-dot.s0 { background: #fff; border: 1.5px solid #bbb; }
+        .legend-dot.s1 { background: #6db87a; }
+        .legend-dot.s2 { background: #6b9ed4; }
+        .legend-dot.s3 { background: #9b7fd4; }
+        .legend-dot.s4 { background: #d4736b; }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-box {
+            background: var(--bg);
+            padding: 1.25rem 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* Dot grid */
+        .dot-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .piece-dot {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1.5px solid #ccc;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-family: var(--font);
+            cursor: pointer;
+            transition: transform 0.12s, box-shadow 0.12s;
+            color: var(--text);
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .piece-dot:hover { transform: scale(1.18); box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        .piece-dot[data-stage="1"] { background: #6db87a; border-color: #6db87a; color: #fff; }
+        .piece-dot[data-stage="2"] { background: #6b9ed4; border-color: #6b9ed4; color: #fff; }
+        .piece-dot[data-stage="3"] { background: #9b7fd4; border-color: #9b7fd4; color: #fff; }
+        .piece-dot[data-stage="4"] { background: #d4736b; border-color: #d4736b; color: #fff; }
+
+        .tracker-reset {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            background: none;
+            border: none;
+            font-family: var(--font);
+            cursor: pointer;
+            letter-spacing: 0.08em;
+            text-decoration: underline;
+        }
+
+        /* ═══════════════════════════════════════
+           PRODUCTION PLAN
+        ════════════════════════════════════════ */
+
+        .plan-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+        }
+
+        .plan-box {
+            background: var(--bg);
+            padding: 1.5rem 2rem;
+        }
+
+        .plan-box.full { grid-column: 1 / -1; }
+
+        .plan-box-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-box-value {
+            font-size: 2.2rem;
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .plan-box-sub {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-top: 0.3rem;
+            font-weight: 300;
+        }
+
+        /* Progress bar */
+        .progress-wrap {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-track {
+            height: 8px;
+            background: rgba(102, 73, 48, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-note {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.75rem;
+            font-weight: 300;
+        }
+
+        /* Milestone list */
+        .milestones {
+            border: 1px solid var(--border);
+        }
+
+        .milestone-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .milestone-row:last-child { border-bottom: none; }
+
+        .milestone-row.done .milestone-name { color: var(--muted); text-decoration: line-through; }
+
+        .milestone-check {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .milestone-check.done { background: #6db87a; border-color: #6db87a; }
+
+        .milestone-check.done::after {
+            content: '✓';
+            color: white;
+            font-size: 0.65rem;
+        }
+
+        .milestone-date {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* ═══════════════════════════════════════
+           WEEKLY SCHEDULE
+        ════════════════════════════════════════ */
+
+        .week-goal-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .week-goal-row label {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--muted);
+        }
+
+        .week-goal-row input {
+            width: 80px;
+            padding: 0.4rem 0.75rem;
+            font-family: var(--font);
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .week-goal-row input:focus { outline: none; border-color: var(--accent); }
+
+        .weeks-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .week-row {
+            background: var(--bg);
+            display: grid;
+            grid-template-columns: 160px 1fr auto;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1rem 1.5rem;
+        }
+
+        .week-label {
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .week-label-sub {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 0.1rem;
+        }
+
+        .days-row {
+            display: flex;
+            gap: 6px;
+        }
+
+        .day-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            font-family: var(--font);
+            font-size: 0.72rem;
+            cursor: pointer;
+            color: var(--muted);
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .week-pieces-input {
+            width: 50px;
+            padding: 0.3rem 0.5rem;
+            font-family: var(--font);
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            text-align: center;
+        }
+
+        .week-pieces-input:focus { outline: none; border-color: var(--accent); }
+
+        .schedule-note {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 1rem;
+            font-weight: 300;
+        }
+
+        /* ═══════════════════════════════════════
+           GALLERY MANAGER
+        ════════════════════════════════════════ */
+
+        .gallery-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            font-family: var(--font);
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            padding: 0.6rem 1.4rem;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .btn:hover { background: rgba(102,73,48,0.07); border-color: rgba(102,73,48,0.3); }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #f9f6f2;
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover { background: #7a5539; border-color: #7a5539; }
+
+        /* Piece list */
+        .piece-list {
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .piece-list-row {
+            display: grid;
+            grid-template-columns: 48px 1fr 160px auto;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            font-weight: 300;
+            transition: background 0.15s;
+        }
+
+        .piece-list-row:last-child { border-bottom: none; }
+        .piece-list-row:hover { background: rgba(102,73,48,0.03); }
+
+        .piece-list-num { color: var(--muted); font-size: 0.85rem; }
+
+        .piece-list-home {
+            font-size: 0.8rem;
+            color: var(--muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .piece-edit-btn {
+            background: none;
+            border: none;
+            font-family: var(--font);
+            font-size: 0.8rem;
+            color: var(--accent);
+            cursor: pointer;
+            letter-spacing: 0.06em;
+        }
+
+        .piece-edit-btn:hover { text-decoration: underline; }
+
+        /* Form modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(61,46,28,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: var(--bg);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+        }
+
+        .modal h2 {
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            font-family: var(--font);
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-hint {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 0.35rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        .btn-danger {
+            color: #d4736b;
+            border-color: rgba(212,115,107,0.3);
+        }
+
+        .btn-danger:hover { background: rgba(212,115,107,0.07); }
+
+        /* Export section */
+        .export-section {
+            border: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            background: rgba(102,73,48,0.03);
+        }
+
+        .export-section p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--muted);
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 1.5rem 0; flex-wrap: wrap; gap: 0; }
+            .tabs { overflow-x: auto; }
+            .tab-btn { padding: 0.65rem 1rem; font-size: 0.9rem; }
+            .tab-pane { padding: 1.5rem 1.5rem 4rem; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .plan-grid { grid-template-columns: 1fr; }
+            .week-row { grid-template-columns: 1fr; gap: 0.75rem; }
+            .piece-list-row { grid-template-columns: 40px 1fr auto; }
+            .piece-list-home { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-title">
+        <h1>the first 100</h1>
+        <p>production tracker</p>
+    </div>
+    <nav class="tabs">
+        <button class="tab-btn active" onclick="switchTab('tracker')">Piece tracker</button>
+        <button class="tab-btn" onclick="switchTab('plan')">Production plan</button>
+        <button class="tab-btn" onclick="switchTab('schedule')">Weekly schedule</button>
+        <button class="tab-btn" onclick="switchTab('gallery')">Website gallery</button>
+    </nav>
+</header>
+
+<!-- ═══════════ PIECE TRACKER ═══════════ -->
+<div id="tab-tracker" class="tab-pane active">
+    <p class="tracker-intro">Click each dot to cycle through stages. Track your 115 pieces.</p>
+
+    <div class="legend">
+        <div class="legend-item"><div class="legend-dot s0"></div> Not started</div>
+        <div class="legend-item"><div class="legend-dot s1"></div> Thrown</div>
+        <div class="legend-item"><div class="legend-dot s2"></div> Bisque fired</div>
+        <div class="legend-item"><div class="legend-dot s3"></div> Glazed</div>
+        <div class="legend-item"><div class="legend-dot s4"></div> Lost</div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-box">
+            <div class="stat-number" id="stat-thrown">0</div>
+            <div class="stat-label">Thrown</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="stat-bisque">0</div>
+            <div class="stat-label">Bisque fired</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="stat-glazed">0</div>
+            <div class="stat-label">Glazed</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="stat-lost">0</div>
+            <div class="stat-label">Lost</div>
+        </div>
+    </div>
+
+    <div class="dot-grid" id="dot-grid"></div>
+
+    <button class="tracker-reset" onclick="resetTracker()">Reset all stages</button>
+</div>
+
+<!-- ═══════════ PRODUCTION PLAN ═══════════ -->
+<div id="tab-plan" class="tab-pane">
+    <div class="plan-grid">
+        <div class="plan-box">
+            <div class="plan-box-label">Pieces made</div>
+            <div class="plan-box-value" id="plan-made">—</div>
+            <div class="plan-box-sub">out of 100</div>
+        </div>
+        <div class="plan-box">
+            <div class="plan-box-label">Pieces remaining</div>
+            <div class="plan-box-value" id="plan-remaining">—</div>
+        </div>
+        <div class="plan-box">
+            <div class="plan-box-label">Weeks to exhibition</div>
+            <div class="plan-box-value" id="plan-weeks">—</div>
+            <div class="plan-box-sub" id="plan-date-sub">Jun 30, 2026</div>
+        </div>
+        <div class="plan-box">
+            <div class="plan-box-label">Pieces needed per week</div>
+            <div class="plan-box-value" id="plan-pace">—</div>
+        </div>
+    </div>
+
+    <div class="progress-wrap">
+        <div class="progress-header">
+            <div class="section-label">Progress toward 100</div>
+            <div style="font-size:1rem;font-weight:300;" id="plan-pct">0%</div>
+        </div>
+        <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="plan-bar" style="width:0%"></div>
+        </div>
+        <div class="progress-note" id="plan-note"></div>
+    </div>
+
+    <div class="section-label">Milestones</div>
+    <div class="milestones" id="milestones"></div>
+</div>
+
+<!-- ═══════════ WEEKLY SCHEDULE ═══════════ -->
+<div id="tab-schedule" class="tab-pane">
+    <div class="week-goal-row">
+        <label>Weekly piece goal</label>
+        <input type="number" id="weekly-goal" min="1" max="20" value="6" onchange="saveSchedule()">
+        <span style="font-size:0.9rem;color:var(--muted);font-weight:300">pieces/week</span>
+    </div>
+
+    <div class="weeks-grid" id="weeks-grid"></div>
+
+    <p class="schedule-note">Click the day circles to mark your pottery sessions. Sessions and goals are saved automatically.</p>
+</div>
+
+<!-- ═══════════ WEBSITE GALLERY ═══════════ -->
+<div id="tab-gallery" class="tab-pane">
+    <div class="gallery-actions">
+        <button class="btn btn-primary" onclick="openModal()">+ Add piece</button>
+        <button class="btn" onclick="exportData()">Export pottery-data.json</button>
+    </div>
+
+    <div class="piece-list" id="piece-list"></div>
+
+    <div class="export-section">
+        <p>After adding or editing pieces, click <strong>Export pottery-data.json</strong>. Drop the downloaded file into your personal-website folder and push to GitHub — your changes will go live automatically.</p>
+        <button class="btn btn-primary" onclick="exportData()">Export pottery-data.json</button>
+    </div>
+</div>
+
+<!-- ═══════════ PIECE FORM MODAL ═══════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+        <h2 id="modal-title">Add piece</h2>
+        <input type="hidden" id="modal-id">
+
+        <div class="form-group">
+            <label>Piece number</label>
+            <input type="number" id="field-id" min="1" placeholder="e.g. 27">
+        </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="field-name" placeholder="e.g. Morning Cup">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea id="field-desc" placeholder="A short description of the piece..."></textarea>
+        </div>
+        <div class="form-group">
+            <label>Home</label>
+            <input type="text" id="field-home" placeholder="e.g. Gifted to Sarah / In my collection">
+        </div>
+        <div class="form-group">
+            <label>Main image path</label>
+            <input type="text" id="field-main-image" placeholder="photos/Pottery pics/27) Mug with Cool Handle/p27.jpg">
+            <div class="form-hint">Relative path from the website folder</div>
+        </div>
+        <div class="form-group">
+            <label>Progress photo paths</label>
+            <textarea id="field-progress" placeholder="One path per line:&#10;photos/Pottery pics/27) Mug with Cool Handle/p27_p1.jpg&#10;photos/Pottery pics/27) Mug with Cool Handle/p27_p2.jpg" style="min-height:100px"></textarea>
+            <div class="form-hint">One file path per line</div>
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn btn-danger" id="modal-delete-btn" onclick="deletePiece()" style="display:none;margin-right:auto">Delete piece</button>
+            <button class="btn" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="savePiece()">Save</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════
+
+const DEFAULT_PIECES = [
+    { id:26, name:'Another Morning', mainImage:'photos/Pottery pics/26) Tea cup/p26.jpg', description:'A second teacup exploring repetition, subtle variation, and daily ritual.', home:'In my collection', progressPhotos:['photos/Pottery pics/26) Tea cup/p26_p1.jpg','photos/Pottery pics/26) Tea cup/p26_p2.jpg'] },
+    { id:25, name:'Quiet Companion', mainImage:'photos/Pottery pics/25) Smiski/p25.jpg', description:'A ceramic piece featuring a Smiski character, exploring playful form and small-scale detail.', home:'In my collection', progressPhotos:['photos/Pottery pics/25) Smiski/p25_p1.jpg','photos/Pottery pics/25) Smiski/p25_p2.jpg'] },
+    { id:24, name:'Small Enough', mainImage:'photos/Pottery pics/24) Mini Vase/p24.jpg', description:'A small vase exploring narrow openings and vertical form.', home:'In my collection', progressPhotos:['photos/Pottery pics/24) Mini Vase/p24_p1.jpg','photos/Pottery pics/24) Mini Vase/p24_p2.jpg'] },
+    { id:23, name:'Maple, Remembered', mainImage:'photos/Pottery pics/23) Maple leaf plate/p23.jpg', description:'A plate shaped from a maple leaf, reflecting themes of place and transition.', home:'In my collection', progressPhotos:['photos/Pottery pics/23) Maple leaf plate/p23_p1.jpg','photos/Pottery pics/23) Maple leaf plate/p23_p2.jpg'] },
+    { id:22, name:'Against the Current', mainImage:'photos/Pottery pics/22) Koi Fish Bowl/p22.jpg', description:'Hand-thrown bowl featuring a koi motif, inspired by movement and symbolism.', home:'Gifted', progressPhotos:['photos/Pottery pics/22) Koi Fish Bowl/p22_p1.jpg','photos/Pottery pics/22) Koi Fish Bowl/p22_p2.jpg','photos/Pottery pics/22) Koi Fish Bowl/p22_p3.jpg'] },
+    { id:21, name:'Still Growing', mainImage:'photos/Pottery pics/21) Tree of Life/p21.jpg', description:'A sculptural piece exploring growth, branching forms, and symbolism.', home:'In my collection', progressPhotos:['photos/Pottery pics/21) Tree of Life/p21_p1.jpg','photos/Pottery pics/21) Tree of Life/p21_p2.jpg'] },
+    { id:20, name:'For Joanna, with Matcha', mainImage:'photos/Pottery pics/20) Joanna matcha bowl/p20.jpg', description:'A matcha bowl made for Joanna, shaped for ritual and daily use.', home:'Gifted to Joanna', progressPhotos:['photos/Pottery pics/20) Joanna matcha bowl/p20_p1.jpg','photos/Pottery pics/20) Joanna matcha bowl/p20_p2.jpg'] },
+    { id:19, name:'Low Tide', mainImage:'photos/Pottery pics/19) Beach Bowl/p19.jpg', description:'A bowl inspired by shoreline textures and soft, natural curves.', home:'Gifted', progressPhotos:['photos/Pottery pics/19) Beach Bowl/p19_p1.jpg'] },
+    { id:18, name:'Orbit', mainImage:'photos/Pottery pics/18) Galaxy Bowl/p18.jpg', description:'A bowl finished with layered glazes inspired by depth and movement.', home:'Gifted', progressPhotos:['photos/Pottery pics/18) Galaxy Bowl/p18_p1.jpg'] },
+    { id:17, name:'Something for Lulu', mainImage:'photos/Pottery pics/17) Lulu pot/p17.jpg', description:'A small pot made for Lulu, prioritizing warmth and personal connection.', home:'Gifted to Lulu', progressPhotos:['photos/Pottery pics/17) Lulu pot/p17_p1.jpg'] },
+    { id:16, name:'Shared Leaves', mainImage:'photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16.png', description:'A pair of small leaf-shaped plates made collaboratively, intended for shared use.', home:'Gifted to Tate & me', progressPhotos:['photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16_p1.jpg','photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16_p2.jpg'] },
+    { id:15, name:'In Bloom', mainImage:'photos/Pottery pics/15) Flower Bowl/p15.jpg', description:'A bowl shaped with floral forms, experimenting with curvature and softness.', home:'Gifted', progressPhotos:['photos/Pottery pics/15) Flower Bowl/p15_p1.jpg'] },
+    { id:14, name:'Last Morning', mainImage:'photos/Pottery pics/14) Leaf Mug #3/p14.jpg', description:'The final piece in the leaf mug series, emphasizing comfort and durability.', home:'Gifted', progressPhotos:[] },
+    { id:13, name:'Second Morning', mainImage:'photos/Pottery pics/13) Leaf Mug #2/p13.jpg', description:'A second iteration of the leaf mug, refining glaze and proportions.', home:'Gifted', progressPhotos:['photos/Pottery pics/13) Leaf Mug #2/p13_p1.jpg','photos/Pottery pics/13) Leaf Mug #2/p13_p2.jpg'] },
+    { id:12, name:'Morning Handle', mainImage:'photos/Pottery pics/12) Leaf Mug #1/p12.jpeg', description:'A mug with leaf-inspired elements, focused on handle ergonomics.', home:'Gifted', progressPhotos:['photos/Pottery pics/12) Leaf Mug #1/p12_p1.jpg','photos/Pottery pics/12) Leaf Mug #1/p12_p2.jpg'] },
+    { id:11, name:'Cup with Memory', mainImage:'photos/Pottery pics/11) leaf/p11.jpg', description:'A cup incorporating leaf textures, bridging natural form and daily use.', home:'Gifted', progressPhotos:[] },
+    { id:10, name:'Held Lightly', mainImage:'photos/Pottery pics/10) tea cup/p10.jpg', description:'A hand-thrown teacup exploring balance, weight, and lip comfort.', home:'Gifted', progressPhotos:[] },
+    { id:9, name:'For Simon', mainImage:'photos/Pottery pics/9) Simon Pot/p9.jpg', description:'A small pot made for Simon, emphasizing simple form and intentional imperfections.', home:'Gifted to Simon', progressPhotos:['photos/Pottery pics/9) Simon Pot/p9_p1.jpg'] },
+    { id:8, name:'Pressed Leaf, Continued', mainImage:'photos/Pottery pics/8) Leaf Plate #2/p8.jpg', description:'A continuation of the leaf plate series, refining edges and surface detail.', home:'Gifted', progressPhotos:['photos/Pottery pics/8) Leaf Plate #2/p8_p1.jpg'] },
+    { id:7, name:'Pressed Leaf', mainImage:'photos/Pottery pics/7) Leaf Plate #1/p7.jpg', description:'Plate shaped from a leaf impression, capturing organic texture and form.', home:'Gifted', progressPhotos:[] },
+    { id:6, name:'Acoustic', mainImage:'photos/Pottery pics/6) Guitar pipe/p6.jpeg', description:'A sculptural pipe shaped like a guitar, blending humor with functional design.', home:'Gifted', progressPhotos:['photos/Pottery pics/6) Guitar pipe/p6_p1.jpg'] },
+    { id:5, name:'For Steve', mainImage:'photos/Pottery pics/5) Steve Bowl/p5.jpg', description:'A hand-thrown bowl made for Steve, emphasizing simplicity and balance.', home:'Gifted to Steve', progressPhotos:[] },
+    { id:4, name:'At the Edge of Use', mainImage:'photos/Pottery pics/4) Carved Edges Bowl:Plate/p4.png', description:'A shallow bowl-plate hybrid with carved edges, balancing function and form.', home:'In my collection', progressPhotos:['photos/Pottery pics/4) Carved Edges Bowl:Plate/p4_p1.jpg','photos/Pottery pics/4) Carved Edges Bowl:Plate/p4_p2.jpg'] },
+    { id:3, name:'Evenings in Violet', mainImage:'photos/Pottery pics/3) Purple mug/p3.jpg', description:'Hand-built mug finished in a purple glaze, focused on comfort and everyday use.', home:'Gifted', progressPhotos:[] },
+    { id:2, name:'Still Swimming, Again', mainImage:'photos/Pottery pics/2) Fish Bowl #2/p2.jpg', description:'A second exploration of the fish motif, refining proportion and carving depth.', home:'Gifted', progressPhotos:['photos/Pottery pics/2) Fish Bowl #2/p2_p1.jpg'] },
+    { id:1, name:'Still Swimming', mainImage:'photos/Pottery pics/1) Fish Bowl #1/p1.jpg', description:'Hand-thrown bowl with a carved fish motif, experimenting with surface texture.', home:'Gifted to Sarah', progressPhotos:['photos/Pottery pics/1) Fish Bowl #1/p1_p1.jpg'] }
+];
+
+function loadPieces() {
+    const saved = localStorage.getItem('galleryPieces');
+    return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_PIECES));
+}
+
+function savePiecesToStorage(pieces) {
+    localStorage.setItem('galleryPieces', JSON.stringify(pieces));
+}
+
+// ══════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════
+
+function switchTab(name) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        const names = ['tracker', 'plan', 'schedule', 'gallery'];
+        b.classList.toggle('active', names[i] === name);
+    });
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ══════════════════════════════════════════
+// PIECE TRACKER
+// ══════════════════════════════════════════
+
+const TOTAL_DOTS = 115;
+const STAGES = ['Not started','Thrown','Bisque fired','Glazed','Lost'];
+
+function loadStages() {
+    return JSON.parse(localStorage.getItem('pieceStages') || '{}');
+}
+
+function saveStages(stages) {
+    localStorage.setItem('pieceStages', JSON.stringify(stages));
+}
+
+function renderTracker() {
+    const stages = loadStages();
+    const grid = document.getElementById('dot-grid');
+    grid.innerHTML = '';
+
+    let counts = [0,0,0,0,0];
+    for (let i = 1; i <= TOTAL_DOTS; i++) {
+        const stage = stages[i] || 0;
+        counts[stage]++;
+        const dot = document.createElement('div');
+        dot.className = 'piece-dot';
+        dot.dataset.stage = stage;
+        dot.textContent = i;
+        dot.title = `Piece ${i}: ${STAGES[stage]}`;
+        dot.onclick = () => cyclePiece(i);
+        grid.appendChild(dot);
+    }
+
+    document.getElementById('stat-thrown').textContent = counts[1];
+    document.getElementById('stat-bisque').textContent = counts[2];
+    document.getElementById('stat-glazed').textContent = counts[3];
+    document.getElementById('stat-lost').textContent = counts[4];
+
+    // Update production plan too
+    updatePlan(counts);
+}
+
+function cyclePiece(num) {
+    const stages = loadStages();
+    stages[num] = ((stages[num] || 0) + 1) % STAGES.length;
+    saveStages(stages);
+    renderTracker();
+}
+
+function resetTracker() {
+    if (confirm('Reset all piece stages to Not started?')) {
+        localStorage.removeItem('pieceStages');
+        renderTracker();
+    }
+}
+
+// ══════════════════════════════════════════
+// PRODUCTION PLAN
+// ══════════════════════════════════════════
+
+const EXHIBITION_DATE = new Date('2026-06-30');
+
+function updatePlan(counts) {
+    const glazed = counts ? counts[3] : 0;
+    const total = 100;
+    const remaining = Math.max(0, total - glazed);
+    const today = new Date();
+    const msLeft = EXHIBITION_DATE - today;
+    const weeksLeft = Math.max(0, Math.ceil(msLeft / (7 * 24 * 60 * 60 * 1000)));
+    const pace = weeksLeft > 0 ? (remaining / weeksLeft).toFixed(1) : '—';
+    const pct = Math.min(100, Math.round((glazed / total) * 100));
+
+    document.getElementById('plan-made').textContent = glazed;
+    document.getElementById('plan-remaining').textContent = remaining;
+    document.getElementById('plan-weeks').textContent = weeksLeft;
+    document.getElementById('plan-pace').textContent = pace;
+    document.getElementById('plan-pct').textContent = pct + '%';
+    document.getElementById('plan-bar').style.width = pct + '%';
+    document.getElementById('plan-note').textContent =
+        `${glazed} pieces glazed · ${remaining} to go · exhibition ${EXHIBITION_DATE.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}`;
+
+    renderMilestones(glazed);
+}
+
+function renderMilestones(glazed) {
+    const milestones = [
+        { label: '25 pieces',  target: 25  },
+        { label: '50 pieces',  target: 50  },
+        { label: '75 pieces',  target: 75  },
+        { label: '100 pieces', target: 100 },
+    ];
+    const el = document.getElementById('milestones');
+    el.innerHTML = milestones.map(m => {
+        const done = glazed >= m.target;
+        return `<div class="milestone-row ${done ? 'done' : ''}">
+            <div class="milestone-name" style="font-weight:300">${m.label}</div>
+            <div class="milestone-date">${done ? 'Complete ✓' : `${m.target - glazed} to go`}</div>
+            <div class="milestone-check ${done ? 'done' : ''}"></div>
+        </div>`;
+    }).join('');
+}
+
+// ══════════════════════════════════════════
+// WEEKLY SCHEDULE
+// ══════════════════════════════════════════
+
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const WEEK_COUNT = 10;
+
+function getMonday(d) {
+    const date = new Date(d);
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+    date.setDate(diff);
+    date.setHours(0,0,0,0);
+    return date;
+}
+
+function loadSchedule() {
+    return JSON.parse(localStorage.getItem('weeklySchedule') || '{}');
+}
+
+function saveSchedule() {
+    const goal = document.getElementById('weekly-goal').value;
+    const sched = loadSchedule();
+    sched.weeklyGoal = parseInt(goal);
+    localStorage.setItem('weeklySchedule', JSON.stringify(sched));
+    renderSchedule();
+}
+
+function toggleDay(weekKey, dayIndex) {
+    const sched = loadSchedule();
+    if (!sched[weekKey]) sched[weekKey] = { days: [], pieces: 0 };
+    const days = sched[weekKey].days;
+    const idx = days.indexOf(dayIndex);
+    if (idx === -1) days.push(dayIndex); else days.splice(idx, 1);
+    localStorage.setItem('weeklySchedule', JSON.stringify(sched));
+    renderSchedule();
+}
+
+function updateWeekPieces(weekKey, value) {
+    const sched = loadSchedule();
+    if (!sched[weekKey]) sched[weekKey] = { days: [], pieces: 0 };
+    sched[weekKey].pieces = parseInt(value) || 0;
+    localStorage.setItem('weeklySchedule', JSON.stringify(sched));
+}
+
+function renderSchedule() {
+    const sched = loadSchedule();
+    const goalInput = document.getElementById('weekly-goal');
+    if (sched.weeklyGoal) goalInput.value = sched.weeklyGoal;
+
+    const monday = getMonday(new Date());
+    const grid = document.getElementById('weeks-grid');
+    grid.innerHTML = '';
+
+    for (let w = 0; w < WEEK_COUNT; w++) {
+        const weekStart = new Date(monday);
+        weekStart.setDate(monday.getDate() + w * 7);
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekStart.getDate() + 6);
+
+        const fmt = d => d.toLocaleDateString('en-US', { month:'short', day:'numeric' });
+        const weekKey = weekStart.toISOString().slice(0, 10);
+        const weekData = sched[weekKey] || { days: [], pieces: 0 };
+        const isPast = weekEnd < new Date();
+
+        const row = document.createElement('div');
+        row.className = 'week-row';
+        row.style.opacity = isPast ? '0.5' : '1';
+
+        row.innerHTML = `
+            <div>
+                <div class="week-label">${fmt(weekStart)} – ${fmt(weekEnd)}</div>
+                <div class="week-label-sub">${w === 0 ? 'This week' : `Week +${w}`}</div>
+            </div>
+            <div class="days-row">
+                ${DAYS.map((d, i) => `
+                    <button class="day-btn ${weekData.days.includes(i) ? 'active' : ''}"
+                        onclick="toggleDay('${weekKey}', ${i})" title="${d}">${d[0]}</button>
+                `).join('')}
+            </div>
+            <input class="week-pieces-input" type="number" min="0" max="20"
+                value="${weekData.pieces || ''}"
+                placeholder="0"
+                title="Pieces made this week"
+                onchange="updateWeekPieces('${weekKey}', this.value)">
+        `;
+        grid.appendChild(row);
+    }
+}
+
+// ══════════════════════════════════════════
+// GALLERY MANAGER
+// ══════════════════════════════════════════
+
+function renderGallery() {
+    const pieces = loadPieces().sort((a, b) => b.id - a.id);
+    const list = document.getElementById('piece-list');
+    list.innerHTML = pieces.map(p => `
+        <div class="piece-list-row">
+            <div class="piece-list-num">#${p.id}</div>
+            <div style="font-weight:300">${p.name}</div>
+            <div class="piece-list-home">${p.home}</div>
+            <button class="piece-edit-btn" onclick="openModal(${p.id})">Edit</button>
+        </div>
+    `).join('');
+}
+
+function openModal(id) {
+    const overlay = document.getElementById('modal-overlay');
+    const deleteBtn = document.getElementById('modal-delete-btn');
+
+    if (id) {
+        const pieces = loadPieces();
+        const piece = pieces.find(p => p.id === id);
+        if (!piece) return;
+        document.getElementById('modal-title').textContent = 'Edit piece';
+        document.getElementById('modal-id').value = id;
+        document.getElementById('field-id').value = piece.id;
+        document.getElementById('field-id').disabled = true;
+        document.getElementById('field-name').value = piece.name;
+        document.getElementById('field-desc').value = piece.description;
+        document.getElementById('field-home').value = piece.home;
+        document.getElementById('field-main-image').value = piece.mainImage;
+        document.getElementById('field-progress').value = piece.progressPhotos.join('\n');
+        deleteBtn.style.display = 'inline-block';
+    } else {
+        document.getElementById('modal-title').textContent = 'Add piece';
+        document.getElementById('modal-id').value = '';
+        document.getElementById('field-id').value = '';
+        document.getElementById('field-id').disabled = false;
+        document.getElementById('field-name').value = '';
+        document.getElementById('field-desc').value = '';
+        document.getElementById('field-home').value = '';
+        document.getElementById('field-main-image').value = '';
+        document.getElementById('field-progress').value = '';
+        deleteBtn.style.display = 'none';
+    }
+
+    overlay.classList.add('active');
+}
+
+function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('active');
+}
+
+function savePiece() {
+    const pieces = loadPieces();
+    const editingId = document.getElementById('modal-id').value;
+    const newId = parseInt(document.getElementById('field-id').value);
+
+    if (!newId || newId < 1) { alert('Please enter a valid piece number.'); return; }
+
+    const progressRaw = document.getElementById('field-progress').value;
+    const progressPhotos = progressRaw.split('\n').map(s => s.trim()).filter(Boolean);
+
+    const piece = {
+        id: newId,
+        name: document.getElementById('field-name').value.trim(),
+        description: document.getElementById('field-desc').value.trim(),
+        home: document.getElementById('field-home').value.trim(),
+        mainImage: document.getElementById('field-main-image').value.trim(),
+        progressPhotos
+    };
+
+    if (editingId) {
+        const idx = pieces.findIndex(p => p.id === parseInt(editingId));
+        if (idx !== -1) pieces[idx] = piece;
+    } else {
+        if (pieces.find(p => p.id === newId)) {
+            alert(`Piece #${newId} already exists. Use a different number or edit the existing piece.`);
+            return;
+        }
+        pieces.push(piece);
+    }
+
+    savePiecesToStorage(pieces);
+    closeModal();
+    renderGallery();
+}
+
+function deletePiece() {
+    const editingId = parseInt(document.getElementById('modal-id').value);
+    if (!confirm(`Delete piece #${editingId}? This cannot be undone.`)) return;
+    let pieces = loadPieces();
+    pieces = pieces.filter(p => p.id !== editingId);
+    savePiecesToStorage(pieces);
+    closeModal();
+    renderGallery();
+}
+
+function exportData() {
+    const pieces = loadPieces().sort((a, b) => b.id - a.id);
+    const json = JSON.stringify(pieces, null, 4);
+    const blob = new Blob([json], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'pottery-data.json';
+    a.click();
+}
+
+// ══════════════════════════════════════════
+// KEYBOARD
+// ══════════════════════════════════════════
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+});
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+
+renderTracker();
+renderSchedule();
+renderGallery();
+updatePlan({ 3: 0 }); // init plan with 0 glazed until tracker loads
+// Re-run plan with actual data
+const initialStages = loadStages();
+const glazedCount = Object.values(initialStages).filter(v => v === 3).length;
+updatePlan([0, 0, 0, glazedCount, 0]);
+</script>
+</body>
+</html>

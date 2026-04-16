@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>other projects — Amanda Cui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f9f6f2;
+            --text: #3d2e1c;
+            --accent: #664930;
+            --muted: #9b8472;
+            --border: rgba(102, 73, 48, 0.12);
+            --card-bg: rgba(102, 73, 48, 0.06);
+            --card-hover: rgba(102, 73, 48, 0.11);
+            --font: 'Karla', sans-serif;
+            --font-heading: 'Rubik', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url('photos/background.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(249, 246, 242, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 3.5rem;
+        }
+
+        .nav-links a {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--text);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Main content */
+        main {
+            position: relative;
+            z-index: 1;
+            padding: 64px 6vw 8rem;
+        }
+
+        /* Page header */
+        .page-header {
+            padding: 5rem 0 4rem;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        /* Projects grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            padding: 2.5rem 2.75rem;
+            cursor: default;
+            transition: background 0.25s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            min-height: 180px;
+            justify-content: center;
+        }
+
+        .project-card.clickable {
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            background: var(--card-hover);
+        }
+
+        .project-card.wide {
+            grid-column: 1 / -1;
+        }
+
+        .project-number {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .project-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--accent);
+            max-width: 42ch;
+        }
+
+        .project-cta {
+            font-size: 0.8rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .project-card.clickable:hover .project-cta {
+            color: var(--text);
+        }
+
+        /* Photography lightbox */
+        .photo-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(61, 46, 28, 0.96);
+            z-index: 200;
+            overflow-y: auto;
+        }
+
+        .photo-lightbox.active {
+            display: block;
+        }
+
+        .photo-lightbox-close {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: rgba(249, 246, 242, 0.8);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 201;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font);
+            font-weight: 300;
+            transition: color 0.2s;
+        }
+
+        .photo-lightbox-close:hover {
+            color: #f9f6f2;
+        }
+
+        .photo-lightbox-body {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 3rem 5rem;
+        }
+
+        .photo-lightbox-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 300;
+            color: #f9f6f2;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Masonry gallery */
+        .masonry-gallery {
+            column-count: 4;
+            column-gap: 6px;
+        }
+
+        .masonry-item {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 6px;
+            break-inside: avoid;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .masonry-item:hover {
+            opacity: 0.85;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Full image lightbox */
+        .image-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-lightbox.active {
+            display: flex;
+        }
+
+        .image-lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .image-lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 301;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font);
+            transition: color 0.2s;
+        }
+
+        .image-lightbox-close:hover {
+            color: #fff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card.wide {
+                grid-column: 1;
+            }
+
+            .masonry-gallery {
+                column-count: 2;
+            }
+
+            .nav-links {
+                gap: 2rem;
+            }
+
+            .photo-lightbox-body {
+                padding: 4rem 1.5rem 4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .masonry-gallery {
+                column-count: 1;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .masonry-gallery {
+                column-count: 5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="cursor-dots.js"></script>
+
+    <nav>
+        <div class="nav-links">
+            <a href="index.html">hi!</a>
+            <a href="pottery.html">the first 100</a>
+            <a href="videography.html">other projects</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <h1>other projects</h1>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-number">01</div>
+                <div class="project-title">Humans of Shi Yuan</div>
+                <div class="project-desc">A documentary series exploring the stories and lives of people in Shi Yuan.</div>
+            </div>
+            <div class="project-card">
+                <div class="project-number">02</div>
+                <div class="project-title">Taiwan Through Our Eyes</div>
+                <div class="project-desc">A visual journey capturing the essence of Taiwan through personal perspectives.</div>
+            </div>
+            <div class="project-card">
+                <div class="project-number">03</div>
+                <div class="project-title">Moments</div>
+                <div class="project-desc">Short-form video stories capturing everyday moments and experiences.</div>
+            </div>
+            <div class="project-card">
+                <div class="project-number">04</div>
+                <div class="project-title">Fine Arts Minor</div>
+                <div class="project-desc">A collection of work from my Fine Arts minor at the University of Pennsylvania.</div>
+            </div>
+            <div class="project-card clickable" onclick="openPhotographyGallery()">
+                <div class="project-number">05</div>
+                <div class="project-title">Photography</div>
+                <div class="project-desc">A selection of photographic work exploring people, place, and everyday moments.</div>
+                <div class="project-cta">View gallery →</div>
+            </div>
+            <div class="project-card">
+                <div class="project-number">06</div>
+                <div class="project-title">p5.js</div>
+                <div class="project-desc">Creative coding sketches and interactive experiments using the p5.js library.</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Photography gallery lightbox -->
+    <div class="photo-lightbox" id="photoLightbox" onclick="if(event.target.id==='photoLightbox') closePhotographyGallery()">
+        <span class="photo-lightbox-close" onclick="closePhotographyGallery()">&#215;</span>
+        <div class="photo-lightbox-body" onclick="event.stopPropagation()">
+            <div class="photo-lightbox-title">Photography</div>
+            <div class="masonry-gallery" id="photographyGallery"></div>
+        </div>
+    </div>
+
+    <!-- Full image lightbox -->
+    <div class="image-lightbox" id="imageLightbox" onclick="closeImageLightbox()">
+        <span class="image-lightbox-close" onclick="closeImageLightbox()">&#215;</span>
+        <img id="lightboxImage" src="" alt="Photography">
+    </div>
+
+    <script>
+        const sonyShotsPhotos = [
+            'photos/Sony%20shots/Alan.JPG',
+            'photos/Sony%20shots/chiangkaishek.JPG',
+            'photos/Sony%20shots/DSC00028.JPG',
+            'photos/Sony%20shots/DSC00042.JPG',
+            'photos/Sony%20shots/DSC00178.JPG',
+            'photos/Sony%20shots/DSC00268.JPG',
+            'photos/Sony%20shots/DSC00269.JPG',
+            'photos/Sony%20shots/DSC00515.JPG',
+            'photos/Sony%20shots/DSC00516.JPG',
+            'photos/Sony%20shots/DSC00653_0.JPG',
+            'photos/Sony%20shots/DSC00968.JPG',
+            'photos/Sony%20shots/DSC01036.JPG',
+            'photos/Sony%20shots/DSC01042.JPG',
+            'photos/Sony%20shots/DSC01215.JPG',
+            'photos/Sony%20shots/DSC01352.JPG',
+            'photos/Sony%20shots/DSC01357.JPG',
+            'photos/Sony%20shots/DSC01413.JPG',
+            'photos/Sony%20shots/DSC01470.JPG',
+            'photos/Sony%20shots/DSC01489.JPG',
+            'photos/Sony%20shots/DSC01556.JPG',
+            'photos/Sony%20shots/DSC01586.JPG',
+            'photos/Sony%20shots/DSC01598.JPG',
+            'photos/Sony%20shots/DSC01716.JPG',
+            'photos/Sony%20shots/DSC01777.JPG',
+            'photos/Sony%20shots/DSC01810.JPG',
+            'photos/Sony%20shots/DSC01860.JPG',
+            'photos/Sony%20shots/DSC01874.JPG',
+            'photos/Sony%20shots/DSC01924.JPG',
+            'photos/Sony%20shots/DSC01939.JPG',
+            'photos/Sony%20shots/DSC02105.JPG',
+            'photos/Sony%20shots/DSC02205.JPG',
+            'photos/Sony%20shots/i%20like%20this.JPG'
+        ];
+
+        function openPhotographyGallery() {
+            const lightbox = document.getElementById('photoLightbox');
+            const gallery = document.getElementById('photographyGallery');
+            gallery.innerHTML = '';
+
+            sonyShotsPhotos.forEach((path, index) => {
+                const item = document.createElement('div');
+                item.className = 'masonry-item';
+                item.onclick = () => openImageLightbox(path);
+                const img = document.createElement('img');
+                img.src = path;
+                img.alt = `Photography ${index + 1}`;
+                img.loading = 'lazy';
+                item.appendChild(img);
+                gallery.appendChild(item);
+            });
+
+            lightbox.classList.add('active');
+            lightbox.scrollTop = 0;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePhotographyGallery() {
+            document.getElementById('photoLightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function openImageLightbox(path) {
+            const lightbox = document.getElementById('imageLightbox');
+            document.getElementById('lightboxImage').src = path;
+            lightbox.classList.add('active');
+        }
+
+        function closeImageLightbox() {
+            document.getElementById('imageLightbox').classList.remove('active');
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeImageLightbox();
+                closePhotographyGallery();
+            }
+        });
+    </script>
+</body>
+</html>

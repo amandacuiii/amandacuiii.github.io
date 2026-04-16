@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏺 My Pottery Collection</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #faf8f5;
+    color: #2c2c2c;
+    min-height: 100vh;
+  }
+
+  header {
+    background: #3d2b1f;
+    color: #f5ede0;
+    padding: 36px 24px 28px;
+    text-align: center;
+  }
+  header h1 { font-size: 2rem; font-weight: 700; letter-spacing: 0.02em; }
+  header p { margin-top: 6px; opacity: 0.7; font-size: 0.95rem; }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+    padding: 28px 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+  }
+
+  .img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f0ebe4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .no-photo {
+    font-size: 0.85rem;
+    color: #aaa;
+    text-align: center;
+    line-height: 2;
+  }
+
+  .label {
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #3d2b1f;
+  }
+  .num {
+    background: #e8ddd4;
+    color: #6b4c35;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  /* Lightbox */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 1000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #lightbox.open { display: flex; }
+  #lightbox img {
+    max-width: 92vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  }
+  #lb-title {
+    color: #fff;
+    margin-top: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  #lb-close {
+    position: absolute;
+    top: 20px; right: 28px;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.7;
+    line-height: 1;
+    background: none;
+    border: none;
+  }
+  #lb-close:hover { opacity: 1; }
+  #lb-nav {
+    position: absolute;
+    bottom: 20px;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+  }
+  #lb-prev, #lb-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  #lb-prev { left: 16px; }
+  #lb-next { right: 16px; }
+  #lb-prev:hover, #lb-next:hover { background: rgba(255,255,255,0.28); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏺 My Pottery Collection</h1>
+  <p>40 pieces</p>
+</header>
+
+<div class="gallery">
+    <div class="card" onclick="openLightbox(this)" data-name="Fish Bowl 1" data-num="1">
+      <div class="img-wrap"><img src="01%29%20Fish%20Bowl%201/p1.jpg" alt="Fish Bowl 1" loading="lazy"></div>
+      <div class="label"><span class="num">01</span> Fish Bowl 1</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Fish Bowl 2" data-num="2">
+      <div class="img-wrap"><img src="02%29%20Fish%20Bowl%202/p2.jpg" alt="Fish Bowl 2" loading="lazy"></div>
+      <div class="label"><span class="num">02</span> Fish Bowl 2</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Purple Mug" data-num="3">
+      <div class="img-wrap"><img src="03%29%20Purple%20Mug/p3.jpg" alt="Purple Mug" loading="lazy"></div>
+      <div class="label"><span class="num">03</span> Purple Mug</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Carved Edges Bowl-Plate" data-num="4">
+      <div class="img-wrap"><img src="04%29%20Carved%20Edges%20Bowl-Plate/p4.png" alt="Carved Edges Bowl-Plate" loading="lazy"></div>
+      <div class="label"><span class="num">04</span> Carved Edges Bowl-Plate</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Steve Bowl" data-num="5">
+      <div class="img-wrap"><img src="05%29%20Steve%20Bowl/p5.jpg" alt="Steve Bowl" loading="lazy"></div>
+      <div class="label"><span class="num">05</span> Steve Bowl</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Guitar Pipe" data-num="6">
+      <div class="img-wrap"><img src="06%29%20Guitar%20Pipe/p6.jpeg" alt="Guitar Pipe" loading="lazy"></div>
+      <div class="label"><span class="num">06</span> Guitar Pipe</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Leaf Plate 1" data-num="7">
+      <div class="img-wrap"><img src="07%29%20Leaf%20Plate%201/p7.jpg" alt="Leaf Plate 1" loading="lazy"></div>
+      <div class="label"><span class="num">07</span> Leaf Plate 1</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Leaf Plate 2" data-num="8">
+      <div class="img-wrap"><img src="08%29%20Leaf%20Plate%202/p8.jpg" alt="Leaf Plate 2" loading="lazy"></div>
+      <div class="label"><span class="num">08</span> Leaf Plate 2</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Simon Pot" data-num="9">
+      <div class="img-wrap"><img src="09%29%20Simon%20Pot/p9.jpg" alt="Simon Pot" loading="lazy"></div>
+      <div class="label"><span class="num">09</span> Simon Pot</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Tea Cup" data-num="10">
+      <div class="img-wrap"><img src="10%29%20Tea%20Cup/p10.jpg" alt="Tea Cup" loading="lazy"></div>
+      <div class="label"><span class="num">10</span> Tea Cup</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Leaf" data-num="11">
+      <div class="img-wrap"><img src="11%29%20Leaf/p11.jpg" alt="Leaf" loading="lazy"></div>
+      <div class="label"><span class="num">11</span> Leaf</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Leaf Mug 1" data-num="12">
+      <div class="img-wrap"><img src="12%29%20Leaf%20Mug%201/p12.jpeg" alt="Leaf Mug 1" loading="lazy"></div>
+      <div class="label"><span class="num">12</span> Leaf Mug 1</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Leaf Mug 2" data-num="13">
+      <div class="img-wrap"><img src="13%29%20Leaf%20Mug%202/p13.jpg" alt="Leaf Mug 2" loading="lazy"></div>
+      <div class="label"><span class="num">13</span> Leaf Mug 2</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Leaf Mug 3" data-num="14">
+      <div class="img-wrap"><img src="14%29%20Leaf%20Mug%203/p14.jpg" alt="Leaf Mug 3" loading="lazy"></div>
+      <div class="label"><span class="num">14</span> Leaf Mug 3</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Flower Bowl" data-num="15">
+      <div class="img-wrap"><img src="15%29%20Flower%20Bowl/p15.jpg" alt="Flower Bowl" loading="lazy"></div>
+      <div class="label"><span class="num">15</span> Flower Bowl</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Mini Leaf Plates" data-num="16">
+      <div class="img-wrap"><img src="16%29%20Mini%20Leaf%20Plates%20%28Tate-Me%29/p16.jpg" alt="Mini Leaf Plates" loading="lazy"></div>
+      <div class="label"><span class="num">16</span> Mini Leaf Plates</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Lulu Pot" data-num="17">
+      <div class="img-wrap"><img src="17%29%20Lulu%20Pot/p17.jpg" alt="Lulu Pot" loading="lazy"></div>
+      <div class="label"><span class="num">17</span> Lulu Pot</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Galaxy Bowl" data-num="18">
+      <div class="img-wrap"><img src="18%29%20Galaxy%20Bowl/p18.jpg" alt="Galaxy Bowl" loading="lazy"></div>
+      <div class="label"><span class="num">18</span> Galaxy Bowl</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Beach Bowl" data-num="19">
+      <div class="img-wrap"><img src="19%29%20Beach%20Bowl/p19.jpg" alt="Beach Bowl" loading="lazy"></div>
+      <div class="label"><span class="num">19</span> Beach Bowl</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Joanna Matcha Bowl" data-num="20">
+      <div class="img-wrap"><img src="20%29%20Joanna%20Matcha%20Bowl/p20.jpg" alt="Joanna Matcha Bowl" loading="lazy"></div>
+      <div class="label"><span class="num">20</span> Joanna Matcha Bowl</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Tree of Life" data-num="21">
+      <div class="img-wrap"><img src="21%29%20Tree%20of%20Life/p21.jpg" alt="Tree of Life" loading="lazy"></div>
+      <div class="label"><span class="num">21</span> Tree of Life</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Koi Fish Bowl" data-num="22">
+      <div class="img-wrap"><img src="22%29%20Koi%20Fish%20Bowl/p22.jpg" alt="Koi Fish Bowl" loading="lazy"></div>
+      <div class="label"><span class="num">22</span> Koi Fish Bowl</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Maple Leaf Plate" data-num="23">
+      <div class="img-wrap"><img src="23%29%20Maple%20Leaf%20Plate/p23.jpg" alt="Maple Leaf Plate" loading="lazy"></div>
+      <div class="label"><span class="num">23</span> Maple Leaf Plate</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Mini Vase" data-num="24">
+      <div class="img-wrap"><img src="24%29%20Mini%20Vase/p24.jpg" alt="Mini Vase" loading="lazy"></div>
+      <div class="label"><span class="num">24</span> Mini Vase</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Smiski" data-num="25">
+      <div class="img-wrap"><img src="25%29%20Smiski/p25.jpg" alt="Smiski" loading="lazy"></div>
+      <div class="label"><span class="num">25</span> Smiski</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Tea Cup 2" data-num="26">
+      <div class="img-wrap"><img src="26%29%20Tea%20Cup/p26.jpg" alt="Tea Cup 2" loading="lazy"></div>
+      <div class="label"><span class="num">26</span> Tea Cup 2</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Mug with Cool Handle" data-num="27">
+      <div class="img-wrap"><img src="27%29%20Mug%20with%20Cool%20Handle/p26_p1.jpg" alt="Mug with Cool Handle" loading="lazy"></div>
+      <div class="label"><span class="num">27</span> Mug with Cool Handle</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Mel and Adi Mug" data-num="28">
+      <div class="img-wrap"><img src="27-28%29%20Mel%20and%20Adi%20Mug/IMG_9536%202.jpg" alt="Mel and Adi Mug" loading="lazy"></div>
+      <div class="label"><span class="num">28</span> Mel and Adi Mug</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Flower Incense Holder" data-num="29">
+      <div class="img-wrap"><img src="28%29%20Flower%20Incense%20Holder/IMG_7892.jpg" alt="Flower Incense Holder" loading="lazy"></div>
+      <div class="label"><span class="num">29</span> Flower Incense Holder</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Water Pitcher" data-num="30">
+      <div class="img-wrap"><img src="29%29%20Water%20Pitcher/IMG_9701.jpg" alt="Water Pitcher" loading="lazy"></div>
+      <div class="label"><span class="num">30</span> Water Pitcher</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Jug" data-num="31">
+      <div class="img-wrap"><img src="30%29%20Jug/IMG_9703.jpg" alt="Jug" loading="lazy"></div>
+      <div class="label"><span class="num">31</span> Jug</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Plate with Carvings" data-num="32">
+      <div class="img-wrap"><img src="31%29%20Plate%20with%20Carvings/IMG_9702.jpg" alt="Plate with Carvings" loading="lazy"></div>
+      <div class="label"><span class="num">32</span> Plate with Carvings</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Bowl with Leaves" data-num="33">
+      <div class="img-wrap"><img src="32%29%20Bowl%20with%20Leaves/IMG_9622.jpg" alt="Bowl with Leaves" loading="lazy"></div>
+      <div class="label"><span class="num">33</span> Bowl with Leaves</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Small Jug with Lid" data-num="34">
+      <div class="img-wrap"><div class="no-photo">📷<br>No photo yet</div></div>
+      <div class="label"><span class="num">34</span> Small Jug with Lid</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Bong" data-num="35">
+      <div class="img-wrap"><img src="35%29%20Bong/IMG_8172.jpg" alt="Bong" loading="lazy"></div>
+      <div class="label"><span class="num">35</span> Bong</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Heart Leaf Plate" data-num="36">
+      <div class="img-wrap"><div class="no-photo">📷<br>No photo yet</div></div>
+      <div class="label"><span class="num">36</span> Heart Leaf Plate</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Tate Piece" data-num="37">
+      <div class="img-wrap"><img src="37%29%20Tate%20Piece/IMG_9621.jpg" alt="Tate Piece" loading="lazy"></div>
+      <div class="label"><span class="num">37</span> Tate Piece</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Helen Strawberry Bowl" data-num="38">
+      <div class="img-wrap"><img src="38%29%20Helen%20Strawberry%20Bowl/IMG_3906.jpeg" alt="Helen Strawberry Bowl" loading="lazy"></div>
+      <div class="label"><span class="num">38</span> Helen Strawberry Bowl</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Hualien Jug" data-num="39">
+      <div class="img-wrap"><div class="no-photo">📷<br>No photo yet</div></div>
+      <div class="label"><span class="num">39</span> Hualien Jug</div>
+    </div>
+    <div class="card" onclick="openLightbox(this)" data-name="Hualien Plate" data-num="40">
+      <div class="img-wrap"><div class="no-photo">📷<br>No photo yet</div></div>
+      <div class="label"><span class="num">40</span> Hualien Plate</div>
+    </div>
+
+</div>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="navLightbox(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-title"></div>
+  <div id="lb-nav"></div>
+  <button id="lb-next" onclick="navLightbox(1)">›</button>
+</div>
+
+<script>
+  const cards = Array.from(document.querySelectorAll('.card'));
+  let current = 0;
+
+  function openLightbox(card) {
+    current = cards.indexOf(card);
+    showInLightbox(current);
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  function showInLightbox(idx) {
+    const card = cards[idx];
+    const img = card.querySelector('img');
+    const lb = document.getElementById('lb-img');
+    const title = document.getElementById('lb-title');
+    const nav = document.getElementById('lb-nav');
+    if (img) {
+      lb.src = img.src;
+      lb.style.display = 'block';
+    } else {
+      lb.style.display = 'none';
+    }
+    title.textContent = card.dataset.name;
+    nav.textContent = idx + 1 + ' / ' + cards.length;
+  }
+
+  function navLightbox(dir) {
+    current = (current + dir + cards.length) % cards.length;
+    showInLightbox(current);
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowRight') navLightbox(1);
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+</body>
+</html>

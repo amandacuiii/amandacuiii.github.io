@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the first 100 — Amanda Cui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f9f6f2;
+            --text: #3d2e1c;
+            --accent: #664930;
+            --muted: #9b8472;
+            --border: rgba(102, 73, 48, 0.12);
+            --font: 'Karla', sans-serif;
+            --font-heading: 'Rubik', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url('photos/background.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(249, 246, 242, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 3.5rem;
+        }
+
+        .nav-links a {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--text);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Main content */
+        main {
+            position: relative;
+            z-index: 1;
+            padding: 64px 6vw 8rem;
+        }
+
+        /* Page header */
+        .page-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 5vw;
+            padding: 5rem 0 4rem;
+        }
+
+        .page-title {
+            flex-shrink: 0;
+        }
+
+        .page-title h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--text);
+        }
+
+        .page-title h1 span {
+            display: block;
+        }
+
+        .page-description {
+            flex: 1;
+            min-width: 0;
+            padding-top: 0.5rem;
+        }
+
+        .page-description p {
+            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+            font-weight: 400;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 1.4rem;
+        }
+
+        .page-description p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem 2rem;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .gallery-item-image {
+            width: 100%;
+            position: relative;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: opacity 0.3s ease;
+            max-height: 260px;
+            object-fit: contain;
+        }
+
+        .gallery-item:hover img {
+            opacity: 0.82;
+        }
+
+        .gallery-item-badge {
+            position: absolute;
+            bottom: 0.75rem;
+            left: 0.75rem;
+            background: rgba(130, 140, 110, 0.85);
+            color: #fff;
+            font-family: var(--font);
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            padding: 0.3rem 0.75rem;
+            border-radius: 2rem;
+        }
+
+        .gallery-item-info {
+            width: 100%;
+            padding: 0.9rem 0.25rem 0;
+            text-align: center;
+        }
+
+        .gallery-item-name {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text);
+            letter-spacing: 0.01em;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(61, 46, 28, 0.92);
+            z-index: 200;
+            overflow-y: auto;
+        }
+
+        .lightbox.active {
+            display: block;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: rgba(249, 246, 242, 0.8);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 201;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font);
+            font-weight: 300;
+            transition: color 0.2s;
+        }
+
+        .lightbox-close:hover {
+            color: #f9f6f2;
+        }
+
+        .lightbox-body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5rem 3rem 5rem;
+            color: #f9f6f2;
+        }
+
+        .lightbox-name {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .lightbox-description {
+            font-size: 1.15rem;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: rgba(249, 246, 242, 0.85);
+        }
+
+        .lightbox-meta-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(249, 246, 242, 0.5);
+            margin-bottom: 0.6rem;
+        }
+
+        .lightbox-meta-value {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: rgba(249, 246, 242, 0.85);
+            margin-bottom: 2.5rem;
+        }
+
+        .lightbox-progress-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(249, 246, 242, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .progress-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .progress-gallery img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .page-header {
+                flex-direction: column;
+                gap: 2rem;
+                padding: 3.5rem 0 3rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem 1rem;
+            }
+
+            .nav-links {
+                gap: 2rem;
+            }
+
+            .lightbox-body {
+                padding: 4rem 1.5rem 4rem;
+            }
+
+            .progress-gallery img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="cursor-dots.js"></script>
+
+    <nav>
+        <div class="nav-links">
+            <a href="index.html">hi!</a>
+            <a href="pottery.html">the first 100</a>
+            <a href="videography.html">other projects</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <div class="page-title">
+                <h1>
+                    <span>the</span>
+                    <span>first</span>
+                    <span>100</span>
+                </h1>
+            </div>
+            <div class="page-description">
+                <p>I'm working toward creating 100 ceramic pieces before leaving Taiwan. Each piece marks a moment of learning, experimentation, and growth in my pottery practice, and many of them will be gifted to people who have shaped my time here.</p>
+                <p>Through this project, I've been experimenting with structure and the space between art and everyday use. I love how my creations can be both useful and expressive.</p>
+                <p>In June 2026, I'll be hosting an exhibit to share this collection: a record of my time in Taiwan, told through 100 pieces shaped by hand.</p>
+            </div>
+        </div>
+
+        <div class="gallery-grid" id="pottery-gallery"></div>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="if(event.target.id==='lightbox') closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&#215;</span>
+        <div class="lightbox-body" onclick="event.stopPropagation()">
+            <div class="lightbox-name" id="lightbox-name"></div>
+            <div class="lightbox-description" id="lightbox-description"></div>
+            <div class="lightbox-meta-label">Home</div>
+            <div class="lightbox-meta-value" id="lightbox-home"></div>
+            <div id="lightbox-progress-section">
+                <div class="lightbox-progress-label">Progress</div>
+                <div class="progress-gallery" id="lightbox-progress-gallery"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const potteryPieces = [
+            {
+                id: 26,
+                name: 'Another Morning',
+                mainImage: 'photos/Pottery pics/26) Tea cup/p26.jpg',
+                description: 'A second teacup exploring repetition, subtle variation, and daily ritual.',
+                home: 'In my collection',
+                progressPhotos: [
+                    'photos/Pottery pics/26) Tea cup/p26_p1.jpg',
+                    'photos/Pottery pics/26) Tea cup/p26_p2.jpg',
+                ]
+            },
+            {
+                id: 25,
+                name: 'Quiet Companion',
+                mainImage: 'photos/Pottery pics/25) Smiski/p25.jpg',
+                description: 'A ceramic piece featuring a Smiski character, exploring playful form and small-scale detail.',
+                home: 'In my collection',
+                progressPhotos: [
+                    'photos/Pottery pics/25) Smiski/p25_p1.jpg',
+                    'photos/Pottery pics/25) Smiski/p25_p2.jpg',
+                ]
+            },
+            {
+                id: 24,
+                name: 'Small Enough',
+                mainImage: 'photos/Pottery pics/24) Mini Vase/p24.jpg',
+                description: 'A small vase exploring narrow openings and vertical form.',
+                home: 'In my collection',
+                progressPhotos: [
+                    'photos/Pottery pics/24) Mini Vase/p24_p1.jpg',
+                    'photos/Pottery pics/24) Mini Vase/p24_p2.jpg',
+                ]
+            },
+            {
+                id: 23,
+                name: 'Maple, Remembered',
+                mainImage: 'photos/Pottery pics/23) Maple leaf plate/p23.jpg',
+                description: 'A plate shaped from a maple leaf, reflecting themes of place and transition.',
+                home: 'In my collection',
+                progressPhotos: [
+                    'photos/Pottery pics/23) Maple leaf plate/p23_p1.jpg',
+                    'photos/Pottery pics/23) Maple leaf plate/p23_p2.jpg',
+                ]
+            },
+            {
+                id: 22,
+                name: 'Against the Current',
+                mainImage: 'photos/Pottery pics/22) Koi Fish Bowl/p22.jpg',
+                description: 'Hand-thrown bowl featuring a koi motif, inspired by movement and symbolism.',
+                home: 'Gifted',
+                progressPhotos: [
+                    'photos/Pottery pics/22) Koi Fish Bowl/p22_p1.jpg',
+                    'photos/Pottery pics/22) Koi Fish Bowl/p22_p2.jpg',
+                    'photos/Pottery pics/22) Koi Fish Bowl/p22_p3.jpg',
+                ]
+            },
+            {
+                id: 21,
+                name: 'Still Growing',
+                mainImage: 'photos/Pottery pics/21) Tree of Life/p21.jpg',
+                description: 'A sculptural piece exploring growth, branching forms, and symbolism.',
+                home: 'In my collection',
+                progressPhotos: [
+                    'photos/Pottery pics/21) Tree of Life/p21_p1.jpg',
+                    'photos/Pottery pics/21) Tree of Life/p21_p2.jpg',
+                ]
+            },
+            {
+                id: 20,
+                name: 'For Joanna, with Matcha',
+                mainImage: 'photos/Pottery pics/20) Joanna matcha bowl/p20.jpg',
+                description: 'A matcha bowl made for Joanna, shaped for ritual and daily use.',
+                home: 'Gifted to Joanna',
+                progressPhotos: [
+                    'photos/Pottery pics/20) Joanna matcha bowl/p20_p1.jpg',
+                    'photos/Pottery pics/20) Joanna matcha bowl/p20_p2.jpg',
+                ]
+            },
+            {
+                id: 19,
+                name: 'Low Tide',
+                mainImage: 'photos/Pottery pics/19) Beach Bowl/p19.jpg',
+                description: 'A bowl inspired by shoreline textures and soft, natural curves.',
+                home: 'Gifted',
+                progressPhotos: [
+                    'photos/Pottery pics/19) Beach Bowl/p19_p1.jpg',
+                ]
+            },
+            {
+                id: 18,
+                name: 'Orbit',
+                mainImage: 'photos/Pottery pics/18) Galaxy Bowl/p18.jpg',
+                description: 'A bowl finished with layered glazes inspired by depth and movement.',
+                home: 'Gifted',
+                progressPhotos: [
+                    'photos/Pottery pics/18) Galaxy Bowl/p18_p1.jpg',
+                ]
+            },
+            {
+                id: 17,
+                name: 'Something for Lulu',
+                mainImage: 'photos/Pottery pics/17) Lulu pot/p17.jpg',
+                description: 'A small pot made for Lulu, prioritizing warmth and personal connection.',
+                home: 'Gifted to Lulu',
+                progressPhotos: [
+                    'photos/Pottery pics/17) Lulu pot/p17_p1.jpg',
+                ]
+            },
+            {
+                id: 16,
+                name: 'Shared Leaves',
+                mainImage: 'photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16.png',
+                description: 'A pair of small leaf-shaped plates made collaboratively, intended for shared use.',
+                home: 'Gifted to Tate & me',
+                progressPhotos: [
+                    'photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16_p1.jpg',
+                    'photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16_p2.jpg',
+                ]
+            },
+            {
+                id: 15,
+                name: 'In Bloom',
+                mainImage: 'photos/Pottery pics/15) Flower Bowl/p15.jpg',
+                description: 'A bowl shaped with floral forms, experimenting with curvature and softness.',
+                home: 'Gifted',
+                progressPhotos: [
+                    'photos/Pottery pics/15) Flower Bowl/p15_p1.jpg',
+                ]
+            },
+            {
+                id: 14,
+                name: 'Last Morning',
+                mainImage: 'photos/Pottery pics/14) Leaf Mug #3/p14.jpg',
+                description: 'The final piece in the leaf mug series, emphasizing comfort and durability.',
+                home: 'Gifted',
+                progressPhotos: []
+            },
+            {
+                id: 13,
+                name: 'Second Morning',
+                mainImage: 'photos/Pottery pics/13) Leaf Mug #2/p13.jpg',
+                description: 'A second iteration of the leaf mug, refining glaze and proportions.',
+                home: 'Gifted',
+                progressPhotos: [
+                    'photos/Pottery pics/13) Leaf Mug #2/p13_p1.jpg',
+                    'photos/Pottery pics/13) Leaf Mug #2/p13_p2.jpg',
+                ]
+            },
+            {
+                id: 12,
+                name: 'Morning Handle',
+                mainImage: 'photos/Pottery pics/12) Leaf Mug #1/p12.jpeg',
+                description: 'A mug with leaf-inspired elements, focused on handle ergonomics.',
+                home: 'Gifted',
+                progressPhotos: [
+                    'photos/Pottery pics/12) Leaf Mug #1/p12_p1.jpg',
+                    'photos/Pottery pics/12) Leaf Mug #1/p12_p2.jpg',
+                ]
+            },
+            {
+                id: 11,
+                name: 'Cup with Memory',
+                mainImage: 'photos/Pottery pics/11) leaf/p11.jpg',
+                description: 'A cup incorporating leaf textures, bridging natural form and daily use.',
+                home: 'Gifted',
+                progressPhotos: []
+            },
+            {
+                id: 10,
+                name: 'Held Lightly',
+                mainImage: 'photos/Pottery pics/10) tea cup/p10.jpg',
+                description: 'A hand-thrown teacup exploring balance, weight, and lip comfort.',
+                home: 'Gifted',
+                progressPhotos: []
+            },
+            {
+                id: 9,
+                name: 'For Simon',
+                mainImage: 'photos/Pottery pics/9) Simon Pot/p9.jpg',
+                description: 'A small pot made for Simon, emphasizing simple form and intentional imperfections.',
+                home: 'Gifted to Simon',
+                progressPhotos: [
+                    'photos/Pottery pics/9) Simon Pot/p9_p1.jpg',
+                ]
+            },
+            {
+                id: 8,
+                name: 'Pressed Leaf, Continued',
+                mainImage: 'photos/Pottery pics/8) Leaf Plate #2/p8.jpg',
+                description: 'A continuation of the leaf plate series, refining edges and surface detail.',
+                home: 'Gifted',
+                progressPhotos: [
+                    'photos/Pottery pics/8) Leaf Plate #2/p8_p1.jpg',
+                ]
+            },
+            {
+                id: 7,
+                name: 'Pressed Leaf',
+                mainImage: 'photos/Pottery pics/7) Leaf Plate #1/p7.jpg',
+                description: 'Plate shaped from a leaf impression, capturing organic texture and form.',
+                home: 'Gifted',
+                progressPhotos: []
+            },
+            {
+                id: 6,
+                name: 'Acoustic',
+                mainImage: 'photos/Pottery pics/6) Guitar pipe/p6.jpeg',
+                description: 'A sculptural pipe shaped like a guitar, blending humor with functional design.',
+                home: 'Gifted',
+                progressPhotos: [
+                    'photos/Pottery pics/6) Guitar pipe/p6_p1.jpg',
+                ]
+            },
+            {
+                id: 5,
+                name: 'For Steve',
+                mainImage: 'photos/Pottery pics/5) Steve Bowl/p5.jpg',
+                description: 'A hand-thrown bowl made for Steve, emphasizing simplicity and balance.',
+                home: 'Gifted to Steve',
+                progressPhotos: []
+            },
+            {
+                id: 4,
+                name: 'At the Edge of Use',
+                mainImage: 'photos/Pottery pics/4) Carved Edges Bowl:Plate/p4.png',
+                description: 'A shallow bowl-plate hybrid with carved edges, balancing function and form.',
+                home: 'In my collection',
+                progressPhotos: [
+                    'photos/Pottery pics/4) Carved Edges Bowl:Plate/p4_p1.jpg',
+                    'photos/Pottery pics/4) Carved Edges Bowl:Plate/p4_p2.jpg',
+                ]
+            },
+            {
+                id: 3,
+                name: 'Evenings in Violet',
+                mainImage: 'photos/Pottery pics/3) Purple mug/p3.jpg',
+                description: 'Hand-built mug finished in a purple glaze, focused on comfort and everyday use.',
+                home: 'Gifted',
+                progressPhotos: []
+            },
+            {
+                id: 2,
+                name: 'Still Swimming, Again',
+                mainImage: 'photos/Pottery pics/2) Fish Bowl #2/p2.jpg',
+                description: 'A second exploration of the fish motif, refining proportion and carving depth.',
+                home: 'Gifted',
+                progressPhotos: [
+                    'photos/Pottery pics/2) Fish Bowl #2/p2_p1.jpg',
+                ]
+            },
+            {
+                id: 1,
+                name: 'Still Swimming',
+                mainImage: 'photos/Pottery pics/1) Fish Bowl #1/p1.jpg',
+                description: 'Hand-thrown bowl with a carved fish motif, experimenting with surface texture.',
+                home: 'Gifted to Sarah',
+                progressPhotos: [
+                    'photos/Pottery pics/1) Fish Bowl #1/p1_p1.jpg',
+                ]
+            }
+        ];
+
+        function encodeImagePath(path) {
+            return path.split('/').map(part => encodeURIComponent(part)).join('/');
+        }
+
+        function populateGallery() {
+            const gallery = document.getElementById('pottery-gallery');
+            potteryPieces.forEach((piece, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.onclick = () => openLightbox(index);
+
+                // Image wrapper
+                const imageWrap = document.createElement('div');
+                imageWrap.className = 'gallery-item-image';
+
+                const img = document.createElement('img');
+                img.src = encodeImagePath(piece.mainImage);
+                img.alt = piece.name;
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                imageWrap.appendChild(img);
+
+                // Badge
+                if (piece.home) {
+                    const badge = document.createElement('div');
+                    badge.className = 'gallery-item-badge';
+                    badge.textContent = piece.home.toLowerCase();
+                    imageWrap.appendChild(badge);
+                }
+
+                // Name
+                const info = document.createElement('div');
+                info.className = 'gallery-item-info';
+                const name = document.createElement('div');
+                name.className = 'gallery-item-name';
+                name.textContent = piece.name.toLowerCase();
+                info.appendChild(name);
+
+                item.appendChild(imageWrap);
+                item.appendChild(info);
+                gallery.appendChild(item);
+            });
+        }
+
+        function openLightbox(index) {
+            const piece = potteryPieces[index];
+            document.getElementById('lightbox-name').textContent = piece.name;
+            document.getElementById('lightbox-description').textContent = piece.description;
+            document.getElementById('lightbox-home').textContent = piece.home;
+
+            const progressGallery = document.getElementById('lightbox-progress-gallery');
+            const progressSection = document.getElementById('lightbox-progress-section');
+            progressGallery.innerHTML = '';
+
+            if (piece.progressPhotos.length > 0) {
+                progressSection.style.display = 'block';
+                piece.progressPhotos.forEach(photo => {
+                    const img = document.createElement('img');
+                    img.src = encodeImagePath(photo);
+                    img.alt = 'Progress photo';
+                    img.loading = 'lazy';
+                    img.decoding = 'async';
+                    progressGallery.appendChild(img);
+                });
+            } else {
+                progressSection.style.display = 'none';
+            }
+
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('active');
+            lightbox.scrollTop = 0;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        document.addEventListener('DOMContentLoaded', populateGallery);
+    </script>
+</body>
+</html>
