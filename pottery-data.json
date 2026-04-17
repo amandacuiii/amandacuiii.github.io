@@ -1,0 +1,262 @@
+[
+    {
+        "id": 26,
+        "name": "Another Morning",
+        "mainImage": "photos/Pottery pics/26) Tea cup/p26.jpg",
+        "description": "A second teacup exploring repetition, subtle variation, and daily ritual.",
+        "home": "In my collection",
+        "progressPhotos": [
+            "photos/Pottery pics/26) Tea cup/p26_p1.jpg",
+            "photos/Pottery pics/26) Tea cup/p26_p2.jpg"
+        ]
+    },
+    {
+        "id": 25,
+        "name": "Quiet Companion",
+        "mainImage": "photos/Pottery pics/25) Smiski/p25.jpg",
+        "description": "A ceramic piece featuring a Smiski character, exploring playful form and small-scale detail.",
+        "home": "In my collection",
+        "progressPhotos": [
+            "photos/Pottery pics/25) Smiski/p25_p1.jpg",
+            "photos/Pottery pics/25) Smiski/p25_p2.jpg"
+        ]
+    },
+    {
+        "id": 24,
+        "name": "Small Enough",
+        "mainImage": "photos/Pottery pics/24) Mini Vase/p24.jpg",
+        "description": "A small vase exploring narrow openings and vertical form.",
+        "home": "In my collection",
+        "progressPhotos": [
+            "photos/Pottery pics/24) Mini Vase/p24_p1.jpg",
+            "photos/Pottery pics/24) Mini Vase/p24_p2.jpg"
+        ]
+    },
+    {
+        "id": 23,
+        "name": "Maple, Remembered",
+        "mainImage": "photos/Pottery pics/23) Maple leaf plate/p23.jpg",
+        "description": "A plate shaped from a maple leaf, reflecting themes of place and transition.",
+        "home": "In my collection",
+        "progressPhotos": [
+            "photos/Pottery pics/23) Maple leaf plate/p23_p1.jpg",
+            "photos/Pottery pics/23) Maple leaf plate/p23_p2.jpg"
+        ]
+    },
+    {
+        "id": 22,
+        "name": "Against the Current",
+        "mainImage": "photos/Pottery pics/22) Koi Fish Bowl/p22.jpg",
+        "description": "Hand-thrown bowl featuring a koi motif, inspired by movement and symbolism.",
+        "home": "Gifted",
+        "progressPhotos": [
+            "photos/Pottery pics/22) Koi Fish Bowl/p22_p1.jpg",
+            "photos/Pottery pics/22) Koi Fish Bowl/p22_p2.jpg",
+            "photos/Pottery pics/22) Koi Fish Bowl/p22_p3.jpg"
+        ]
+    },
+    {
+        "id": 21,
+        "name": "Still Growing",
+        "mainImage": "photos/Pottery pics/21) Tree of Life/p21.jpg",
+        "description": "A sculptural piece exploring growth, branching forms, and symbolism.",
+        "home": "In my collection",
+        "progressPhotos": [
+            "photos/Pottery pics/21) Tree of Life/p21_p1.jpg",
+            "photos/Pottery pics/21) Tree of Life/p21_p2.jpg"
+        ]
+    },
+    {
+        "id": 20,
+        "name": "For Joanna, with Matcha",
+        "mainImage": "photos/Pottery pics/20) Joanna matcha bowl/p20.jpg",
+        "description": "A matcha bowl made for Joanna, shaped for ritual and daily use.",
+        "home": "Gifted to Joanna",
+        "progressPhotos": [
+            "photos/Pottery pics/20) Joanna matcha bowl/p20_p1.jpg",
+            "photos/Pottery pics/20) Joanna matcha bowl/p20_p2.jpg"
+        ]
+    },
+    {
+        "id": 19,
+        "name": "Low Tide",
+        "mainImage": "photos/Pottery pics/19) Beach Bowl/p19.jpg",
+        "description": "A bowl inspired by shoreline textures and soft, natural curves.",
+        "home": "Gifted",
+        "progressPhotos": [
+            "photos/Pottery pics/19) Beach Bowl/p19_p1.jpg"
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Orbit",
+        "mainImage": "photos/Pottery pics/18) Galaxy Bowl/p18.jpg",
+        "description": "A bowl finished with layered glazes inspired by depth and movement.",
+        "home": "Gifted",
+        "progressPhotos": [
+            "photos/Pottery pics/18) Galaxy Bowl/p18_p1.jpg"
+        ]
+    },
+    {
+        "id": 17,
+        "name": "Something for Lulu",
+        "mainImage": "photos/Pottery pics/17) Lulu pot/p17.jpg",
+        "description": "A small pot made for Lulu, prioritizing warmth and personal connection.",
+        "home": "Gifted to Lulu",
+        "progressPhotos": [
+            "photos/Pottery pics/17) Lulu pot/p17_p1.jpg"
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Shared Leaves",
+        "mainImage": "photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16.png",
+        "description": "A pair of small leaf-shaped plates made collaboratively, intended for shared use.",
+        "home": "Gifted to Tate & me",
+        "progressPhotos": [
+            "photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16_p1.jpg",
+            "photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16_p2.jpg"
+        ]
+    },
+    {
+        "id": 15,
+        "name": "In Bloom",
+        "mainImage": "photos/Pottery pics/15) Flower Bowl/p15.jpg",
+        "description": "A bowl shaped with floral forms, experimenting with curvature and softness.",
+        "home": "Gifted",
+        "progressPhotos": [
+            "photos/Pottery pics/15) Flower Bowl/p15_p1.jpg"
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Last Morning",
+        "mainImage": "photos/Pottery pics/14) Leaf Mug #3/p14.jpg",
+        "description": "The final piece in the leaf mug series, emphasizing comfort and durability.",
+        "home": "Gifted",
+        "progressPhotos": []
+    },
+    {
+        "id": 13,
+        "name": "Second Morning",
+        "mainImage": "photos/Pottery pics/13) Leaf Mug #2/p13.jpg",
+        "description": "A second iteration of the leaf mug, refining glaze and proportions.",
+        "home": "Gifted",
+        "progressPhotos": [
+            "photos/Pottery pics/13) Leaf Mug #2/p13_p1.jpg",
+            "photos/Pottery pics/13) Leaf Mug #2/p13_p2.jpg"
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Morning Handle",
+        "mainImage": "photos/Pottery pics/12) Leaf Mug #1/p12.jpeg",
+        "description": "A mug with leaf-inspired elements, focused on handle ergonomics.",
+        "home": "Gifted",
+        "progressPhotos": [
+            "photos/Pottery pics/12) Leaf Mug #1/p12_p1.jpg",
+            "photos/Pottery pics/12) Leaf Mug #1/p12_p2.jpg"
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Cup with Memory",
+        "mainImage": "photos/Pottery pics/11) leaf/p11.jpg",
+        "description": "A cup incorporating leaf textures, bridging natural form and daily use.",
+        "home": "Gifted",
+        "progressPhotos": []
+    },
+    {
+        "id": 10,
+        "name": "Held Lightly",
+        "mainImage": "photos/Pottery pics/10) tea cup/p10.jpg",
+        "description": "A hand-thrown teacup exploring balance, weight, and lip comfort.",
+        "home": "Gifted",
+        "progressPhotos": []
+    },
+    {
+        "id": 9,
+        "name": "For Simon",
+        "mainImage": "photos/Pottery pics/9) Simon Pot/p9.jpg",
+        "description": "A small pot made for Simon, emphasizing simple form and intentional imperfections.",
+        "home": "Gifted to Simon",
+        "progressPhotos": [
+            "photos/Pottery pics/9) Simon Pot/p9_p1.jpg"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Pressed Leaf, Continued",
+        "mainImage": "photos/Pottery pics/8) Leaf Plate #2/p8.jpg",
+        "description": "A continuation of the leaf plate series, refining edges and surface detail.",
+        "home": "Gifted",
+        "progressPhotos": [
+            "photos/Pottery pics/8) Leaf Plate #2/p8_p1.jpg"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Pressed Leaf",
+        "mainImage": "photos/Pottery pics/7) Leaf Plate #1/p7.jpg",
+        "description": "Plate shaped from a leaf impression, capturing organic texture and form.",
+        "home": "Gifted",
+        "progressPhotos": []
+    },
+    {
+        "id": 6,
+        "name": "Acoustic",
+        "mainImage": "photos/Pottery pics/6) Guitar pipe/p6.jpeg",
+        "description": "A sculptural pipe shaped like a guitar, blending humor with functional design.",
+        "home": "Gifted",
+        "progressPhotos": [
+            "photos/Pottery pics/6) Guitar pipe/p6_p1.jpg"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "For Steve",
+        "mainImage": "photos/Pottery pics/5) Steve Bowl/p5.jpg",
+        "description": "A hand-thrown bowl made for Steve, emphasizing simplicity and balance.",
+        "home": "Gifted to Steve",
+        "progressPhotos": []
+    },
+    {
+        "id": 4,
+        "name": "At the Edge of Use",
+        "mainImage": "photos/Pottery pics/4) Carved Edges Bowl:Plate/p4.png",
+        "description": "A shallow bowl-plate hybrid with carved edges, balancing function and form.",
+        "home": "In my collection",
+        "progressPhotos": [
+            "photos/Pottery pics/4) Carved Edges Bowl:Plate/p4_p1.jpg",
+            "photos/Pottery pics/4) Carved Edges Bowl:Plate/p4_p2.jpg"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Evenings in Violet",
+        "mainImage": "photos/Pottery pics/3) Purple mug/p3.jpg",
+        "description": "Hand-built mug finished in a purple glaze, focused on comfort and everyday use.",
+        "home": "Gifted",
+        "progressPhotos": []
+    },
+    {
+        "id": 2,
+        "name": "Still Swimming, Again",
+        "mainImage": "photos/Pottery pics/2) Fish Bowl #2/p2.jpg",
+        "description": "A second exploration of the fish motif, refining proportion and carving depth.",
+        "home": "Gifted",
+        "progressPhotos": [
+            "photos/Pottery pics/2) Fish Bowl #2/p2_p1.jpg"
+        ]
+    },
+    {
+        "id": 1,
+        "name": "Still Swimming",
+        "mainImage": "photos/Pottery pics/1) Fish Bowl #1/p1.jpg",
+        "description": "Hand-thrown bowl with a carved fish motif, experimenting with surface texture.",
+        "home": "Gifted to Sarah",
+        "progressPhotos": [
+            "photos/Pottery pics/1) Fish Bowl #1/p1_p1.jpg"
+        ]
+    }
+]
