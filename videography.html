@@ -69,24 +69,16 @@
             -webkit-backdrop-filter: blur(14px);
         }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 3.5rem;
-        }
-
-        .nav-links a {
+        .nav-name {
             font-family: var(--font-heading);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             color: var(--text);
             transition: color 0.2s;
         }
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
+        .nav-name:hover { color: var(--accent); }
 
         /* Main content */
         main {
@@ -329,14 +321,10 @@
     </style>
 </head>
 <body>
-    <script src="cursor-dots.js"></script>
+
 
     <nav>
-        <div class="nav-links">
-            <a href="index.html">hi!</a>
-            <a href="pottery.html">the first 100</a>
-            <a href="videography.html">other projects</a>
-        </div>
+        <a href="index.html" class="nav-name">Amanda Cui</a>
     </nav>
 
     <main>

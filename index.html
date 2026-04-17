@@ -6,277 +6,161 @@
     <title>Amanda Cui</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Karla:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f9f6f2;
-            --text: #3d2e1c;
-            --accent: #664930;
-            --muted: #9b8472;
-            --border: rgba(102, 73, 48, 0.12);
             --font: 'Karla', sans-serif;
             --font-heading: 'Rubik', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: var(--font);
-            color: var(--text);
-            background: var(--bg);
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Background photo */
-        .bg-photo {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .bg-photo img {
+        html, body {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            opacity: 0.38;
-            transition: opacity 1.2s ease;
+            overflow: hidden;
+            background: #111;
         }
 
-        /* Navigation */
-        nav {
+        a { text-decoration: none; color: inherit; }
+
+        /* Site name */
+        .site-name {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(249, 246, 242, 0.75);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 3.5rem;
-        }
-
-        .nav-links a {
+            top: 1.5rem;
+            left: 2rem;
+            z-index: 20;
             font-family: var(--font-heading);
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 500;
-            letter-spacing: 0.1em;
-            color: var(--text);
-            transition: color 0.2s;
+            color: #fff;
+            letter-spacing: 0.08em;
+            mix-blend-mode: normal;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
         }
 
-        .nav-links a:hover {
-            color: var(--accent);
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: 42% 33% 25%;
+            grid-template-rows: 55vh 45vh;
+            width: 100vw;
+            height: 100vh;
+            gap: 3px;
+            background: #111;
         }
 
-        /* Main layout */
-        main {
+        .tile {
             position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 64px 6vw 0;
-        }
-
-        .about-section {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 6vw;
-            min-height: calc(100vh - 64px);
-            padding: 5rem 0;
-        }
-
-        /* Text block */
-        .about-text {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .about-text p {
-            font-size: clamp(1rem, 1.4vw, 1.2rem);
-            font-weight: 400;
-            line-height: 1.8;
-            color: var(--text);
-            margin-bottom: 1.8rem;
-        }
-
-        .about-text p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Photo block */
-        .about-photo-block {
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.75rem;
-            width: clamp(260px, 28vw, 520px);
-        }
-
-        .about-photo-block img {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
+            overflow: hidden;
             display: block;
         }
 
-        /* Social links */
-        .social-links {
+        .tile-1 { grid-column: 1; grid-row: 1 / 3; }
+        .tile-2 { grid-column: 2; grid-row: 1; }
+        .tile-3 { grid-column: 2; grid-row: 2; }
+        .tile-4 { grid-column: 3; grid-row: 1 / 3; }
+
+        .tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .tile:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Overlay */
+        .tile-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            transition: background 0.45s ease;
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            gap: 0.5rem;
         }
 
-        .social-link {
+        .tile:hover .tile-overlay {
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        .tile-title {
             font-family: var(--font-heading);
-            font-size: 0.8rem;
+            font-size: clamp(0.9rem, 1.8vw, 1.5rem);
             font-weight: 500;
-            letter-spacing: 0.1em;
-            color: var(--accent);
-            border: 1px solid var(--border);
-            padding: 0.55rem 1.25rem;
-            transition: background 0.2s, border-color 0.2s;
+            color: #fff;
+            letter-spacing: 0.06em;
+            text-align: center;
+            padding: 0 1.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
-        .social-link:hover {
-            background: rgba(102, 73, 48, 0.07);
-            border-color: rgba(102, 73, 48, 0.3);
+        .tile:hover .tile-title {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Mobile */
-        @media (max-width: 768px) {
-            .about-section {
-                flex-direction: column-reverse;
-                align-items: flex-start;
-                padding: 3rem 0 5rem;
-                gap: 2.5rem;
+        /* Mobile — 2x2 grid */
+        @media (max-width: 700px) {
+            html, body { overflow-y: auto; }
+
+            .grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 50vw 50vw;
+                height: auto;
             }
 
-            .about-photo-block {
-                width: 100%;
-                max-width: 340px;
-                align-self: center;
-            }
+            .tile-1 { grid-column: 1; grid-row: 1; }
+            .tile-2 { grid-column: 2; grid-row: 1; }
+            .tile-3 { grid-column: 1; grid-row: 2; }
+            .tile-4 { grid-column: 2; grid-row: 2; }
 
-            .about-text p {
-                font-size: 1.15rem;
-            }
-
-            .nav-links {
-                gap: 2rem;
-            }
+            .tile-title { opacity: 1; transform: none; font-size: 0.85rem; }
+            .tile-overlay { background: rgba(0,0,0,0.3); }
         }
     </style>
 </head>
 <body>
-    <div class="bg-photo">
-        <img id="rotating-photo" src="" alt="">
+    <div class="site-name">Amanda Cui</div>
+
+    <div class="grid">
+        <a href="pottery.html" class="tile tile-1">
+            <img src="photos/Sony shots/DSC01470.JPG" alt="the first 100" loading="eager">
+            <div class="tile-overlay">
+                <div class="tile-title">the first 100</div>
+            </div>
+        </a>
+
+        <a href="taiwan.html" class="tile tile-2">
+            <img src="photos/Sony shots/DSC00268.JPG" alt="taiwan through our eyes" loading="eager">
+            <div class="tile-overlay">
+                <div class="tile-title">taiwan through our eyes</div>
+            </div>
+        </a>
+
+        <a href="videography.html" class="tile tile-3">
+            <img src="photos/Sony shots/DSC01924.JPG" alt="videography" loading="eager">
+            <div class="tile-overlay">
+                <div class="tile-title">videography</div>
+            </div>
+        </a>
+
+        <a href="photography.html" class="tile tile-4">
+            <img src="photos/Sony shots/Alan.JPG" alt="photography" loading="eager">
+            <div class="tile-overlay">
+                <div class="tile-title">photography</div>
+            </div>
+        </a>
     </div>
 
-    <nav>
-        <div class="nav-links">
-            <a href="index.html">hi!</a>
-            <a href="pottery.html">the first 100</a>
-            <a href="videography.html">other projects</a>
-        </div>
-    </nav>
 
-    <main>
-        <section class="about-section">
-            <div class="about-text">
-                <p>Hi, I'm Amanda! Welcome to my corner of the internet.</p>
-                <p>I'm a visual storyteller interested in people, place, and the small moments that make everyday life feel meaningful. I work across photography, video, and ceramic as a way of paying attention and making sense of the world around me.</p>
-                <p>After graduating from the University of Pennsylvania with a degree in Finance and a minor in Fine Arts, I moved to Taiwan as a Fulbright English Teaching Fellow. Living abroad pushed me to create more intentionally, and lately I've been thinking about how to make creativity part of my life instead of something I save for later. This site is where I collect that process: projects, experiments, and in-between thoughts, as I figure out how to keep creating alongside everything else.</p>
-            </div>
-            <div class="about-photo-block">
-                <img src="photos/Photos of me/photoshoot-photo.jpg" alt="Amanda Cui" loading="eager">
-                <div class="social-links">
-                    <a href="https://www.instagram.com/amandacuii" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a>
-                    <a href="https://www.linkedin.com/in/amanda-cui-9072381b0" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
-                    <a href="mailto:amandacuicollab@gmail.com" class="social-link">Email</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <script src="cursor-dots.js"></script>
-    <script>
-        function encodeImagePath(path) {
-            return path.split('/').map(part => encodeURIComponent(part)).join('/');
-        }
-
-        const photos = [
-            'photos/Sony shots/Alan.JPG',
-            'photos/Sony shots/chiangkaishek.JPG',
-            'photos/Sony shots/DSC00028.JPG',
-            'photos/Sony shots/DSC00042.JPG',
-            'photos/Sony shots/DSC00178.JPG',
-            'photos/Sony shots/DSC00268.JPG',
-            'photos/Sony shots/DSC00269.JPG',
-            'photos/Sony shots/DSC00515.JPG',
-            'photos/Sony shots/DSC00516.JPG',
-            'photos/Sony shots/DSC00653_0.JPG',
-            'photos/Sony shots/DSC00968.JPG',
-            'photos/Sony shots/DSC01036.JPG',
-            'photos/Sony shots/DSC01042.JPG',
-            'photos/Sony shots/DSC01215.JPG',
-            'photos/Sony shots/DSC01352.JPG',
-            'photos/Sony shots/DSC01357.JPG',
-            'photos/Sony shots/DSC01413.JPG',
-            'photos/Sony shots/DSC01470.JPG',
-            'photos/Sony shots/DSC01489.JPG',
-            'photos/Sony shots/DSC01556.JPG',
-            'photos/Sony shots/DSC01586.JPG',
-            'photos/Sony shots/DSC01598.JPG',
-            'photos/Sony shots/DSC01716.JPG',
-            'photos/Sony shots/DSC01777.JPG',
-            'photos/Sony shots/DSC01810.JPG',
-            'photos/Sony shots/DSC01860.JPG',
-            'photos/Sony shots/DSC01874.JPG',
-            'photos/Sony shots/DSC01924.JPG',
-            'photos/Sony shots/DSC01939.JPG',
-            'photos/Sony shots/DSC02105.JPG',
-            'photos/Sony shots/DSC02205.JPG',
-            'photos/Sony shots/i like this.JPG'
-        ];
-
-        let currentIndex = 0;
-        const rotatingPhoto = document.getElementById('rotating-photo');
-        rotatingPhoto.src = encodeImagePath(photos[0]);
-
-        function changePhoto() {
-            currentIndex = (currentIndex + 1) % photos.length;
-            rotatingPhoto.style.opacity = '0';
-            setTimeout(() => {
-                rotatingPhoto.src = encodeImagePath(photos[currentIndex]);
-                rotatingPhoto.style.opacity = '0.38';
-            }, 600);
-        }
-
-        setInterval(changePhoto, 4000);
-    </script>
 </body>
 </html>

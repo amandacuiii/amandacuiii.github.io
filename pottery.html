@@ -1,729 +1,734 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>the first 100 — Amanda Cui</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Karla:wght@300;400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #f9f6f2;
-            --text: #3d2e1c;
-            --accent: #664930;
-            --muted: #9b8472;
-            --border: rgba(102, 73, 48, 0.12);
-            --font: 'Karla', sans-serif;
-            --font-heading: 'Rubik', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amanda's Pottery Tracker</title>
+  <style>
+    :root {
+      --clay:    #c2714f;
+      --clay-dk: #9e5438;
+      --clay-lt: #e8c4a8;
+      --cream:   #fdf6ee;
+      --bark:    #4a3728;
+      --bark-lt: #7a5c47;
+      --glaze:   #6b9e9e;
+      --glaze-lt:#a8d0d0;
+      --fired:   #c9a84c;
+      --shadow:  rgba(74,55,40,.15);
+      --radius:  12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--cream); color: var(--bark); min-height: 100vh;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* ── Header ─────────────────────────────────────── */
+    header {
+      background: var(--bark); color: var(--cream);
+      padding: 16px 32px; display: flex; align-items: center;
+      justify-content: space-between; box-shadow: 0 2px 8px var(--shadow);
+    }
+    header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: .02em; }
+    header h1 span { color: var(--clay-lt); }
 
-        body {
-            font-family: var(--font);
-            color: var(--text);
-            background: var(--bg);
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            position: relative;
-        }
+    /* ── Stats ───────────────────────────────────────── */
+    .stats {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      padding: 10px 32px; background: var(--bark); color: var(--cream);
+      font-size: .82rem; border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .stat { display: flex; gap: 6px; align-items: center; }
+    .stat strong { color: var(--fired); font-size: .95rem; }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url('photos/background.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.18;
-            z-index: 0;
-            pointer-events: none;
-        }
+    /* ── Toolbar ─────────────────────────────────────── */
+    .toolbar {
+      display: flex; gap: 12px; align-items: center;
+      flex-wrap: wrap; padding: 14px 32px;
+      border-bottom: 1px solid var(--clay-lt); background: #fff;
+    }
+    .toolbar input[type="text"] {
+      flex: 1; min-width: 160px; padding: 8px 14px;
+      border: 1.5px solid var(--clay-lt); border-radius: var(--radius);
+      background: var(--cream); font-size: .92rem; color: var(--bark); outline: none;
+    }
+    .toolbar input[type="text"]:focus { border-color: var(--clay); }
+    .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 6px 13px; border: 1.5px solid var(--clay-lt); border-radius: 20px;
+      background: transparent; cursor: pointer; font-size: .82rem;
+      color: var(--bark-lt); transition: all .15s; white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: var(--clay); color: var(--clay); }
+    .filter-btn.active { background: var(--clay); border-color: var(--clay); color: #fff; font-weight: 600; }
+    .btn-primary {
+      padding: 8px 18px; background: var(--clay); color: #fff;
+      border: none; border-radius: var(--radius); cursor: pointer;
+      font-size: .9rem; font-weight: 600; transition: background .15s;
+      white-space: nowrap; margin-left: auto;
+    }
+    .btn-primary:hover { background: var(--clay-dk); }
+    .btn-secondary {
+      padding: 8px 14px; background: transparent; color: var(--bark-lt);
+      border: 1.5px solid var(--clay-lt); border-radius: var(--radius); cursor: pointer;
+      font-size: .9rem; font-weight: 600; transition: all .15s; white-space: nowrap;
+      font-family: inherit;
+    }
+    .btn-secondary:hover { border-color: var(--clay); color: var(--clay); }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+    /* ── Grid ────────────────────────────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px; padding: 28px 32px;
+    }
+    .empty { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--bark-lt); }
+    .empty .icon { font-size: 3rem; margin-bottom: 12px; opacity: .4; }
+    .empty p { font-size: 1.05rem; }
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(249, 246, 242, 0.75);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-        }
+    /* ── Card ────────────────────────────────────────── */
+    .card {
+      background: #fff; border-radius: var(--radius);
+      box-shadow: 0 2px 10px var(--shadow); overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px var(--shadow); }
+    .card-photos { position: relative; cursor: pointer; }
+    .card-photos .main-photo {
+      height: 170px; background: linear-gradient(135deg, var(--clay-lt), #d4a882); overflow: hidden;
+    }
+    .card-photos .main-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-photos .no-photo {
+      width: 100%; height: 100%; display: flex; align-items: center;
+      justify-content: center; font-size: 3rem; opacity: .35;
+    }
+    .card-photos .thumb-row { display: flex; gap: 3px; padding: 3px; background: var(--clay-lt); }
+    .card-photos .thumb { flex: 1; height: 48px; overflow: hidden; border-radius: 4px; }
+    .card-photos .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-photos .thumb-more {
+      flex: 1; height: 48px; border-radius: 4px; background: rgba(0,0,0,.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; color: #fff; font-weight: 700;
+    }
+    .stage-badge {
+      position: absolute; top: 10px; right: 10px; padding: 4px 10px;
+      border-radius: 20px; font-size: .7rem; font-weight: 700;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .type-badge {
+      position: absolute; top: 10px; left: 10px; padding: 4px 10px;
+      border-radius: 20px; font-size: .7rem; font-weight: 600;
+      background: rgba(74,55,40,.65); color: #fff; letter-spacing: .02em;
+    }
+    .card-body { padding: 14px 16px; flex: 1; }
+    .card-title { font-size: 1.05rem; font-weight: 700; color: var(--bark); margin-bottom: 7px; }
+    .card-meta { display: flex; flex-direction: column; gap: 4px; font-size: .82rem; color: var(--bark-lt); }
+    .card-meta .row { display: flex; gap: 6px; align-items: flex-start; }
+    .card-meta .lbl { font-weight: 600; color: var(--bark); min-width: 64px; }
+    .card-notes {
+      font-size: .82rem; color: var(--bark-lt); margin-top: 9px; line-height: 1.5;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .card-actions { display: flex; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--clay-lt); }
+    .card-actions button {
+      flex: 1; padding: 7px; border: 1.5px solid var(--clay-lt); border-radius: 8px;
+      background: transparent; cursor: pointer; font-size: .8rem;
+      font-weight: 600; color: var(--bark-lt); transition: all .15s;
+    }
+    .card-actions .btn-edit:hover   { border-color: var(--glaze); color: var(--glaze); }
+    .card-actions .btn-delete:hover { border-color: #e07070; color: #c04040; }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 3.5rem;
-        }
+    /* ── Stage colors ────────────────────────────────── */
+    .stage-Throwing    { background: #d4e8f0; color: #2a6080; }
+    .stage-Trimming    { background: #dce8d0; color: #3a6030; }
+    .stage-LeatherHard { background: #ece0c0; color: #705020; }
+    .stage-BoneDry     { background: #e8e0d0; color: #605040; }
+    .stage-Bisque      { background: var(--clay-lt); color: var(--clay-dk); }
+    .stage-Glazed      { background: var(--glaze-lt); color: #2a6060; }
+    .stage-Complete    { background: #c8e8c8; color: #206020; }
 
-        .nav-links a {
-            font-family: var(--font-heading);
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            color: var(--text);
-            transition: color 0.2s;
-        }
+    /* ── Modal ───────────────────────────────────────── */
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.45); z-index: 100;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .overlay.open { display: flex; }
+    .modal {
+      background: var(--cream); border-radius: var(--radius);
+      width: 100%; max-width: 580px; max-height: 93vh;
+      overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,.3);
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px 14px; border-bottom: 1px solid var(--clay-lt);
+      position: sticky; top: 0; background: var(--cream); z-index: 1;
+    }
+    .modal-header h2 { font-size: 1.1rem; color: var(--bark); font-weight: 700; }
+    .btn-close {
+      background: none; border: none; font-size: 1.3rem; cursor: pointer;
+      color: var(--bark-lt); line-height: 1; padding: 3px 7px; border-radius: 6px;
+    }
+    .btn-close:hover { background: var(--clay-lt); }
+    .modal-body { padding: 18px 24px; }
+    .form-section {
+      font-size: .75rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--clay);
+      margin: 18px 0 10px; padding-bottom: 5px; border-bottom: 1px solid var(--clay-lt);
+    }
+    .form-row { margin-bottom: 14px; }
+    .form-row label { display: block; font-size: .83rem; font-weight: 600; color: var(--bark); margin-bottom: 5px; }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; padding: 8px 11px; border: 1.5px solid var(--clay-lt); border-radius: 8px;
+      background: #fff; font-size: .91rem; color: var(--bark);
+      font-family: inherit; outline: none; transition: border-color .15s;
+    }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--clay); }
+    .form-row textarea { resize: vertical; min-height: 75px; }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    @media (max-width: 480px) { .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; } }
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
+    /* ── Photo gallery ───────────────────────────────── */
+    .photo-gallery {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 8px; margin-bottom: 8px;
+    }
+    .photo-gallery-hint { font-size: .75rem; color: var(--bark-lt); margin-bottom: 8px; display: none; }
+    .photo-gallery-hint.visible { display: block; }
+    .photo-thumb {
+      position: relative; height: 90px; border-radius: 8px; overflow: hidden;
+      background: var(--clay-lt); cursor: grab;
+      transition: opacity .15s, transform .15s, box-shadow .15s; user-select: none;
+    }
+    .photo-thumb:active { cursor: grabbing; }
+    .photo-thumb.dragging { opacity: .4; transform: scale(.96); }
+    .photo-thumb.drag-over-thumb { box-shadow: inset 0 0 0 2.5px var(--clay); transform: scale(1.03); }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .photo-thumb .rm-photo {
+      position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,.55); color: #fff;
+      border: none; border-radius: 50%; width: 20px; height: 20px;
+      font-size: .7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1;
+    }
+    .photo-thumb .cover-label {
+      position: absolute; bottom: 4px; left: 4px; background: rgba(194,113,79,.85); color: #fff;
+      font-size: .62rem; font-weight: 700; padding: 2px 5px; border-radius: 4px; letter-spacing: .04em;
+    }
+    .photo-drop {
+      width: 100%; height: 80px; border: 2px dashed var(--clay-lt); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: #fff; cursor: pointer; transition: border-color .15s, background .15s; position: relative;
+    }
+    .photo-drop:hover, .photo-drop.drag-over { border-color: var(--clay); background: #fdf0e8; }
+    .photo-drop .drop-text { font-size: .82rem; color: var(--bark-lt); pointer-events: none; }
+    .photo-drop .drop-icon { font-size: 1.4rem; opacity: .5; pointer-events: none; }
+    .photo-drop input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer;
+      width: 100%; height: 100%; padding: 0; border: none;
+    }
 
-        /* Main content */
-        main {
-            position: relative;
-            z-index: 1;
-            padding: 64px 6vw 8rem;
-        }
+    /* ── Lightbox ────────────────────────────────────── */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.88); z-index: 200; align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 8px; object-fit: contain; }
+    .lightbox .lb-close {
+      position: absolute; top: 18px; right: 22px; background: none; border: none;
+      color: #fff; font-size: 2rem; cursor: pointer; line-height: 1;
+    }
+    .lightbox .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,.12); border: none; color: #fff; font-size: 1.8rem;
+      cursor: pointer; padding: 10px 14px; border-radius: 8px; line-height: 1;
+    }
+    .lightbox .lb-prev { left: 14px; }
+    .lightbox .lb-next { right: 14px; }
+    .lightbox .lb-caption {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(0,0,0,.55); color: #fff; padding: 5px 16px;
+      border-radius: 20px; font-size: .85rem; white-space: nowrap;
+    }
 
-        /* Page header */
-        .page-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 5vw;
-            padding: 5rem 0 4rem;
-        }
-
-        .page-title {
-            flex-shrink: 0;
-        }
-
-        .page-title h1 {
-            font-family: var(--font-heading);
-            font-size: clamp(3rem, 7vw, 6rem);
-            font-weight: 700;
-            line-height: 1;
-            letter-spacing: -0.02em;
-            color: var(--text);
-        }
-
-        .page-title h1 span {
-            display: block;
-        }
-
-        .page-description {
-            flex: 1;
-            min-width: 0;
-            padding-top: 0.5rem;
-        }
-
-        .page-description p {
-            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
-            font-weight: 400;
-            line-height: 1.8;
-            color: var(--text);
-            margin-bottom: 1.4rem;
-        }
-
-        .page-description p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Gallery */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 3rem 2rem;
-        }
-
-        .gallery-item {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-
-        .gallery-item-image {
-            width: 100%;
-            position: relative;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: opacity 0.3s ease;
-            max-height: 260px;
-            object-fit: contain;
-        }
-
-        .gallery-item:hover img {
-            opacity: 0.82;
-        }
-
-        .gallery-item-badge {
-            position: absolute;
-            bottom: 0.75rem;
-            left: 0.75rem;
-            background: rgba(130, 140, 110, 0.85);
-            color: #fff;
-            font-family: var(--font);
-            font-size: 0.8rem;
-            font-weight: 400;
-            letter-spacing: 0.04em;
-            padding: 0.3rem 0.75rem;
-            border-radius: 2rem;
-        }
-
-        .gallery-item-info {
-            width: 100%;
-            padding: 0.9rem 0.25rem 0;
-            text-align: center;
-        }
-
-        .gallery-item-name {
-            font-family: var(--font-heading);
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: var(--text);
-            letter-spacing: 0.01em;
-        }
-
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(61, 46, 28, 0.92);
-            z-index: 200;
-            overflow-y: auto;
-        }
-
-        .lightbox.active {
-            display: block;
-        }
-
-        .lightbox-close {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            color: rgba(249, 246, 242, 0.8);
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 201;
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font);
-            font-weight: 300;
-            transition: color 0.2s;
-        }
-
-        .lightbox-close:hover {
-            color: #f9f6f2;
-        }
-
-        .lightbox-body {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 5rem 3rem 5rem;
-            color: #f9f6f2;
-        }
-
-        .lightbox-name {
-            font-family: var(--font-heading);
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.01em;
-        }
-
-        .lightbox-description {
-            font-size: 1.15rem;
-            font-weight: 300;
-            line-height: 1.8;
-            margin-bottom: 2.5rem;
-            color: rgba(249, 246, 242, 0.85);
-        }
-
-        .lightbox-meta-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(249, 246, 242, 0.5);
-            margin-bottom: 0.6rem;
-        }
-
-        .lightbox-meta-value {
-            font-size: 1.05rem;
-            font-weight: 300;
-            color: rgba(249, 246, 242, 0.85);
-            margin-bottom: 2.5rem;
-        }
-
-        .lightbox-progress-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(249, 246, 242, 0.5);
-            margin-bottom: 1rem;
-        }
-
-        .progress-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .progress-gallery img {
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .gallery-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .page-header {
-                flex-direction: column;
-                gap: 2rem;
-                padding: 3.5rem 0 3rem;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2rem 1rem;
-            }
-
-            .nav-links {
-                gap: 2rem;
-            }
-
-            .lightbox-body {
-                padding: 4rem 1.5rem 4rem;
-            }
-
-            .progress-gallery img {
-                width: 120px;
-                height: 120px;
-            }
-        }
-    </style>
+    /* ── Modal footer ────────────────────────────────── */
+    .modal-footer {
+      display: flex; justify-content: flex-end; gap: 10px;
+      padding: 14px 24px 18px; border-top: 1px solid var(--clay-lt);
+    }
+    .btn-cancel {
+      padding: 8px 18px; background: transparent; border: 1.5px solid var(--clay-lt);
+      border-radius: 8px; cursor: pointer; font-size: .9rem; color: var(--bark-lt);
+    }
+    .btn-cancel:hover { border-color: var(--bark-lt); }
+    .btn-save {
+      padding: 8px 22px; background: var(--clay); color: #fff; border: none;
+      border-radius: 8px; cursor: pointer; font-size: .9rem; font-weight: 600;
+    }
+    .btn-save:hover { background: var(--clay-dk); }
+  </style>
 </head>
 <body>
-    <script src="cursor-dots.js"></script>
 
-    <nav>
-        <div class="nav-links">
-            <a href="index.html">hi!</a>
-            <a href="pottery.html">the first 100</a>
-            <a href="videography.html">other projects</a>
-        </div>
-    </nav>
+<header>
+  <h1>🏺 Amanda's Pottery <span>Tracker</span></h1>
+</header>
+<div class="stats" id="statsBar"></div>
 
-    <main>
-        <div class="page-header">
-            <div class="page-title">
-                <h1>
-                    <span>the</span>
-                    <span>first</span>
-                    <span>100</span>
-                </h1>
-            </div>
-            <div class="page-description">
-                <p>I'm working toward creating 100 ceramic pieces before leaving Taiwan. Each piece marks a moment of learning, experimentation, and growth in my pottery practice, and many of them will be gifted to people who have shaped my time here.</p>
-                <p>Through this project, I've been experimenting with structure and the space between art and everyday use. I love how my creations can be both useful and expressive.</p>
-                <p>In June 2026, I'll be hosting an exhibit to share this collection: a record of my time in Taiwan, told through 100 pieces shaped by hand.</p>
-            </div>
-        </div>
+<div class="toolbar">
+  <input type="text" id="searchInput" placeholder="Search pieces…" oninput="render()" />
+  <div class="filter-group" id="filterGroup"></div>
+  <button class="btn-secondary" onclick="exportData()" title="Export all pieces to a file">Export</button>
+  <label class="btn-secondary" title="Import pieces from a file" style="cursor:pointer">
+    Import <input type="file" accept=".json" onchange="importData(event)" style="display:none" />
+  </label>
+  <button class="btn-primary" onclick="openModal()">+ New Piece</button>
+</div>
 
-        <div class="gallery-grid" id="pottery-gallery"></div>
-    </main>
+<div class="grid" id="grid"></div>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox" onclick="if(event.target.id==='lightbox') closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">&#215;</span>
-        <div class="lightbox-body" onclick="event.stopPropagation()">
-            <div class="lightbox-name" id="lightbox-name"></div>
-            <div class="lightbox-description" id="lightbox-description"></div>
-            <div class="lightbox-meta-label">Home</div>
-            <div class="lightbox-meta-value" id="lightbox-home"></div>
-            <div id="lightbox-progress-section">
-                <div class="lightbox-progress-label">Progress</div>
-                <div class="progress-gallery" id="lightbox-progress-gallery"></div>
-            </div>
-        </div>
+<!-- ── Edit / New Piece Modal ───────────────────────── -->
+<div class="overlay" id="overlay" onclick="overlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">New Piece</h2>
+      <button class="btn-close" onclick="closeModal()">✕</button>
     </div>
+    <div class="modal-body">
+      <div class="form-section">Piece Info</div>
+      <div class="form-row">
+        <label>Piece Name *</label>
+        <input type="text" id="f-name" placeholder="e.g. Morning Mug, Blue Bowl…" />
+      </div>
+      <div class="form-grid-3">
+        <div class="form-row">
+          <label>Type</label>
+          <select id="f-type">
+            <option value="">— select —</option>
+            <option>Plate</option><option>Bowl</option><option>Mug</option>
+            <option>Vase</option><option>Plant Pot</option>
+            <option>Incense Holder</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Stage</label>
+          <select id="f-stage">
+            <option value="Throwing">Throwing</option>
+            <option value="Trimming">Trimming</option>
+            <option value="LeatherHard">Leather Hard</option>
+            <option value="BoneDry">Bone Dry</option>
+            <option value="Bisque">Bisque</option>
+            <option value="Glazed">Glazed</option>
+            <option value="Complete">Complete</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Date Started</label>
+          <input type="date" id="f-date-start" />
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-row">
+          <label>Where is it now?</label>
+          <select id="f-location" onchange="toggleCustomLocation()">
+            <option value="">— select —</option>
+            <option>At the studio</option>
+            <option>At home</option>
+            <option>At the kiln</option>
+            <option>Gifted</option>
+            <option>Sold</option>
+            <option value="__custom__">Other…</option>
+          </select>
+        </div>
+        <div class="form-row" id="customLocationRow" style="display:none">
+          <label>Custom location</label>
+          <input type="text" id="f-location-custom" placeholder="e.g. Mum's house…" />
+        </div>
+      </div>
 
-    <script>
-        const potteryPieces = [
-            {
-                id: 26,
-                name: 'Another Morning',
-                mainImage: 'photos/Pottery pics/26) Tea cup/p26.jpg',
-                description: 'A second teacup exploring repetition, subtle variation, and daily ritual.',
-                home: 'In my collection',
-                progressPhotos: [
-                    'photos/Pottery pics/26) Tea cup/p26_p1.jpg',
-                    'photos/Pottery pics/26) Tea cup/p26_p2.jpg',
-                ]
-            },
-            {
-                id: 25,
-                name: 'Quiet Companion',
-                mainImage: 'photos/Pottery pics/25) Smiski/p25.jpg',
-                description: 'A ceramic piece featuring a Smiski character, exploring playful form and small-scale detail.',
-                home: 'In my collection',
-                progressPhotos: [
-                    'photos/Pottery pics/25) Smiski/p25_p1.jpg',
-                    'photos/Pottery pics/25) Smiski/p25_p2.jpg',
-                ]
-            },
-            {
-                id: 24,
-                name: 'Small Enough',
-                mainImage: 'photos/Pottery pics/24) Mini Vase/p24.jpg',
-                description: 'A small vase exploring narrow openings and vertical form.',
-                home: 'In my collection',
-                progressPhotos: [
-                    'photos/Pottery pics/24) Mini Vase/p24_p1.jpg',
-                    'photos/Pottery pics/24) Mini Vase/p24_p2.jpg',
-                ]
-            },
-            {
-                id: 23,
-                name: 'Maple, Remembered',
-                mainImage: 'photos/Pottery pics/23) Maple leaf plate/p23.jpg',
-                description: 'A plate shaped from a maple leaf, reflecting themes of place and transition.',
-                home: 'In my collection',
-                progressPhotos: [
-                    'photos/Pottery pics/23) Maple leaf plate/p23_p1.jpg',
-                    'photos/Pottery pics/23) Maple leaf plate/p23_p2.jpg',
-                ]
-            },
-            {
-                id: 22,
-                name: 'Against the Current',
-                mainImage: 'photos/Pottery pics/22) Koi Fish Bowl/p22.jpg',
-                description: 'Hand-thrown bowl featuring a koi motif, inspired by movement and symbolism.',
-                home: 'Gifted',
-                progressPhotos: [
-                    'photos/Pottery pics/22) Koi Fish Bowl/p22_p1.jpg',
-                    'photos/Pottery pics/22) Koi Fish Bowl/p22_p2.jpg',
-                    'photos/Pottery pics/22) Koi Fish Bowl/p22_p3.jpg',
-                ]
-            },
-            {
-                id: 21,
-                name: 'Still Growing',
-                mainImage: 'photos/Pottery pics/21) Tree of Life/p21.jpg',
-                description: 'A sculptural piece exploring growth, branching forms, and symbolism.',
-                home: 'In my collection',
-                progressPhotos: [
-                    'photos/Pottery pics/21) Tree of Life/p21_p1.jpg',
-                    'photos/Pottery pics/21) Tree of Life/p21_p2.jpg',
-                ]
-            },
-            {
-                id: 20,
-                name: 'For Joanna, with Matcha',
-                mainImage: 'photos/Pottery pics/20) Joanna matcha bowl/p20.jpg',
-                description: 'A matcha bowl made for Joanna, shaped for ritual and daily use.',
-                home: 'Gifted to Joanna',
-                progressPhotos: [
-                    'photos/Pottery pics/20) Joanna matcha bowl/p20_p1.jpg',
-                    'photos/Pottery pics/20) Joanna matcha bowl/p20_p2.jpg',
-                ]
-            },
-            {
-                id: 19,
-                name: 'Low Tide',
-                mainImage: 'photos/Pottery pics/19) Beach Bowl/p19.jpg',
-                description: 'A bowl inspired by shoreline textures and soft, natural curves.',
-                home: 'Gifted',
-                progressPhotos: [
-                    'photos/Pottery pics/19) Beach Bowl/p19_p1.jpg',
-                ]
-            },
-            {
-                id: 18,
-                name: 'Orbit',
-                mainImage: 'photos/Pottery pics/18) Galaxy Bowl/p18.jpg',
-                description: 'A bowl finished with layered glazes inspired by depth and movement.',
-                home: 'Gifted',
-                progressPhotos: [
-                    'photos/Pottery pics/18) Galaxy Bowl/p18_p1.jpg',
-                ]
-            },
-            {
-                id: 17,
-                name: 'Something for Lulu',
-                mainImage: 'photos/Pottery pics/17) Lulu pot/p17.jpg',
-                description: 'A small pot made for Lulu, prioritizing warmth and personal connection.',
-                home: 'Gifted to Lulu',
-                progressPhotos: [
-                    'photos/Pottery pics/17) Lulu pot/p17_p1.jpg',
-                ]
-            },
-            {
-                id: 16,
-                name: 'Shared Leaves',
-                mainImage: 'photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16.png',
-                description: 'A pair of small leaf-shaped plates made collaboratively, intended for shared use.',
-                home: 'Gifted to Tate & me',
-                progressPhotos: [
-                    'photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16_p1.jpg',
-                    'photos/Pottery pics/16) Mini Leaf Plates (Tate:Me)/p16_p2.jpg',
-                ]
-            },
-            {
-                id: 15,
-                name: 'In Bloom',
-                mainImage: 'photos/Pottery pics/15) Flower Bowl/p15.jpg',
-                description: 'A bowl shaped with floral forms, experimenting with curvature and softness.',
-                home: 'Gifted',
-                progressPhotos: [
-                    'photos/Pottery pics/15) Flower Bowl/p15_p1.jpg',
-                ]
-            },
-            {
-                id: 14,
-                name: 'Last Morning',
-                mainImage: 'photos/Pottery pics/14) Leaf Mug #3/p14.jpg',
-                description: 'The final piece in the leaf mug series, emphasizing comfort and durability.',
-                home: 'Gifted',
-                progressPhotos: []
-            },
-            {
-                id: 13,
-                name: 'Second Morning',
-                mainImage: 'photos/Pottery pics/13) Leaf Mug #2/p13.jpg',
-                description: 'A second iteration of the leaf mug, refining glaze and proportions.',
-                home: 'Gifted',
-                progressPhotos: [
-                    'photos/Pottery pics/13) Leaf Mug #2/p13_p1.jpg',
-                    'photos/Pottery pics/13) Leaf Mug #2/p13_p2.jpg',
-                ]
-            },
-            {
-                id: 12,
-                name: 'Morning Handle',
-                mainImage: 'photos/Pottery pics/12) Leaf Mug #1/p12.jpeg',
-                description: 'A mug with leaf-inspired elements, focused on handle ergonomics.',
-                home: 'Gifted',
-                progressPhotos: [
-                    'photos/Pottery pics/12) Leaf Mug #1/p12_p1.jpg',
-                    'photos/Pottery pics/12) Leaf Mug #1/p12_p2.jpg',
-                ]
-            },
-            {
-                id: 11,
-                name: 'Cup with Memory',
-                mainImage: 'photos/Pottery pics/11) leaf/p11.jpg',
-                description: 'A cup incorporating leaf textures, bridging natural form and daily use.',
-                home: 'Gifted',
-                progressPhotos: []
-            },
-            {
-                id: 10,
-                name: 'Held Lightly',
-                mainImage: 'photos/Pottery pics/10) tea cup/p10.jpg',
-                description: 'A hand-thrown teacup exploring balance, weight, and lip comfort.',
-                home: 'Gifted',
-                progressPhotos: []
-            },
-            {
-                id: 9,
-                name: 'For Simon',
-                mainImage: 'photos/Pottery pics/9) Simon Pot/p9.jpg',
-                description: 'A small pot made for Simon, emphasizing simple form and intentional imperfections.',
-                home: 'Gifted to Simon',
-                progressPhotos: [
-                    'photos/Pottery pics/9) Simon Pot/p9_p1.jpg',
-                ]
-            },
-            {
-                id: 8,
-                name: 'Pressed Leaf, Continued',
-                mainImage: 'photos/Pottery pics/8) Leaf Plate #2/p8.jpg',
-                description: 'A continuation of the leaf plate series, refining edges and surface detail.',
-                home: 'Gifted',
-                progressPhotos: [
-                    'photos/Pottery pics/8) Leaf Plate #2/p8_p1.jpg',
-                ]
-            },
-            {
-                id: 7,
-                name: 'Pressed Leaf',
-                mainImage: 'photos/Pottery pics/7) Leaf Plate #1/p7.jpg',
-                description: 'Plate shaped from a leaf impression, capturing organic texture and form.',
-                home: 'Gifted',
-                progressPhotos: []
-            },
-            {
-                id: 6,
-                name: 'Acoustic',
-                mainImage: 'photos/Pottery pics/6) Guitar pipe/p6.jpeg',
-                description: 'A sculptural pipe shaped like a guitar, blending humor with functional design.',
-                home: 'Gifted',
-                progressPhotos: [
-                    'photos/Pottery pics/6) Guitar pipe/p6_p1.jpg',
-                ]
-            },
-            {
-                id: 5,
-                name: 'For Steve',
-                mainImage: 'photos/Pottery pics/5) Steve Bowl/p5.jpg',
-                description: 'A hand-thrown bowl made for Steve, emphasizing simplicity and balance.',
-                home: 'Gifted to Steve',
-                progressPhotos: []
-            },
-            {
-                id: 4,
-                name: 'At the Edge of Use',
-                mainImage: 'photos/Pottery pics/4) Carved Edges Bowl:Plate/p4.png',
-                description: 'A shallow bowl-plate hybrid with carved edges, balancing function and form.',
-                home: 'In my collection',
-                progressPhotos: [
-                    'photos/Pottery pics/4) Carved Edges Bowl:Plate/p4_p1.jpg',
-                    'photos/Pottery pics/4) Carved Edges Bowl:Plate/p4_p2.jpg',
-                ]
-            },
-            {
-                id: 3,
-                name: 'Evenings in Violet',
-                mainImage: 'photos/Pottery pics/3) Purple mug/p3.jpg',
-                description: 'Hand-built mug finished in a purple glaze, focused on comfort and everyday use.',
-                home: 'Gifted',
-                progressPhotos: []
-            },
-            {
-                id: 2,
-                name: 'Still Swimming, Again',
-                mainImage: 'photos/Pottery pics/2) Fish Bowl #2/p2.jpg',
-                description: 'A second exploration of the fish motif, refining proportion and carving depth.',
-                home: 'Gifted',
-                progressPhotos: [
-                    'photos/Pottery pics/2) Fish Bowl #2/p2_p1.jpg',
-                ]
-            },
-            {
-                id: 1,
-                name: 'Still Swimming',
-                mainImage: 'photos/Pottery pics/1) Fish Bowl #1/p1.jpg',
-                description: 'Hand-thrown bowl with a carved fish motif, experimenting with surface texture.',
-                home: 'Gifted to Sarah',
-                progressPhotos: [
-                    'photos/Pottery pics/1) Fish Bowl #1/p1_p1.jpg',
-                ]
-            }
-        ];
+      <div class="form-section">Clay &amp; Glaze</div>
+      <div class="form-grid-2">
+        <div class="form-row">
+          <label>Clay Type</label>
+          <input type="text" id="f-clay" placeholder="e.g. Stoneware, Porcelain…" />
+        </div>
+        <div class="form-row">
+          <label>Clay Weight (g)</label>
+          <input type="number" id="f-weight" placeholder="e.g. 500" min="0" />
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Glaze Details</label>
+        <input type="text" id="f-glaze" placeholder="e.g. Celadon base, iron oxide rim…" />
+      </div>
 
-        function encodeImagePath(path) {
-            return path.split('/').map(part => encodeURIComponent(part)).join('/');
-        }
+      <div class="form-section">Photos</div>
+      <div class="photo-gallery" id="photoGallery"></div>
+      <div class="photo-gallery-hint" id="galleryHint">↔ Drag to reorder · First photo is the card cover</div>
+      <div class="photo-drop" id="photoDrop"
+        ondragover="dropZoneDragOver(event)" ondragleave="dropZoneDragLeave(event)" ondrop="dropZoneDrop(event)">
+        <span class="drop-icon">📷</span>
+        <span class="drop-text">Click or drag &amp; drop photos</span>
+        <input type="file" id="f-photo-file" accept="image/*" multiple onchange="filesChosen(event)" />
+      </div>
 
-        function populateGallery() {
-            const gallery = document.getElementById('pottery-gallery');
-            potteryPieces.forEach((piece, index) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                item.onclick = () => openLightbox(index);
+      <div class="form-section">Notes</div>
+      <div class="form-row">
+        <textarea id="f-notes" placeholder="Observations, measurements, what to try next…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="savePiece()">Save Piece</button>
+    </div>
+  </div>
+</div>
 
-                // Image wrapper
-                const imageWrap = document.createElement('div');
-                imageWrap.className = 'gallery-item-image';
+<!-- ── Lightbox ──────────────────────────────────────── -->
+<div class="lightbox" id="lightbox" onclick="lbClose()">
+  <button class="lb-close" onclick="lbClose()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1,event)">‹</button>
+  <img id="lbImg" src="" alt="" onclick="event.stopPropagation()" />
+  <button class="lb-nav lb-next" onclick="lbNav(1,event)">›</button>
+  <div class="lb-caption" id="lbCaption"></div>
+</div>
 
-                const img = document.createElement('img');
-                img.src = encodeImagePath(piece.mainImage);
-                img.alt = piece.name;
-                img.loading = 'lazy';
-                img.decoding = 'async';
-                imageWrap.appendChild(img);
+<script>
+const STAGES = ['Throwing','Trimming','LeatherHard','BoneDry','Bisque','Glazed','Complete'];
+const STAGE_LABELS = {
+  Throwing:'Throwing', Trimming:'Trimming', LeatherHard:'Leather Hard',
+  BoneDry:'Bone Dry', Bisque:'Bisque', Glazed:'Glazed', Complete:'Complete'
+};
 
-                // Badge
-                if (piece.home) {
-                    const badge = document.createElement('div');
-                    badge.className = 'gallery-item-badge';
-                    badge.textContent = piece.home.toLowerCase();
-                    imageWrap.appendChild(badge);
-                }
+let pieces       = JSON.parse(localStorage.getItem('pottery') || '[]');
+let editId       = null;
+let activeFilter = 'All';
+let currentPhotos = []; // [{ url: base64, isNew: bool }]
+let dragSrcIdx    = null;
 
-                // Name
-                const info = document.createElement('div');
-                info.className = 'gallery-item-info';
-                const name = document.createElement('div');
-                name.className = 'gallery-item-name';
-                name.textContent = piece.name.toLowerCase();
-                info.appendChild(name);
+function save() { localStorage.setItem('pottery', JSON.stringify(pieces)); }
+function uid()  { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
 
-                item.appendChild(imageWrap);
-                item.appendChild(info);
-                gallery.appendChild(item);
-            });
-        }
+/* ── Render ─────────────────────────────────────────── */
+function render() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = pieces.filter(p => {
+    const matchStage  = activeFilter === 'All' || p.stage === activeFilter;
+    const matchSearch = !q || [p.name, p.type, p.clay, p.glaze, p.notes].join(' ').toLowerCase().includes(q);
+    return matchStage && matchSearch;
+  });
 
-        function openLightbox(index) {
-            const piece = potteryPieces[index];
-            document.getElementById('lightbox-name').textContent = piece.name;
-            document.getElementById('lightbox-description').textContent = piece.description;
-            document.getElementById('lightbox-home').textContent = piece.home;
+  const grid = document.getElementById('grid');
+  grid.innerHTML = filtered.length === 0
+    ? `<div class="empty"><div class="icon">🏺</div><p>${pieces.length === 0 ? 'No pieces yet — add your first!' : 'No pieces match your filter.'}</p></div>`
+    : filtered.map(cardHTML).join('');
 
-            const progressGallery = document.getElementById('lightbox-progress-gallery');
-            const progressSection = document.getElementById('lightbox-progress-section');
-            progressGallery.innerHTML = '';
+  renderFilters();
+  renderStats();
+}
 
-            if (piece.progressPhotos.length > 0) {
-                progressSection.style.display = 'block';
-                piece.progressPhotos.forEach(photo => {
-                    const img = document.createElement('img');
-                    img.src = encodeImagePath(photo);
-                    img.alt = 'Progress photo';
-                    img.loading = 'lazy';
-                    img.decoding = 'async';
-                    progressGallery.appendChild(img);
-                });
-            } else {
-                progressSection.style.display = 'none';
-            }
+function cardHTML(p) {
+  const photos = p.photos || [];
+  let photoHTML = photos.length === 0
+    ? `<div class="main-photo"><div class="no-photo">🏺</div></div>`
+    : `<div class="main-photo"><img src="${photos[0]}" alt="" /></div>`;
 
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.add('active');
-            lightbox.scrollTop = 0;
-            document.body.style.overflow = 'hidden';
-        }
+  if (photos.length > 1) {
+    const thumbs = photos.slice(1, 4).map((src, i) =>
+      i === 2 && photos.length > 4
+        ? `<div class="thumb thumb-more">+${photos.length - 4}</div>`
+        : `<div class="thumb"><img src="${src}" alt="" /></div>`
+    ).join('');
+    photoHTML += `<div class="thumb-row">${thumbs}</div>`;
+  }
 
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = '';
-        }
+  return `
+  <div class="card">
+    <div class="card-photos" onclick="openModal('${p.id}')">
+      ${photoHTML}
+      <span class="stage-badge stage-${p.stage}">${STAGE_LABELS[p.stage] || p.stage}</span>
+      ${p.type ? `<span class="type-badge">${esc(p.type)}</span>` : ''}
+    </div>
+    <div class="card-body">
+      <div class="card-title">${esc(p.name)}</div>
+      <div class="card-meta">
+        ${p.location  ? `<div class="row"><span class="lbl">Location:</span>${esc(p.location)}</div>` : ''}
+        ${p.clay      ? `<div class="row"><span class="lbl">Clay:</span>${esc(p.clay)}${p.weight ? ` · ${p.weight}g` : ''}</div>` : ''}
+        ${p.glaze     ? `<div class="row"><span class="lbl">Glaze:</span>${esc(p.glaze)}</div>` : ''}
+        ${p.dateStart ? `<div class="row"><span class="lbl">Started:</span>${fmt(p.dateStart)}</div>` : ''}
+      </div>
+      ${p.notes ? `<div class="card-notes">${esc(p.notes)}</div>` : ''}
+    </div>
+    <div class="card-actions">
+      <button class="btn-edit"   onclick="openModal('${p.id}')">Edit</button>
+      <button class="btn-delete" onclick="deletePiece('${p.id}')">Delete</button>
+    </div>
+  </div>`;
+}
 
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeLightbox();
-        });
+function renderFilters() {
+  const counts = {};
+  pieces.forEach(p => { counts[p.stage] = (counts[p.stage] || 0) + 1; });
+  document.getElementById('filterGroup').innerHTML =
+    ['All', ...STAGES.filter(s => counts[s])].map(s => {
+      const lbl = s === 'All' ? `All (${pieces.length})` : `${STAGE_LABELS[s]} (${counts[s]})`;
+      return `<button class="filter-btn${activeFilter===s?' active':''}" onclick="setFilter('${s}')">${lbl}</button>`;
+    }).join('');
+}
 
-        document.addEventListener('DOMContentLoaded', populateGallery);
-    </script>
+function renderStats() {
+  const complete   = pieces.filter(p => p.stage === 'Complete').length;
+  const inProgress = pieces.length - complete;
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat"><strong>${pieces.length}</strong> total pieces</div>
+    <div class="stat"><strong>${inProgress}</strong> in progress</div>
+    <div class="stat"><strong>${complete}</strong> complete</div>`;
+}
+
+function setFilter(s) { activeFilter = s; render(); }
+
+/* ── Modal ──────────────────────────────────────────── */
+function openModal(id) {
+  editId = id || null;
+  const p = id ? pieces.find(x => x.id === id) : null;
+  document.getElementById('modalTitle').textContent = p ? 'Edit Piece' : 'New Piece';
+  document.getElementById('f-name').value       = p?.name      || '';
+  document.getElementById('f-type').value       = p?.type      || '';
+  document.getElementById('f-stage').value      = p?.stage     || 'Throwing';
+  document.getElementById('f-date-start').value = p?.dateStart || '';
+  document.getElementById('f-clay').value       = p?.clay      || '';
+  document.getElementById('f-weight').value     = p?.weight    || '';
+  document.getElementById('f-glaze').value      = p?.glaze     || '';
+  // Populate location
+  const loc = p?.location || '';
+  const locSel = document.getElementById('f-location');
+  const isPreset = [...locSel.options].some(o => o.value === loc && o.value !== '__custom__');
+  if (!loc) {
+    locSel.value = '';
+  } else if (isPreset) {
+    locSel.value = loc;
+  } else {
+    locSel.value = '__custom__';
+    document.getElementById('f-location-custom').value = loc;
+  }
+  toggleCustomLocation();
+  document.getElementById('f-notes').value      = p?.notes     || '';
+  currentPhotos = (p?.photos || []).map(url => ({ url, isNew: false }));
+  renderGallery();
+  document.getElementById('overlay').classList.add('open');
+  setTimeout(() => document.getElementById('f-name').focus(), 50);
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  editId = null; currentPhotos = [];
+  document.getElementById('f-photo-file').value = '';
+}
+
+function overlayClick(e) { if (e.target === e.currentTarget) closeModal(); }
+
+function savePiece() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { document.getElementById('f-name').focus(); return; }
+
+  const data = {
+    id:        editId || uid(),
+    name,
+    type:      document.getElementById('f-type').value,
+    stage:     document.getElementById('f-stage').value,
+    dateStart: document.getElementById('f-date-start').value,
+    clay:      document.getElementById('f-clay').value.trim(),
+    weight:    document.getElementById('f-weight').value,
+    glaze:     document.getElementById('f-glaze').value.trim(),
+    location:  document.getElementById('f-location').value === '__custom__'
+                 ? document.getElementById('f-location-custom').value.trim()
+                 : document.getElementById('f-location').value,
+    photos:    currentPhotos.map(p => p.url),
+    notes:     document.getElementById('f-notes').value.trim(),
+    updatedAt: Date.now(),
+  };
+
+  if (editId) {
+    const i = pieces.findIndex(x => x.id === editId);
+    pieces[i] = { ...pieces[i], ...data };
+  } else {
+    data.createdAt = Date.now();
+    pieces.unshift(data);
+  }
+
+  save(); closeModal(); render();
+}
+
+function deletePiece(id) {
+  const p = pieces.find(x => x.id === id);
+  if (!confirm(`Delete "${p?.name}"?`)) return;
+  pieces = pieces.filter(x => x.id !== id);
+  save(); render();
+}
+
+/* ── Photo gallery ──────────────────────────────────── */
+function renderGallery() {
+  const el   = document.getElementById('photoGallery');
+  const hint = document.getElementById('galleryHint');
+  el.innerHTML = currentPhotos.map((photo, i) =>
+    `<div class="photo-thumb" draggable="true"
+        ondragstart="thumbDragStart(event,${i})" ondragover="thumbDragOver(event,${i})"
+        ondragleave="thumbDragLeave(event)"     ondrop="thumbDrop(event,${i})"
+        ondragend="thumbDragEnd(event)">
+      <img src="${photo.url}" alt="" onclick="openLightbox(${i})" />
+      ${i === 0 && currentPhotos.length > 1 ? '<span class="cover-label">COVER</span>' : ''}
+      <button class="rm-photo" onclick="removePhoto(event,${i})">✕</button>
+    </div>`
+  ).join('');
+  hint.className = 'photo-gallery-hint' + (currentPhotos.length > 1 ? ' visible' : '');
+}
+
+function removePhoto(e, i) {
+  e.stopPropagation();
+  currentPhotos.splice(i, 1);
+  renderGallery();
+}
+
+function thumbDragStart(e, i) {
+  dragSrcIdx = i; e.dataTransfer.effectAllowed = 'move';
+  setTimeout(() => e.target.classList.add('dragging'), 0);
+}
+function thumbDragOver(e, i) {
+  e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+  if (i !== dragSrcIdx) e.currentTarget.classList.add('drag-over-thumb');
+}
+function thumbDragLeave(e) { e.currentTarget.classList.remove('drag-over-thumb'); }
+function thumbDrop(e, i) {
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over-thumb');
+  if (dragSrcIdx === null || dragSrcIdx === i) return;
+  const [moved] = currentPhotos.splice(dragSrcIdx, 1);
+  currentPhotos.splice(i, 0, moved);
+  renderGallery();
+}
+function thumbDragEnd(e) {
+  e.target.classList.remove('dragging');
+  document.querySelectorAll('.photo-thumb').forEach(t => t.classList.remove('drag-over-thumb'));
+  dragSrcIdx = null;
+}
+
+/* ── Photo upload ───────────────────────────────────── */
+function filesChosen(e) {
+  Array.from(e.target.files).filter(f => f.type.startsWith('image/')).forEach(compressAndAdd);
+}
+function dropZoneDragOver(e)  { e.preventDefault(); document.getElementById('photoDrop').classList.add('drag-over'); }
+function dropZoneDragLeave(e) { document.getElementById('photoDrop').classList.remove('drag-over'); }
+function dropZoneDrop(e) {
+  e.preventDefault(); document.getElementById('photoDrop').classList.remove('drag-over');
+  Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).forEach(compressAndAdd);
+}
+
+function compressAndAdd(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      const MAX = 1200;
+      let w = img.width, h = img.height;
+      if (w > MAX || h > MAX) {
+        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+        else       { w = Math.round(w * MAX / h); h = MAX; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      currentPhotos.push({ url: canvas.toDataURL('image/jpeg', 0.82), isNew: true });
+      renderGallery();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ── Lightbox ───────────────────────────────────────── */
+let lbIdx = 0;
+function openLightbox(idx) {
+  lbIdx = idx; showLb();
+  document.getElementById('lightbox').classList.add('open');
+}
+function showLb() {
+  const p = editId ? pieces.find(x => x.id === editId) : null;
+  document.getElementById('lbImg').src = currentPhotos[lbIdx].url;
+  document.getElementById('lbCaption').textContent =
+    `${p?.name ? p.name + ' · ' : ''}Photo ${lbIdx + 1} of ${currentPhotos.length}`;
+}
+function lbNav(dir, e) {
+  e.stopPropagation();
+  lbIdx = (lbIdx + dir + currentPhotos.length) % currentPhotos.length;
+  showLb();
+}
+function lbClose() { document.getElementById('lightbox').classList.remove('open'); }
+
+/* ── Helpers ────────────────────────────────────────── */
+/* ── Export / Import ────────────────────────────────── */
+function exportData() {
+  const data = localStorage.getItem('pottery') || '[]';
+  const blob = new Blob([data], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pottery-tracker-backup.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const imported = JSON.parse(ev.target.result);
+      if (!Array.isArray(imported)) throw new Error('Invalid format');
+      if (pieces.length > 0) {
+        if (!confirm(`You already have ${pieces.length} piece(s). Merge with imported data?`)) return;
+        // Merge — avoid duplicates by id
+        const existingIds = new Set(pieces.map(p => p.id));
+        const newOnes = imported.filter(p => !existingIds.has(p.id));
+        pieces = [...pieces, ...newOnes];
+        alert(`Merged! Added ${newOnes.length} new piece(s).`);
+      } else {
+        pieces = imported;
+        alert(`Imported ${pieces.length} piece(s)!`);
+      }
+      save();
+      render();
+    } catch(err) {
+      alert('Could not read file. Make sure it\'s a valid pottery tracker export.');
+    }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function toggleCustomLocation() {
+  const val = document.getElementById('f-location').value;
+  const row = document.getElementById('customLocationRow');
+  row.style.display = val === '__custom__' ? '' : 'none';
+  if (val !== '__custom__') document.getElementById('f-location-custom').value = '';
+}
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmt(d) {
+  if (!d) return '';
+  const [y,m,day] = d.split('-');
+  return `${parseInt(m)}/${parseInt(day)}/${y}`;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { lbClose(); closeModal(); }
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'ArrowLeft')  lbNav(-1, e);
+    if (e.key === 'ArrowRight') lbNav(1,  e);
+  }
+});
+
+render();
+</script>
 </body>
 </html>

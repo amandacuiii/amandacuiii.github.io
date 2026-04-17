@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taiwan Through Our Eyes — Amanda Cui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f9f6f2;
+            --text: #3d2e1c;
+            --accent: #664930;
+            --muted: #9b8472;
+            --border: rgba(102, 73, 48, 0.12);
+            --font: 'Karla', sans-serif;
+            --font-heading: 'Rubik', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            height: 56px; display: flex; align-items: center; padding: 0 2.5rem;
+            background: rgba(249,246,242,0.85); backdrop-filter: blur(12px);
+        }
+        .nav-name { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em; transition: color 0.2s; }
+        .nav-name:hover { color: var(--accent); }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 75vh;
+            overflow: hidden;
+            margin-top: 56px;
+        }
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 3rem 6vw;
+        }
+        .hero-overlay h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+        }
+        .hero-overlay p {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            max-width: 50ch;
+            line-height: 1.7;
+        }
+
+        /* Content */
+        .content {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 5rem 6vw 8rem;
+        }
+
+        .content p {
+            font-size: 1.1rem;
+            font-weight: 400;
+            line-height: 1.85;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+
+        .coming-soon {
+            display: inline-block;
+            margin-top: 1rem;
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="nav-name">Amanda Cui</a></nav>
+
+    <div class="hero">
+        <img src="photos/Sony shots/DSC01598.JPG" alt="Taiwan Through Our Eyes">
+        <div class="hero-overlay">
+            <h1>Taiwan Through<br>Our Eyes</h1>
+            <p>A visual exploration of life, place, and people across Taiwan.</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <p>Taiwan Through Our Eyes is an ongoing documentary project exploring the landscapes, communities, and quiet moments that define life in Taiwan.</p>
+        <p>Through photography and video, I'm documenting my experience as a Fulbright Fellow — the people I've met, the places I've visited, and the everyday details that make Taiwan feel like home.</p>
+        <span class="coming-soon">More coming soon</span>
+    </div>
+
+
+</body>
+</html>
