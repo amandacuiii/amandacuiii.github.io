@@ -114,9 +114,15 @@
             -webkit-backdrop-filter: blur(8px);
         }
 
-        .badge-complete { background: rgba(200,232,200,0.9); color: #2a6030; }
-        .badge-available { background: rgba(168,208,208,0.9); color: #2a6060; }
+        .badge-complete    { background: rgba(200,232,200,0.9); color: #2a6030; }
+        .badge-available   { background: rgba(168,208,208,0.9); color: #2a6060; }
         .badge-in-progress { background: rgba(236,224,192,0.9); color: #705020; }
+        .badge-throwing    { background: rgba(212,232,240,0.9); color: #2a6080; }
+        .badge-trimming    { background: rgba(220,232,208,0.9); color: #3a6030; }
+        .badge-leatherhard { background: rgba(236,224,192,0.9); color: #705020; }
+        .badge-bonedry     { background: rgba(232,224,208,0.9); color: #605040; }
+        .badge-bisque      { background: rgba(232,196,168,0.9); color: #9e5438; }
+        .badge-glazed      { background: rgba(168,208,208,0.9); color: #2a6060; }
 
         .piece-info {
             padding: 10px 2px 4px;
@@ -326,12 +332,24 @@
     <script>
         let pieces = [];
 
-        function getBadgeClass(home) {
-            if (!home) return '';
-            const h = home.toLowerCase();
-            if (h.includes('available') || h.includes('for sale')) return 'badge-available';
-            if (h.includes('progress') || h.includes('in progress')) return 'badge-in-progress';
-            return 'badge-complete';
+        const STAGE_MAP = {
+            'throwing':    { cls: 'badge-throwing',    label: 'Throwing' },
+            'trimming':    { cls: 'badge-trimming',    label: 'Trimming' },
+            'leatherhard': { cls: 'badge-leatherhard', label: 'Leather Hard' },
+            'leather hard':{ cls: 'badge-leatherhard', label: 'Leather Hard' },
+            'bone dry':    { cls: 'badge-bonedry',     label: 'Bone Dry' },
+            'bonedry':     { cls: 'badge-bonedry',     label: 'Bone Dry' },
+            'bisque':      { cls: 'badge-bisque',      label: 'Bisque' },
+            'glazed':      { cls: 'badge-glazed',      label: 'Glazed' },
+            'complete':    { cls: 'badge-complete',    label: 'Complete' },
+        };
+
+        function getBadge(home) {
+            if (!home) return null;
+            const h = home.toLowerCase().trim();
+            if (STAGE_MAP[h]) return STAGE_MAP[h];
+            if (h.includes('available') || h.includes('for sale')) return { cls: 'badge-available', label: 'Available' };
+            return { cls: 'badge-complete', label: home };
         }
 
         function enc(p) {
@@ -350,14 +368,12 @@
                 div.className = 'piece';
                 div.onclick = () => openLightbox(i);
 
-                const badgeClass = getBadgeClass(piece.home);
-                const badgeLabel = piece.home && piece.home.toLowerCase().includes('available') ? 'Available' :
-                                   piece.home && piece.home.toLowerCase().includes('progress') ? 'In Progress' : 'Complete';
+                const badge = getBadge(piece.home);
 
                 div.innerHTML = `
                     <div class="piece-img-wrap">
                         <img src="${enc(piece.mainImage)}" alt="${piece.name}" loading="lazy">
-                        ${badgeClass ? `<span class="piece-badge ${badgeClass}">${badgeLabel}</span>` : ''}
+                        ${badge ? `<span class="piece-badge ${badge.cls}">${badge.label}</span>` : ''}
                     </div>
                     <div class="piece-info">
                         <div class="piece-name">${piece.name}</div>
