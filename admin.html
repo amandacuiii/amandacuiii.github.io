@@ -452,7 +452,7 @@ let activeFilter  = 'All';
 let currentPhotos = [];
 let dragSrcIdx    = null;
 
-const PHOTO_BASE = 'Pottery%20Tracker/photos/';
+const PHOTO_BASE = 'Pottery Tracker/photos/';
 
 function save() { localStorage.setItem('pottery', JSON.stringify(pieces)); }
 function uid()  { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
@@ -794,6 +794,10 @@ function fmt(d) {
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { lbClose(); closeModal(); }
+  if (e.key === 'Enter' && e.metaKey && document.getElementById('overlay').classList.contains('open')) {
+    e.preventDefault();
+    savePiece();
+  }
   if (document.getElementById('lightbox').classList.contains('open')) {
     if (e.key === 'ArrowLeft')  lbNav(-1, e);
     if (e.key === 'ArrowRight') lbNav(1,  e);
