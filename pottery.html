@@ -358,6 +358,9 @@
         }
 
         function enc(p) {
+            if (!p) return '';
+            // Don't encode base64 data URLs or already-encoded URLs
+            if (p.startsWith('data:') || p.startsWith('http')) return p;
             return p.split('/').map(s => encodeURIComponent(s)).join('/');
         }
 
