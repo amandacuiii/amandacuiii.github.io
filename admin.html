@@ -449,13 +449,80 @@ const STAGE_LABELS = {
 let pieces        = JSON.parse(localStorage.getItem('pottery') || 'null');
 let editId        = null;
 let activeFilter  = 'All';
-let currentPhotos = [];
+let currentPhotos = []; // {url: base64OrPath, key: storageKey, isNew: bool}
 let dragSrcIdx    = null;
 
 const PHOTO_BASE = 'Pottery Tracker/photos/';
 
-function save() { localStorage.setItem('pottery', JSON.stringify(pieces)); }
+/* ── IndexedDB for photo storage ─────────────────────── */
+let photoDB = null;
+
+function openPhotoDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open('pottery-photos', 1);
+    req.onupgradeneeded = e => {
+      e.target.result.createObjectStore('photos');
+    };
+    req.onsuccess = e => { photoDB = e.target.result; resolve(); };
+    req.onerror   = e => reject(e.target.error);
+  });
+}
+
+function idbSave(key, base64) {
+  return new Promise((resolve, reject) => {
+    const tx = photoDB.transaction('photos', 'readwrite');
+    tx.objectStore('photos').put(base64, key);
+    tx.oncomplete = resolve;
+    tx.onerror = e => reject(e.target.error);
+  });
+}
+
+function idbLoad(key) {
+  return new Promise((resolve, reject) => {
+    const tx = photoDB.transaction('photos', 'readonly');
+    const req = tx.objectStore('photos').get(key);
+    req.onsuccess = e => resolve(e.target.result);
+    req.onerror   = e => reject(e.target.error);
+  });
+}
+
+function idbDelete(key) {
+  if (!photoDB) return;
+  const tx = photoDB.transaction('photos', 'readwrite');
+  tx.objectStore('photos').delete(key);
+}
+
+function save() {
+  // Strip base64 URLs from photos before saving to localStorage (keep only keys/paths)
+  const slim = pieces.map(p => ({
+    ...p,
+    photos: (p.photos || []).map(ph => ph.startsWith('data:') ? null : ph).filter(Boolean)
+  }));
+  localStorage.setItem('pottery', JSON.stringify(slim));
+}
+
 function uid()  { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+
+/* Migrate any old base64 photos from localStorage → IndexedDB */
+async function migrateBase64Photos() {
+  let changed = false;
+  for (const p of pieces) {
+    if (!p.photos) continue;
+    const newPhotos = [];
+    for (const photo of p.photos) {
+      if (photo.startsWith('data:')) {
+        const key = 'idb:' + uid();
+        await idbSave(key, photo);
+        newPhotos.push(key);
+        changed = true;
+      } else {
+        newPhotos.push(photo);
+      }
+    }
+    p.photos = newPhotos;
+  }
+  if (changed) save();
+}
 
 /* ── Render ──────────────────────────────────────────── */
 function render() {
@@ -471,27 +538,65 @@ function render() {
     ? `<div class="empty"><div class="icon">🏺</div><p>${pieces.length === 0 ? 'No pieces yet — add your first!' : 'No pieces match your filter.'}</p></div>`
     : sorted.map(cardHTML).join('');
 
+  // Async load idb photos into cards
+  sorted.forEach(p => {
+    if ((p.photos || []).some(ph => ph && ph.startsWith('idb:'))) {
+      loadCardPhotos(p.id, p.photos);
+    }
+  });
+
   renderFilters();
   renderStats();
 }
 
+function resolvePhotoSrc(key) {
+  // For idb: keys, return a placeholder; async load will swap it in
+  if (!key) return '';
+  if (key.startsWith('idb:')) return '';
+  return key;
+}
+
+async function loadCardPhotos(pieceId, photos) {
+  for (let i = 0; i < Math.min(photos.length, 4); i++) {
+    const key = photos[i];
+    if (!key.startsWith('idb:')) continue;
+    const url = await idbLoad(key);
+    if (!url) continue;
+    const card = document.querySelector(`.card[data-id="${pieceId}"]`);
+    if (!card) continue;
+    if (i === 0) {
+      const img = card.querySelector('.main-photo img');
+      if (img) img.src = url;
+      else {
+        const div = card.querySelector('.main-photo');
+        if (div) div.innerHTML = `<img src="${url}" alt="" />`;
+      }
+    } else {
+      const thumbs = card.querySelectorAll('.thumb img');
+      if (thumbs[i - 1]) thumbs[i - 1].src = url;
+    }
+  }
+}
+
 function cardHTML(p) {
   const photos = p.photos || [];
+  const firstSrc = resolvePhotoSrc(photos[0]);
   let photoHTML = photos.length === 0
     ? `<div class="main-photo"><div class="no-photo">🏺</div></div>`
-    : `<div class="main-photo"><img src="${photos[0]}" alt="" /></div>`;
+    : `<div class="main-photo">${firstSrc ? `<img src="${firstSrc}" alt="" />` : '<div class="no-photo">🏺</div>'}</div>`;
 
   if (photos.length > 1) {
-    const thumbs = photos.slice(1, 4).map((src, i) =>
-      i === 2 && photos.length > 4
+    const thumbs = photos.slice(1, 4).map((src, i) => {
+      const s = resolvePhotoSrc(src);
+      return i === 2 && photos.length > 4
         ? `<div class="thumb thumb-more">+${photos.length - 4}</div>`
-        : `<div class="thumb"><img src="${src}" alt="" /></div>`
-    ).join('');
+        : `<div class="thumb"><img src="${s}" alt="" /></div>`;
+    }).join('');
     photoHTML += `<div class="thumb-row">${thumbs}</div>`;
   }
 
   return `
-  <div class="card">
+  <div class="card" data-id="${p.id}">
     <div class="card-photos" onclick="openModal('${p.id}')">
       ${photoHTML}
       <span class="stage-badge stage-${p.stage}">${STAGE_LABELS[p.stage] || p.stage}</span>
@@ -575,8 +680,16 @@ function openModal(id) {
   }
   toggleGiftedTo();
   document.getElementById('f-notes').value = p?.notes || '';
-  currentPhotos = (p?.photos || []).map(url => ({ url, isNew: false }));
+  currentPhotos = [];
   renderGallery();
+  // Load photos (resolve idb: keys to base64)
+  Promise.all((p?.photos || []).map(async key => {
+    if (key.startsWith('idb:')) {
+      const url = await idbLoad(key);
+      return { url: url || '', key, isNew: false };
+    }
+    return { url: key, key, isNew: false };
+  })).then(photos => { currentPhotos = photos; renderGallery(); });
   document.getElementById('overlay').classList.add('open');
   setTimeout(() => document.getElementById('f-name').focus(), 50);
 }
@@ -605,7 +718,7 @@ function savePiece() {
     location:  document.getElementById('f-location').value === 'Gifted' && document.getElementById('f-gifted-to').value.trim()
                  ? `Gifted to ${document.getElementById('f-gifted-to').value.trim()}`
                  : document.getElementById('f-location').value,
-    photos:    currentPhotos.map(p => p.url),
+    photos:    currentPhotos.map(p => p.key || p.url),
     notes:     document.getElementById('f-notes').value.trim(),
     updatedAt: Date.now(),
   };
@@ -684,7 +797,7 @@ function compressAndAdd(file) {
   const reader = new FileReader();
   reader.onload = ev => {
     const img = new Image();
-    img.onload = () => {
+    img.onload = async () => {
       const MAX = 1200;
       let w = img.width, h = img.height;
       if (w > MAX || h > MAX) {
@@ -694,7 +807,10 @@ function compressAndAdd(file) {
       const canvas = document.createElement('canvas');
       canvas.width = w; canvas.height = h;
       canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      currentPhotos.push({ url: canvas.toDataURL('image/jpeg', 0.82), isNew: true });
+      const base64 = canvas.toDataURL('image/jpeg', 0.82);
+      const key = 'idb:' + uid();
+      await idbSave(key, base64);
+      currentPhotos.push({ url: base64, key, isNew: true });
       renderGallery();
     };
     img.src = ev.target.result;
@@ -731,15 +847,20 @@ function exportData() {
   URL.revokeObjectURL(a.href);
 }
 
-function exportGallery() {
-  const gallery = pieces.map(p => ({
+async function exportGallery() {
+  async function resolveKey(key) {
+    if (!key) return '';
+    if (key.startsWith('idb:')) return (await idbLoad(key)) || '';
+    return key;
+  }
+  const gallery = await Promise.all(pieces.map(async p => ({
     id: p.id,
     name: p.name,
-    mainImage: p.photos?.[0] || '',
+    mainImage: await resolveKey(p.photos?.[0] || ''),
     description: p.notes || '',
     home: p.location || p.stage || '',
-    progressPhotos: p.photos?.slice(1) || []
-  }));
+    progressPhotos: await Promise.all((p.photos?.slice(1) || []).map(resolveKey))
+  })));
   const blob = new Blob([JSON.stringify(gallery, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -804,28 +925,29 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Seed from Pottery Tracker JSON if localStorage is empty
-if (pieces === null) {
-  fetch('Pottery Tracker/pottery-data.json')
-    .then(r => r.json())
-    .then(data => {
-      // Prefix photo filenames with the photos folder path
+// Boot: open IndexedDB first, then seed/migrate, then render
+openPhotoDB().then(async () => {
+  if (pieces === null) {
+    // First load — seed from Pottery Tracker JSON
+    try {
+      const r = await fetch('Pottery Tracker/pottery-data.json');
+      const data = await r.json();
       pieces = data.map(p => ({
         ...p,
         photos: (p.photos || []).map(f =>
-          f.startsWith('http') || f.startsWith('data:') || f.startsWith('Pottery') ? f : PHOTO_BASE + p.id + '/' + f
+          f.startsWith('http') || f.startsWith('data:') || f.startsWith('Pottery') || f.startsWith('idb:') ? f : PHOTO_BASE + p.id + '/' + f
         )
       }));
       save();
-      render();
-    })
-    .catch(() => {
+    } catch(e) {
       pieces = [];
-      render();
-    });
-} else {
+    }
+  } else {
+    // Migrate any old base64 photos out of localStorage → IndexedDB
+    await migrateBase64Photos();
+  }
   render();
-}
+});
 </script>
 </body>
 </html>
