@@ -228,6 +228,23 @@
             color: rgba(249,246,242,0.4);
         }
 
+        .lightbox-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .lightbox-meta span {
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(249,246,242,0.45);
+            background: rgba(255,255,255,0.07);
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
         .lightbox-progress {
             margin-top: 2rem;
         }
@@ -422,7 +439,11 @@
                     <div class="lightbox-number">No. ${String(piece._num).padStart(2, '0')}</div>
                     <div class="lightbox-name">${piece.name}</div>
                     ${piece.description ? `<div class="lightbox-desc">${piece.description}</div>` : ''}
-                    ${piece.home ? `<div class="lightbox-home">${piece.home}</div>` : ''}
+                    <div class="lightbox-meta">
+                        ${piece.stage ? `<span>${piece.stage}</span>` : ''}
+                        ${piece.clay  ? `<span>${piece.clay}</span>`  : ''}
+                        ${piece.home  ? `<span>${piece.home}</span>`  : ''}
+                    </div>
                     ${progressHtml}
                 </div>
             `;

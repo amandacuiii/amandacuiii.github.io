@@ -865,7 +865,9 @@ async function exportGallery() {
     home: p.location || p.stage || '',
     progressPhotos: await Promise.all((p.photos?.slice(1) || []).map(resolveKey)),
     dateStart: p.dateStart || '',
-    createdAt: p.createdAt || 0
+    createdAt: p.createdAt || 0,
+    stage: p.stage || '',
+    clay: p.clay || ''
   })));
   const blob = new Blob([JSON.stringify(gallery, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
