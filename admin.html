@@ -321,6 +321,8 @@
     <option value="incomplete">Needs info first</option>
     <option value="newest">Newest first</option>
     <option value="oldest">Oldest first</option>
+    <option value="date-newest">Date started ↓</option>
+    <option value="date-oldest">Date started ↑</option>
     <option value="az">A → Z</option>
   </select>
   <div class="toolbar-actions">
@@ -649,10 +651,12 @@ function completeness(p) {
 function sortPieces(list) {
   const mode = document.getElementById('sortSelect')?.value || 'incomplete';
   return [...list].sort((a, b) => {
-    if (mode === 'incomplete') return completeness(a) - completeness(b);
-    if (mode === 'newest')     return (b.createdAt || 0) - (a.createdAt || 0);
-    if (mode === 'oldest')     return (a.createdAt || 0) - (b.createdAt || 0);
-    if (mode === 'az')         return a.name.localeCompare(b.name);
+    if (mode === 'incomplete')   return completeness(a) - completeness(b);
+    if (mode === 'newest')       return (b.createdAt || 0) - (a.createdAt || 0);
+    if (mode === 'oldest')       return (a.createdAt || 0) - (b.createdAt || 0);
+    if (mode === 'date-newest')  return (b.dateStart || '').localeCompare(a.dateStart || '');
+    if (mode === 'date-oldest')  return (a.dateStart || '').localeCompare(b.dateStart || '');
+    if (mode === 'az')           return a.name.localeCompare(b.name);
     return 0;
   });
 }
@@ -859,7 +863,9 @@ async function exportGallery() {
     mainImage: await resolveKey(p.photos?.[0] || ''),
     description: p.notes || '',
     home: p.location || p.stage || '',
-    progressPhotos: await Promise.all((p.photos?.slice(1) || []).map(resolveKey))
+    progressPhotos: await Promise.all((p.photos?.slice(1) || []).map(resolveKey)),
+    dateStart: p.dateStart || '',
+    createdAt: p.createdAt || 0
   })));
   const blob = new Blob([JSON.stringify(gallery, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');

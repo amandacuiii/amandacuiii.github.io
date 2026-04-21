@@ -365,6 +365,17 @@
         }
 
         function buildGallery(data) {
+            // Sort oldest → newest by dateStart, fall back to createdAt
+            data.sort((a, b) => {
+                const da = a.dateStart || '';
+                const db = b.dateStart || '';
+                if (da && db) return da.localeCompare(db);
+                if (da) return -1;
+                if (db) return 1;
+                return (a.createdAt || 0) - (b.createdAt || 0);
+            });
+            // Assign sequential numbers
+            data.forEach((p, i) => p._num = i + 1);
             pieces = data;
             const gallery = document.getElementById('gallery');
             const count = document.getElementById('piece-count');
@@ -408,7 +419,7 @@
             body.innerHTML = `
                 <img class="lightbox-main-img" src="${enc(piece.mainImage)}" alt="${piece.name}">
                 <div class="lightbox-info">
-                    <div class="lightbox-number">No. ${String(piece.id).padStart(2, '0')}</div>
+                    <div class="lightbox-number">No. ${String(piece._num).padStart(2, '0')}</div>
                     <div class="lightbox-name">${piece.name}</div>
                     ${piece.description ? `<div class="lightbox-desc">${piece.description}</div>` : ''}
                     ${piece.home ? `<div class="lightbox-home">${piece.home}</div>` : ''}
