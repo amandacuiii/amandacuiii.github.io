@@ -382,7 +382,7 @@
         }
 
         function buildGallery(data) {
-            // Sort oldest → newest by dateStart, fall back to createdAt
+            // Sort oldest → newest to assign numbers, then reverse for display
             data.sort((a, b) => {
                 const da = a.dateStart || '';
                 const db = b.dateStart || '';
@@ -391,8 +391,10 @@
                 if (db) return 1;
                 return (a.createdAt || 0) - (b.createdAt || 0);
             });
-            // Assign sequential numbers
+            // Assign sequential numbers (oldest = 1)
             data.forEach((p, i) => p._num = i + 1);
+            // Reverse so most recent appears first
+            data.reverse();
             pieces = data;
             const gallery = document.getElementById('gallery');
             const count = document.getElementById('piece-count');
