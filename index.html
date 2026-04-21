@@ -24,7 +24,6 @@
 
         a { text-decoration: none; color: inherit; }
 
-        /* Site name */
         .site-name {
             position: fixed;
             top: 1.5rem;
@@ -35,11 +34,9 @@
             font-weight: 500;
             color: #fff;
             letter-spacing: 0.08em;
-            mix-blend-mode: normal;
             text-shadow: 0 1px 6px rgba(0,0,0,0.5);
         }
 
-        /* Masonry grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -56,27 +53,32 @@
             display: block;
         }
 
-        /* Masonry-style placement — varied heights */
-        .tile-1 { grid-column: 1; grid-row: 1 / 3; }   /* tall left */
-        .tile-2 { grid-column: 2; grid-row: 1; }        /* short top mid */
-        .tile-3 { grid-column: 3; grid-row: 1 / 4; }   /* tallest right */
-        .tile-4 { grid-column: 1; grid-row: 3; }        /* short bottom left */
-        .tile-5 { grid-column: 2; grid-row: 2 / 4; }   /* tall bottom mid */
+        .tile-1 { grid-column: 1; grid-row: 1 / 3; }
+        .tile-2 { grid-column: 2; grid-row: 1; }
+        .tile-3 { grid-column: 3; grid-row: 1 / 4; }
+        .tile-4 { grid-column: 1; grid-row: 3; }
+        .tile-5 { grid-column: 2; grid-row: 2 / 4; }
 
+        /* Two stacked images per tile for crossfade */
         .tile img {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: opacity 1.2s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .tile:hover img { transform: scale(1.05); }
+        .tile img.behind  { opacity: 0; z-index: 1; }
+        .tile img.current { opacity: 1; z-index: 2; }
 
-        /* Overlay */
+        .tile:hover img.current { transform: scale(1.05); }
+
         .tile-overlay {
             position: absolute;
             inset: 0;
+            z-index: 3;
             background: rgba(0, 0, 0, 0);
             transition: background 0.45s ease;
             display: flex;
@@ -101,7 +103,6 @@
 
         .tile:hover .tile-title { opacity: 1; transform: translateY(0); }
 
-        /* Mobile */
         @media (max-width: 700px) {
             html, body { overflow-y: auto; }
             .grid {
@@ -123,42 +124,123 @@
     <div class="site-name">Amanda Cui</div>
 
     <div class="grid">
-        <a href="pottery.html" class="tile tile-1">
-            <img src="photos/Sony shots/DSC01470.JPG" alt="pottery progress" loading="eager">
-            <div class="tile-overlay">
-                <div class="tile-title">pottery progress</div>
-            </div>
+        <a href="pottery.html" class="tile tile-1" data-tile="pottery">
+            <img class="current" src="photos/Title Page/pottery progress/background.jpeg" alt="" loading="eager">
+            <img class="behind"  src="" alt="">
+            <div class="tile-overlay"><div class="tile-title">pottery progress</div></div>
         </a>
 
-        <a href="taiwan.html" class="tile tile-2">
-            <img src="photos/Sony shots/DSC00268.JPG" alt="taiwan through our eyes" loading="eager">
-            <div class="tile-overlay">
-                <div class="tile-title">taiwan through our eyes</div>
-            </div>
+        <a href="taiwan.html" class="tile tile-2" data-tile="taiwan">
+            <img class="current" src="photos/Title Page/taiwan through our eyes /DSC01598.JPG" alt="" loading="eager">
+            <img class="behind"  src="" alt="">
+            <div class="tile-overlay"><div class="tile-title">taiwan through our eyes</div></div>
         </a>
 
-        <a href="videography.html" class="tile tile-3">
-            <img src="photos/Sony shots/DSC01924.JPG" alt="videography" loading="eager">
-            <div class="tile-overlay">
-                <div class="tile-title">videography</div>
-            </div>
+        <a href="videography.html" class="tile tile-3" data-tile="storytelling">
+            <img class="current" src="photos/Title Page/storytelling/DSC01357.JPG" alt="" loading="eager">
+            <img class="behind"  src="" alt="">
+            <div class="tile-overlay"><div class="tile-title">videography</div></div>
         </a>
 
-        <a href="photography.html" class="tile tile-4">
-            <img src="photos/Sony shots/Alan.JPG" alt="photography" loading="eager">
-            <div class="tile-overlay">
-                <div class="tile-title">photography</div>
-            </div>
+        <a href="photography.html" class="tile tile-4" data-tile="photography">
+            <img class="current" src="photos/Title Page/photography/DSC01470.JPG" alt="" loading="eager">
+            <img class="behind"  src="" alt="">
+            <div class="tile-overlay"><div class="tile-title">photography</div></div>
         </a>
 
-        <a href="about.html" class="tile tile-5">
-            <img src="photos/Photos of me/photoshoot-photo.jpg" alt="about" loading="eager">
-            <div class="tile-overlay">
-                <div class="tile-title">about</div>
-            </div>
+        <a href="about.html" class="tile tile-5" data-tile="about">
+            <img class="current" src="photos/Title Page/about/photoshoot-photo.jpg" alt="" loading="eager">
+            <img class="behind"  src="" alt="">
+            <div class="tile-overlay"><div class="tile-title">about</div></div>
         </a>
     </div>
 
+    <script>
+        const PHOTOS = {
+            pottery: [
+                'photos/Title Page/pottery progress/background.jpeg'
+            ],
+            taiwan: [
+                'photos/Title Page/taiwan through our eyes /DSC01598.JPG',
+                'photos/Title Page/taiwan through our eyes /DSC00653_0.JPG',
+                'photos/Title Page/taiwan through our eyes /DSC00968.JPG',
+                'photos/Title Page/taiwan through our eyes /DSC02105.JPG',
+                'photos/Title Page/taiwan through our eyes /DSC04720 copy.JPG',
+                'photos/Title Page/taiwan through our eyes /DSC04821 copy.JPG',
+            ],
+            storytelling: [
+                'photos/Title Page/storytelling/DSC01357.JPG',
+                'photos/Title Page/storytelling/DSC05037 copy.JPG',
+                'photos/Title Page/storytelling/JPEG image 3.jpeg',
+            ],
+            photography: [
+                'photos/Title Page/photography/DSC01470.JPG',
+                'photos/Title Page/photography/Alan.JPG',
+                'photos/Title Page/photography/DSC00042.JPG',
+                'photos/Title Page/photography/DSC00178.JPG',
+                'photos/Title Page/photography/DSC00268.JPG',
+                'photos/Title Page/photography/DSC00269.JPG',
+                'photos/Title Page/photography/DSC00516.JPG',
+                'photos/Title Page/photography/DSC01036.JPG',
+                'photos/Title Page/photography/DSC01042.JPG',
+                'photos/Title Page/photography/DSC01215.JPG',
+                'photos/Title Page/photography/DSC01352.JPG',
+                'photos/Title Page/photography/DSC01413.JPG',
+                'photos/Title Page/photography/DSC01489.JPG',
+                'photos/Title Page/photography/DSC01556.JPG',
+                'photos/Title Page/photography/DSC01586.JPG',
+                'photos/Title Page/photography/DSC01716.JPG',
+                'photos/Title Page/photography/DSC01777.JPG',
+                'photos/Title Page/photography/DSC01810.JPG',
+                'photos/Title Page/photography/DSC01860.JPG',
+                'photos/Title Page/photography/DSC01874.JPG',
+                'photos/Title Page/photography/DSC01924.JPG',
+                'photos/Title Page/photography/DSC01939.JPG',
+                'photos/Title Page/photography/DSC02205.JPG',
+                'photos/Title Page/photography/chiangkaishek.JPG',
+                'photos/Title Page/photography/i like this.JPG',
+            ],
+            about: [
+                'photos/Title Page/about/photoshoot-photo.jpg',
+                'photos/Title Page/about/DSC00497.JPG',
+                'photos/Title Page/about/DSC00855.JPG',
+                'photos/Title Page/about/DSC01178.JPG',
+                'photos/Title Page/about/DSC04855 copy.JPG',
+            ],
+        };
 
+        // Track current index per tile
+        const state = {};
+        document.querySelectorAll('.tile[data-tile]').forEach(tile => {
+            const key = tile.dataset.tile;
+            const photos = PHOTOS[key];
+            if (!photos || photos.length <= 1) return;
+
+            state[key] = 0;
+
+            // Stagger start times so tiles don't all switch at once
+            const offset = Math.random() * 4000;
+
+            setTimeout(() => {
+                setInterval(() => {
+                    const photos = PHOTOS[key];
+                    const nextIdx = (state[key] + 1) % photos.length;
+                    const current = tile.querySelector('img.current');
+                    const behind  = tile.querySelector('img.behind');
+
+                    // Preload next photo into behind layer
+                    behind.src = photos[nextIdx];
+                    behind.onload = () => {
+                        // Swap: behind becomes current, current becomes behind
+                        behind.classList.replace('behind', 'current');
+                        current.classList.replace('current', 'behind');
+                        current.style.opacity = '0';
+                        behind.style.opacity = '';
+                        state[key] = nextIdx;
+                    };
+                }, 4000);
+            }, offset);
+        });
+    </script>
 </body>
 </html>
