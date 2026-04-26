@@ -1,466 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>other projects — Amanda Cui</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Karla:wght@300;400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #f9f6f2;
-            --text: #3d2e1c;
-            --accent: #664930;
-            --muted: #9b8472;
-            --border: rgba(102, 73, 48, 0.12);
-            --card-bg: rgba(102, 73, 48, 0.06);
-            --card-hover: rgba(102, 73, 48, 0.11);
-            --font: 'Karla', sans-serif;
-            --font-heading: 'Rubik', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Videography — Amanda Cui</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #f9f6f2;
+      --text:    #3d2e1c;
+      --accent:  #664930;
+      --muted:   #9b8472;
+      --border:  rgba(102,73,48,.12);
+      --font:    'Karla', sans-serif;
+      --font-h:  'Rubik', sans-serif;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-        body {
-            font-family: var(--font);
-            color: var(--text);
-            background: var(--bg);
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            position: relative;
-        }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url('photos/background.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.18;
-            z-index: 0;
-            pointer-events: none;
-        }
+    a { text-decoration: none; color: inherit; }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+    /* ── Nav ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      height: 56px; display: flex; align-items: center; padding: 0 2.5rem;
+      background: rgba(249,246,242,0.85); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-name {
+      font-family: var(--font-h); font-size: .9rem;
+      font-weight: 500; letter-spacing: .08em; transition: color .2s;
+    }
+    .nav-name:hover { color: var(--accent); }
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(249, 246, 242, 0.75);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-        }
+    /* ── Header ──────────────────────────────────── */
+    .page-header {
+      padding: 7rem 6vw 2.5rem;
+    }
+    .page-header h1 {
+      font-family: var(--font-h);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700; letter-spacing: -.02em;
+    }
+    .page-header p {
+      margin-top: .75rem; font-size: 1rem;
+      color: var(--muted); max-width: 44ch; line-height: 1.6;
+    }
 
-        .nav-name {
-            font-family: var(--font-heading);
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            color: var(--text);
-            transition: color 0.2s;
-        }
+    /* ── Grid ────────────────────────────────────── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      padding: 0 6vw 6rem;
+    }
 
-        .nav-name:hover { color: var(--accent); }
+    /* ── Video card ──────────────────────────────── */
+    .video-card {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: #e8e0d8;
+      cursor: pointer;
+      overflow: hidden;
+    }
 
-        /* Main content */
-        main {
-            position: relative;
-            z-index: 1;
-            padding: 64px 6vw 8rem;
-        }
+    /* Thumbnail: YouTube or custom image */
+    .video-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+    }
 
-        /* Page header */
-        .page-header {
-            padding: 5rem 0 4rem;
-        }
+    /* Placeholder for empty slots */
+    .video-card.placeholder {
+      cursor: default;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .placeholder-label {
+      font-family: var(--font-h); font-size: .7rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); opacity: .4;
+    }
 
-        .page-header h1 {
-            font-family: var(--font-heading);
-            font-size: clamp(3rem, 7vw, 6rem);
-            font-weight: 700;
-            line-height: 1;
-            letter-spacing: -0.02em;
-        }
+    /* Hover overlay */
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: rgba(30,18,8,0);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .5rem;
+      transition: background .3s ease;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .video-card:not(.placeholder):hover .card-overlay {
+      background: rgba(30,18,8,.55);
+    }
 
-        /* Projects grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-        }
+    .play-icon {
+      width: 44px; height: 44px;
+      border: 2px solid #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(.8);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .play-icon svg { margin-left: 3px; }
 
-        .project-card {
-            background: var(--card-bg);
-            padding: 2.5rem 2.75rem;
-            cursor: default;
-            transition: background 0.25s;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            min-height: 180px;
-            justify-content: center;
-        }
+    .card-title {
+      font-family: var(--font-h); font-size: .88rem; font-weight: 500;
+      color: #fff; letter-spacing: .03em; line-height: 1.3;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .card-category {
+      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      opacity: 0; transform: translateY(6px);
+      transition: opacity .35s ease .05s, transform .35s ease .05s;
+    }
 
-        .project-card.clickable {
-            cursor: pointer;
-        }
+    .video-card:not(.placeholder):hover img { transform: scale(1.05); }
+    .video-card:not(.placeholder):hover .play-icon  { opacity: 1; transform: scale(1); }
+    .video-card:not(.placeholder):hover .card-title    { opacity: 1; transform: translateY(0); }
+    .video-card:not(.placeholder):hover .card-category { opacity: 1; transform: translateY(0); }
 
-        .project-card:hover {
-            background: var(--card-hover);
-        }
+    /* ── Instagram link ──────────────────────────── */
+    .ig-link {
+      display: flex; align-items: center; justify-content: center;
+      gap: .6rem; padding: 0 6vw 5rem;
+    }
+    .ig-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .65rem 1.4rem;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: .82rem; font-family: var(--font); color: var(--muted);
+      transition: border-color .2s, color .2s;
+    }
+    .ig-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .ig-btn svg { flex-shrink: 0; }
 
-        .project-card.wide {
-            grid-column: 1 / -1;
-        }
+    /* ── Modal ───────────────────────────────────── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.9); z-index: 200;
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
 
-        .project-number {
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
+    .modal {
+      position: relative;
+      width: 100%; max-width: 860px;
+    }
+    .modal-close {
+      position: absolute; top: -2.2rem; right: 0;
+      color: rgba(255,255,255,.6); font-size: 1.5rem;
+      cursor: pointer; line-height: 1;
+      transition: color .2s; background: none; border: none;
+    }
+    .modal-close:hover { color: #fff; }
 
-        .project-title {
-            font-family: var(--font-heading);
-            font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-            font-weight: 600;
-            line-height: 1.2;
-        }
+    .video-frame {
+      width: 100%; aspect-ratio: 16/9; background: #000;
+    }
+    .video-frame iframe {
+      width: 100%; height: 100%; border: none; display: block;
+    }
 
-        .project-desc {
-            font-size: 0.9rem;
-            font-weight: 400;
-            line-height: 1.7;
-            color: var(--accent);
-            max-width: 42ch;
-        }
+    .modal-info {
+      padding: .9rem 0 0;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 1rem;
+    }
+    .modal-title {
+      font-family: var(--font-h); font-size: 1rem; font-weight: 500;
+      color: #f9f6f2;
+    }
+    .modal-desc {
+      font-size: .85rem; color: rgba(249,246,242,.55);
+      margin-top: .3rem; line-height: 1.6; max-width: 60ch;
+    }
+    .modal-ext {
+      font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(249,246,242,.35); white-space: nowrap;
+      transition: color .2s; flex-shrink: 0; margin-top: .15rem;
+    }
+    .modal-ext:hover { color: rgba(249,246,242,.7); }
 
-        .project-cta {
-            font-size: 0.8rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-top: 0.5rem;
-            transition: color 0.2s;
-        }
-
-        .project-card.clickable:hover .project-cta {
-            color: var(--text);
-        }
-
-        /* Photography lightbox */
-        .photo-lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(61, 46, 28, 0.96);
-            z-index: 200;
-            overflow-y: auto;
-        }
-
-        .photo-lightbox.active {
-            display: block;
-        }
-
-        .photo-lightbox-close {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            color: rgba(249, 246, 242, 0.8);
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 201;
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font);
-            font-weight: 300;
-            transition: color 0.2s;
-        }
-
-        .photo-lightbox-close:hover {
-            color: #f9f6f2;
-        }
-
-        .photo-lightbox-body {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 5rem 3rem 5rem;
-        }
-
-        .photo-lightbox-title {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 300;
-            color: #f9f6f2;
-            margin-bottom: 2.5rem;
-        }
-
-        /* Masonry gallery */
-        .masonry-gallery {
-            column-count: 4;
-            column-gap: 6px;
-        }
-
-        .masonry-item {
-            display: inline-block;
-            width: 100%;
-            margin-bottom: 6px;
-            break-inside: avoid;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .masonry-item:hover {
-            opacity: 0.85;
-        }
-
-        .masonry-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Full image lightbox */
-        .image-lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.96);
-            z-index: 300;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-lightbox.active {
-            display: flex;
-        }
-
-        .image-lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
-
-        .image-lightbox-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 301;
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font);
-            transition: color 0.2s;
-        }
-
-        .image-lightbox-close:hover {
-            color: #fff;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .project-card.wide {
-                grid-column: 1;
-            }
-
-            .masonry-gallery {
-                column-count: 2;
-            }
-
-            .nav-links {
-                gap: 2rem;
-            }
-
-            .photo-lightbox-body {
-                padding: 4rem 1.5rem 4rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .masonry-gallery {
-                column-count: 1;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .masonry-gallery {
-                column-count: 5;
-            }
-        }
-    </style>
+    /* ── Responsive ──────────────────────────────── */
+    @media (max-width: 700px) {
+      .video-grid { grid-template-columns: repeat(2, 1fr); padding: 0 0 5rem; }
+    }
+    @media (max-width: 420px) {
+      .video-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
+<nav><a href="index.html" class="nav-name">Amanda Cui</a></nav>
 
-    <nav>
-        <a href="index.html" class="nav-name">Amanda Cui</a>
-    </nav>
+<div class="page-header">
+  <h1>videography</h1>
+  <p>A collection of short films, documentary work, and everyday moments.</p>
+</div>
 
-    <main>
-        <div class="page-header">
-            <h1>other projects</h1>
-        </div>
+<!-- ── Video grid ─────────────────────────────────
+     To add a video:
+       1. Add a new .video-card div with data-embed and data-title
+       2. Set data-embed to the YouTube embed URL
+          e.g. https://www.youtube.com/embed/VIDEO_ID
+       3. Add a thumbnail img (YouTube auto-thumbnail):
+          src="https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg"
+     ─────────────────────────────────────────────── -->
+<div class="video-grid" id="videoGrid">
 
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-number">01</div>
-                <div class="project-title">Humans of Shi Yuan</div>
-                <div class="project-desc">A documentary series exploring the stories and lives of people in Shi Yuan.</div>
-            </div>
-            <div class="project-card">
-                <div class="project-number">02</div>
-                <div class="project-title">Taiwan Through Our Eyes</div>
-                <div class="project-desc">A visual journey capturing the essence of Taiwan through personal perspectives.</div>
-            </div>
-            <div class="project-card">
-                <div class="project-number">03</div>
-                <div class="project-title">Moments</div>
-                <div class="project-desc">Short-form video stories capturing everyday moments and experiences.</div>
-            </div>
-            <div class="project-card">
-                <div class="project-number">04</div>
-                <div class="project-title">Fine Arts Minor</div>
-                <div class="project-desc">A collection of work from my Fine Arts minor at the University of Pennsylvania.</div>
-            </div>
-            <div class="project-card clickable" onclick="openPhotographyGallery()">
-                <div class="project-number">05</div>
-                <div class="project-title">Photography</div>
-                <div class="project-desc">A selection of photographic work exploring people, place, and everyday moments.</div>
-                <div class="project-cta">View gallery →</div>
-            </div>
-            <div class="project-card">
-                <div class="project-number">06</div>
-                <div class="project-title">p5.js</div>
-                <div class="project-desc">Creative coding sketches and interactive experiments using the p5.js library.</div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Photography gallery lightbox -->
-    <div class="photo-lightbox" id="photoLightbox" onclick="if(event.target.id==='photoLightbox') closePhotographyGallery()">
-        <span class="photo-lightbox-close" onclick="closePhotographyGallery()">&#215;</span>
-        <div class="photo-lightbox-body" onclick="event.stopPropagation()">
-            <div class="photo-lightbox-title">Photography</div>
-            <div class="masonry-gallery" id="photographyGallery"></div>
-        </div>
+  <!-- ① Taiwan Through Our Eyes -->
+  <div class="video-card"
+       data-embed="https://www.youtube.com/embed/RMK4TZFhJ5M"
+       data-title="Taiwan Through Our Eyes"
+       data-desc="A short film capturing one year in Taiwan through the perspectives of 13 people who shaped it."
+       onclick="openVideo(this)">
+    <img src="https://img.youtube.com/vi/RMK4TZFhJ5M/hqdefault.jpg" alt="Taiwan Through Our Eyes">
+    <div class="card-overlay">
+      <div class="play-icon">
+        <svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8-14 8z"/></svg>
+      </div>
+      <div class="card-title">Taiwan Through Our Eyes</div>
+      <div class="card-category">Documentary</div>
     </div>
+  </div>
 
-    <!-- Full image lightbox -->
-    <div class="image-lightbox" id="imageLightbox" onclick="closeImageLightbox()">
-        <span class="image-lightbox-close" onclick="closeImageLightbox()">&#215;</span>
-        <img id="lightboxImage" src="" alt="Photography">
+  <!-- ② Placeholder — add your next video here -->
+  <div class="video-card placeholder">
+    <span class="placeholder-label">coming soon</span>
+  </div>
+
+  <!-- ③ Placeholder -->
+  <div class="video-card placeholder">
+    <span class="placeholder-label">coming soon</span>
+  </div>
+
+  <!-- ④ Placeholder -->
+  <div class="video-card placeholder">
+    <span class="placeholder-label">coming soon</span>
+  </div>
+
+  <!-- ⑤ Placeholder -->
+  <div class="video-card placeholder">
+    <span class="placeholder-label">coming soon</span>
+  </div>
+
+  <!-- ⑥ Placeholder -->
+  <div class="video-card placeholder">
+    <span class="placeholder-label">coming soon</span>
+  </div>
+
+</div>
+
+<!-- ── Instagram link ─────────────────────────────── -->
+<div class="ig-link">
+  <a href="https://instagram.com/amandacuii" target="_blank" class="ig-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/>
+    </svg>
+    More on Instagram @amandacuii
+  </a>
+</div>
+
+<!-- ── Video modal ───────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeVideo()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeVideo()">✕</button>
+    <div class="video-frame">
+      <iframe id="modalIframe" src="" allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+      </iframe>
     </div>
+    <div class="modal-info">
+      <div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-desc" id="modalDesc"></div>
+      </div>
+      <a class="modal-ext" id="modalExt" href="" target="_blank">Watch on YouTube ↗</a>
+    </div>
+  </div>
+</div>
 
-    <script>
-        const sonyShotsPhotos = [
-            'photos/Sony%20shots/Alan.JPG',
-            'photos/Sony%20shots/chiangkaishek.JPG',
-            'photos/Sony%20shots/DSC00028.JPG',
-            'photos/Sony%20shots/DSC00042.JPG',
-            'photos/Sony%20shots/DSC00178.JPG',
-            'photos/Sony%20shots/DSC00268.JPG',
-            'photos/Sony%20shots/DSC00269.JPG',
-            'photos/Sony%20shots/DSC00515.JPG',
-            'photos/Sony%20shots/DSC00516.JPG',
-            'photos/Sony%20shots/DSC00653_0.JPG',
-            'photos/Sony%20shots/DSC00968.JPG',
-            'photos/Sony%20shots/DSC01036.JPG',
-            'photos/Sony%20shots/DSC01042.JPG',
-            'photos/Sony%20shots/DSC01215.JPG',
-            'photos/Sony%20shots/DSC01352.JPG',
-            'photos/Sony%20shots/DSC01357.JPG',
-            'photos/Sony%20shots/DSC01413.JPG',
-            'photos/Sony%20shots/DSC01470.JPG',
-            'photos/Sony%20shots/DSC01489.JPG',
-            'photos/Sony%20shots/DSC01556.JPG',
-            'photos/Sony%20shots/DSC01586.JPG',
-            'photos/Sony%20shots/DSC01598.JPG',
-            'photos/Sony%20shots/DSC01716.JPG',
-            'photos/Sony%20shots/DSC01777.JPG',
-            'photos/Sony%20shots/DSC01810.JPG',
-            'photos/Sony%20shots/DSC01860.JPG',
-            'photos/Sony%20shots/DSC01874.JPG',
-            'photos/Sony%20shots/DSC01924.JPG',
-            'photos/Sony%20shots/DSC01939.JPG',
-            'photos/Sony%20shots/DSC02105.JPG',
-            'photos/Sony%20shots/DSC02205.JPG',
-            'photos/Sony%20shots/i%20like%20this.JPG'
-        ];
+<script>
+  function openVideo(card) {
+    const embed = card.dataset.embed;
+    const title = card.dataset.title || '';
+    const desc  = card.dataset.desc  || '';
 
-        function openPhotographyGallery() {
-            const lightbox = document.getElementById('photoLightbox');
-            const gallery = document.getElementById('photographyGallery');
-            gallery.innerHTML = '';
+    document.getElementById('modalIframe').src = embed + '?autoplay=1';
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalDesc').textContent  = desc;
 
-            sonyShotsPhotos.forEach((path, index) => {
-                const item = document.createElement('div');
-                item.className = 'masonry-item';
-                item.onclick = () => openImageLightbox(path);
-                const img = document.createElement('img');
-                img.src = path;
-                img.alt = `Photography ${index + 1}`;
-                img.loading = 'lazy';
-                item.appendChild(img);
-                gallery.appendChild(item);
-            });
+    // Build watch link from embed URL
+    const videoId = embed.split('/embed/')[1]?.split('?')[0] || '';
+    const ext = document.getElementById('modalExt');
+    ext.href = `https://www.youtube.com/watch?v=${videoId}`;
 
-            lightbox.classList.add('active');
-            lightbox.scrollTop = 0;
-            document.body.style.overflow = 'hidden';
-        }
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 
-        function closePhotographyGallery() {
-            document.getElementById('photoLightbox').classList.remove('active');
-            document.body.style.overflow = '';
-        }
+  function closeVideo() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.getElementById('modalIframe').src = ''; // stop playback
+    document.body.style.overflow = '';
+  }
 
-        function openImageLightbox(path) {
-            const lightbox = document.getElementById('imageLightbox');
-            document.getElementById('lightboxImage').src = path;
-            lightbox.classList.add('active');
-        }
-
-        function closeImageLightbox() {
-            document.getElementById('imageLightbox').classList.remove('active');
-        }
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                closeImageLightbox();
-                closePhotographyGallery();
-            }
-        });
-    </script>
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeVideo();
+  });
+</script>
 </body>
 </html>
