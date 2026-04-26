@@ -112,6 +112,22 @@
     .empty .icon { font-size: 3rem; margin-bottom: 12px; opacity: .3; }
     .empty p { font-size: 1rem; font-family: var(--font-h); }
 
+    /* ── Stage grouping ─────────────────────────────── */
+    .stage-group-header {
+      padding: 1.5rem 2rem .6rem;
+      display: flex; align-items: center; gap: .75rem;
+      border-top: 1px solid var(--border);
+    }
+    .stage-group-header:first-child { border-top: none; }
+    .stage-group-count {
+      font-size: .75rem; color: var(--muted); letter-spacing: .06em;
+    }
+    .stage-group-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 18px; padding: 0 2rem 1.5rem;
+    }
+
     /* ── Card ───────────────────────────────────────── */
     .card {
       background: #fff; border-radius: var(--radius);
@@ -324,6 +340,7 @@
     <option value="date-newest">Date started ↓</option>
     <option value="date-oldest">Date started ↑</option>
     <option value="az">A → Z</option>
+    <option value="stage">Group by stage</option>
   </select>
   <div class="toolbar-actions">
     <button class="btn-secondary" onclick="exportData()">Export backup</button>
@@ -536,13 +553,41 @@ function render() {
     return matchStage && matchSearch;
   });
 
-  const sorted = sortPieces(filtered);
-  document.getElementById('grid').innerHTML = sorted.length === 0
-    ? `<div class="empty"><div class="icon">🏺</div><p>${pieces.length === 0 ? 'No pieces yet — add your first!' : 'No pieces match your filter.'}</p></div>`
-    : sorted.map(cardHTML).join('');
+  const mode = document.getElementById('sortSelect')?.value || 'incomplete';
+  const grid = document.getElementById('grid');
+
+  if (mode === 'stage') {
+    // Group by stage
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="empty"><div class="icon">🏺</div><p>${pieces.length === 0 ? 'No pieces yet — add your first!' : 'No pieces match your filter.'}</p></div>`;
+    } else {
+      let html = '';
+      STAGES.forEach(stage => {
+        const group = filtered.filter(p => p.stage === stage);
+        if (group.length === 0) return;
+        html += `<div class="stage-group-header" data-stage="${stage}">
+          <span class="stage-badge stage-${stage}" style="font-size:.7rem;padding:4px 12px">${STAGE_LABELS[stage]}</span>
+          <span class="stage-group-count">${group.length} piece${group.length !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="stage-group-grid">${group.map(cardHTML).join('')}</div>`;
+      });
+      // Pieces with unknown stage
+      const unknown = filtered.filter(p => !STAGES.includes(p.stage));
+      if (unknown.length) {
+        html += `<div class="stage-group-header"><span style="font-size:.78rem;color:var(--muted)">Other</span></div>
+        <div class="stage-group-grid">${unknown.map(cardHTML).join('')}</div>`;
+      }
+      grid.innerHTML = html;
+    }
+  } else {
+    const sorted = sortPieces(filtered);
+    grid.innerHTML = sorted.length === 0
+      ? `<div class="empty"><div class="icon">🏺</div><p>${pieces.length === 0 ? 'No pieces yet — add your first!' : 'No pieces match your filter.'}</p></div>`
+      : sorted.map(cardHTML).join('');
+  }
 
   // Async load idb photos into cards
-  sorted.forEach(p => {
+  filtered.forEach(p => {
     if ((p.photos || []).some(ph => ph && ph.startsWith('idb:'))) {
       loadCardPhotos(p.id, p.photos);
     }
