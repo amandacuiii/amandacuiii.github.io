@@ -6,7 +6,7 @@
   <title>Pottery Tracker — Amanda Cui</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg:      #f9f6f2;
@@ -21,8 +21,8 @@
       --glaze-lt:#a8d0d0;
       --shadow:  rgba(61,46,28,.12);
       --radius:  10px;
-      --font:    'Jost', sans-serif;
-      --font-h:  'Cormorant Garamond', serif;
+      --font:    'Karla', sans-serif;
+      --font-h:  'Karla', sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -176,7 +176,7 @@
     .stage-Complete    { background: #c8e8c8; color: #2a6030; }
 
     .card-body { padding: 13px 15px; flex: 1; }
-    .card-title { font-family: var(--font-h); font-size: .97rem; font-weight: 500; margin-bottom: 7px; }
+    .card-title { font-family: var(--font); font-size: .97rem; font-weight: 500; margin-bottom: 7px; }
     .card-meta { display: flex; flex-direction: column; gap: 4px; font-size: .8rem; color: var(--muted); }
     .card-meta .row { display: flex; gap: 6px; align-items: flex-start; }
     .card-meta .lbl { font-weight: 600; color: var(--accent); min-width: 64px; font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; }
@@ -998,19 +998,28 @@ document.addEventListener('keydown', e => {
 // Boot: open IndexedDB first, then seed/migrate, then render
 openPhotoDB().then(async () => {
   if (pieces === null) {
-    // First load — seed from Pottery Tracker JSON
+    // First load — try to seed from server, otherwise prompt to import
+    let seeded = false;
     try {
-      const r = await fetch('Pottery Tracker/pottery-data.json');
-      const data = await r.json();
-      pieces = data.map(p => ({
-        ...p,
-        photos: (p.photos || []).map(f =>
-          f.startsWith('http') || f.startsWith('data:') || f.startsWith('Pottery') || f.startsWith('idb:') ? f : PHOTO_BASE + p.id + '/' + f
-        )
-      }));
-      save();
-    } catch(e) {
+      const r = await fetch('pottery-data.json');
+      if (r.ok) {
+        const data = await r.json();
+        pieces = data.map(p => ({
+          ...p,
+          photos: (p.photos || []).map(f =>
+            f.startsWith('http') || f.startsWith('data:') || f.startsWith('Pottery') || f.startsWith('idb:') ? f : PHOTO_BASE + p.id + '/' + f
+          )
+        }));
+        save();
+        seeded = true;
+      }
+    } catch(e) {}
+    if (!seeded) {
       pieces = [];
+      const banner = document.createElement('div');
+      banner.style.cssText = 'background:#c2714f;color:#fff;text-align:center;padding:12px 16px;font-size:.9rem;';
+      banner.innerHTML = 'No data found. Use the <strong>Import</strong> button above to load your pottery-data.json backup.';
+      document.body.insertBefore(banner, document.body.firstChild);
     }
   } else {
     // Migrate any old base64 photos out of localStorage → IndexedDB
