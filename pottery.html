@@ -419,8 +419,31 @@
             return p.split('/').map(s => encodeURIComponent(s)).join('/');
         }
 
+        const STAGE_ORDER = {
+            'complete': 0,
+            'available': 1,
+            'for sale': 1,
+            'glazed': 2,
+            'bisque': 3,
+            'bone dry': 4,
+            'bonedry': 4,
+            'leatherhard': 5,
+            'leather hard': 5,
+            'trimming': 6,
+            'throwing': 7,
+            'in-progress': 8,
+        };
+
+        function stageRank(piece) {
+            const h = (piece.home || piece.stage || '').toLowerCase().trim();
+            if (h in STAGE_ORDER) return STAGE_ORDER[h];
+            if (h.includes('available') || h.includes('for sale')) return 1;
+            if (h.includes('complete')) return 0;
+            return 9;
+        }
+
         function buildGallery(data) {
-            // Sort oldest → newest to assign numbers, then reverse for display
+            // Sort oldest → newest to assign numbers
             data.sort((a, b) => {
                 const da = a.dateStart || '';
                 const db = b.dateStart || '';
@@ -431,8 +454,14 @@
             });
             // Assign sequential numbers (oldest = 1)
             data.forEach((p, i) => p._num = i + 1);
-            // Reverse so most recent appears first
-            data.reverse();
+            // Sort by stage (complete first), then newest first within each stage
+            data.sort((a, b) => {
+                const stageDiff = stageRank(a) - stageRank(b);
+                if (stageDiff !== 0) return stageDiff;
+                const da = a.dateStart || '';
+                const db = b.dateStart || '';
+                return db.localeCompare(da); // newest first within same stage
+            });
             pieces = data;
             const gallery = document.getElementById('gallery');
             const count = document.getElementById('piece-count');
