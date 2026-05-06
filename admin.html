@@ -937,6 +937,11 @@ async function exportGallery() {
   a.download = 'pottery-data.json';
   a.click();
   URL.revokeObjectURL(a.href);
+
+  // Remind about the publish script
+  setTimeout(() => {
+    alert('pottery-data.json downloaded!\n\nTo publish to amandacui.com, run this in Terminal:\n\n  cd ~/Downloads/personal-website\n  ./update-pottery.sh\n\nThis extracts images and pushes everything to GitHub automatically.');
+  }, 500);
 }
 
 function importData(e) {
