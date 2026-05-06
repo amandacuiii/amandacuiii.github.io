@@ -291,23 +291,72 @@
             margin-bottom: 0.75rem;
         }
 
-        .lightbox-progress-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 6px;
+        /* Slideshow */
+        .progress-slideshow {
+            position: relative;
         }
 
-        .lightbox-progress-grid img {
-            width: 100%;
-            height: 70px;
-            object-fit: cover;
-            display: block;
-            opacity: 0.8;
-            transition: opacity 0.2s;
+        .progress-slide {
+            position: relative;
+            background: rgba(255,255,255,0.04);
             cursor: pointer;
         }
 
-        .lightbox-progress-grid img:hover { opacity: 1; }
+        .progress-slide img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.2s;
+        }
+
+        .progress-slide img:hover { opacity: 0.9; }
+
+        .progress-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.45);
+            border: none;
+            color: rgba(255,255,255,0.8);
+            font-size: 1.2rem;
+            padding: 0.4rem 0.7rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            z-index: 2;
+            line-height: 1;
+        }
+
+        .progress-nav:hover { background: rgba(0,0,0,0.7); color: #fff; }
+        .progress-nav-prev { left: 0; }
+        .progress-nav-next { right: 0; }
+
+        .progress-counter {
+            text-align: center;
+            margin-top: 0.4rem;
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            color: rgba(249,246,242,0.3);
+        }
+
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 0.5rem;
+        }
+
+        .progress-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: background 0.2s;
+            border: none;
+            padding: 0;
+        }
+
+        .progress-dot.active { background: rgba(255,255,255,0.7); }
 
         /* Full image overlay */
         .img-overlay {
@@ -354,13 +403,13 @@
         @media (max-width: 750px) {
             nav { padding: 0 1.25rem; }
             .page-header { padding: 4.5rem 5vw 2rem; }
-            .gallery { columns: 2; padding: 0 3vw 4rem; }
+            .gallery { column-count: 2; column-gap: 10px; padding: 0 3vw 4rem; }
             .lightbox-body { padding: 3rem 1.25rem 4rem; }
             .lightbox-close { top: 1rem; right: 1rem; }
         }
 
         @media (max-width: 480px) {
-            .gallery { columns: 2; column-gap: 8px; padding: 0 2vw 4rem; }
+            .gallery { column-count: 2; column-gap: 8px; padding: 0 2vw 4rem; }
             .piece { margin-bottom: 8px; }
             .piece-name { font-size: 0.78rem; }
             .piece-home { font-size: 0.7rem; }
@@ -502,15 +551,30 @@
             });
         }
 
+        let slideIdx = 0;
+        let slidePhotos = [];
+
         function openLightbox(i) {
             const piece = pieces[i];
             const body = document.getElementById('lightbox-body');
+            slidePhotos = piece.progressPhotos || [];
+            slideIdx = 0;
 
-            const progressHtml = piece.progressPhotos && piece.progressPhotos.length > 0
+            const progressHtml = slidePhotos.length > 0
                 ? `<div class="lightbox-progress">
                     <div class="lightbox-progress-label">Progress photos</div>
-                    <div class="lightbox-progress-grid">
-                        ${piece.progressPhotos.map(p => `<img src="${enc(p)}" alt="progress" onclick="openImgOverlay('${enc(p)}')" loading="lazy">`).join('')}
+                    <div class="progress-slideshow">
+                        <div class="progress-slide" id="progressSlide">
+                            <img id="progressImg" src="${enc(slidePhotos[0])}" alt="progress" onclick="openImgOverlay(document.getElementById('progressImg').src)" loading="lazy">
+                            ${slidePhotos.length > 1 ? `
+                            <button class="progress-nav progress-nav-prev" onclick="slideNav(-1)">&#8249;</button>
+                            <button class="progress-nav progress-nav-next" onclick="slideNav(1)">&#8250;</button>` : ''}
+                        </div>
+                        ${slidePhotos.length > 1 ? `
+                        <div class="progress-dots" id="progressDots">
+                            ${slidePhotos.map((_,j) => `<button class="progress-dot${j===0?' active':''}" onclick="goSlide(${j})"></button>`).join('')}
+                        </div>
+                        <div class="progress-counter" id="progressCounter">1 / ${slidePhotos.length}</div>` : ''}
                     </div>
                    </div>`
                 : '';
@@ -533,6 +597,20 @@
             document.getElementById('lightbox').classList.add('active');
             document.getElementById('lightbox').scrollTop = 0;
             document.body.style.overflow = 'hidden';
+        }
+
+        function goSlide(j) {
+            slideIdx = j;
+            const img = document.getElementById('progressImg');
+            if (img) img.src = enc(slidePhotos[slideIdx]);
+            const counter = document.getElementById('progressCounter');
+            if (counter) counter.textContent = `${slideIdx + 1} / ${slidePhotos.length}`;
+            document.querySelectorAll('.progress-dot').forEach((d, k) =>
+                d.classList.toggle('active', k === slideIdx));
+        }
+
+        function slideNav(dir) {
+            goSlide((slideIdx + dir + slidePhotos.length) % slidePhotos.length);
         }
 
         function closeLightbox() {
