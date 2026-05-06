@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Collaborations — Amanda Cui</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #f9f6f2;
+      --text:    #3d2e1c;
+      --accent:  #664930;
+      --muted:   #9b8472;
+      --border:  rgba(102,73,48,.12);
+      --font:    'Neuton', serif;
+      --font-h:  'Neuton', serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Nav ───────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      height: 56px; display: flex; align-items: center; padding: 0 2.5rem;
+      background: rgba(249,246,242,0.85); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-name { font-family: var(--font-h); font-size: .9rem; font-weight: 500; letter-spacing: .08em; transition: color .2s; }
+    .nav-name:hover { color: var(--accent); }
+
+    /* ── Header ────────────────────────────────── */
+    .page-header { padding: 7rem 6vw 2.5rem; }
+    .page-header h1 { font-family: var(--font-h); font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; letter-spacing: -.02em; }
+    .page-header p { margin-top: .75rem; font-size: 1rem; color: var(--muted); max-width: 44ch; line-height: 1.6; }
+
+    /* ── Reel grid ──────────────────────────────── */
+    .reel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      padding: 0 6vw 6rem;
+    }
+
+    /* ── Reel card ──────────────────────────────── */
+    .reel-card {
+      position: relative;
+      aspect-ratio: 9 / 16;
+      background: #e8e0d8;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .reel-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+    }
+
+    .reel-card.placeholder {
+      cursor: default;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .placeholder-label {
+      font-family: var(--font-h); font-size: .7rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); opacity: .4;
+    }
+
+    /* Hover overlay */
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: rgba(30,18,8,0);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .5rem;
+      transition: background .3s ease;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .reel-card:not(.placeholder):hover .card-overlay { background: rgba(30,18,8,.55); }
+    .reel-card:not(.placeholder):hover img { transform: scale(1.05); }
+
+    .play-icon {
+      width: 44px; height: 44px;
+      border: 2px solid #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(.8);
+      transition: opacity .3s, transform .3s;
+    }
+    .play-icon svg { margin-left: 3px; }
+
+    .card-title {
+      font-family: var(--font-h); font-size: .88rem; font-weight: 500;
+      color: #fff; letter-spacing: .03em; line-height: 1.3;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity .3s, transform .3s;
+    }
+    .card-brand {
+      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      opacity: 0; transform: translateY(6px);
+      transition: opacity .35s .05s, transform .35s .05s;
+    }
+    .reel-card:not(.placeholder):hover .play-icon  { opacity: 1; transform: scale(1); }
+    .reel-card:not(.placeholder):hover .card-title  { opacity: 1; transform: translateY(0); }
+    .reel-card:not(.placeholder):hover .card-brand  { opacity: 1; transform: translateY(0); }
+
+    /* ── Instagram link ─────────────────────────── */
+    .ig-link {
+      display: flex; align-items: center; justify-content: center;
+      gap: .6rem; padding: 0 6vw 5rem;
+    }
+    .ig-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .65rem 1.4rem;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: .82rem; font-family: var(--font); color: var(--muted);
+      transition: border-color .2s, color .2s;
+    }
+    .ig-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Modal ──────────────────────────────────── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.92); z-index: 200;
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal { position: relative; width: 100%; max-width: 420px; }
+    .modal-close {
+      position: absolute; top: -2.2rem; right: 0;
+      color: rgba(255,255,255,.6); font-size: 1.5rem;
+      cursor: pointer; line-height: 1;
+      transition: color .2s; background: none; border: none;
+    }
+    .modal-close:hover { color: #fff; }
+    .video-frame {
+      width: 100%; aspect-ratio: 9/16; background: #000;
+    }
+    .video-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+    .modal-info {
+      padding: .9rem 0 0;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+    }
+    .modal-title { font-family: var(--font-h); font-size: 1rem; font-weight: 500; color: #f9f6f2; }
+    .modal-brand { font-size: .8rem; color: rgba(249,246,242,.5); margin-top: .2rem; }
+    .modal-ext {
+      font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(249,246,242,.35); white-space: nowrap;
+      transition: color .2s; flex-shrink: 0; margin-top: .15rem;
+    }
+    .modal-ext:hover { color: rgba(249,246,242,.7); }
+
+    /* ── Responsive ─────────────────────────────── */
+    @media (max-width: 700px) {
+      nav { padding: 0 1.25rem; }
+      .page-header { padding: 5rem 5vw 2rem; }
+      .reel-grid { grid-template-columns: repeat(2, 1fr); padding: 0 0 5rem; }
+    }
+    @media (max-width: 420px) {
+      .reel-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav><a href="index.html" class="nav-name">Amanda Cui</a></nav>
+
+<div class="page-header">
+  <h1>creative collaborations</h1>
+  <p>Brand partnerships, sponsored content, and creative reels.</p>
+</div>
+
+<!--
+  ── How to add a reel ────────────────────────────────────────
+  For Instagram Reels:
+    1. Open the reel on Instagram → ··· → Copy link
+    2. Get the embed URL:  https://www.instagram.com/reel/REEL_ID/embed/
+    3. For thumbnail, take a screenshot and save to photos/collabs/
+    4. Set data-type="instagram"
+
+  For YouTube Shorts:
+    1. Set data-embed to https://www.youtube.com/embed/VIDEO_ID
+    2. Use thumbnail: https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg
+    3. Set data-type="youtube"
+  ─────────────────────────────────────────────────────────────
+-->
+<div class="reel-grid">
+
+  <!-- Add your reels below. Example: -->
+  <!--
+  <div class="reel-card"
+       data-embed="https://www.instagram.com/reel/REEL_ID/embed/"
+       data-type="instagram"
+       data-title="Reel Title"
+       data-brand="Brand Name"
+       onclick="openReel(this)">
+    <img src="photos/collabs/thumbnail.jpg" alt="Brand Name">
+    <div class="card-overlay">
+      <div class="play-icon">
+        <svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8-14 8z"/></svg>
+      </div>
+      <div class="card-title">Reel Title</div>
+      <div class="card-brand">Brand Name</div>
+    </div>
+  </div>
+  -->
+
+  <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
+  <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
+  <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
+
+</div>
+
+<div class="ig-link">
+  <a href="https://instagram.com/amandacuii" target="_blank" class="ig-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/>
+    </svg>
+    More on Instagram @amandacuii
+  </a>
+</div>
+
+<!-- ── Modal ─────────────────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeReel()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeReel()">✕</button>
+    <div class="video-frame">
+      <iframe id="modalIframe" src="" allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+      </iframe>
+    </div>
+    <div class="modal-info">
+      <div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-brand" id="modalBrand"></div>
+      </div>
+      <a class="modal-ext" id="modalExt" href="" target="_blank">View on Instagram ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openReel(card) {
+    const embed = card.dataset.embed;
+    const type  = card.dataset.type || 'instagram';
+    document.getElementById('modalIframe').src = type === 'youtube' ? embed + '?autoplay=1' : embed;
+    document.getElementById('modalTitle').textContent = card.dataset.title || '';
+    document.getElementById('modalBrand').textContent = card.dataset.brand || '';
+    const ext = document.getElementById('modalExt');
+    ext.href = embed.replace('/embed/', '/').replace('?autoplay=1','');
+    ext.textContent = type === 'youtube' ? 'View on YouTube ↗' : 'View on Instagram ↗';
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeReel() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.getElementById('modalIframe').src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReel(); });
+</script>
+</body>
+</html>
