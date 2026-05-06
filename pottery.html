@@ -90,25 +90,21 @@
             color: #f9f6f2;
         }
 
-        /* Gallery grid — natural proportions like freckleclay */
+        /* Gallery grid — aligned square grid */
         .gallery {
             padding: 0 6vw 6rem;
-            columns: 3;
-            column-gap: 16px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
 
         .piece {
-            break-inside: avoid;
-            margin-bottom: 16px;
             cursor: pointer;
         }
 
         .piece-img-wrap {
             position: relative;
             overflow: hidden;
-        }
-
-        .piece-img-wrap {
             aspect-ratio: 1 / 1;
         }
 
@@ -403,14 +399,13 @@
         @media (max-width: 750px) {
             nav { padding: 0 1.25rem; }
             .page-header { padding: 4.5rem 5vw 2rem; }
-            .gallery { column-count: 2; column-gap: 10px; padding: 0 3vw 4rem; }
+            .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 3vw 4rem; }
             .lightbox-body { padding: 3rem 1.25rem 4rem; }
             .lightbox-close { top: 1rem; right: 1rem; }
         }
 
         @media (max-width: 480px) {
-            .gallery { column-count: 2; column-gap: 8px; padding: 0 2vw 4rem; }
-            .piece { margin-bottom: 8px; }
+            .gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 2vw 4rem; }
             .piece-name { font-size: 0.78rem; }
             .piece-home { font-size: 0.7rem; }
             .lightbox-body { padding: 2.5rem 1rem 3rem; }
