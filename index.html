@@ -105,6 +105,7 @@
 
         @media (max-width: 700px) {
             html, body { overflow-y: auto; }
+            .site-name { top: 1rem; left: 1.25rem; font-size: 0.85rem; }
             .grid {
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: 50vw 50vw 50vw;
@@ -117,6 +118,18 @@
             .tile-5 { grid-column: 1 / -1; grid-row: 3; }
             .tile-title { opacity: 1; transform: none; font-size: 0.85rem; }
             .tile-overlay { background: rgba(0,0,0,0.3); }
+        }
+        @media (max-width: 400px) {
+            .grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(5, 70vw);
+            }
+            .tile-1, .tile-2, .tile-3, .tile-4 { grid-column: 1; }
+            .tile-1 { grid-row: 1; }
+            .tile-2 { grid-row: 2; }
+            .tile-3 { grid-row: 3; }
+            .tile-4 { grid-row: 4; }
+            .tile-5 { grid-column: 1; grid-row: 5; }
         }
     </style>
 </head>

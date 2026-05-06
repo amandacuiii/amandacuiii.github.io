@@ -199,10 +199,17 @@
 
     /* ── Responsive ──────────────────────────────── */
     @media (max-width: 700px) {
+      nav { padding: 0 1.25rem; }
+      .page-header { padding: 5rem 5vw 2rem; }
       .video-grid { grid-template-columns: repeat(2, 1fr); padding: 0 0 5rem; }
+      .modal-info { flex-direction: column; gap: 0.5rem; }
+      .modal-ext { margin-top: 0; }
+      .modal { padding: 0 0.5rem; }
     }
     @media (max-width: 420px) {
       .video-grid { grid-template-columns: 1fr; }
+      .modal-overlay { padding: 10px; }
+      .modal-close { top: -1.8rem; font-size: 1.2rem; }
     }
   </style>
 </head>
