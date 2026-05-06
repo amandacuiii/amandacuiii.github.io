@@ -6,15 +6,15 @@
     <title>Pottery Progress — Amanda Cui</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #f9f6f2;
             --text: #3d2e1c;
             --accent: #664930;
             --muted: #9b8472;
-            --font: 'Karla', sans-serif;
-            --font-heading: 'Rubik', sans-serif;
+            --font: 'Neuton', serif;
+            --font-heading: 'Neuton', serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -68,6 +68,26 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--muted);
+        }
+
+        .event-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-top: 1.25rem;
+            padding: 0.5rem 1.1rem;
+            border: 1px solid var(--accent);
+            border-radius: 2px;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .event-link:hover {
+            background: var(--accent);
+            color: #f9f6f2;
         }
 
         /* Gallery grid — natural proportions like freckleclay */
@@ -333,6 +353,10 @@
         <h1>pottery progress</h1>
         <p>A documentation of my pottery journey — from the first piece to the hundredth.</p>
         <span class="piece-count" id="piece-count"></span>
+        <br>
+        <a class="event-link" href="https://luma.com/j22ron9z" target="_blank" rel="noopener">
+            ✦ Pottery event — RSVP
+        </a>
     </div>
 
     <div class="gallery" id="gallery">
