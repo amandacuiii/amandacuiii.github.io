@@ -7,7 +7,7 @@ import json, base64, os, re
 
 SITE_DIR = os.path.dirname(os.path.abspath(__file__))
 JSON_PATH = os.path.join(SITE_DIR, 'pottery-data.json')
-OUT_DIR   = os.path.join(SITE_DIR, 'photos', 'pottery')
+OUT_DIR   = SITE_DIR  # photos live alongside pottery.html in pottery/
 
 os.makedirs(OUT_DIR, exist_ok=True)
 
@@ -46,7 +46,7 @@ for piece in data:
             f.write(base64.b64decode(b64data))
         idx += 1
         extracted += 1
-        return f'photos/pottery/{fname}'
+        return f'pottery/{fname}'
 
     piece['mainImage'] = extract(piece.get('mainImage', ''))
 
@@ -59,7 +59,7 @@ with open(JSON_PATH, 'w') as f:
     json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
 
 if extracted:
-    print(f'✅ Extracted {extracted} images → photos/pottery/')
+    print(f'✅ Extracted {extracted} images → pottery/')
 else:
     print('✅ No new images to extract (all pieces already use file paths)')
 

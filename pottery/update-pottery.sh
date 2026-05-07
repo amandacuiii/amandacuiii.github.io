@@ -24,7 +24,7 @@ python3 "$SITE_DIR/extract-pottery-images.py"
 
 echo "📡 Committing and pushing to GitHub..."
 cd "$SITE_DIR"
-git add pottery-data.json photos/pottery/
+git add pottery-data.json *.jpg *.jpeg *.png 2>/dev/null; true
 git commit -m "Update pottery data and images" --allow-empty
 git push origin main
 
