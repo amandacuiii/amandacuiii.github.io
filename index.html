@@ -196,6 +196,9 @@
             ],
         };
 
+        // Tiles that swap immediately on load (no initial delay)
+        const IMMEDIATE = ['pottery', 'about'];
+
         // Track current index per tile
         const state = {};
         document.querySelectorAll('.tile[data-tile]').forEach(tile => {
@@ -205,28 +208,29 @@
 
             state[key] = 0;
 
-            // Stagger start times so tiles don't all switch at once
-            const offset = Math.random() * 800;
+            function swap() {
+                const nextIdx = (state[key] + 1) % photos.length;
+                const current = tile.querySelector('img.current');
+                const behind  = tile.querySelector('img.behind');
+                behind.src = photos[nextIdx];
+                behind.onload = () => {
+                    behind.classList.replace('behind', 'current');
+                    current.classList.replace('current', 'behind');
+                    current.style.opacity = '0';
+                    behind.style.opacity = '';
+                    state[key] = nextIdx;
+                };
+            }
 
-            setTimeout(() => {
-                setInterval(() => {
-                    const photos = PHOTOS[key];
-                    const nextIdx = (state[key] + 1) % photos.length;
-                    const current = tile.querySelector('img.current');
-                    const behind  = tile.querySelector('img.behind');
-
-                    // Preload next photo into behind layer
-                    behind.src = photos[nextIdx];
-                    behind.onload = () => {
-                        // Swap: behind becomes current, current becomes behind
-                        behind.classList.replace('behind', 'current');
-                        current.classList.replace('current', 'behind');
-                        current.style.opacity = '0';
-                        behind.style.opacity = '';
-                        state[key] = nextIdx;
-                    };
-                }, 4000);
-            }, offset);
+            if (IMMEDIATE.includes(key)) {
+                // Swap to next photo right away, then keep cycling
+                setTimeout(swap, 800);
+                setInterval(swap, 4000);
+            } else {
+                // Stagger start so tiles don't all switch at once
+                const offset = Math.random() * 800;
+                setTimeout(() => setInterval(swap, 4000), offset);
+            }
         });
     </script>
 </body>
