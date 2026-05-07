@@ -1001,7 +1001,7 @@ openPhotoDB().then(async () => {
     // First load — try to seed from server, otherwise prompt to import
     let seeded = false;
     try {
-      const r = await fetch('pottery-data.json');
+      const r = await fetch('../pottery/pottery-data.json');
       if (r.ok) {
         const data = await r.json();
         pieces = data.map(p => ({
