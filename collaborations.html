@@ -3,50 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creative Collaborations — Amanda Cui</title>
+  <title>Ongoing Projects — Amanda Cui</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:      #f9f6f2;
-      --text:    #3d2e1c;
-      --accent:  #664930;
-      --muted:   #9b8472;
-      --border:  rgba(102,73,48,.12);
-      --font:    'Neuton', serif;
-      --font-h:  'Neuton', serif;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'Neuton', serif;
+      background: #0d0d0d;
+      color: #f2ede8;
+      -webkit-font-smoothing: antialiased;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
 
-    /* ── Nav ───────────────────────────────────── */
+    /* ── Nav ─────────────────────────────────────── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      height: 56px; display: flex; align-items: center; padding: 0 2.5rem;
-      background: rgba(249,246,242,0.85); backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 56px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 2rem;
+      background: rgba(13,13,13,0.9); backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(242,237,232,0.07);
     }
-    .nav-name { font-family: var(--font-h); font-size: .9rem; font-weight: 500; letter-spacing: .08em; transition: color .2s; }
-    .nav-name:hover { color: var(--accent); }
+    .nav-name {
+      font-size: .88rem; font-weight: 500; letter-spacing: .08em;
+      transition: color .2s;
+    }
+    .nav-name:hover { color: #c8a882; }
+    .nav-label {
+      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(242,237,232,0.3);
+    }
 
-    /* ── Header ────────────────────────────────── */
-    .page-header { padding: 7rem 6vw 2.5rem; }
-    .page-header h1 { font-family: var(--font-h); font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; letter-spacing: -.02em; }
-    .page-header p { margin-top: .75rem; font-size: 1rem; color: var(--muted); max-width: 44ch; line-height: 1.6; }
+    /* ── Layout ──────────────────────────────────── */
+    .layout {
+      display: flex;
+      height: 100vh;
+      padding-top: 56px;
+    }
 
-    /* ── Reel grid ──────────────────────────────── */
+    /* ── Sidebar ─────────────────────────────────── */
+    .sidebar {
+      width: 300px; flex-shrink: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 3rem 2.5rem;
+      border-right: 1px solid rgba(242,237,232,0.08);
+      overflow-y: auto;
+    }
+
+    .project-item {
+      padding: 2.2rem 0;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(242,237,232,0.07);
+      opacity: 0.3;
+      transition: opacity 0.35s ease;
+      user-select: none;
+      position: relative;
+    }
+    .project-item:first-child { border-top: 1px solid rgba(242,237,232,0.07); }
+    .project-item.active { opacity: 1; }
+    .project-item:not(.active):hover { opacity: 0.65; }
+
+    .project-item::before {
+      content: '';
+      position: absolute; left: -2.5rem; top: 50%; transform: translateY(-50%);
+      width: 2px; height: 0;
+      background: #c8a882;
+      transition: height 0.35s ease;
+    }
+    .project-item.active::before { height: 2.5rem; }
+
+    .project-num {
+      font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35); margin-bottom: .6rem;
+      transition: color 0.35s;
+    }
+    .project-item.active .project-num { color: #c8a882; }
+
+    .project-title {
+      font-size: clamp(1rem, 1.6vw, 1.35rem);
+      font-weight: 300; line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .project-meta {
+      font-size: .7rem; letter-spacing: .07em;
+      color: rgba(242,237,232,0.3); margin-top: .5rem;
+    }
+
+    /* ── Content area ────────────────────────────── */
+    .content-area {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-panel {
+      position: absolute; inset: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .project-panel.active {
+      opacity: 1; pointer-events: all;
+    }
+
+    /* ── Reel panel ──────────────────────────────── */
+    .reel-panel {
+      width: 100%; height: 100%;
+      overflow-y: auto;
+      background: #f9f6f2;
+      color: #3d2e1c;
+    }
+
+    .reel-panel-inner {
+      padding: 3rem 3rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .reel-panel-inner h2 {
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 300; letter-spacing: -.02em;
+      margin-bottom: .5rem;
+    }
+    .reel-panel-inner .sub {
+      font-size: .9rem; color: #9b8472; margin-bottom: 2.5rem; line-height: 1.6;
+    }
+
     .reel-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 3px;
-      padding: 0 6vw 6rem;
     }
 
-    /* ── Reel card ──────────────────────────────── */
     .reel-card {
       position: relative;
       aspect-ratio: 9 / 16;
@@ -54,37 +146,30 @@
       cursor: pointer;
       overflow: hidden;
     }
-
     .reel-card img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
       transition: transform .5s cubic-bezier(.25,.46,.45,.94);
     }
-
     .reel-card.placeholder {
       cursor: default;
       display: flex; align-items: center; justify-content: center;
     }
     .placeholder-label {
-      font-family: var(--font-h); font-size: .7rem;
+      font-family: 'Neuton', serif; font-size: .7rem;
       letter-spacing: .14em; text-transform: uppercase;
-      color: var(--muted); opacity: .4;
+      color: #9b8472; opacity: .4;
     }
-
-    /* Hover overlay */
     .card-overlay {
       position: absolute; inset: 0;
       background: rgba(30,18,8,0);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: .5rem;
-      transition: background .3s ease;
-      padding: 1.5rem;
-      text-align: center;
+      gap: .5rem; transition: background .3s ease;
+      padding: 1.5rem; text-align: center;
     }
     .reel-card:not(.placeholder):hover .card-overlay { background: rgba(30,18,8,.55); }
     .reel-card:not(.placeholder):hover img { transform: scale(1.05); }
-
     .play-icon {
       width: 44px; height: 44px;
       border: 2px solid #fff; border-radius: 50%;
@@ -93,9 +178,8 @@
       transition: opacity .3s, transform .3s;
     }
     .play-icon svg { margin-left: 3px; }
-
     .card-title {
-      font-family: var(--font-h); font-size: .88rem; font-weight: 500;
+      font-size: .88rem; font-weight: 500;
       color: #fff; letter-spacing: .03em; line-height: 1.3;
       opacity: 0; transform: translateY(6px);
       transition: opacity .3s, transform .3s;
@@ -110,26 +194,55 @@
     .reel-card:not(.placeholder):hover .card-title  { opacity: 1; transform: translateY(0); }
     .reel-card:not(.placeholder):hover .card-brand  { opacity: 1; transform: translateY(0); }
 
-    /* ── Instagram link ─────────────────────────── */
     .ig-link {
-      display: flex; align-items: center; justify-content: center;
-      gap: .6rem; padding: 0 6vw 5rem;
+      display: flex; justify-content: center; padding: 2.5rem 0 0;
     }
     .ig-btn {
       display: inline-flex; align-items: center; gap: .5rem;
       padding: .65rem 1.4rem;
-      border: 1.5px solid var(--border); border-radius: 8px;
-      font-size: .82rem; font-family: var(--font); color: var(--muted);
+      border: 1.5px solid rgba(102,73,48,.12); border-radius: 8px;
+      font-size: .82rem; color: #9b8472;
       transition: border-color .2s, color .2s;
     }
-    .ig-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .ig-btn:hover { border-color: #664930; color: #664930; }
 
-    /* ── Modal ──────────────────────────────────── */
+    /* ── Placeholder panel (camp / exhibit) ──────── */
+    .placeholder-panel {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.2rem;
+      position: relative; overflow: hidden;
+    }
+    .placeholder-panel .bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: brightness(0.25);
+    }
+    .placeholder-panel .ph-content {
+      position: relative; z-index: 1; text-align: center; padding: 0 2rem;
+    }
+    .placeholder-panel h2 {
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      font-weight: 300; letter-spacing: -.01em; margin-bottom: .6rem;
+    }
+    .placeholder-panel .ph-tag {
+      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35);
+    }
+    .placeholder-panel .ph-soon {
+      margin-top: 2rem;
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: #c8a882; opacity: .6;
+      border: 1px solid rgba(200,168,130,0.25); border-radius: 4px;
+      padding: .4rem .9rem; display: inline-block;
+    }
+
+    /* ── Modal ───────────────────────────────────── */
     .modal-overlay {
       display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.92); z-index: 200;
-      align-items: center; justify-content: center;
-      padding: 20px;
+      background: rgba(0,0,0,.92); z-index: 300;
+      align-items: center; justify-content: center; padding: 20px;
     }
     .modal-overlay.open { display: flex; }
     .modal { position: relative; width: 100%; max-width: 420px; }
@@ -140,15 +253,13 @@
       transition: color .2s; background: none; border: none;
     }
     .modal-close:hover { color: #fff; }
-    .video-frame {
-      width: 100%; aspect-ratio: 9/16; background: #000;
-    }
+    .video-frame { width: 100%; aspect-ratio: 9/16; background: #000; }
     .video-frame iframe { width: 100%; height: 100%; border: none; display: block; }
     .modal-info {
       padding: .9rem 0 0;
       display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
     }
-    .modal-title { font-family: var(--font-h); font-size: 1rem; font-weight: 500; color: #f9f6f2; }
+    .modal-title { font-size: 1rem; font-weight: 500; color: #f9f6f2; }
     .modal-brand { font-size: .8rem; color: rgba(249,246,242,.5); margin-top: .2rem; }
     .modal-ext {
       font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
@@ -157,79 +268,160 @@
     }
     .modal-ext:hover { color: rgba(249,246,242,.7); }
 
-    /* ── Responsive ─────────────────────────────── */
-    @media (max-width: 700px) {
-      nav { padding: 0 1.25rem; }
-      .page-header { padding: 5rem 5vw 2rem; }
-      .reel-grid { grid-template-columns: repeat(2, 1fr); padding: 0 0 5rem; }
+    /* ── Mobile ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      html, body { overflow: hidden; }
+
+      .layout { flex-direction: column; height: 100vh; padding-top: 56px; }
+
+      .sidebar {
+        width: 100%; flex-direction: row;
+        justify-content: flex-start; align-items: stretch;
+        padding: 0; border-right: none;
+        border-bottom: 1px solid rgba(242,237,232,0.08);
+        overflow-x: auto; overflow-y: hidden;
+        flex-shrink: 0; height: 54px;
+        scrollbar-width: none;
+      }
+      .sidebar::-webkit-scrollbar { display: none; }
+
+      .project-item {
+        padding: 0 1.4rem;
+        border-bottom: none;
+        border-right: 1px solid rgba(242,237,232,0.07);
+        border-top: none !important;
+        flex-shrink: 0; white-space: nowrap;
+        display: flex; flex-direction: column; justify-content: center;
+      }
+      .project-item::before {
+        left: 50%; top: auto; bottom: 0; transform: translateX(-50%);
+        width: 0; height: 2px; transition: width 0.35s ease;
+      }
+      .project-item.active::before { width: 65%; height: 2px; }
+
+      .project-meta { display: none; }
+      .project-num { margin-bottom: .2rem; font-size: .55rem; }
+      .project-title { font-size: .85rem; }
+
+      .content-area { flex: 1; overflow: hidden; position: relative; min-height: 0; }
+      .project-panel { position: absolute; inset: 0; }
+
+      .reel-panel-inner { padding: 2rem 1.25rem 4rem; }
+      .reel-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .placeholder-panel h2 { font-size: clamp(1.3rem, 6vw, 2rem); }
     }
+
     @media (max-width: 420px) {
+      nav { padding: 0 1rem; }
       .reel-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<nav><a href="index.html" class="nav-name">Amanda Cui</a></nav>
+<nav>
+  <a href="index.html" class="nav-name">Amanda Cui</a>
+  <span class="nav-label">Ongoing Projects</span>
+</nav>
 
-<div class="page-header">
-  <h1>creative collaborations</h1>
-  <p>Brand partnerships, sponsored content, and creative reels.</p>
-</div>
+<div class="layout">
 
-<!--
-  ── How to add a reel ────────────────────────────────────────
-  For Instagram Reels:
-    1. Open the reel on Instagram → ··· → Copy link
-    2. Get the embed URL:  https://www.instagram.com/reel/REEL_ID/embed/
-    3. For thumbnail, take a screenshot and save to photos/collabs/
-    4. Set data-type="instagram"
+  <!-- ── Sidebar ──────────────────────────────────── -->
+  <aside class="sidebar">
 
-  For YouTube Shorts:
-    1. Set data-embed to https://www.youtube.com/embed/VIDEO_ID
-    2. Use thumbnail: https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg
-    3. Set data-type="youtube"
-  ─────────────────────────────────────────────────────────────
--->
-<div class="reel-grid">
-
-  <!-- Add your reels below. Example: -->
-  <!--
-  <div class="reel-card"
-       data-embed="https://www.instagram.com/reel/REEL_ID/embed/"
-       data-type="instagram"
-       data-title="Reel Title"
-       data-brand="Brand Name"
-       onclick="openReel(this)">
-    <img src="photos/collabs/thumbnail.jpg" alt="Brand Name">
-    <div class="card-overlay">
-      <div class="play-icon">
-        <svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8-14 8z"/></svg>
-      </div>
-      <div class="card-title">Reel Title</div>
-      <div class="card-brand">Brand Name</div>
+    <div class="project-item active" data-project="reels" onclick="showProject('reels')">
+      <div class="project-num">01</div>
+      <div class="project-title">Brand Reels</div>
+      <div class="project-meta">Partnerships & sponsored content</div>
     </div>
-  </div>
-  -->
 
-  <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
-  <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
-  <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
+    <div class="project-item" data-project="camp" onclick="showProject('camp')">
+      <div class="project-num">02</div>
+      <div class="project-title">Indigenous Pottery Camp</div>
+      <div class="project-meta">Taiwan · 2025</div>
+    </div>
 
+    <div class="project-item" data-project="exhibit" onclick="showProject('exhibit')">
+      <div class="project-num">03</div>
+      <div class="project-title">Pottery Exhibit</div>
+      <div class="project-meta">Coming soon</div>
+    </div>
+
+  </aside>
+
+  <!-- ── Content panels ───────────────────────────── -->
+  <main class="content-area">
+
+    <!-- 01 · Brand Reels -->
+    <div class="project-panel active" id="panel-reels">
+      <div class="reel-panel">
+        <div class="reel-panel-inner">
+          <h2>Brand Reels</h2>
+          <p class="sub">Partnerships, sponsored content, and creative reels.</p>
+
+          <!--
+            ── How to add a reel ──────────────────────────────────────────
+            For Instagram Reels:
+              1. Open the reel → ··· → Copy link → grab the REEL_ID
+              2. data-embed="https://www.instagram.com/reel/REEL_ID/embed/"
+              3. Save a screenshot to photos/collabs/ for the thumbnail
+              4. data-type="instagram"
+
+            For YouTube Shorts:
+              1. data-embed="https://www.youtube.com/embed/VIDEO_ID"
+              2. thumbnail: https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg
+              3. data-type="youtube"
+            ──────────────────────────────────────────────────────────────
+          -->
+          <div class="reel-grid">
+            <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
+            <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
+            <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
+          </div>
+
+          <div class="ig-link">
+            <a href="https://instagram.com/amandacuii" target="_blank" class="ig-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/>
+              </svg>
+              More on Instagram @amandacuii
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 · Indigenous Pottery Camp -->
+    <div class="project-panel" id="panel-camp">
+      <div class="placeholder-panel">
+        <div class="bg" style="background-image: url('photos/Title Page/taiwan through our eyes /DSC01598.JPG')"></div>
+        <div class="ph-content">
+          <h2>Indigenous Pottery Camp</h2>
+          <div class="ph-tag">Taiwan · 2025</div>
+          <div class="ph-soon">Coming soon</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 · Pottery Exhibit -->
+    <div class="project-panel" id="panel-exhibit">
+      <div class="placeholder-panel">
+        <div class="bg" style="background-image: url('photos/Title Page/pottery progress/background.jpeg')"></div>
+        <div class="ph-content">
+          <h2>Pottery Exhibit</h2>
+          <div class="ph-tag">Coming soon</div>
+          <div class="ph-soon">Coming soon</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
 </div>
 
-<div class="ig-link">
-  <a href="https://instagram.com/amandacuii" target="_blank" class="ig-btn">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/>
-    </svg>
-    More on Instagram @amandacuii
-  </a>
-</div>
-
-<!-- ── Modal ─────────────────────────────────────────── -->
+<!-- ── Modal ──────────────────────────────────────── -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeReel()">
   <div class="modal">
     <button class="modal-close" onclick="closeReel()">✕</button>
@@ -249,6 +441,15 @@
 </div>
 
 <script>
+  function showProject(id) {
+    document.querySelectorAll('.project-item').forEach(el =>
+      el.classList.toggle('active', el.dataset.project === id)
+    );
+    document.querySelectorAll('.project-panel').forEach(el =>
+      el.classList.toggle('active', el.id === 'panel-' + id)
+    );
+  }
+
   function openReel(card) {
     const embed = card.dataset.embed;
     const type  = card.dataset.type || 'instagram';
