@@ -496,17 +496,11 @@
             return 9;
         }
 
-        const INCOMPLETE_STAGES = [
-            'at the studio', 'bisque', 'bonedry', 'bone dry',
-            'leatherhard', 'leather hard', 'throwing', 'trimming', 'glazed'
-        ];
-
         function buildGallery(data) {
-            // Only show finished pieces
-            data = data.filter(p => {
-                const h = (p.home || '').toLowerCase().trim();
-                return !INCOMPLETE_STAGES.includes(h);
-            });
+            // Only show pieces where stage is Complete
+            data = data.filter(p =>
+                (p.stage || '').toLowerCase().trim() === 'complete'
+            );
 
             // Sort oldest → newest to assign numbers
             data.sort((a, b) => {
