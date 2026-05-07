@@ -8,23 +8,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:      #f9f6f2;
-      --text:    #3d2e1c;
-      --accent:  #664930;
-      --muted:   #9b8472;
-      --border:  rgba(102,73,48,.12);
-      --font:    'Neuton', serif;
-      --font-h:  'Neuton', serif;
-    }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html, body { height: 100%; overflow: hidden; }
 
     body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Neuton', serif;
+      background: #0d0d0d;
+      color: #f2ede8;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -32,308 +22,260 @@
 
     /* ── Nav ─────────────────────────────────────── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      height: 56px; display: flex; align-items: center; padding: 0 2.5rem;
-      background: rgba(249,246,242,0.85); backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 56px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 2rem;
+      background: rgba(13,13,13,0.9); backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(242,237,232,0.07);
     }
     .nav-name {
-      font-family: var(--font-h); font-size: .9rem;
-      font-weight: 500; letter-spacing: .08em; transition: color .2s;
+      font-size: .88rem; font-weight: 500; letter-spacing: .08em;
+      transition: color .2s;
     }
-    .nav-name:hover { color: var(--accent); }
-
-    /* ── Header ──────────────────────────────────── */
-    .page-header {
-      padding: 7rem 6vw 2.5rem;
-    }
-    .page-header h1 {
-      font-family: var(--font-h);
-      font-size: clamp(2rem, 5vw, 4rem);
-      font-weight: 700; letter-spacing: -.02em;
-    }
-    .page-header p {
-      margin-top: .75rem; font-size: 1rem;
-      color: var(--muted); max-width: 44ch; line-height: 1.6;
+    .nav-name:hover { color: #c8a882; }
+    .nav-label {
+      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(242,237,232,0.3);
     }
 
-    /* ── Grid ────────────────────────────────────── */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3px;
-      padding: 0 6vw 6rem;
+    /* ── Layout ──────────────────────────────────── */
+    .layout {
+      display: flex;
+      height: 100vh;
+      padding-top: 56px;
     }
 
-    /* ── Video card ──────────────────────────────── */
-    .video-card {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      background: #e8e0d8;
+    /* ── Sidebar ─────────────────────────────────── */
+    .sidebar {
+      width: 300px; flex-shrink: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 3rem 2.5rem;
+      border-right: 1px solid rgba(242,237,232,0.08);
+      overflow-y: auto;
+      gap: 0;
+    }
+
+    .project-item {
+      padding: 2.2rem 0;
       cursor: pointer;
+      border-bottom: 1px solid rgba(242,237,232,0.07);
+      opacity: 0.3;
+      transition: opacity 0.35s ease;
+      user-select: none;
+      position: relative;
+    }
+    .project-item:first-child { border-top: 1px solid rgba(242,237,232,0.07); }
+    .project-item.active { opacity: 1; }
+    .project-item:not(.active):hover { opacity: 0.65; }
+
+    /* Active left bar */
+    .project-item::before {
+      content: '';
+      position: absolute; left: -2.5rem; top: 50%; transform: translateY(-50%);
+      width: 2px; height: 0;
+      background: #c8a882;
+      transition: height 0.35s ease;
+    }
+    .project-item.active::before { height: 2.5rem; }
+
+    .project-num {
+      font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35); margin-bottom: .6rem;
+      transition: color 0.35s;
+    }
+    .project-item.active .project-num { color: #c8a882; }
+
+    .project-title {
+      font-size: clamp(1rem, 1.6vw, 1.35rem);
+      font-weight: 300; line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .project-meta {
+      font-size: .7rem; letter-spacing: .07em;
+      color: rgba(242,237,232,0.3); margin-top: .5rem;
+    }
+
+    /* ── Content area ────────────────────────────── */
+    .content-area {
+      flex: 1;
+      position: relative;
       overflow: hidden;
     }
 
-    /* Thumbnail: YouTube or custom image */
-    .video-card img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
-    }
-
-    /* Placeholder for empty slots */
-    .video-card.placeholder {
-      cursor: default;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .placeholder-label {
-      font-family: var(--font-h); font-size: .7rem;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--muted); opacity: .4;
-    }
-
-    /* Hover overlay */
-    .card-overlay {
+    .project-panel {
       position: absolute; inset: 0;
-      background: rgba(30,18,8,0);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: .5rem;
-      transition: background .3s ease;
-      padding: 1.5rem;
-      text-align: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
     }
-    .video-card:not(.placeholder):hover .card-overlay {
-      background: rgba(30,18,8,.55);
+    .project-panel.active {
+      opacity: 1; pointer-events: all;
     }
 
-    .play-icon {
-      width: 44px; height: 44px;
-      border: 2px solid #fff; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transform: scale(.8);
-      transition: opacity .3s ease, transform .3s ease;
-    }
-    .play-icon svg { margin-left: 3px; }
-
-    .card-title {
-      font-family: var(--font-h); font-size: .88rem; font-weight: 500;
-      color: #fff; letter-spacing: .03em; line-height: 1.3;
-      opacity: 0; transform: translateY(6px);
-      transition: opacity .3s ease, transform .3s ease;
-    }
-    .card-category {
-      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(255,255,255,.65);
-      opacity: 0; transform: translateY(6px);
-      transition: opacity .35s ease .05s, transform .35s ease .05s;
-    }
-
-    .video-card:not(.placeholder):hover img { transform: scale(1.05); }
-    .video-card:not(.placeholder):hover .play-icon  { opacity: 1; transform: scale(1); }
-    .video-card:not(.placeholder):hover .card-title    { opacity: 1; transform: translateY(0); }
-    .video-card:not(.placeholder):hover .card-category { opacity: 1; transform: translateY(0); }
-
-    /* ── Instagram link ──────────────────────────── */
-    .ig-link {
-      display: flex; align-items: center; justify-content: center;
-      gap: .6rem; padding: 0 6vw 5rem;
-    }
-    .ig-btn {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .65rem 1.4rem;
-      border: 1.5px solid var(--border); border-radius: 8px;
-      font-size: .82rem; font-family: var(--font); color: var(--muted);
-      transition: border-color .2s, color .2s;
-    }
-    .ig-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .ig-btn svg { flex-shrink: 0; }
-
-    /* ── Modal ───────────────────────────────────── */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.9); z-index: 200;
-      align-items: center; justify-content: center;
-      padding: 20px;
-    }
-    .modal-overlay.open { display: flex; }
-
-    .modal {
-      position: relative;
-      width: 100%; max-width: 860px;
-    }
-    .modal-close {
-      position: absolute; top: -2.2rem; right: 0;
-      color: rgba(255,255,255,.6); font-size: 1.5rem;
-      cursor: pointer; line-height: 1;
-      transition: color .2s; background: none; border: none;
-    }
-    .modal-close:hover { color: #fff; }
-
-    .video-frame {
-      width: 100%; aspect-ratio: 16/9; background: #000;
-    }
-    .video-frame iframe {
+    /* iframe panel */
+    .project-panel iframe {
       width: 100%; height: 100%; border: none; display: block;
     }
 
-    .modal-info {
-      padding: .9rem 0 0;
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 1rem;
+    /* placeholder panel */
+    .placeholder-panel {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.2rem;
+      position: relative; overflow: hidden;
     }
-    .modal-title {
-      font-family: var(--font-h); font-size: 1rem; font-weight: 500;
-      color: #f9f6f2;
+    .placeholder-panel .bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: brightness(0.25);
     }
-    .modal-desc {
-      font-size: .85rem; color: rgba(249,246,242,.55);
-      margin-top: .3rem; line-height: 1.6; max-width: 60ch;
+    .placeholder-panel .ph-content {
+      position: relative; z-index: 1; text-align: center;
     }
-    .modal-ext {
-      font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
-      color: rgba(249,246,242,.35); white-space: nowrap;
-      transition: color .2s; flex-shrink: 0; margin-top: .15rem;
+    .placeholder-panel h2 {
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      font-weight: 300; letter-spacing: -.01em; margin-bottom: .6rem;
     }
-    .modal-ext:hover { color: rgba(249,246,242,.7); }
+    .placeholder-panel .ph-tag {
+      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35);
+    }
+    .placeholder-panel .ph-soon {
+      margin-top: 2rem;
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: #c8a882; opacity: .6;
+      border: 1px solid rgba(200,168,130,0.25); border-radius: 4px;
+      padding: .4rem .9rem;
+    }
 
-    /* ── Responsive ──────────────────────────────── */
-    @media (max-width: 700px) {
-      nav { padding: 0 1.25rem; }
-      .page-header { padding: 5rem 5vw 2rem; }
-      .video-grid { grid-template-columns: repeat(2, 1fr); padding: 0 0 5rem; }
-      .modal-info { flex-direction: column; gap: 0.5rem; }
-      .modal-ext { margin-top: 0; }
-      .modal { padding: 0 0.5rem; }
-    }
-    @media (max-width: 420px) {
-      .video-grid { grid-template-columns: 1fr; }
-      .modal-overlay { padding: 10px; }
-      .modal-close { top: -1.8rem; font-size: 1.2rem; }
+    /* ── Mobile ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      html, body { overflow: auto; }
+
+      .layout { flex-direction: column; height: auto; padding-top: 56px; }
+
+      .sidebar {
+        width: 100%; flex-direction: row;
+        justify-content: flex-start;
+        padding: 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(242,237,232,0.08);
+        overflow-x: auto; overflow-y: hidden;
+        flex-shrink: 0;
+        gap: 0;
+        /* hide scrollbar */
+        scrollbar-width: none;
+      }
+      .sidebar::-webkit-scrollbar { display: none; }
+
+      .project-item {
+        padding: 1.1rem 1.5rem;
+        border-bottom: none;
+        border-right: 1px solid rgba(242,237,232,0.07);
+        border-top: none !important;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+      .project-item::before {
+        left: 50%; top: auto; bottom: 0; transform: translateX(-50%);
+        width: 0; height: 2px;
+        transition: width 0.35s ease;
+      }
+      .project-item.active::before { width: 60%; height: 2px; }
+
+      .project-meta { display: none; }
+      .project-num { margin-bottom: .3rem; }
+
+      .content-area {
+        position: relative;
+        height: 85vh;
+        flex: none;
+      }
+      .project-panel { position: absolute; }
     }
   </style>
 </head>
 <body>
 
-<nav><a href="index.html" class="nav-name">Amanda Cui</a></nav>
+<nav>
+  <a href="index.html" class="nav-name">Amanda Cui</a>
+  <span class="nav-label">Storytelling</span>
+</nav>
 
-<div class="page-header">
-  <h1>storytelling</h1>
-  <p>A collection of short films, documentary work, and everyday moments.</p>
-</div>
+<div class="layout">
 
-<!-- ── Video grid ─────────────────────────────────
-     To add a video:
-       1. Add a new .video-card div with data-embed and data-title
-       2. Set data-embed to the YouTube embed URL
-          e.g. https://www.youtube.com/embed/VIDEO_ID
-       3. Add a thumbnail img (YouTube auto-thumbnail):
-          src="https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg"
-     ─────────────────────────────────────────────── -->
-<div class="video-grid" id="videoGrid">
+  <!-- ── Sidebar ──────────────────────────────────── -->
+  <aside class="sidebar">
 
-  <!-- ① Taiwan Through Our Eyes -->
-  <div class="video-card"
-       data-embed="https://www.youtube.com/embed/RMK4TZFhJ5M"
-       data-title="Taiwan Through Our Eyes"
-       data-desc="A short film capturing one year in Taiwan through the perspectives of 13 people who shaped it."
-       onclick="openVideo(this)">
-    <img src="https://img.youtube.com/vi/RMK4TZFhJ5M/hqdefault.jpg" alt="Taiwan Through Our Eyes">
-    <div class="card-overlay">
-      <div class="play-icon">
-        <svg width="14" height="16" viewBox="0 0 14 16" fill="white"><path d="M0 0l14 8-14 8z"/></svg>
-      </div>
-      <div class="card-title">Taiwan Through Our Eyes</div>
-      <div class="card-category">Documentary</div>
+    <div class="project-item active" data-project="taiwan" onclick="showProject('taiwan')">
+      <div class="project-num">01</div>
+      <div class="project-title">Taiwan Through Our Eyes</div>
+      <div class="project-meta">Documentary · 2024</div>
     </div>
-  </div>
 
-  <!-- ② Placeholder — add your next video here -->
-  <div class="video-card placeholder">
-    <span class="placeholder-label">coming soon</span>
-  </div>
+    <div class="project-item" data-project="shiyuan" onclick="showProject('shiyuan')">
+      <div class="project-num">02</div>
+      <div class="project-title">Humans of Shi Yuan</div>
+      <div class="project-meta">Photo series · 2024</div>
+    </div>
 
-  <!-- ③ Placeholder -->
-  <div class="video-card placeholder">
-    <span class="placeholder-label">coming soon</span>
-  </div>
+    <div class="project-item" data-project="penn" onclick="showProject('penn')">
+      <div class="project-num">03</div>
+      <div class="project-title">Humans of Penn</div>
+      <div class="project-meta">Photo series · 2022–2023</div>
+    </div>
 
-  <!-- ④ Placeholder -->
-  <div class="video-card placeholder">
-    <span class="placeholder-label">coming soon</span>
-  </div>
+  </aside>
 
-  <!-- ⑤ Placeholder -->
-  <div class="video-card placeholder">
-    <span class="placeholder-label">coming soon</span>
-  </div>
+  <!-- ── Content panels ───────────────────────────── -->
+  <main class="content-area">
 
-  <!-- ⑥ Placeholder -->
-  <div class="video-card placeholder">
-    <span class="placeholder-label">coming soon</span>
-  </div>
-
-</div>
-
-<!-- ── Instagram link ─────────────────────────────── -->
-<div class="ig-link">
-  <a href="https://instagram.com/amandacuii" target="_blank" class="ig-btn">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/>
-    </svg>
-    More on Instagram @amandacuii
-  </a>
-</div>
-
-<!-- ── Video modal ───────────────────────────────── -->
-<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeVideo()">
-  <div class="modal">
-    <button class="modal-close" onclick="closeVideo()">✕</button>
-    <div class="video-frame">
-      <iframe id="modalIframe" src="" allowfullscreen
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    <!-- 01 · Taiwan Through Our Eyes (iframe) -->
+    <div class="project-panel active" id="panel-taiwan">
+      <iframe src="taiwan.html"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+        loading="lazy"
+        title="Taiwan Through Our Eyes">
       </iframe>
     </div>
-    <div class="modal-info">
-      <div>
-        <div class="modal-title" id="modalTitle"></div>
-        <div class="modal-desc" id="modalDesc"></div>
+
+    <!-- 02 · Humans of Shi Yuan (placeholder) -->
+    <div class="project-panel" id="panel-shiyuan">
+      <div class="placeholder-panel">
+        <div class="bg" style="background-image: url('photos/Title Page/storytelling/JPEG image 3.jpeg')"></div>
+        <div class="ph-content">
+          <h2>Humans of Shi Yuan</h2>
+          <div class="ph-tag">Photo series · Taichung, Taiwan</div>
+          <div class="ph-soon">Coming soon</div>
+        </div>
       </div>
-      <a class="modal-ext" id="modalExt" href="" target="_blank">Watch on YouTube ↗</a>
     </div>
-  </div>
+
+    <!-- 03 · Humans of Penn (placeholder) -->
+    <div class="project-panel" id="panel-penn">
+      <div class="placeholder-panel">
+        <div class="bg" style="background-image: url('photos/Title Page/storytelling/DSC05037 copy.JPG')"></div>
+        <div class="ph-content">
+          <h2>Humans of Penn</h2>
+          <div class="ph-tag">Photo series · Philadelphia, PA</div>
+          <div class="ph-soon">Coming soon</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
 </div>
 
 <script>
-  function openVideo(card) {
-    const embed = card.dataset.embed;
-    const title = card.dataset.title || '';
-    const desc  = card.dataset.desc  || '';
-
-    document.getElementById('modalIframe').src = embed + '?autoplay=1';
-    document.getElementById('modalTitle').textContent = title;
-    document.getElementById('modalDesc').textContent  = desc;
-
-    // Build watch link from embed URL
-    const videoId = embed.split('/embed/')[1]?.split('?')[0] || '';
-    const ext = document.getElementById('modalExt');
-    ext.href = `https://www.youtube.com/watch?v=${videoId}`;
-
-    document.getElementById('modalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
+  function showProject(id) {
+    document.querySelectorAll('.project-item').forEach(el =>
+      el.classList.toggle('active', el.dataset.project === id)
+    );
+    document.querySelectorAll('.project-panel').forEach(el =>
+      el.classList.toggle('active', el.id === 'panel-' + id)
+    );
   }
-
-  function closeVideo() {
-    document.getElementById('modalOverlay').classList.remove('open');
-    document.getElementById('modalIframe').src = ''; // stop playback
-    document.body.style.overflow = '';
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeVideo();
-  });
 </script>
 </body>
 </html>
