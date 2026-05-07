@@ -8,17 +8,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #f9f6f2;
-            --text: #3d2e1c;
-            --accent: #664930;
-            --muted: #9b8472;
-            --border: rgba(102, 73, 48, 0.12);
-            --font: 'Neuton', serif;
-            --font-heading: 'Neuton', serif;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+
+        html, body {
+            height: 100%;
+            font-family: 'Neuton', serif;
+            background: #f9f6f2;
+            color: #3d2e1c;
+            -webkit-font-smoothing: antialiased;
+        }
+
         a { text-decoration: none; color: inherit; }
 
         nav {
@@ -26,106 +25,87 @@
             height: 56px; display: flex; align-items: center; padding: 0 2.5rem;
             background: rgba(249,246,242,0.85); backdrop-filter: blur(12px);
         }
-        .nav-name { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em; transition: color 0.2s; }
-        .nav-name:hover { color: var(--accent); }
+        .nav-name {
+            font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em;
+            transition: color 0.2s;
+        }
+        .nav-name:hover { color: #664930; }
 
-        .about-wrap {
+        /* ── Layout ── */
+        .wrap {
             display: flex;
-            min-height: 100vh;
+            height: 100vh;
             padding-top: 56px;
         }
 
-        /* Photo side */
-        .about-photo {
-            width: 45%;
-            position: sticky;
-            top: 56px;
-            height: calc(100vh - 56px);
-            overflow: hidden;
+        /* Photo */
+        .photo-side {
+            width: 52%;
             flex-shrink: 0;
+            overflow: hidden;
+        }
+        .photo-side img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
         }
 
-        .about-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Text side */
-        .about-text {
+        /* Text */
+        .text-side {
             flex: 1;
-            padding: 5rem 6vw 6rem 5vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding: 0 5vw 0 5vw;
+            gap: 2rem;
         }
 
-        .about-text h1 {
-            font-family: var(--font-heading);
-            font-size: clamp(2.5rem, 4vw, 4rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 2.5rem;
-            line-height: 1.05;
+        .about-name {
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
         }
 
-        .about-text p {
-            font-size: 1.1rem;
-            font-weight: 400;
-            line-height: 1.85;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-            max-width: 52ch;
+        .about-bio {
+            font-size: clamp(.95rem, 1.1vw, 1.05rem);
+            line-height: 1.8;
+            color: #6b5744;
+            max-width: 38ch;
         }
-
-        .about-text p:last-of-type { margin-bottom: 2.5rem; }
 
         .social-links {
             display: flex;
-            gap: 0.75rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
         }
-
         .social-link {
-            font-family: var(--font-heading);
-            font-size: 0.78rem;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            color: var(--accent);
-            border: 1px solid var(--border);
-            padding: 0.55rem 1.25rem;
-            transition: background 0.2s, border-color 0.2s;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #9b8472;
+            transition: color 0.2s;
         }
+        .social-link:hover { color: #3d2e1c; }
 
-        .social-link:hover {
-            background: rgba(102, 73, 48, 0.07);
-            border-color: rgba(102, 73, 48, 0.3);
-        }
-
+        /* ── Mobile ── */
         @media (max-width: 768px) {
             nav { padding: 0 1.25rem; }
-            .about-wrap { flex-direction: column; }
-            .about-photo { width: 100%; height: 65vw; position: relative; top: 0; }
-            .about-text { padding: 2.5rem 1.5rem 4rem; }
-            .about-text h1 { margin-bottom: 1.5rem; }
-            .about-text p { font-size: 1rem; }
-            .social-link { padding: 0.6rem 1rem; font-size: 0.82rem; }
+            .wrap { flex-direction: column; height: auto; min-height: 100vh; }
+            .photo-side { width: 100%; height: 70vw; }
+            .text-side { padding: 3rem 1.5rem 5rem; }
         }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="nav-name">Amanda Cui</a></nav>
 
-    <div class="about-wrap">
-        <div class="about-photo">
+    <div class="wrap">
+        <div class="photo-side">
             <img src="photos/Photos of me/photoshoot-photo.jpg" alt="Amanda Cui">
         </div>
-        <div class="about-text">
-            <h1>Hi, I'm Amanda.</h1>
-            <p>I'm a visual storyteller interested in people, place, and the small moments that make everyday life feel meaningful. I work across photography, video, and ceramic as a way of paying attention and making sense of the world around me.</p>
-            <p>After graduating from the University of Pennsylvania with a degree in Finance and a minor in Fine Arts, I moved to Taiwan as a Fulbright English Teaching Fellow. Living abroad pushed me to create more intentionally, and lately I've been thinking about how to make creativity part of my life instead of something I save for later.</p>
-            <p>This site is where I collect that process: projects, experiments, and in-between thoughts, as I figure out how to keep creating alongside everything else.</p>
+        <div class="text-side">
+            <div class="about-name">Amanda Cui</div>
+            <p class="about-bio">Visual storyteller working across photography, film, and ceramics. Fulbright Fellow in Taiwan. Interested in people, place, and the small moments that make everyday life feel meaningful.</p>
             <div class="social-links">
                 <a href="https://www.instagram.com/amandacuii" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a>
                 <a href="https://www.linkedin.com/in/amanda-cui-9072381b0" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
