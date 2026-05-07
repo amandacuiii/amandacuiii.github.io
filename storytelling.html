@@ -387,36 +387,27 @@
 
   /* ── Photography gallery ────────────────────────── */
   const photos = [
-    'photos/Title Page/photography/Alan.JPG',
-    'photos/Title Page/photography/chiangkaishek.JPG',
-    'photos/Title Page/photography/DSC00042.JPG',
-    'photos/Title Page/photography/DSC00178.JPG',
-    'photos/Title Page/photography/DSC00268.JPG',
-    'photos/Title Page/photography/DSC00269.JPG',
-    'photos/Title Page/photography/DSC00516.JPG',
-    'photos/Title Page/taiwan through our eyes /DSC00653_0.JPG',
-    'photos/Title Page/taiwan through our eyes /DSC00968.JPG',
-    'photos/Title Page/photography/DSC01036.JPG',
-    'photos/Title Page/photography/DSC01042.JPG',
-    'photos/Title Page/photography/DSC01215.JPG',
-    'photos/Title Page/photography/DSC01352.JPG',
-    'photos/Title Page/storytelling/DSC01357.JPG',
-    'photos/Title Page/photography/DSC01413.JPG',
-    'photos/Title Page/photography/DSC01470.JPG',
-    'photos/Title Page/photography/DSC01489.JPG',
-    'photos/Title Page/photography/DSC01556.JPG',
-    'photos/Title Page/photography/DSC01586.JPG',
-    'photos/Title Page/taiwan through our eyes /DSC01598.JPG',
-    'photos/Title Page/photography/DSC01716.JPG',
-    'photos/Title Page/photography/DSC01777.JPG',
-    'photos/Title Page/photography/DSC01810.JPG',
-    'photos/Title Page/photography/DSC01860.JPG',
-    'photos/Title Page/photography/DSC01874.JPG',
-    'photos/Title Page/photography/DSC01924.JPG',
-    'photos/Title Page/photography/DSC01939.JPG',
-    'photos/Title Page/taiwan through our eyes /DSC02105.JPG',
-    'photos/Title Page/photography/DSC02205.JPG',
-    'photos/Title Page/photography/i like this.JPG'
+    'photos/photography/10,000 People In The Water, 2025.JPG',
+    'photos/photography/Alan, 2025.JPG',
+    'photos/photography/Bask, 2025.JPG',
+    'photos/photography/Food Composition, 2025.JPG',
+    'photos/photography/Franc, 2025.JPG',
+    'photos/photography/He Who Shall Not Be Named, 2025.JPG',
+    'photos/photography/Hustle, 2025.JPG',
+    'photos/photography/In Motion, 2025.JPG',
+    'photos/photography/Josh, 2025.JPG',
+    'photos/photography/Look!, 2026.JPG',
+    'photos/photography/Morning, 2025.JPG',
+    'photos/photography/One, 2025.JPG',
+    'photos/photography/Prayers, 2025.JPG',
+    'photos/photography/Rays, 2025.JPG',
+    'photos/photography/Rocks and Rocks and More Rocks, 2025.JPG',
+    'photos/photography/Seafaring, 2025.JPG',
+    'photos/photography/SF on the East, 2025.JPG',
+    'photos/photography/The Right Place at The Right Time, 2026.JPG',
+    'photos/photography/Two, 2025.JPG',
+    'photos/photography/Water Lillies, 2025.JPG',
+    'photos/photography/What\'s There?, 2025.JPG'
   ];
 
   let lbIndex = 0;
@@ -435,7 +426,7 @@
   })();
 
   function lbFilename(path) {
-    return path.split('/').pop().replace(/\.[^.]+$/, '');
+    return path.split('/').pop().replace(/,?\s*\d{4}\.[^.]+$/, '').replace(/\.[^.]+$/, '');
   }
   function openLb(i) {
     lbIndex = i;
