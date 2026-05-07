@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taiwan Through Our Eyes — Amanda Cui</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #f2ede8;
+      --text:    #1a1410;
+      --accent:  #664930;
+      --muted:   #9b8472;
+      --border:  rgba(102,73,48,.13);
+      --photo-bg:#ddd0c4;
+      --font:    'Neuton', serif;
+      --font-h:  'Neuton', serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Nav ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 54px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 2.5rem;
+      background: rgba(242,237,232,0.88); backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-name {
+      font-family: var(--font-h); font-size: .88rem;
+      font-weight: 500; letter-spacing: .08em; transition: color .2s;
+    }
+    .nav-name:hover { color: var(--accent); }
+    .nav-links {
+      display: flex; gap: 1.8rem;
+      font-size: .78rem; letter-spacing: .06em; color: var(--muted);
+    }
+    .nav-links a { transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* ── Hero / Video ────────────────────────────── */
+    .hero {
+      padding-top: 54px;
+      background: #111;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .hero-text {
+      width: 100%; max-width: 860px; padding: 4.5rem 6vw 3rem;
+      text-align: center;
+    }
+    .hero-text h1 {
+      font-family: var(--font-h); font-weight: 300;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      letter-spacing: -.02em; line-height: 1.05;
+      color: #f2ede8;
+    }
+    .hero-text p {
+      margin-top: 1.2rem; font-size: 1rem;
+      color: rgba(242,237,232,.55); line-height: 1.75;
+      max-width: 52ch; margin-inline: auto;
+    }
+    .video-wrap {
+      width: 100%; max-width: 960px;
+      aspect-ratio: 16/9; margin: 0 auto;
+    }
+    .video-wrap iframe {
+      width: 100%; height: 100%; border: none; display: block;
+    }
+
+    /* ── Intro ───────────────────────────────────── */
+    .intro {
+      max-width: 680px; margin: 0 auto;
+      padding: 5rem 6vw 4rem;
+      text-align: center;
+    }
+    .intro p {
+      font-size: 1.05rem; line-height: 1.85;
+      color: var(--text); margin-bottom: 1.4rem; font-weight: 300;
+    }
+    .guiding-question {
+      margin: 2.5rem 0;
+      font-family: var(--font-h);
+      font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+      font-weight: 400; font-style: italic;
+      color: var(--accent); line-height: 1.4;
+    }
+
+    /* ── Chapter ─────────────────────────────────── */
+    .chapter {
+      padding: 5rem 0 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .chapter-header {
+      max-width: 860px; margin: 0 auto;
+      padding: 0 6vw 3rem;
+    }
+    .chapter-label {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--muted); font-family: var(--font-h); margin-bottom: .5rem;
+    }
+    .chapter-title {
+      font-family: var(--font-h);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 400; letter-spacing: -.02em;
+    }
+
+    /* ── Person profile ──────────────────────────── */
+    .person {
+      max-width: 1020px; margin: 0 auto 6rem;
+      padding: 0 6vw;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .person.flip { direction: rtl; }
+    .person.flip > * { direction: ltr; }
+
+    .person-photo { position: sticky; top: 80px; }
+
+    .photo-placeholder {
+      width: 100%; aspect-ratio: 3/4;
+      background: var(--photo-bg);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .photo-placeholder img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .photo-placeholder .ph-label {
+      font-family: var(--font-h); font-size: .75rem; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--muted); opacity: .5;
+    }
+
+    .person-name {
+      font-family: var(--font-h);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 500; letter-spacing: -.01em;
+      line-height: 1; margin-bottom: .3rem;
+      text-transform: uppercase;
+    }
+    .person-name-zh {
+      font-size: 1rem; font-weight: 300;
+      color: var(--muted); margin-bottom: .2rem; letter-spacing: .04em;
+    }
+    .person-role {
+      font-size: .82rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.8rem;
+      border-bottom: 1px solid var(--border); padding-bottom: 1.2rem;
+    }
+    .person-quote {
+      font-family: var(--font-h); font-weight: 300; font-style: italic;
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      line-height: 1.4; color: var(--accent); margin-bottom: 2rem;
+    }
+
+    .qa { margin-bottom: 1.5rem; }
+    .qa-q {
+      font-size: .82rem; font-weight: 600; letter-spacing: .04em;
+      color: var(--accent); margin-bottom: .4rem; line-height: 1.4;
+    }
+    .qa-a {
+      font-size: .96rem; line-height: 1.8;
+      color: var(--text); font-weight: 300;
+    }
+
+    /* ── About Me ────────────────────────────────── */
+    .about-section {
+      max-width: 680px; margin: 0 auto;
+      padding: 0 6vw 8rem; text-align: center;
+    }
+    .about-photo {
+      width: 280px; aspect-ratio: 3/4;
+      background: var(--photo-bg);
+      margin: 0 auto 2.5rem;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .about-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .about-photo .ph-label {
+      font-family: var(--font-h); font-size: .75rem; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--muted); opacity: .5;
+    }
+    .about-section p {
+      font-size: .98rem; line-height: 1.85; font-weight: 300;
+      margin-bottom: 1.4rem; text-align: left;
+    }
+    .thanks {
+      font-style: italic; font-size: .95rem;
+      color: var(--muted); line-height: 1.75; text-align: center;
+    }
+    .contact-line {
+      font-size: .85rem; color: var(--muted); margin-top: .3rem; line-height: 1.7;
+    }
+    .contact-line a { color: var(--accent); }
+
+    /* ── Responsive ──────────────────────────────── */
+    @media (max-width: 780px) {
+      nav { padding: 0 1.25rem; }
+      .hero-text { padding: 3rem 5vw 2rem; }
+      .intro { padding: 3rem 5vw 3rem; }
+      .chapter { padding: 3rem 0 2rem; }
+      .chapter-header { padding: 0 5vw 2rem; }
+      .person { grid-template-columns: 1fr; gap: 2rem; padding: 0 5vw; }
+      .person.flip { direction: ltr; }
+      .person-photo { position: static; }
+      .photo-placeholder { aspect-ratio: 4/3; }
+      .about-section { padding: 0 5vw 5rem; }
+      .about-photo { width: 220px; }
+    }
+    @media (max-width: 480px) {
+      .person-name { font-size: 1.6rem; }
+      .person-quote { font-size: 1rem; }
+      .qa-a { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../../Title Page/" class="nav-name">Amanda Cui</a>
+  <div class="nav-links">
+    <a href="#school">My School</a>
+    <a href="#locals">Community</a>
+    <a href="#mentors">Mentors</a>
+    <a href="#home">My Home</a>
+    <a href="#about">About</a>
+  </div>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-text">
+    <h1>Taiwan Through Our Eyes</h1>
+    <p>A short film capturing one year in Taiwan through the perspectives of the people who shaped it.</p>
+  </div>
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/RMK4TZFhJ5M"
+      title="Taiwan Through Our Eyes"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- ── Intro ──────────────────────────────────────── -->
+<div class="intro">
+  <p>Taiwan Through Our Eyes is a documentary project exploring the landscapes, communities, and quiet moments that define life in Taiwan.</p>
+  <p>As I moved through classrooms, neighborhoods, and shared spaces, I found community through familiar faces and the people who welcomed me in. This film highlights 13 individuals who shaped my life here — coworkers, community organizers, and mentors.</p>
+  <p>Their stories open a window into how Taiwan has shaped them, and are also reflections of the way I've come to see this place too.</p>
+  <div class="guiding-question">"How Would You Describe Taiwan In One Word?"</div>
+  <p>The pages below share more of their stories, highlighting moments of kindness, resilience, and everyday life that together form our portrait of Taiwan.</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- MY SCHOOL ♥                                     -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="chapter" id="school">
+  <div class="chapter-header">
+    <div class="chapter-label">Chapter 01</div>
+    <div class="chapter-title">My School ♥</div>
+  </div>
+
+  <!-- SIMON -->
+  <div class="person">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/simon.jpg" alt="Simon"> -->
+        <span class="ph-label">Simon</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Simon</div>
+      <div class="person-name-zh">沈忠祥</div>
+      <div class="person-role">General Affairs Worker · Shi Yuan High School</div>
+      <div class="person-quote">"Taiwan is home, away from home"</div>
+      <div class="qa">
+        <div class="qa-q">為什麼您會選擇在西苑高中工作？</div>
+        <div class="qa-a">我可能要從更早以前說起。我在飯店業工作了二十五年，六十歲時就退休了。飯店的工作節奏非常緊湊，幾乎隨時待命，就連休假也一樣。退休之後，我花了兩年的時間騎著摩托車到處跑，享受在台灣的自由生活。但久了之後，還是覺得有點無聊。我開始想找一件有意義的事情來做，後來遇見了西苑高中，覺得一切都很剛好，這份工作很適合我。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">您在學校做了很多創作性的專案，為什麼「創作」對您來說這麼重要？</div>
+        <div class="qa-a">我真的很喜歡把「什麼都沒有」變成「有些什麼」。當東西壞了或缺少什麼時，我會先看看自己手邊有哪些材料，想辦法讓它運作起來。也許外表不完美，但只要能好好使用，對我來說就已經足夠了。所以我就會去把這件事情做起來，有點像點炮組裡負責點火的那個人，一個把事情啟動的人。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">如果用一個詞形容台灣，會是什麼？為什麼？</div>
+        <div class="qa-a">"Home away from home." 我曾在美國生活了十年，也經歷過歧視的感受。但在台灣，人們反而會對看起來不同的人更加關心與照顧。這裡有一種溫暖與包容。台灣人把外國人當作客人，並且真心地善待他們。正因如此，台灣對我來說就像家人一樣——像家一樣的地方。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">你覺得有什麼特別的台灣文化是外國人應該要知道的？</div>
+        <div class="qa-a">我覺得外國人要知道台灣人的好客精神。台灣人對外國人的歡迎、包容與體諒程度都非常高，真的很高。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LULU -->
+  <div class="person flip">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/lulu.jpg" alt="Lulu"> -->
+        <span class="ph-label">Lulu</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Lulu</div>
+      <div class="person-name-zh">賴如芳</div>
+      <div class="person-role">English Teacher · Shi Yuan High School</div>
+      <div class="qa">
+        <div class="qa-q">What do you love most about living in Taiwan?</div>
+        <div class="qa-a">Taiwanese people are very hospitable and kind. Neighbors are close, people chat with each other, and there's a strong sense of community. Taiwan is also very diverse. You hear different languages on the MRT, and people come from many different backgrounds, including indigenous groups, Hakka, Taiwanese, and families originally from mainland China. Even with these differences, people live together like a big family. And of course, the food! Night markets are my favorite place to go when I don't know what to eat.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">What is your favorite food to eat at night markets?</div>
+        <div class="qa-a">My favorite food is stinky tofu. You should try it!</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">What unique aspects of Taiwanese culture do you think foreigners should know about?</div>
+        <div class="qa-a">I think foreigners should learn about Taiwan's indigenous culture and its food culture. Taiwan has around 18 different indigenous groups, and that diversity is very important to understand. For example, if you go to 蘭嶼, you can see the traditional black boats — they're really beautiful and represent indigenous heritage. Another important part of Taiwanese culture is religion. In Taichung, there's a very famous religious pilgrimage, 大甲媽祖遶境. It lasts for more than ten days, and people walk long distances, sometimes from Taichung all the way to Yunlin. It's very meaningful because people are deeply devoted and sincere.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEVE -->
+  <div class="person">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/steve.jpg" alt="Steve"> -->
+        <span class="ph-label">Steve</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Steve</div>
+      <div class="person-role">Fulbright IEM-ETF · Shi Yuan High School</div>
+      <div class="person-quote">"我觉得台湾就像一个调色盘"</div>
+      <div class="qa">
+        <div class="qa-q">如果只能用一個字形容台灣，你會怎麼形容？</div>
+        <div class="qa-a">我覺得台灣就像一個「調色盤」。從原住民文化，到西班牙、荷蘭、清朝、日本，再到中華民國政府到現在，這塊土地經歷了很多不同的人與歷史，就像把很多顏色放在同一個調色盤裡。這些顏色讓台灣變得很有層次、很可愛。雖然生活中有點吵鬧，但正是這些不同的聲音與色彩，讓台灣成為一個充滿生命力的地方。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">What impact do you hope to make as a Fulbright ETA?</div>
+        <div class="qa-a">One of my biggest impacts has been teaching English from the perspective of someone who learned it as a second language. My first language is Tagalog, so I understand the challenges students face, and that helps me teach with more empathy and compassion.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">How have you found community and belonging in Taiwan?</div>
+        <div class="qa-a">Finding community in Taiwan has felt very natural. Because I'm also Filipino, I've connected with many Filipino migrant workers who have settled in Taiwan. Building relationships with them has been especially meaningful, as I've been able to reflect on how our immigration experiences are similar in some ways and different in others. Those connections have helped Taiwan feel like a place of belonging rather than just a temporary home.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TERRENCE -->
+  <div class="person flip">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/terrence.jpg" alt="Terrence"> -->
+        <span class="ph-label">Terrence</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Terrence</div>
+      <div class="person-role">English Teacher · Shi Yuan High School</div>
+      <div class="person-quote">"Taiwan feels like beauty"</div>
+      <div class="qa">
+        <div class="qa-q">你為什麼會成為英文老師？</div>
+        <div class="qa-a">從大學畢業後就開始教書，到現在大約二十三年了。其實從國中時期，我就被很會教書的老師感動，也發現身邊有很多同學需要陪伴與幫助，那段經驗啟發我覺得「當老師」會是我想做的事。後來透過考試進入彰化師範大學就讀。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">你最喜歡在西苑高中教書的哪一部分？</div>
+        <div class="qa-a">我覺得西苑高中最大的特色是友善，學校也給老師很大的空間。只要你有想法、有好的點子，基本上都可以去嘗試實現。學生也很可愛、很願意配合，只要老師好好跟他們說清楚目標與想做的事情，他們都很願意一起努力，這是我最喜歡、也覺得最棒的地方。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">Where do you find comfort here?</div>
+        <div class="qa-a">The places that bring me the most comfort are night markets and traditional markets. I love cooking, and these spaces inspire me creatively while helping me learn Chinese through everyday interactions. They also show how food brings people and communities together.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MICKEY -->
+  <div class="person">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/mickey.jpg" alt="Mickey"> -->
+        <span class="ph-label">Mickey</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Mickey</div>
+      <div class="person-name-zh">劉米淇</div>
+      <div class="person-role">English Teacher · Hsin Chuang High School</div>
+      <div class="person-quote">"台灣就像一個家、一個大家庭"</div>
+      <div class="qa">
+        <div class="qa-q">有沒有什麼台灣文化是你覺得外國人一定要知道的？</div>
+        <div class="qa-a">我覺得是考試祈福的文化。在重要考試前，很多學生和家長會去拜文昌君，帶著准考證祈求考試順利。這會讓人覺得心裡比較踏實，也更有信心去面對考試。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">在新莊高中教英文，你最喜歡的是什麼？</div>
+        <div class="qa-a">除了上課之外，學校也支持我申請許多資源，讓學生透過各種活動練習英文，例如文化交流、和外國人聊天、手作活動或田野學習。看到學生享受學英文、願意開口說，我覺得這也是我一直留在這裡教書的原因。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">如果只能用一個詞來形容台灣，你會怎麼說？</div>
+        <div class="qa-a">對我來說，台灣就像一個家、一個大家庭。不管走到哪裡，都不會覺得孤單，總會有人願意幫助你、指引你，讓你感到安心。</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /chapter school -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- COMMUNITY ORGANIZERS                            -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="chapter" id="locals">
+  <div class="chapter-header">
+    <div class="chapter-label">Chapter 02</div>
+    <div class="chapter-title">Community Organizers</div>
+  </div>
+
+  <!-- IAN -->
+  <div class="person flip">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/ian.jpg" alt="Ian"> -->
+        <span class="ph-label">Ian</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Ian</div>
+      <div class="person-name-zh">鄭毅誠</div>
+      <div class="person-role">Ceramic Artist · Owner of 南島新人</div>
+      <div class="qa">
+        <div class="qa-q">你為什麼決定開一間陶藝工作室？</div>
+        <div class="qa-a">我目前經營一間陶藝工作室，擔任負責人，同時也是教學老師。我的工作室叫做「南島新人」，這個名字和台灣在整個南島語族發展中的連結有關。我希望能把台灣南島語族的陶藝創作介紹給世界各地的南島語族，讓他們知道台灣一直在做這件事，甚至有些文化本身就是他們的起源之一。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">你最喜歡陶藝的哪一部分？</div>
+        <div class="qa-a">我最喜歡陶藝的地方是它的自由性，因為透過陶土，你可以把心中任何想實現的東西做出來。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">你常常提到花蓮和你的部落，身為原住民在台灣成長是什麼樣的感覺？</div>
+        <div class="qa-a">我相信全世界的原住民其實都會面臨相似的狀況。現在大多數原住民是在城市裡生活、成長，在成長的過程中，很容易和自己的身分產生距離，甚至無法建立認同感。這也是為什麼我會選擇在城市裡開這間陶藝工作室——我希望能為生活在都市的族人，創造一個重新連結部落文化與自我身分的空間，讓他們找到屬於自己的歸屬感。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">你覺得有什麼特別的台灣文化是外國人應該知道的？</div>
+        <div class="qa-a">基本上，我所有來過台灣的外國朋友，在離開時都會說，最吸引他們的其實是台灣的原住民文化。所以我非常推薦外國朋友來台灣一定要去花蓮、台東、屏東這三個地方。在那裡，你會看到很多你意想不到的東西——那些是在一般華人社會中，很難想像會看到的文化樣貌。它們非常原始、非常豐富，也蘊含了很多層次的文化意義。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MS. JIANG -->
+  <div class="person">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/ms-jiang.jpg" alt="Ms. Jiang"> -->
+        <span class="ph-label">Ms. Jiang</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Ms. Jiang</div>
+      <div class="person-role">Community Organizer · Honest Store &amp; Big Tree Day</div>
+      <div class="person-quote">"台灣就是一片葉子，這片葉子要飛到哪裡，看後面的力量吹向哪裡。"</div>
+      <div class="qa">
+        <div class="qa-q">什麼是「大樹日」？</div>
+        <div class="qa-a">「大樹日」是一個非常重要的社群交流平台，從 2014 年到現在已經走了十多年。它之所以能一直順利運作，是因為每個人心中都對「真、善、美」有所渴望，而我只是作為一個平台的引導者，讓大家可以在這裡相遇與交流。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">當初為什麼會開始「大樹日」？靈感是什麼？</div>
+        <div class="qa-a">我發現每一個人其實都很想表達自己的想法，但社會上缺乏一個安全、良善的平台。如果能先把一個好的平台打造出來，讓大家願意坐下來交流，那很多理想其實就比較容易實現。所以我選擇先把「平台」做出來，讓事情自然發生。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">你希望參加大樹日的人，能帶走什麼樣的感受或體驗？</div>
+        <div class="qa-a">我希望他們帶走的是「愛」和「分享」。在這裡，你會感受到願意付出、願意服務、願意去愛的能量。我自己從大樹日得到一種很溫潤的感覺——一種「被需要」的感覺。當一個人知道下個月還會再見面，他就不容易生病，因為心是被照顧著的。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">你常提到「誠實商店」，它代表了什麼？</div>
+        <div class="qa-a">誠實商店一開始其實不是要開一間「商店」，而是一個公共空間。我做的只是先把資金墊起來，把空間框好，剩下的交給來到這裡的人。只要遵守「誠實」與「公益」這兩個原則，每個人都能在裡面做出屬於自己的樣子。誠實商店想傳達的是：我用誠實接待你，也希望你用誠實對待世界。當你最辛苦、最無助的時候，要記得這個世界還有人關心你，還有一個地方願意等你回來。它就像一道微光，不管多微弱，都在那裡。</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">你常提到「做夢」，為什麼這對你來說很重要？</div>
+        <div class="qa-a">我從小就很愛做夢。當我覺得一件事情「好像可以做」，那就試試看吧。一個人開始做，兩個人加入，很快就會發現，原來有這麼多人懷抱著相同的想法。大樹日和誠實商店，其實都是一個共同的夢。每個人就像一片葉子，也許一個月只見一次面，但長時間累積下來，情感會變得很深。你會知道自己在做什麼、為了什麼而努力。對我來說，台灣就像一片葉子，會飛到哪裡，要看後面那股力量把它吹向哪裡。而我願意成為那股，推動夢想前進的力量之一。</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /chapter locals -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- MENTORS                                         -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="chapter" id="mentors">
+  <div class="chapter-header">
+    <div class="chapter-label">Chapter 03</div>
+    <div class="chapter-title">Mentors</div>
+  </div>
+
+  <!-- TERESA -->
+  <div class="person flip">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/teresa.jpg" alt="Teresa"> -->
+        <span class="ph-label">Teresa</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Teresa Kuo</div>
+      <div class="person-role">TEFL Advisor · Taichung</div>
+      <div class="qa">
+        <div class="qa-q">You've lived and worked in many places. Do different parts of Taiwan feel distinct to you?</div>
+        <div class="qa-a">Yes, very much so. Every school, county, and community feels completely different, with its own values and ideas. What I love about my current role is being a bridge. I'm constantly trying to understand and mediate between those differences. I work with grantees in Penghu, Matsu, New Taipei, and Yunlin, and even the islands alone feel incredibly unique.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">Is there a place in Taiwan that brings you a sense of comfort?</div>
+        <div class="qa-a">Penghu will always be my top place, it really feels like home. But Matsu has surprised me in a big way. It's very different from mainland Taiwan and strongly influenced by Fuzhou culture, which connects back to my family history. Learning about that intersection of culture, language, and politics has been really meaningful.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">How has living in Taiwan shaped your identity as an Asian American?</div>
+        <div class="qa-a">It's a delicate balance. At school, I'm not fully seen as a foreigner, but not fully local either, which can be challenging. Over time, I've learned not to take it personally and to hold space for growth and conversation. Outside of work, I've realized I'm more American than I thought, especially in how directly I communicate, and I'm still learning how to balance those differences. My Chinese has improved and sounds more natural now, and I feel like I'm entering a new chapter of my life.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">What do you love most about living in Taiwan, and how has it shaped you?</div>
+        <div class="qa-a">I genuinely feel like the happiest version of myself here. Being on my own has helped me gain clarity, especially as the oldest sibling, and I've learned how to better prioritize relationships. Being in Taiwan has also helped me reconnect with my family history while also creating my own story.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JORDAN -->
+  <div class="person">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/jordan.jpg" alt="Jordan"> -->
+        <span class="ph-label">Jordan</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Jordan Strousse</div>
+      <div class="person-role">TEFL Advisor · Taichung</div>
+      <div class="person-quote">"Resilience — 人性"</div>
+      <div class="qa">
+        <div class="qa-q">How has your relationship with Taiwan changed over time?</div>
+        <div class="qa-a">When I first came, I had the mindset of "沾醬油", which is a Taiwanese phrase that means to just "dip in the sauce" and leaving. But after staying longer, I realized I didn't want to just pass through. I wanted to build deeper connections and stay. Looking back, I'm really glad I did.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">Can you tell me more about the place you worked the past 4 years?</div>
+        <div class="qa-a">I didn't expect to fall in love with the place where I was living, especially since it was a rural coastal area in Changhua County. But it was really the people — the neighbors, students, and their families — and how much I enjoyed teaching that made me want to stay. Fangyuan, where I lived for four years, is a place that brings me a lot of comfort. Every time I go back, especially when I bike there, I feel grounded and re-energized.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">If you could describe Taiwan in one word, what would it be?</div>
+        <div class="qa-a">人性: resilience. It reflects Taiwan's history of colonialism, natural disasters, and its current political climate. To me, those two characters capture the strength and humanity of this place.</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /chapter mentors -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- MY HOME                                         -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="chapter" id="home">
+  <div class="chapter-header">
+    <div class="chapter-label">Chapter 04</div>
+    <div class="chapter-title">My Home</div>
+  </div>
+
+  <!-- FRANCES -->
+  <div class="person flip">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/frances.jpg" alt="Frances"> -->
+        <span class="ph-label">Frances</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Frances Leung</div>
+      <div class="person-role">1st Year ETA · Chiayi City</div>
+      <div class="person-quote">"Taiwan feels imaginative"</div>
+      <div class="qa">
+        <div class="qa-q">Is there a place in Chiayi that brings you comfort?</div>
+        <div class="qa-a">There's a congee place two blocks from my house that I go to whenever I don't want to think about dinner. It's Hong Kong–style congee, the food is warm and comforting, and the owners are so kind. It feels really homey. My school also brings me comfort! My co-teachers are incredibly kind. Every morning they bring pastries or little desserts to share. I feel surrounded by so much goodness on a daily basis.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">Is there a relationship that has shaped your time in Taiwan?</div>
+        <div class="qa-a">My roommate, Paris, has shaped my experience a lot. I'm the kind of person who disappears into work, so she's often the only person I see for weeks. We talk to each other across rooms, like through the bathroom door, while cooking or doing laundry and debrief our days. It's my first real roommate experience, and it's been really special.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">How has living here changed how you think about daily life?</div>
+        <div class="qa-a">This year has made me realize how intentional life can be. How you spend your time, who you spend it with, and where you live all really matter. Being here has made me much more present and thoughtful about those choices.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ERICKA -->
+  <div class="person">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/ericka.jpg" alt="Ericka"> -->
+        <span class="ph-label">Ericka</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Ericka Familia</div>
+      <div class="person-role">1st Year ETA · Taichung</div>
+      <div class="person-quote">"Taiwan feels like calm"</div>
+      <div class="qa">
+        <div class="qa-q">What brought you to Taiwan?</div>
+        <div class="qa-a">After graduating from college, I wanted a different experience before going to law school. Teaching and working with children has always been something I'm passionate about, and Fulbright felt like a great opportunity to teach full-time, live abroad, and improve my Mandarin.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">How do you think you've made an impact at your school?</div>
+        <div class="qa-a">I try to make English class something students look forward to, rather than something centered only on exams or grades. I want to be a friendly and welcoming presence so students feel comfortable and excited about learning English. I was told that in eight years of having ETAs, I'm the first one to stand outside in the morning to greet students. I didn't realize it would be such a big deal! I just wanted students to put a face to my name.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">If you could describe Taiwan in one word, what would it be?</div>
+        <div class="qa-a">To me, Taiwan feels like calm. Before coming here, my life felt very fast-paced and constantly busy. Being in Taiwan has given me a sense of grounding and peace.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARIAMA -->
+  <div class="person flip">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/mariama.jpg" alt="Mariama"> -->
+        <span class="ph-label">Mariama</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Mariama Mansaray</div>
+      <div class="person-role">1st Year ETA · Taichung</div>
+      <div class="qa">
+        <div class="qa-q">What do you enjoy most about living here right now?</div>
+        <div class="qa-a">I really love the community I've built here; painstakingly built. It wasn't easy, and it took time, but that's what makes it meaningful. That sense of community is what I'm enjoying most about living here right now.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">Is there a place in Taiwan that brings you comfort?</div>
+        <div class="qa-a">My bedroom. It's very sacred to me. After a long day at school, I come home, shower, and just lie on my bed. Sometimes I'm so tired I just collapse face-down. My bed really brings me comfort.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRACE -->
+  <div class="person">
+    <div class="person-photo">
+      <div class="photo-placeholder">
+        <!-- To add photo: replace this div with <img src="photos/taiwan/grace.jpg" alt="Grace"> -->
+        <span class="ph-label">Grace</span>
+      </div>
+    </div>
+    <div class="person-content">
+      <div class="person-name">Grace Maines</div>
+      <div class="person-role">1st Year ETA · Taichung</div>
+      <div class="person-quote">"Taiwan feels like possibility"</div>
+      <div class="qa">
+        <div class="qa-q">What do you enjoy most about living in Taiwan?</div>
+        <div class="qa-a">I really value the freedom and flexibility I have here to try new things and reconnect with hobbies I didn't have time for before, like reading, biking, and going to the gym. Life here feels slower than in the U.S., which has helped me be more present and take things day by day.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">How have you found community and a sense of belonging in Taiwan?</div>
+        <div class="qa-a">My school community has been incredibly welcoming, and my cohort and roommates have also helped me feel supported. Beyond that, I've found belonging through daily routines — like seeing the same people at shops, greeting the security guard on my way to school, and going to the same gym after work. Those small moments have helped Taiwan feel like home.</div>
+      </div>
+      <div class="qa">
+        <div class="qa-q">If you could describe Taiwan in one word, what would it be and why?</div>
+        <div class="qa-a">Taiwan to me feels like possibility. Being here has given me opportunities to explore new interests, meet people from all over the world, and travel and immerse myself in experiences that wouldn't have been possible if I had stayed working in the U.S.</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /chapter home -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ABOUT ME                                        -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="chapter" id="about">
+  <div class="chapter-header">
+    <div class="chapter-label">Chapter 05</div>
+    <div class="chapter-title">About Me</div>
+  </div>
+
+  <div class="about-section">
+    <div class="about-photo">
+      <!-- To add photo: replace this div with <img src="photos/taiwan/amanda.jpg" alt="Amanda"> -->
+      <span class="ph-label">Amanda</span>
+    </div>
+
+    <div class="person-name" style="font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:.3rem">Amanda Cui</div>
+    <div class="person-role" style="border:none;padding-bottom:1.5rem">1st Year IEM-ETF · Taichung</div>
+
+    <div class="person-quote" style="text-align:left">"People"</div>
+
+    <p>Amanda Cui is a first-year IEM-ETF in Taichung. Originally from New York City, she graduated from the University of Pennsylvania with a degree in finance and minor in fine arts. She has always loved storytelling, photography, and documenting moments that reflect community and place-making. Through videography, pottery, and other creative work, she explores cultural exchange, human connection, and the ways identity is shaped through life abroad.</p>
+
+    <p>Creating <em>Taiwan Through Our Eyes</em> was a way for me to slow down and truly listen. Rather than trying to explain Taiwan in my own words, I wanted to understand it through the people who have shaped my daily life here. Each conversation reminded me that belonging is built through small, repeated acts of care. This film became both a record of those voices and a reflection of my own growth — showing me that home is not a single place, but something created through relationships.</p>
+
+    <p>In addition, through my work as a Fulbright ETA, I was able to create Humans of Shi Yuan, a storytelling project that highlights the voices of students, teachers, and staff within the school community. The opportunity to be present in classrooms and everyday school life allowed me to listen more deeply and build meaningful relationships beyond teaching English.</p>
+
+    <p class="thanks">I am incredibly grateful to everyone who took the time to speak with me, trusted me with their stories, and allowed me to be part of their lives. Thank you to Fulbright Taiwan, my schools, and the friends and mentors who supported this project from start to finish.</p>
+
+    <p class="thanks" style="margin-top:2rem">Thank you for watching and reading. ♡</p>
+
+    <div class="contact-line" style="margin-top:1.5rem">
+      <a href="mailto:amandacui25@gmail.com">amandacui25@gmail.com</a> &nbsp;·&nbsp;
+      <a href="https://instagram.com/amandacuii" target="_blank">@amandacuii</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
