@@ -120,103 +120,7 @@
       opacity: 1; pointer-events: all;
     }
 
-    /* ── Reel panel ──────────────────────────────── */
-    .reel-panel {
-      width: 100%; height: 100%;
-      overflow-y: auto;
-      background: #f9f6f2;
-      color: #3d2e1c;
-    }
-
-    .reel-panel-inner {
-      padding: 3rem 3rem 5rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .reel-panel-inner h2 {
-      font-size: clamp(1.6rem, 3vw, 2.5rem);
-      font-weight: 300; letter-spacing: -.02em;
-      margin-bottom: .5rem;
-    }
-    .reel-panel-inner .sub {
-      font-size: .9rem; color: #9b8472; margin-bottom: 2.5rem; line-height: 1.6;
-    }
-
-    .reel-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3px;
-    }
-
-    .reel-card {
-      position: relative;
-      aspect-ratio: 9 / 16;
-      background: #e8e0d8;
-      cursor: pointer;
-      overflow: hidden;
-    }
-    .reel-card img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
-    }
-    .reel-card.placeholder {
-      cursor: default;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .placeholder-label {
-      font-family: 'Neuton', serif; font-size: .7rem;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: #9b8472; opacity: .4;
-    }
-    .card-overlay {
-      position: absolute; inset: 0;
-      background: rgba(30,18,8,0);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: .5rem; transition: background .3s ease;
-      padding: 1.5rem; text-align: center;
-    }
-    .reel-card:not(.placeholder):hover .card-overlay { background: rgba(30,18,8,.55); }
-    .reel-card:not(.placeholder):hover img { transform: scale(1.05); }
-    .play-icon {
-      width: 44px; height: 44px;
-      border: 2px solid #fff; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transform: scale(.8);
-      transition: opacity .3s, transform .3s;
-    }
-    .play-icon svg { margin-left: 3px; }
-    .card-title {
-      font-size: .88rem; font-weight: 500;
-      color: #fff; letter-spacing: .03em; line-height: 1.3;
-      opacity: 0; transform: translateY(6px);
-      transition: opacity .3s, transform .3s;
-    }
-    .card-brand {
-      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(255,255,255,.65);
-      opacity: 0; transform: translateY(6px);
-      transition: opacity .35s .05s, transform .35s .05s;
-    }
-    .reel-card:not(.placeholder):hover .play-icon  { opacity: 1; transform: scale(1); }
-    .reel-card:not(.placeholder):hover .card-title  { opacity: 1; transform: translateY(0); }
-    .reel-card:not(.placeholder):hover .card-brand  { opacity: 1; transform: translateY(0); }
-
-    .ig-link {
-      display: flex; justify-content: center; padding: 2.5rem 0 0;
-    }
-    .ig-btn {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .65rem 1.4rem;
-      border: 1.5px solid rgba(102,73,48,.12); border-radius: 8px;
-      font-size: .82rem; color: #9b8472;
-      transition: border-color .2s, color .2s;
-    }
-    .ig-btn:hover { border-color: #664930; color: #664930; }
-
-    /* ── Placeholder panel (camp / exhibit) ──────── */
+    /* ── Placeholder panel ───────────────────────── */
     .placeholder-panel {
       width: 100%; height: 100%;
       display: flex; flex-direction: column;
@@ -247,36 +151,6 @@
       border: 1px solid rgba(200,168,130,0.25); border-radius: 4px;
       padding: .4rem .9rem; display: inline-block;
     }
-
-    /* ── Modal ───────────────────────────────────── */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.92); z-index: 300;
-      align-items: center; justify-content: center; padding: 20px;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal { position: relative; width: 100%; max-width: 420px; }
-    .modal-close {
-      position: absolute; top: -2.2rem; right: 0;
-      color: rgba(255,255,255,.6); font-size: 1.5rem;
-      cursor: pointer; line-height: 1;
-      transition: color .2s; background: none; border: none;
-    }
-    .modal-close:hover { color: #fff; }
-    .video-frame { width: 100%; aspect-ratio: 9/16; background: #000; }
-    .video-frame iframe { width: 100%; height: 100%; border: none; display: block; }
-    .modal-info {
-      padding: .9rem 0 0;
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
-    }
-    .modal-title { font-size: 1rem; font-weight: 500; color: #f9f6f2; }
-    .modal-brand { font-size: .8rem; color: rgba(249,246,242,.5); margin-top: .2rem; }
-    .modal-ext {
-      font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
-      color: rgba(249,246,242,.35); white-space: nowrap;
-      transition: color .2s; flex-shrink: 0; margin-top: .15rem;
-    }
-    .modal-ext:hover { color: rgba(249,246,242,.7); }
 
     /* ── Mobile ──────────────────────────────────── */
     @media (max-width: 768px) {
@@ -319,15 +193,13 @@
       .content-area { flex: 1; overflow: hidden; position: relative; min-height: 0; }
       .project-panel { position: absolute; inset: 0; }
 
-      .reel-panel-inner { padding: 2rem 1.25rem 4rem; }
-      .reel-grid { grid-template-columns: repeat(2, 1fr); }
 
       .placeholder-panel h2 { font-size: clamp(1.3rem, 6vw, 2rem); }
     }
 
     @media (max-width: 420px) {
       nav { padding: 0 1rem; }
-      .reel-grid { grid-template-columns: 1fr; }
+
     }
   </style>
 </head>
@@ -357,6 +229,12 @@
       <div class="project-meta">Coming soon</div>
     </div>
 
+    <div class="project-item" data-project="lunar" onclick="showProject('lunar')">
+      <div class="project-num">03</div>
+      <div class="project-title">Year of The...</div>
+      <div class="project-meta">Lunar New Year · Ongoing</div>
+    </div>
+
   </aside>
 
   <!-- ── Content panels ───────────────────────────── -->
@@ -374,7 +252,7 @@
       </div>
     </div>
 
-    <!-- 03 · Pottery Exhibit -->
+    <!-- 02 · Pottery Exhibit -->
     <div class="project-panel" id="panel-exhibit">
       <div class="placeholder-panel">
         <div class="bg" style="background-image: url('photos/Title Page/pottery progress/background.jpeg')"></div>
@@ -386,26 +264,19 @@
       </div>
     </div>
 
-  </main>
-</div>
-
-<!-- ── Modal ──────────────────────────────────────── -->
-<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeReel()">
-  <div class="modal">
-    <button class="modal-close" onclick="closeReel()">✕</button>
-    <div class="video-frame">
-      <iframe id="modalIframe" src="" allowfullscreen
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-      </iframe>
-    </div>
-    <div class="modal-info">
-      <div>
-        <div class="modal-title" id="modalTitle"></div>
-        <div class="modal-brand" id="modalBrand"></div>
+    <!-- 03 · Year of The... -->
+    <div class="project-panel" id="panel-lunar">
+      <div class="placeholder-panel">
+        <div class="bg" style="background-image: url('photos/Title Page/taiwan through our eyes /DSC01598.JPG')"></div>
+        <div class="ph-content">
+          <h2>Year of The...</h2>
+          <div class="ph-tag">Lunar New Year · Ongoing</div>
+          <div class="ph-soon">Coming soon</div>
+        </div>
       </div>
-      <a class="modal-ext" id="modalExt" href="" target="_blank">View on Instagram ↗</a>
     </div>
-  </div>
+
+  </main>
 </div>
 
 <script>
@@ -417,27 +288,6 @@
       el.classList.toggle('active', el.id === 'panel-' + id)
     );
   }
-
-  function openReel(card) {
-    const embed = card.dataset.embed;
-    const type  = card.dataset.type || 'instagram';
-    document.getElementById('modalIframe').src = type === 'youtube' ? embed + '?autoplay=1' : embed;
-    document.getElementById('modalTitle').textContent = card.dataset.title || '';
-    document.getElementById('modalBrand').textContent = card.dataset.brand || '';
-    const ext = document.getElementById('modalExt');
-    ext.href = embed.replace('/embed/', '/').replace('?autoplay=1','');
-    ext.textContent = type === 'youtube' ? 'View on YouTube ↗' : 'View on Instagram ↗';
-    document.getElementById('modalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeReel() {
-    document.getElementById('modalOverlay').classList.remove('open');
-    document.getElementById('modalIframe').src = '';
-    document.body.style.overflow = '';
-  }
-
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReel(); });
 </script>
 </body>
 </html>
