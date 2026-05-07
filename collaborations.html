@@ -48,50 +48,60 @@
 
     /* ── Sidebar ─────────────────────────────────── */
     .sidebar {
-      width: 300px; flex-shrink: 0;
+      width: 340px; flex-shrink: 0;
       display: flex; flex-direction: column; justify-content: center;
       padding: 3rem 2.5rem;
       border-right: 1px solid rgba(242,237,232,0.08);
-      overflow-y: auto;
+      overflow-y: auto; gap: 0;
+    }
+
+    .sidebar-hint {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.2); margin-bottom: 2rem;
     }
 
     .project-item {
-      padding: 2.2rem 0;
+      padding: 1.8rem 1rem;
       cursor: pointer;
       border-bottom: 1px solid rgba(242,237,232,0.07);
-      opacity: 0.3;
-      transition: opacity 0.35s ease;
-      user-select: none;
-      position: relative;
+      opacity: 0.38;
+      transition: opacity 0.3s ease, background 0.3s ease;
+      user-select: none; position: relative;
+      border-radius: 4px; margin: 0 -1rem;
     }
-    .project-item:first-child { border-top: 1px solid rgba(242,237,232,0.07); }
-    .project-item.active { opacity: 1; }
-    .project-item:not(.active):hover { opacity: 0.65; }
+    .project-item:first-of-type { border-top: 1px solid rgba(242,237,232,0.07); }
+    .project-item.active { opacity: 1; background: rgba(242,237,232,0.05); }
+    .project-item:not(.active):hover { opacity: 0.7; background: rgba(242,237,232,0.03); }
 
     .project-item::before {
       content: '';
-      position: absolute; left: -2.5rem; top: 50%; transform: translateY(-50%);
-      width: 2px; height: 0;
-      background: #c8a882;
-      transition: height 0.35s ease;
+      position: absolute; left: 0; top: 25%; bottom: 25%;
+      width: 3px; border-radius: 2px; background: #c8a882;
+      opacity: 0; transition: opacity 0.3s ease;
     }
-    .project-item.active::before { height: 2.5rem; }
+    .project-item.active::before { opacity: 1; }
+
+    .project-item::after {
+      content: '→';
+      position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+      font-size: 1rem; color: #c8a882;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .project-item.active::after { opacity: 1; }
 
     .project-num {
-      font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
-      color: rgba(242,237,232,0.35); margin-bottom: .6rem;
-      transition: color 0.35s;
+      font-size: .65rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35); margin-bottom: .5rem; transition: color 0.3s;
     }
     .project-item.active .project-num { color: #c8a882; }
 
     .project-title {
-      font-size: clamp(1rem, 1.6vw, 1.35rem);
-      font-weight: 300; line-height: 1.25;
-      letter-spacing: -0.01em;
+      font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+      font-weight: 300; line-height: 1.2; letter-spacing: -0.01em;
     }
     .project-meta {
-      font-size: .7rem; letter-spacing: .07em;
-      color: rgba(242,237,232,0.3); margin-top: .5rem;
+      font-size: .75rem; letter-spacing: .06em;
+      color: rgba(242,237,232,0.3); margin-top: .45rem;
     }
 
     /* ── Content area ────────────────────────────── */
@@ -285,23 +295,26 @@
       }
       .sidebar::-webkit-scrollbar { display: none; }
 
+      .sidebar-hint { display: none; }
       .project-item {
-        padding: 0 1.4rem;
-        border-bottom: none;
+        padding: 0 1.5rem; border-bottom: none; border-radius: 0;
         border-right: 1px solid rgba(242,237,232,0.07);
-        border-top: none !important;
+        border-top: none !important; margin: 0;
         flex-shrink: 0; white-space: nowrap;
         display: flex; flex-direction: column; justify-content: center;
+        background: transparent !important;
       }
       .project-item::before {
-        left: 50%; top: auto; bottom: 0; transform: translateX(-50%);
-        width: 0; height: 2px; transition: width 0.35s ease;
+        left: 50%; top: auto; bottom: 0; right: auto;
+        transform: translateX(-50%);
+        width: 0; height: 2px; border-radius: 0;
+        transition: width 0.35s ease; opacity: 1;
       }
-      .project-item.active::before { width: 65%; height: 2px; }
-
+      .project-item.active::before { width: 65%; height: 2px; opacity: 1; }
+      .project-item::after { display: none; }
       .project-meta { display: none; }
-      .project-num { margin-bottom: .2rem; font-size: .55rem; }
-      .project-title { font-size: .85rem; }
+      .project-num { margin-bottom: .2rem; font-size: .6rem; }
+      .project-title { font-size: .95rem; }
 
       .content-area { flex: 1; overflow: hidden; position: relative; min-height: 0; }
       .project-panel { position: absolute; inset: 0; }
@@ -330,20 +343,16 @@
   <!-- ── Sidebar ──────────────────────────────────── -->
   <aside class="sidebar">
 
-    <div class="project-item active" data-project="reels" onclick="showProject('reels')">
-      <div class="project-num">01</div>
-      <div class="project-title">Brand Reels</div>
-      <div class="project-meta">Partnerships & sponsored content</div>
-    </div>
+    <div class="sidebar-hint">Select a project</div>
 
-    <div class="project-item" data-project="camp" onclick="showProject('camp')">
-      <div class="project-num">02</div>
+    <div class="project-item active" data-project="camp" onclick="showProject('camp')">
+      <div class="project-num">01</div>
       <div class="project-title">Indigenous Pottery Camp</div>
       <div class="project-meta">Taiwan · 2025</div>
     </div>
 
     <div class="project-item" data-project="exhibit" onclick="showProject('exhibit')">
-      <div class="project-num">03</div>
+      <div class="project-num">02</div>
       <div class="project-title">Pottery Exhibit</div>
       <div class="project-meta">Coming soon</div>
     </div>
@@ -353,49 +362,8 @@
   <!-- ── Content panels ───────────────────────────── -->
   <main class="content-area">
 
-    <!-- 01 · Brand Reels -->
-    <div class="project-panel active" id="panel-reels">
-      <div class="reel-panel">
-        <div class="reel-panel-inner">
-          <h2>Brand Reels</h2>
-          <p class="sub">Partnerships, sponsored content, and creative reels.</p>
-
-          <!--
-            ── How to add a reel ──────────────────────────────────────────
-            For Instagram Reels:
-              1. Open the reel → ··· → Copy link → grab the REEL_ID
-              2. data-embed="https://www.instagram.com/reel/REEL_ID/embed/"
-              3. Save a screenshot to photos/collabs/ for the thumbnail
-              4. data-type="instagram"
-
-            For YouTube Shorts:
-              1. data-embed="https://www.youtube.com/embed/VIDEO_ID"
-              2. thumbnail: https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg
-              3. data-type="youtube"
-            ──────────────────────────────────────────────────────────────
-          -->
-          <div class="reel-grid">
-            <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
-            <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
-            <div class="reel-card placeholder"><span class="placeholder-label">coming soon</span></div>
-          </div>
-
-          <div class="ig-link">
-            <a href="https://instagram.com/amandacuii" target="_blank" class="ig-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/>
-              </svg>
-              More on Instagram @amandacuii
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 02 · Indigenous Pottery Camp -->
-    <div class="project-panel" id="panel-camp">
+    <!-- 01 · Indigenous Pottery Camp -->
+    <div class="project-panel active" id="panel-camp">
       <div class="placeholder-panel">
         <div class="bg" style="background-image: url('photos/Title Page/taiwan through our eyes /DSC01598.JPG')"></div>
         <div class="ph-content">
