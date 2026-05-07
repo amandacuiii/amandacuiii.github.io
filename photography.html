@@ -9,11 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:     #f9f6f2;
-      --text:   #3d2e1c;
-      --accent: #664930;
-      --muted:  #9b8472;
-      --border: rgba(102,73,48,.12);
+      --bg:     #0d0d0d;
+      --text:   #f2ede8;
+      --accent: #c8a882;
+      --muted:  rgba(242,237,232,0.4);
+      --border: rgba(242,237,232,0.08);
       --font:   'Neuton', serif;
     }
 
@@ -27,7 +27,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: 56px; display: flex; align-items: center;
       justify-content: space-between; padding: 0 2.5rem;
-      background: rgba(249,246,242,0.9); backdrop-filter: blur(12px);
+      background: rgba(13,13,13,0.9); backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -92,7 +92,7 @@
       transition: background .2s, border-color .2s;
       text-align: center;
     }
-    .brand-card:hover { background: #f2ede8; border-color: rgba(102,73,48,.25); }
+    .brand-card:hover { background: rgba(242,237,232,0.05); border-color: rgba(242,237,232,0.2); }
     .brand-card .brand-name {
       font-size: 1rem; font-weight: 400; letter-spacing: .02em;
     }
@@ -105,7 +105,7 @@
     .brand-card.placeholder .brand-type { opacity: .25; }
 
     /* ── Work grid ────────────────────────────────── */
-    .work-section { background: #f2ede8; border-bottom: 1px solid var(--border); }
+    .work-section { background: #141414; border-bottom: 1px solid var(--border); }
     .work-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -114,11 +114,11 @@
       border: 1px solid var(--border);
     }
     .work-card {
-      background: #f2ede8;
+      background: #141414;
       padding: 2.2rem 2rem;
       transition: background .2s;
     }
-    .work-card:hover { background: #ede5db; }
+    .work-card:hover { background: #1e1e1e; }
     .work-card-tag {
       font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
       color: var(--muted); margin-bottom: .7rem;
@@ -206,7 +206,7 @@
       flex-shrink: 0;
       display: inline-flex; align-items: center; gap: .5rem;
       padding: .85rem 2rem;
-      background: var(--accent); color: #f9f6f2;
+      background: var(--accent); color: #0d0d0d;
       font-family: var(--font); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase;
       border-radius: 4px; transition: opacity .2s;
     }
