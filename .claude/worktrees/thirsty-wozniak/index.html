@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amanda Cui</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background: #f5f0ea;
+            color: #2e1f0e;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid rgba(46, 31, 14, 0.1);
+        }
+
+        .site-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .header-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: rgba(46, 31, 14, 0.5);
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover {
+            color: #2e1f0e;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 5rem 3rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: end;
+            border-bottom: 1px solid rgba(46, 31, 14, 0.1);
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 7.5rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-bio {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: rgba(46, 31, 14, 0.65);
+            max-width: 480px;
+        }
+
+        /* The First 100 — full clickable photo */
+        .first-100 {
+            display: block;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(46, 31, 14, 0.1);
+            cursor: pointer;
+        }
+
+        .first-100 img {
+            width: 100%;
+            height: clamp(320px, 55vw, 680px);
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+
+        .first-100:hover img {
+            transform: scale(1.03);
+        }
+
+        .first-100-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(30, 15, 4, 0.65) 0%, transparent 55%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2.5rem 3rem;
+            transition: background 0.3s ease;
+        }
+
+        .first-100:hover .first-100-overlay {
+            background: linear-gradient(to top, rgba(30, 15, 4, 0.75) 0%, transparent 55%);
+        }
+
+        .first-100-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .first-100-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .first-100-enter {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            padding-bottom: 2px;
+            width: fit-content;
+            transition: gap 0.2s ease;
+        }
+
+        .first-100:hover .first-100-enter {
+            gap: 0.9rem;
+        }
+
+        /* Project list */
+        .project-list {
+            border-top: 1px solid rgba(46, 31, 14, 0.1);
+        }
+
+        .project-list-item {
+            display: grid;
+            grid-template-columns: 3.5rem 1fr auto auto;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.75rem 3rem;
+            border-bottom: 1px solid rgba(46, 31, 14, 0.1);
+            text-decoration: none;
+            color: #2e1f0e;
+            transition: background 0.2s;
+        }
+
+        .project-list-item:hover {
+            background: rgba(46, 31, 14, 0.04);
+        }
+
+        .pl-number {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: rgba(46, 31, 14, 0.35);
+        }
+
+        .pl-title {
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .pl-desc {
+            font-size: 0.85rem;
+            color: rgba(46, 31, 14, 0.45);
+            display: none;
+        }
+
+        .pl-arrow {
+            font-size: 1rem;
+            color: rgba(46, 31, 14, 0.3);
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .project-list-item:hover .pl-arrow {
+            transform: translateX(5px);
+            color: #2e1f0e;
+        }
+
+        @media (min-width: 700px) {
+            .pl-desc { display: block; }
+        }
+
+        /* Footer */
+        footer {
+            padding: 2.5rem 3rem;
+            border-top: 1px solid rgba(46, 31, 14, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        footer a {
+            font-size: 0.85rem;
+            color: rgba(46, 31, 14, 0.45);
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #2e1f0e;
+        }
+
+        footer span {
+            font-size: 0.8rem;
+            color: rgba(46, 31, 14, 0.3);
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile */
+        @media (max-width: 700px) {
+            header {
+                padding: 1.25rem 1.5rem;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .first-100-overlay {
+                padding: 1.5rem;
+            }
+
+            .other-projects {
+                padding: 3rem 1.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-tile.large {
+                grid-column: span 1;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .project-list-item {
+                grid-template-columns: 2.5rem 1fr auto;
+                padding: 1.25rem 1.5rem;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="site-name">Amanda Cui</span>
+        <nav class="header-links">
+            <a href="mailto:amandacuicollab@gmail.com">Contact</a>
+            <a href="https://www.instagram.com/amandacuii" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.linkedin.com/in/amanda-cui-9072381b0" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </nav>
+    </header>
+
+    <section class="hero reveal">
+        <h1>Amanda<br>Cui</h1>
+        <p class="hero-bio">
+            Hi, I'm Amanda. I'm interested in people, place, and the small moments that make everyday life feel meaningful — through photography, video, and ceramic. After graduating from Penn, I moved to Taiwan as a Fulbright Fellow. This site is where I collect that process.
+        </p>
+    </section>
+
+    <!-- The First 100 — clickable photo -->
+    <a href="pottery.html" class="first-100 reveal">
+        <img src="photos/Pottery pics/22) Koi Fish Bowl/p22.jpg" alt="The First 100 — pottery gallery">
+        <div class="first-100-overlay">
+            <span class="first-100-label">01 — Project</span>
+            <span class="first-100-title">The First 100</span>
+            <span class="first-100-enter">Enter gallery &rarr;</span>
+        </div>
+    </a>
+
+    <!-- Projects list -->
+    <section class="project-list">
+        <a href="humans-of-shi-yuan.html" class="project-list-item reveal">
+            <span class="pl-number">02</span>
+            <span class="pl-title">Humans of Shi Yuan</span>
+            <span class="pl-desc">Documentary series</span>
+            <span class="pl-arrow">&rarr;</span>
+        </a>
+        <a href="taiwan-through-our-eyes.html" class="project-list-item reveal">
+            <span class="pl-number">03</span>
+            <span class="pl-title">Taiwan Through Our Eyes</span>
+            <span class="pl-desc">Visual journey</span>
+            <span class="pl-arrow">&rarr;</span>
+        </a>
+        <a href="moments.html" class="project-list-item reveal">
+            <span class="pl-number">04</span>
+            <span class="pl-title">Moments</span>
+            <span class="pl-desc">Short-form video</span>
+            <span class="pl-arrow">&rarr;</span>
+        </a>
+        <a href="fine-arts.html" class="project-list-item reveal">
+            <span class="pl-number">05</span>
+            <span class="pl-title">Fine Arts Minor</span>
+            <span class="pl-desc">University of Pennsylvania</span>
+            <span class="pl-arrow">&rarr;</span>
+        </a>
+        <a href="photography.html" class="project-list-item reveal">
+            <span class="pl-number">06</span>
+            <span class="pl-title">Photography</span>
+            <span class="pl-desc">Sony shots across Taiwan</span>
+            <span class="pl-arrow">&rarr;</span>
+        </a>
+        <a href="p5js.html" class="project-list-item reveal">
+            <span class="pl-number">07</span>
+            <span class="pl-title">p5.js</span>
+            <span class="pl-desc">Creative coding</span>
+            <span class="pl-arrow">&rarr;</span>
+        </a>
+    </section>
+
+    <footer>
+        <a href="mailto:amandacuicollab@gmail.com">amandacuicollab@gmail.com</a>
+        <span>&copy; 2025 Amanda Cui</span>
+    </footer>
+
+
+    <script>
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Photography gallery
+        const photos = [
+            'photos/Sony%20shots/Alan.JPG','photos/Sony%20shots/chiangkaishek.JPG',
+            'photos/Sony%20shots/DSC00028.JPG','photos/Sony%20shots/DSC00042.JPG',
+            'photos/Sony%20shots/DSC00178.JPG','photos/Sony%20shots/DSC00268.JPG',
+            'photos/Sony%20shots/DSC00269.JPG','photos/Sony%20shots/DSC00515.JPG',
+            'photos/Sony%20shots/DSC00516.JPG','photos/Sony%20shots/DSC00653_0.JPG',
+            'photos/Sony%20shots/DSC00968.JPG','photos/Sony%20shots/DSC01036.JPG',
+            'photos/Sony%20shots/DSC01042.JPG','photos/Sony%20shots/DSC01215.JPG',
+            'photos/Sony%20shots/DSC01352.JPG','photos/Sony%20shots/DSC01357.JPG',
+            'photos/Sony%20shots/DSC01413.JPG','photos/Sony%20shots/DSC01470.JPG',
+            'photos/Sony%20shots/DSC01489.JPG','photos/Sony%20shots/DSC01556.JPG',
+            'photos/Sony%20shots/DSC01586.JPG','photos/Sony%20shots/DSC01598.JPG',
+            'photos/Sony%20shots/DSC01716.JPG','photos/Sony%20shots/DSC01777.JPG',
+            'photos/Sony%20shots/DSC01810.JPG','photos/Sony%20shots/DSC01860.JPG',
+            'photos/Sony%20shots/DSC01874.JPG','photos/Sony%20shots/DSC01924.JPG',
+            'photos/Sony%20shots/DSC01939.JPG','photos/Sony%20shots/DSC02105.JPG',
+            'photos/Sony%20shots/DSC02205.JPG','photos/Sony%20shots/i%20like%20this.JPG'
+        ];
+
+        function openPhotographyGallery() {
+            const lightbox = document.getElementById('photographyLightbox');
+            const gallery = document.getElementById('photographyGallery');
+            gallery.innerHTML = '';
+            photos.forEach((src, i) => {
+                const wrap = document.createElement('div');
+                wrap.style.cssText = 'display:inline-block; width:100%; margin-bottom:1rem; break-inside:avoid; cursor:pointer;';
+                wrap.onclick = () => openImageLightbox(src);
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = `Photo ${i+1}`;
+                img.loading = 'lazy';
+                img.style.cssText = 'width:100%; height:auto; display:block; border-radius:4px;';
+                wrap.appendChild(img);
+                gallery.appendChild(wrap);
+            });
+            lightbox.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePhotographyGallery() {
+            document.getElementById('photographyLightbox').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function openImageLightbox(src) {
+            const lb = document.getElementById('imageLightbox');
+            document.getElementById('lightboxImage').src = src;
+            lb.style.display = 'flex';
+        }
+
+        function closeImageLightbox() {
+            document.getElementById('imageLightbox').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { closePhotographyGallery(); closeImageLightbox(); }
+        });
+    </script>
+</body>
+</html>

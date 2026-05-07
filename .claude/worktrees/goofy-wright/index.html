@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amanda Cui</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            overflow-x: hidden;
+            background: rgba(204, 190, 177, 0.3);
+            font-weight: 400;
+            color: #3d2e1c;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Background Collage */
+        .background-collage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            background: transparent;
+        }
+        
+        .collage-photo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            display: block;
+            transition: opacity 1s ease-in-out;
+            z-index: 0;
+        }
+        
+        /* Ensure content is above background */
+        nav, main {
+            position: relative;
+            z-index: 1;
+        }
+        
+        main {
+            background: rgba(204, 190, 177, 0.2);
+            backdrop-filter: blur(0px);
+        }
+        
+        /* Social Media Boxes */
+        .social-box {
+            display: inline-block;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid rgba(102, 73, 48, 0.2);
+            border-radius: 6px;
+            color: #664930;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-box span {
+            font-weight: 700;
+        }
+        
+        .social-box:hover {
+            background: rgba(102, 73, 48, 0.1);
+            border-color: rgba(102, 73, 48, 0.4);
+        }
+        
+        .social-box:active {
+            background: rgba(102, 73, 48, 0.15);
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Background Collage -->
+    <div class="background-collage">
+        <img id="rotating-photo" src="" alt="" class="collage-photo" loading="eager" decoding="async">
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50" style="background: rgba(204, 190, 177, 0.3); backdrop-filter: blur(10px);">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-evenly items-center h-16 w-full">
+                <a href="index.html#about" class="text-sm uppercase tracking-wide font-bold" style="color: #664930;">hi!</a>
+                <a href="pottery.html" class="text-sm uppercase tracking-wide font-bold" style="color: #664930;">the first 100</a>
+                <a href="videography.html" class="text-sm uppercase tracking-wide font-bold" style="color: #664930;">other projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-20 pb-32 px-6 lg:px-8 min-h-screen">
+        <div class="w-full max-w-7xl mx-auto">
+            <!-- About Section -->
+            <section id="about" class="w-full">
+                <div class="flex flex-row gap-8 md:gap-12 items-center min-h-[calc(100vh-12rem)]">
+                    <div class="flex-1 space-y-8 text-lg leading-relaxed min-w-0 font-bold">
+                        <p>
+                            Hi, I'm Amanda! Welcome to my corner of the internet.
+                        </p>
+                        <p>
+                            I'm a visual storyteller interested in people, place, and the small moments that make everyday life feel meaningful. I work across photography, video, and ceramic as a way of paying attention and making sense of the world around me.
+                        </p>
+                        <p>
+                            After graduating from the University of Pennsylvania with a degree in Finance and a minor in Fine Arts, I moved to Taiwan as a Fulbright English Teaching Fellow. Living abroad pushed me to create more intentionally, and lately I've been thinking about how to make creativity part of my life instead of something I save for later. This site is where I collect that process: projects, experiments, and in-between thoughts, as I figure out how to keep creating alongside everything else.
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <div class="aspect-square w-full overflow-hidden rounded-lg shadow-lg" style="min-width: 250px; max-width: 600px; width: clamp(250px, 30vw, 600px);">
+                            <img src="photos/Photos of me/photoshoot-photo.jpg" alt="Amanda Cui" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex items-center justify-center flex-wrap gap-4 pt-4">
+                            <a href="https://www.instagram.com/amandacuii" target="_blank" rel="noopener noreferrer" class="social-box">
+                                <span>Instagram</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/amanda-cui-9072381b0" target="_blank" rel="noopener noreferrer" class="social-box">
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="mailto:amandacuicollab@gmail.com" class="social-box">
+                                <span>Email</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <script src="cursor-dots.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Helper function to encode image paths for URLs
+        function encodeImagePath(path) {
+            // Split path and encode each part, keeping slashes
+            return path.split('/').map(part => encodeURIComponent(part)).join('/');
+        }
+
+        // Rotate background image every 3 seconds
+        const photos = [
+            'photos/Sony shots/Alan.JPG',
+            'photos/Sony shots/chiangkaishek.JPG',
+            'photos/Sony shots/DSC00028.JPG',
+            'photos/Sony shots/DSC00042.JPG',
+            'photos/Sony shots/DSC00178.JPG',
+            'photos/Sony shots/DSC00268.JPG',
+            'photos/Sony shots/DSC00269.JPG',
+            'photos/Sony shots/DSC00515.JPG',
+            'photos/Sony shots/DSC00516.JPG',
+            'photos/Sony shots/DSC00653_0.JPG',
+            'photos/Sony shots/DSC00968.JPG',
+            'photos/Sony shots/DSC01036.JPG',
+            'photos/Sony shots/DSC01042.JPG',
+            'photos/Sony shots/DSC01215.JPG',
+            'photos/Sony shots/DSC01352.JPG',
+            'photos/Sony shots/DSC01357.JPG',
+            'photos/Sony shots/DSC01413.JPG',
+            'photos/Sony shots/DSC01470.JPG',
+            'photos/Sony shots/DSC01489.JPG',
+            'photos/Sony shots/DSC01556.JPG',
+            'photos/Sony shots/DSC01586.JPG',
+            'photos/Sony shots/DSC01598.JPG',
+            'photos/Sony shots/DSC01716.JPG',
+            'photos/Sony shots/DSC01777.JPG',
+            'photos/Sony shots/DSC01810.JPG',
+            'photos/Sony shots/DSC01860.JPG',
+            'photos/Sony shots/DSC01874.JPG',
+            'photos/Sony shots/DSC01924.JPG',
+            'photos/Sony shots/DSC01939.JPG',
+            'photos/Sony shots/DSC02105.JPG',
+            'photos/Sony shots/DSC02205.JPG',
+            'photos/Sony shots/i like this.JPG'
+        ];
+        
+        let currentIndex = 0;
+        const rotatingPhoto = document.getElementById('rotating-photo');
+        
+        // Set initial image with encoding
+        rotatingPhoto.src = encodeImagePath(photos[0]);
+        
+        function changePhoto() {
+            currentIndex = (currentIndex + 1) % photos.length;
+            rotatingPhoto.style.opacity = '0';
+            setTimeout(() => {
+                rotatingPhoto.src = encodeImagePath(photos[currentIndex]);
+                rotatingPhoto.style.opacity = '0.5';
+            }, 500);
+        }
+        
+        setInterval(changePhoto, 3000);
+    </script>
+</body>
+</html>
