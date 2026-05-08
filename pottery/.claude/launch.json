@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "pottery-gallery",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8082", "--directory", "/Users/amanda/Downloads/personal-website/pottery"],
+      "port": 8082,
+      "autoPort": false
+    }
+  ]
+}
