@@ -503,8 +503,8 @@
         function buildGallery(data) {
             // Only show pieces with background-removed (PNG) photos
             data = data.filter(p =>
-                (p.mainImage || '').startsWith('data:image/png') ||
-                (p.progressPhotos || []).some(ph => (ph || '').startsWith('data:image/png'))
+                (p.mainImage || '').match(/\.png$/i) ||
+                (p.progressPhotos || []).some(ph => (ph || '').match(/\.png$/i))
             );
 
             // Sort oldest → newest to assign numbers
