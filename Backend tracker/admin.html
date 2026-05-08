@@ -254,6 +254,14 @@
     .photo-thumb.dragging { opacity: .4; transform: scale(.96); }
     .photo-thumb.drag-over-thumb { box-shadow: inset 0 0 0 2.5px var(--clay); transform: scale(1.03); }
     .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .photo-thumb .rm-bg {
+      position: absolute; bottom: 4px; left: 4px;
+      background: rgba(0,0,0,.55); color: #fff; border: none;
+      border-radius: 4px; padding: 2px 6px; font-size: .65rem;
+      cursor: pointer; white-space: nowrap; display: none;
+    }
+    .photo-thumb:hover .rm-bg { display: block; }
+    .photo-thumb .rm-bg:disabled { opacity: .6; cursor: wait; }
     .photo-thumb .rm-photo {
       position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,.5); color: #fff;
       border: none; border-radius: 50%; width: 20px; height: 20px;
@@ -512,6 +520,8 @@ function idbDelete(key) {
   tx.objectStore('photos').delete(key);
 }
 
+let changesSinceBackup = 0;
+
 function save() {
   // Strip base64 URLs from photos before saving to localStorage (keep only keys/paths)
   const slim = pieces.map(p => ({
@@ -519,6 +529,28 @@ function save() {
     photos: (p.photos || []).map(ph => ph.startsWith('data:') ? null : ph).filter(Boolean)
   }));
   localStorage.setItem('pottery', JSON.stringify(slim));
+  changesSinceBackup++;
+  updateBackupBanner();
+}
+
+function updateBackupBanner() {
+  let banner = document.getElementById('backup-banner');
+  if (changesSinceBackup >= 3) {
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'backup-banner';
+      banner.style.cssText = 'background:#664930;color:#fff;text-align:center;padding:10px 16px;font-size:.85rem;display:flex;align-items:center;justify-content:center;gap:12px;';
+      banner.innerHTML = '<span>💾 You have unsaved changes — export a backup to keep your photos safe.</span><button onclick="exportData()" style="background:#fff;color:#664930;border:none;border-radius:6px;padding:5px 12px;font-size:.82rem;font-weight:600;cursor:pointer;">Export backup</button><button onclick="dismissBackupBanner()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:6px;padding:5px 10px;font-size:.82rem;cursor:pointer;">Dismiss</button>';
+      document.body.insertBefore(banner, document.body.firstChild);
+    }
+  } else if (banner) {
+    banner.remove();
+  }
+}
+
+function dismissBackupBanner() {
+  changesSinceBackup = 0;
+  updateBackupBanner();
 }
 
 function uid()  { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
@@ -614,12 +646,16 @@ async function loadCardPhotos(pieceId, photos) {
     if (!card) continue;
     if (i === 0) {
       const img = card.querySelector('.main-photo img');
+      const div = card.querySelector('.main-photo');
       if (img) img.src = url;
-      else {
-        const div = card.querySelector('.main-photo');
-        if (div) div.innerHTML = `<img src="${url}" alt="" />`;
-      }
+      else if (div) div.innerHTML = `<img src="${url}" alt="" />`;
     } else {
+      // If main photo area still empty, use this as cover
+      const mainDiv = card.querySelector('.main-photo');
+      if (mainDiv && !mainDiv.querySelector('img')) {
+        mainDiv.innerHTML = `<img src="${url}" alt="" />`;
+        continue;
+      }
       const thumbs = card.querySelectorAll('.thumb img');
       if (thumbs[i - 1]) thumbs[i - 1].src = url;
     }
@@ -802,6 +838,7 @@ function renderGallery() {
         ondragend="thumbDragEnd(event)">
       <img src="${photo.url}" alt="" onclick="openLightbox(${i})" />
       ${i === 0 && currentPhotos.length > 1 ? '<span class="cover-label">COVER</span>' : ''}
+      <button class="rm-bg" onclick="removeBg(event,${i})">Remove BG</button>
       <button class="rm-photo" onclick="removePhoto(event,${i})">✕</button>
     </div>`
   ).join('');
@@ -809,6 +846,26 @@ function renderGallery() {
 }
 
 function removePhoto(e, i) { e.stopPropagation(); currentPhotos.splice(i, 1); renderGallery(); }
+
+async function removeBg(e, i) {
+  e.stopPropagation();
+  const btn = e.currentTarget;
+  btn.disabled = true;
+  btn.textContent = 'Processing…';
+  try {
+    const { removeBackground } = await import('https://esm.sh/@imgly/background-removal@1.4.5');
+    const blob = await removeBackground(currentPhotos[i].url);
+    const url = await new Promise(res => { const r = new FileReader(); r.onload = ev => res(ev.target.result); r.readAsDataURL(blob); });
+    const key = 'idb:' + uid();
+    await idbSave(key, url);
+    currentPhotos[i] = { url, key, isNew: true };
+    renderGallery();
+  } catch(err) {
+    alert('Background removal failed: ' + err.message);
+    btn.disabled = false;
+    btn.textContent = 'Remove BG';
+  }
+}
 
 function thumbDragStart(e, i) {
   dragSrcIdx = i; e.dataTransfer.effectAllowed = 'move';
@@ -904,13 +961,22 @@ function lbNav(dir, e) {
 function lbClose() { document.getElementById('lightbox').classList.remove('open'); }
 
 /* ── Export / Import ─────────────────────────────────── */
-function exportData() {
-  const blob = new Blob([localStorage.getItem('pottery') || '[]'], { type: 'application/json' });
+async function exportData() {
+  const full = await Promise.all(pieces.map(async p => ({
+    ...p,
+    photos: await Promise.all((p.photos || []).map(async ph => {
+      if (ph.startsWith('idb:')) return (await idbLoad(ph)) || ph;
+      return ph;
+    }))
+  })));
+  const blob = new Blob([JSON.stringify(full)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'pottery-tracker-backup.json';
   a.click();
   URL.revokeObjectURL(a.href);
+  changesSinceBackup = 0;
+  updateBackupBanner();
 }
 
 async function exportGallery() {
