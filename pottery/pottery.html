@@ -99,7 +99,7 @@
         }
 
         .piece {
-            cursor: pointer;
+            cursor: default;
         }
 
         .piece-img-wrap {
@@ -108,8 +108,9 @@
             aspect-ratio: 1 / 1;
             background: var(--bg);
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
+            padding-bottom: 8%;
         }
 
         .piece-img-wrap img {
@@ -535,7 +536,6 @@
             pieces.forEach((piece, i) => {
                 const div = document.createElement('div');
                 div.className = 'piece';
-                div.onclick = () => openLightbox(i);
 
                 const badge = getBadge(piece.home);
 
