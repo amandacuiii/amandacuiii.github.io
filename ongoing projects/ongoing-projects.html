@@ -113,11 +113,12 @@
 
     .project-panel {
       position: absolute; inset: 0;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.4s ease;
+      opacity: 0; pointer-events: none; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0s linear 0.4s;
     }
     .project-panel.active {
-      opacity: 1; pointer-events: all;
+      opacity: 1; pointer-events: all; visibility: visible;
+      transition: opacity 0.4s ease, visibility 0s linear 0s;
     }
 
     /* ── Placeholder panel ───────────────────────── */
