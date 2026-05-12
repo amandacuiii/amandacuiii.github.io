@@ -34,7 +34,7 @@
     .nav-label { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(242,237,232,0.3); }
 
     /* ── Layout ──────────────────────────────────── */
-    .layout { display: flex; height: 100vh; padding-top: 56px; }
+    .layout { display: flex; height: 100vh; height: 100svh; padding-top: 56px; }
 
     /* ── Sidebar ─────────────────────────────────── */
     .sidebar {
@@ -147,6 +147,14 @@
     }
     .humans-half h3 { font-size: clamp(1.2rem, 2.5vw, 2rem); font-weight: 300; letter-spacing: -.01em; margin-bottom: .5rem; }
     .humans-half .sub-tag { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(242,237,232,0.3); }
+    .humans-half .blurb {
+      margin-top: .8rem; font-size: .78rem; line-height: 1.6;
+      color: rgba(242,237,232,0.45); max-width: 24ch; margin-inline: auto;
+    }
+    .humans-half .founder-tag {
+      margin-top: 1.2rem; font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(200,168,130,0.7);
+    }
     .humans-half .soon {
       margin-top: 1.8rem; font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
       color: #c8a882; opacity: .55;
@@ -222,7 +230,7 @@
     /* ── Mobile ──────────────────────────────────── */
     @media (max-width: 768px) {
       html, body { overflow: hidden; }
-      .layout { flex-direction: column; height: 100vh; padding-top: 56px; }
+      .layout { flex-direction: column; height: 100vh; height: 100svh; padding-top: 56px; }
 
       .sidebar {
         width: 100%; flex-direction: row;
@@ -336,17 +344,20 @@
           <div class="content">
             <h3>Humans of Shi Yuan</h3>
             <div class="sub-tag">Taichung, Taiwan · 2024</div>
+            <div class="blurb">Oral history project capturing voices across a Taichung high school</div>
+            <div class="founder-tag">Founded &amp; led</div>
           </div>
         </a>
 
-        <div class="humans-half">
+        <a class="humans-half" href="humans-of-penn/humans-of-penn.html" style="text-decoration:none;color:inherit">
           <div class="bg" style="background-image: url('../Title%20Page/storytelling/DSC05037 copy.JPG')"></div>
           <div class="content">
             <h3>Humans of Penn</h3>
             <div class="sub-tag">Philadelphia, PA · 2022–2023</div>
-            <div class="soon">Coming soon</div>
+            <div class="blurb">Photography and storytelling project at the University of Pennsylvania</div>
+            <div class="founder-tag">Founded &amp; led</div>
           </div>
-        </div>
+        </a>
 
       </div>
     </div>
