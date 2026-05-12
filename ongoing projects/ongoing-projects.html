@@ -271,6 +271,60 @@
       padding: .4rem .9rem; display: inline-block;
     }
 
+    /* ── Photo grid items (shared) ──────────────── */
+    .photo-grid-item {
+      cursor: pointer; overflow: hidden;
+      aspect-ratio: 4/3; border-radius: 3px;
+    }
+    .photo-grid-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+    .photo-grid-item:hover img { transform: scale(1.04); }
+
+    /* ── Camp panel ──────────────────────────────── */
+    .camp-panel {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      padding: 3rem 3rem 4rem;
+    }
+    .camp-header { margin-bottom: 2.5rem; }
+    .camp-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300; letter-spacing: -.01em; margin-bottom: .5rem;
+    }
+    .camp-header .camp-tag {
+      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35);
+    }
+    .camp-header .camp-desc {
+      margin-top: 1rem;
+      font-size: .95rem; line-height: 1.65;
+      color: rgba(242,237,232,0.55); max-width: 520px;
+    }
+    .camp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 3px;
+    }
+
+    /* ── Lightbox ────────────────────────────────── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 90vh;
+      object-fit: contain; border-radius: 3px;
+      cursor: default;
+    }
+
     /* ── Mobile ──────────────────────────────────── */
     @media (max-width: 768px) {
       html, body { overflow: hidden; }
@@ -361,12 +415,31 @@
 
     <!-- 01 · Indigenous Pottery Camp -->
     <div class="project-panel active" id="panel-camp">
-      <div class="placeholder-panel">
-        <div class="bg" style="background-image: url('../Title%20Page/pottery%20progress/background.jpeg')"></div>
-        <div class="ph-content">
+      <div class="camp-panel">
+        <div class="camp-header">
           <h2>Amis Pottery Camp</h2>
-          <div class="ph-tag">Taiwan · 2025</div>
-          <div class="ph-soon">Coming soon</div>
+          <div class="camp-tag">Taiwan · Feb 2026</div>
+          <div class="camp-desc">A traditional Amis pottery camp — collecting wood, digging clay from the earth, hand-building vessels, and firing them in an open pit. An ancient process, still very much alive.</div>
+        </div>
+        <div class="camp-grid">
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/Feb%202026%20group!.jpg')"><img src="pottery-camp/Feb%202026%20group!.jpg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/digging%20for%20clay.jpeg')"><img src="pottery-camp/digging%20for%20clay.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/collecting%20wood.jpeg')"><img src="pottery-camp/collecting%20wood.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/collecting%20wood%20(again).jpeg')"><img src="pottery-camp/collecting%20wood%20(again).jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/more%20wood.jpeg')"><img src="pottery-camp/more%20wood.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/creating%20Amis%20vessels.jpeg')"><img src="pottery-camp/creating%20Amis%20vessels.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/Sa\'atomo.jpg')"><img src="pottery-camp/Sa'atomo.jpg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/Ahma!.jpg')"><img src="pottery-camp/Ahma!.jpg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/preparing%20the%20pit.jpeg')"><img src="pottery-camp/preparing%20the%20pit.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/pre-firing.jpeg')"><img src="pottery-camp/pre-firing.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/pre-firing.jpg')"><img src="pottery-camp/pre-firing.jpg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/fire%20pit.jpg')"><img src="pottery-camp/fire%20pit.jpg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/1000%20degrees.jpeg')"><img src="pottery-camp/1000%20degrees.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/warming%20up%20our%20creations.jpeg')"><img src="pottery-camp/warming%20up%20our%20creations.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/offering.jpeg')"><img src="pottery-camp/offering.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/me%20and%20the%20pit.jpeg')"><img src="pottery-camp/me%20and%20the%20pit.jpeg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/creations.jpg')"><img src="pottery-camp/creations.jpg" alt=""></div>
+          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/plates%20and%20such.jpeg')"><img src="pottery-camp/plates%20and%20such.jpeg" alt=""></div>
         </div>
       </div>
     </div>
@@ -411,12 +484,33 @@
                 <div class="snake-desc">Photos and memories from this year's celebration — more to come as we document the night.</div>
               </div>
               <div class="snake-grid">
-                <div class="snake-grid-item">photo</div>
-                <div class="snake-grid-item">photo</div>
-                <div class="snake-grid-item">photo</div>
-                <div class="snake-grid-item">photo</div>
-                <div class="snake-grid-item">photo</div>
-                <div class="snake-grid-item">photo</div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5163.jpeg')"><img src="year-of-the-snake/464A5163.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5174.jpeg')"><img src="year-of-the-snake/464A5174.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5215.jpeg')"><img src="year-of-the-snake/464A5215.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5217.jpeg')"><img src="year-of-the-snake/464A5217.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5219.jpeg')"><img src="year-of-the-snake/464A5219.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5315.jpeg')"><img src="year-of-the-snake/464A5315.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5422.jpeg')"><img src="year-of-the-snake/464A5422.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5591.jpeg')"><img src="year-of-the-snake/464A5591.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5767.jpeg')"><img src="year-of-the-snake/464A5767.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/34990006.jpeg')"><img src="year-of-the-snake/34990006.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020014.jpeg')"><img src="year-of-the-snake/35020014.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020017.jpeg')"><img src="year-of-the-snake/35020017.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020021.jpeg')"><img src="year-of-the-snake/35020021.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020022.jpeg')"><img src="year-of-the-snake/35020022.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020024.jpeg')"><img src="year-of-the-snake/35020024.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1663.JPG')"><img src="year-of-the-snake/IMG_1663.JPG" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1664.JPG')"><img src="year-of-the-snake/IMG_1664.JPG" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1683.JPG')"><img src="year-of-the-snake/IMG_1683.JPG" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1687.JPG')"><img src="year-of-the-snake/IMG_1687.JPG" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1691.JPG')"><img src="year-of-the-snake/IMG_1691.JPG" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_2668.jpeg')"><img src="year-of-the-snake/IMG_2668.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_2669.jpeg')"><img src="year-of-the-snake/IMG_2669.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_2695.jpeg')"><img src="year-of-the-snake/IMG_2695.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_5048.jpeg')"><img src="year-of-the-snake/IMG_5048.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_5056.jpeg')"><img src="year-of-the-snake/IMG_5056.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_5111.jpeg')"><img src="year-of-the-snake/IMG_5111.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_7964.jpeg')"><img src="year-of-the-snake/IMG_7964.jpeg" alt=""></div>
               </div>
             </div>
           </div>
@@ -440,7 +534,23 @@
   </main>
 </div>
 
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <img src="" alt="" onclick="event.stopPropagation()">
+</div>
+
 <script>
+  function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    lb.querySelector('img').src = src;
+    lb.classList.add('open');
+  }
+  function closeLightbox(e) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+  });
+
   function showProject(id) {
     document.querySelectorAll('.project-item').forEach(el =>
       el.classList.toggle('active', el.dataset.project === id)
