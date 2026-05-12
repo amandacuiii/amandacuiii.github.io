@@ -132,7 +132,7 @@
     .person-photo { position: sticky; top: 80px; }
 
     .photo-placeholder {
-      width: 100%; aspect-ratio: 3/4;
+      width: min(75%, 280px); aspect-ratio: 3/4;
       background: var(--photo-bg);
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
@@ -223,10 +223,10 @@
       .chapter-header { padding: 0 5vw 2rem; }
       .person { grid-template-columns: 1fr; gap: 2rem; padding: 0 5vw; }
       .person.flip { direction: ltr; }
-      .person-photo { position: static; }
-      .photo-placeholder { aspect-ratio: 4/3; }
+      .person-photo { position: static; display: flex; flex-direction: column; align-items: center; }
+      .photo-placeholder { width: min(60vw, 220px); }
       .about-section { padding: 0 5vw 5rem; }
-      .about-photo { width: 220px; }
+      .about-photo { width: 180px; }
     }
     @media (max-width: 480px) {
       .person-name { font-size: 1.6rem; }
