@@ -77,10 +77,31 @@
     .video-wrap {
       width: 100%; max-width: 960px;
       aspect-ratio: 16/9; margin: 0 auto;
+      position: relative; cursor: pointer; background: #000;
     }
     .video-wrap iframe {
       width: 100%; height: 100%; border: none; display: block;
+      position: absolute; inset: 0;
     }
+    /* Facade: thumbnail + play button shown until clicked */
+    .video-facade {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.25s ease;
+    }
+    .video-facade.hidden { opacity: 0; pointer-events: none; }
+    .play-btn {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s ease, background 0.2s ease;
+      flex-shrink: 0;
+    }
+    .video-wrap:hover .play-btn {
+      transform: scale(1.1); background: #fff;
+    }
+    .play-btn svg { width: 28px; height: 28px; margin-left: 4px; }
 
     /* ── Intro ───────────────────────────────────── */
     .intro {
@@ -254,12 +275,29 @@
     <h1>Taiwan Through Our Eyes</h1>
     <p>A short film capturing one year in Taiwan through the perspectives of the people who shaped it.</p>
   </div>
-  <div class="video-wrap">
-    <iframe src="https://www.youtube.com/embed/RMK4TZFhJ5M"
-      title="Taiwan Through Our Eyes"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen></iframe>
+  <div class="video-wrap" id="videoWrap" onclick="loadVideo()">
+    <!-- iframe inserted on click -->
+    <div class="video-facade" id="videoFacade"
+         style="background-image:url('https://img.youtube.com/vi/RMK4TZFhJ5M/maxresdefault.jpg')">
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24" fill="#1a1410"><polygon points="6,3 20,12 6,21"/></svg>
+      </div>
+    </div>
   </div>
+  <script>
+    function loadVideo() {
+      var wrap = document.getElementById('videoWrap');
+      var facade = document.getElementById('videoFacade');
+      if (wrap.querySelector('iframe')) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/RMK4TZFhJ5M?autoplay=1&rel=0';
+      iframe.title = 'Taiwan Through Our Eyes';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      wrap.appendChild(iframe);
+      facade.classList.add('hidden');
+    }
+  </script>
 </div>
 
 <!-- ── Intro ──────────────────────────────────────── -->
