@@ -38,6 +38,10 @@
       font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
       color: rgba(242,237,232,0.3);
     }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-link { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(242,237,232,0.4); transition: color 0.2s; }
+    .nav-link:hover { color: rgba(242,237,232,0.8); }
+    @media (max-width: 600px) { .nav-links { display: none; } }
 
     /* ── Layout ──────────────────────────────────── */
     .layout {
@@ -485,7 +489,12 @@
 
 <nav>
   <a href="../Title%20Page/" class="nav-name">Amanda Cui</a>
-  <span class="nav-label">Ongoing Projects</span>
+  <div class="nav-links">
+    <a href="../pottery/pottery.html" class="nav-link">Pottery</a>
+    <a href="../storytelling/storytelling.html" class="nav-link">Storytelling</a>
+    <a href="../About%20Me/about.html" class="nav-link">About</a>
+    <a href="../creative%20collaborations/creative-collaborations.html" class="nav-link">Collabs</a>
+  </div>
 </nav>
 
 <div class="layout">

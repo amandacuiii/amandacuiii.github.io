@@ -22,6 +22,10 @@
     .nav-name { font-size: .88rem; font-weight: 500; letter-spacing: .08em; text-decoration: none; color: inherit; transition: color .2s; }
     .nav-name:hover { color: #c8a882; }
     .nav-label { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(242,237,232,0.3); }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-link { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(242,237,232,0.4); transition: color 0.2s; text-decoration: none; }
+    .nav-link:hover { color: rgba(242,237,232,0.8); }
+    @media (max-width: 600px) { .nav-links { display: none; } }
 
     .booklet-wrap {
       height: 100vh; height: 100svh; padding-top: 56px;
@@ -66,7 +70,10 @@
 
 <nav>
   <a href="../storytelling.html" class="nav-name">Amanda Cui</a>
-  <span class="nav-label">Humans of Penn</span>
+  <div class="nav-links">
+    <a href="../../pottery/pottery.html" class="nav-link">Pottery</a>
+    <a href="../../About%20Me/about.html" class="nav-link">About</a>
+  </div>
 </nav>
 
 <div class="booklet-wrap">
@@ -159,6 +166,12 @@
       loadingEl.innerHTML = '<a style="color:#c8a882;text-decoration:underline" href="S23%20FinalZine.pdf" target="_blank">Open PDF</a>';
     });
   }
+
+  document.getElementById('booklet-container').addEventListener('click', function(e) {
+    if (!e.target.closest('.stf__parent')) {
+      window.location.href = '../storytelling.html';
+    }
+  });
 </script>
 </body>
 </html>

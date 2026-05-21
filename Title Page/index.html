@@ -198,9 +198,6 @@
             ],
         };
 
-        // Tiles that swap immediately on load (no initial delay)
-        const IMMEDIATE = ['pottery', 'about'];
-
         // Track current index per tile
         const state = {};
         document.querySelectorAll('.tile[data-tile]').forEach(tile => {
@@ -224,15 +221,7 @@
                 };
             }
 
-            if (IMMEDIATE.includes(key)) {
-                // Swap to next photo right away, then keep cycling
-                setTimeout(swap, 800);
-                setInterval(swap, 4000);
-            } else {
-                // Stagger start so tiles don't all switch at once
-                const offset = Math.random() * 800;
-                setTimeout(() => setInterval(swap, 4000), offset);
-            }
+            tile.addEventListener('mouseenter', swap);
         });
     </script>
 </body>
