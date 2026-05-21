@@ -578,6 +578,7 @@ async function migrateBase64Photos() {
 
 /* ── Render ──────────────────────────────────────────── */
 function render() {
+  renderStats();
   const q = document.getElementById('searchInput').value.toLowerCase();
   const filtered = pieces.filter(p => {
     const matchStage  = activeFilter === 'All' || p.stage === activeFilter;
@@ -714,12 +715,17 @@ function renderFilters() {
 }
 
 function renderStats() {
-  const complete   = pieces.filter(p => p.stage === 'Complete').length;
+  if (!pieces) return;
+  const complete  = pieces.filter(p => p.stage === 'Complete').length;
   const inProgress = pieces.length - complete;
+  const atStudio  = pieces.filter(p => (p.location || '').toLowerCase().includes('studio')).length;
+  const gifted    = pieces.filter(p => (p.location || '').toLowerCase().includes('gift')).length;
   document.getElementById('statsBar').innerHTML = `
-    <span><strong>${pieces.length}</strong> total pieces</span>
+    <span><strong>${pieces.length}</strong> total</span>
     <span><strong>${inProgress}</strong> in progress</span>
-    <span><strong>${complete}</strong> complete</span>`;
+    <span><strong>${complete}</strong> complete</span>
+    <span style="margin-left:auto"><strong>${atStudio}</strong> at the studio</span>
+    <span><strong>${gifted}</strong> gifted</span>`;
 }
 
 function setFilter(s) { activeFilter = s; render(); }
