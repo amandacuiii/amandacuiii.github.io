@@ -45,7 +45,6 @@
     .hero-text h1 { font-family: var(--font-h); font-weight: 300; font-size: clamp(2.4rem, 6vw, 5rem); letter-spacing: -.02em; line-height: 1.05; color: #f2ede8; }
     .hero-text p { margin-top: 1.2rem; font-size: 1rem; color: rgba(242,237,232,.55); line-height: 1.75; max-width: 52ch; margin-inline: auto; }
     .hero-award { display: inline-flex; align-items: center; gap: .55rem; margin-top: 2rem; padding: .45rem 1rem; border: 1px solid rgba(242,237,232,.18); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(242,237,232,.55); font-family: var(--font-h); }
-    .hero-award-star { color: #c9a96e; font-size: .85rem; letter-spacing: 0; }
     .video-wrap { width: 100%; max-width: 960px; aspect-ratio: 16/9; margin: 0 auto; position: relative; cursor: pointer; background: #000; }
     .video-wrap iframe { width: 100%; height: 100%; border: none; display: block; position: absolute; inset: 0; }
     .video-facade { position: absolute; inset: 0; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; transition: opacity 0.25s ease; }
@@ -59,52 +58,46 @@
     .intro p { font-size: 1.05rem; line-height: 1.85; color: var(--text); margin-bottom: 1.4rem; font-weight: 300; }
     .guiding-question { margin: 2.5rem 0; font-family: var(--font-h); font-size: clamp(1.1rem, 2.5vw, 1.55rem); font-weight: 400; font-style: italic; color: var(--accent); line-height: 1.4; }
 
-    /* ── Chapter ─────────────────────────────────── */
-    .chapter { padding: 5rem 0 4rem; border-top: 1px solid var(--border); }
-    .chapter-header { max-width: 1020px; margin: 0 auto; padding: 0 6vw 2.5rem; }
-    .chapter-label { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); font-family: var(--font-h); margin-bottom: .5rem; }
-    .chapter-title { font-family: var(--font-h); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; letter-spacing: -.02em; }
-
-    /* ── Portrait card grid ──────────────────────── */
+    /* ── Portrait grid ───────────────────────────── */
+    .people-section {
+      padding: 4rem 0 0;
+      border-top: 1px solid var(--border);
+    }
     .person-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1.25rem;
+      gap: 1.5rem;
       padding: 0 6vw 2.5rem;
-      max-width: 1020px;
+      max-width: 1100px;
       margin: 0 auto;
     }
     .person-card { cursor: pointer; transition: transform 0.2s ease; }
     .person-card:hover { transform: translateY(-3px); }
     .card-photo { aspect-ratio: 3/4; overflow: hidden; background: var(--photo-bg); }
-    .card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(25%) brightness(0.95); transition: filter 0.3s ease; }
+    .card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(20%) brightness(0.96); transition: filter 0.3s ease; }
     .person-card:hover .card-photo img,
     .person-card.active .card-photo img { filter: grayscale(0%) brightness(1.03); }
-    .card-info { padding: .6rem .1rem .5rem; border-bottom: 2px solid transparent; transition: border-color 0.2s; }
+    .card-info { padding: .55rem .05rem .4rem; border-bottom: 2px solid transparent; transition: border-color 0.2s; }
     .person-card.active .card-info { border-bottom-color: var(--accent); }
     .card-name { font-family: var(--font-h); font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; transition: color 0.2s; }
     .person-card.active .card-name { color: var(--accent); }
     .card-zh { font-size: .72rem; color: var(--muted); margin-top: .1rem; font-weight: 300; }
+    .card-tag { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); opacity: .6; margin-top: .25rem; }
 
-    /* ── Detail stage (2-slot) ───────────────────── */
+    /* ── Detail stage (2 side-by-side slots) ─────── */
     .detail-stage {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 0;
-      max-width: 1020px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 0 6vw 3rem;
+      padding: 0 6vw 4rem;
       border-top: 1px solid var(--border);
     }
-    .detail-stage.has-two {
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-    }
+    .detail-stage.has-two { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
 
     .detail-slot { display: none; }
     .detail-slot.slot-active { display: block; }
 
-    /* Content inside a slot */
     .slot-body {
       display: grid;
       grid-template-columns: 210px 1fr;
@@ -112,18 +105,13 @@
       align-items: start;
       padding-top: 2.5rem;
     }
-    /* Compact portrait when two slots are visible */
-    .detail-stage.has-two .slot-body {
-      grid-template-columns: 130px 1fr;
-      gap: 1.5rem;
-    }
+    .detail-stage.has-two .slot-body { grid-template-columns: 130px 1fr; gap: 1.5rem; }
 
     .slot-photo-wrap { position: sticky; top: 80px; }
     .slot-photo-img { aspect-ratio: 3/4; overflow: hidden; background: var(--photo-bg); }
     .slot-photo-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .photo-caption { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: .6rem; text-align: center; }
 
-    /* Typography in slots */
     .person-name { font-family: var(--font-h); font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -.01em; line-height: 1; margin-bottom: .3rem; text-transform: uppercase; }
     .detail-stage.has-two .person-name { font-size: clamp(1.2rem, 2vw, 1.8rem); }
     .person-name-zh { font-size: 1rem; font-weight: 300; color: var(--muted); margin-bottom: .2rem; letter-spacing: .04em; }
@@ -136,14 +124,10 @@
     .qa-a { font-size: .92rem; line-height: 1.8; color: var(--text); font-weight: 300; }
     .detail-stage.has-two .qa-a { font-size: .86rem; }
 
-    /* ── Divider line between slots in dual mode ─── */
-    .detail-stage.has-two .detail-slot + .detail-slot {
-      border-left: 1px solid var(--border);
-      padding-left: 2.5rem;
-    }
+    .detail-stage.has-two .detail-slot + .detail-slot { border-left: 1px solid var(--border); padding-left: 2.5rem; }
 
-    /* ── About Me ────────────────────────────────── */
-    .about-section { max-width: 680px; margin: 0 auto; padding: 0 6vw 8rem; text-align: center; }
+    /* ── About ───────────────────────────────────── */
+    .about-section { max-width: 680px; margin: 0 auto; padding: 5rem 6vw 8rem; border-top: 1px solid var(--border); text-align: center; }
     .about-photo { width: 280px; aspect-ratio: 3/4; background: var(--photo-bg); margin: 0 auto 2.5rem; overflow: hidden; }
     .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .about-section p { font-size: .98rem; line-height: 1.85; font-weight: 300; margin-bottom: 1.4rem; text-align: left; }
@@ -157,22 +141,19 @@
       nav { padding: 0 1.25rem; }
       .hero-text { padding: 3rem 5vw 2rem; }
       .intro { padding: 3rem 5vw 3rem; }
-      .chapter { padding: 3rem 0 2.5rem; }
-      .chapter-header { padding: 0 5vw 2rem; }
-      .person-grid { padding: 0 5vw 1.5rem; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
-      .detail-stage { padding: 0 5vw 2.5rem; }
+      .people-section { padding: 3rem 0 0; }
+      .person-grid { padding: 0 5vw 2rem; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+      .detail-stage { padding: 0 5vw 3rem; }
       .detail-stage.has-two { grid-template-columns: 1fr; }
       .detail-stage.has-two .detail-slot + .detail-slot { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 2rem; }
-      .slot-body,
-      .detail-stage.has-two .slot-body { grid-template-columns: 140px 1fr; gap: 1.5rem; }
+      .slot-body, .detail-stage.has-two .slot-body { grid-template-columns: 130px 1fr; gap: 1.5rem; }
       .slot-photo-wrap { position: static; }
-      .about-section { padding: 0 5vw 5rem; }
+      .about-section { padding: 3rem 5vw 5rem; }
       .about-photo { width: 180px; }
     }
     @media (max-width: 480px) {
       .person-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: .75rem; }
-      .slot-body,
-      .detail-stage.has-two .slot-body { grid-template-columns: 1fr; }
+      .slot-body, .detail-stage.has-two .slot-body { grid-template-columns: 1fr; }
       .slot-photo-img { max-width: 140px; margin: 0 auto; }
     }
   </style>
@@ -182,10 +163,7 @@
 <nav>
   <a href="../../Title%20Page/" class="nav-name">Amanda Cui</a>
   <div class="nav-links">
-    <a href="#school">My School</a>
-    <a href="#locals">Community</a>
-    <a href="#mentors">Mentors</a>
-    <a href="#home">My Home</a>
+    <a href="#people">People</a>
     <a href="#about">About</a>
   </div>
 </nav>
@@ -196,9 +174,7 @@
     <h1>Taiwan Through Our Eyes</h1>
     <p>A short film capturing one year in Taiwan through the perspectives of the people who shaped it.</p>
     <div class="hero-award">
-      <span class="hero-award-star">&#9733;</span>
       Fulbright Short Film Award &nbsp;·&nbsp; 2026
-      <span class="hero-award-star">&#9733;</span>
     </div>
   </div>
   <div class="video-wrap" id="videoWrap" onclick="loadVideo()">
@@ -234,161 +210,132 @@
   <p>The pages below share more of their stories, highlighting moments of kindness, resilience, and everyday life that together form our portrait of Taiwan.</p>
 </div>
 
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- MY SCHOOL                                       -->
-<!-- ═══════════════════════════════════════════════ -->
-<div class="chapter" id="school">
-  <div class="chapter-header">
-    <div class="chapter-label">Chapter 01</div>
-    <div class="chapter-title">My School</div>
-  </div>
-
-  <div class="person-grid" id="grid-school">
-    <div class="person-card" onclick="openPerson(this,'simon','school')">
+<!-- ── All portraits ──────────────────────────────── -->
+<div class="people-section" id="people">
+  <div class="person-grid">
+    <!-- My School -->
+    <div class="person-card" onclick="openPerson(this,'simon')">
       <div class="card-photo"><img src="portraits/simon.jpg" alt="Simon"></div>
-      <div class="card-info"><div class="card-name">Simon</div><div class="card-zh">沈忠祥</div></div>
+      <div class="card-info">
+        <div class="card-name">Simon</div>
+        <div class="card-zh">沈忠祥</div>
+        <div class="card-tag">My School</div>
+      </div>
     </div>
-    <div class="person-card" onclick="openPerson(this,'lulu','school')">
+    <div class="person-card" onclick="openPerson(this,'lulu')">
       <div class="card-photo"><img src="portraits/lulu.jpg" alt="Lulu"></div>
-      <div class="card-info"><div class="card-name">Lulu</div><div class="card-zh">賴如芳</div></div>
+      <div class="card-info">
+        <div class="card-name">Lulu</div>
+        <div class="card-zh">賴如芳</div>
+        <div class="card-tag">My School</div>
+      </div>
     </div>
-    <div class="person-card" onclick="openPerson(this,'steve','school')">
+    <div class="person-card" onclick="openPerson(this,'steve')">
       <div class="card-photo"><img src="portraits/steve.jpg" alt="Steve"></div>
-      <div class="card-info"><div class="card-name">Steve</div></div>
+      <div class="card-info">
+        <div class="card-name">Steve</div>
+        <div class="card-tag">My School</div>
+      </div>
     </div>
-    <div class="person-card" onclick="openPerson(this,'terrence','school')">
+    <div class="person-card" onclick="openPerson(this,'terrence')">
       <div class="card-photo"><img src="portraits/terrence.jpg" alt="Terrence"></div>
-      <div class="card-info"><div class="card-name">Terrence</div></div>
+      <div class="card-info">
+        <div class="card-name">Terrence</div>
+        <div class="card-tag">My School</div>
+      </div>
     </div>
-    <div class="person-card" onclick="openPerson(this,'mickey','school')">
+    <div class="person-card" onclick="openPerson(this,'mickey')">
       <div class="card-photo"><img src="portraits/mickey.jpg" alt="Mickey"></div>
-      <div class="card-info"><div class="card-name">Mickey</div><div class="card-zh">劉米淇</div></div>
+      <div class="card-info">
+        <div class="card-name">Mickey</div>
+        <div class="card-zh">劉米淇</div>
+        <div class="card-tag">My School</div>
+      </div>
     </div>
-  </div>
-
-  <div class="detail-stage" id="stage-school">
-    <div class="detail-slot" id="slot-a-school"></div>
-    <div class="detail-slot" id="slot-b-school"></div>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- COMMUNITY ORGANIZERS                            -->
-<!-- ═══════════════════════════════════════════════ -->
-<div class="chapter" id="locals">
-  <div class="chapter-header">
-    <div class="chapter-label">Chapter 02</div>
-    <div class="chapter-title">Community Organizers</div>
-  </div>
-
-  <div class="person-grid" id="grid-locals">
-    <div class="person-card" onclick="openPerson(this,'ian','locals')">
+    <!-- Community -->
+    <div class="person-card" onclick="openPerson(this,'ian')">
       <div class="card-photo"><img src="portraits/ian.jpg" alt="Ian"></div>
-      <div class="card-info"><div class="card-name">Ian</div><div class="card-zh">鄭毅誠</div></div>
+      <div class="card-info">
+        <div class="card-name">Ian</div>
+        <div class="card-zh">鄭毅誠</div>
+        <div class="card-tag">Community</div>
+      </div>
     </div>
-    <div class="person-card" onclick="openPerson(this,'msjiang','locals')">
+    <div class="person-card" onclick="openPerson(this,'msjiang')">
       <div class="card-photo"><img src="portraits/ms-jiang.jpg" alt="Ms. Jiang"></div>
-      <div class="card-info"><div class="card-name">Ms. Jiang</div></div>
+      <div class="card-info">
+        <div class="card-name">Ms. Jiang</div>
+        <div class="card-tag">Community</div>
+      </div>
     </div>
-  </div>
-
-  <div class="detail-stage" id="stage-locals">
-    <div class="detail-slot" id="slot-a-locals"></div>
-    <div class="detail-slot" id="slot-b-locals"></div>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- MENTORS                                         -->
-<!-- ═══════════════════════════════════════════════ -->
-<div class="chapter" id="mentors">
-  <div class="chapter-header">
-    <div class="chapter-label">Chapter 03</div>
-    <div class="chapter-title">Mentors</div>
-  </div>
-
-  <div class="person-grid" id="grid-mentors">
-    <div class="person-card" onclick="openPerson(this,'teresa','mentors')">
+    <!-- Mentors -->
+    <div class="person-card" onclick="openPerson(this,'teresa')">
       <div class="card-photo"><img src="portraits/teresa.jpg" alt="Teresa Kuo"></div>
-      <div class="card-info"><div class="card-name">Teresa Kuo</div></div>
+      <div class="card-info">
+        <div class="card-name">Teresa Kuo</div>
+        <div class="card-tag">Mentors</div>
+      </div>
     </div>
-    <div class="person-card" onclick="openPerson(this,'jordan','mentors')">
+    <div class="person-card" onclick="openPerson(this,'jordan')">
       <div class="card-photo"><img src="portraits/jordan.jpg" alt="Jordan Strousse"></div>
-      <div class="card-info"><div class="card-name">Jordan Strousse</div></div>
+      <div class="card-info">
+        <div class="card-name">Jordan Strousse</div>
+        <div class="card-tag">Mentors</div>
+      </div>
     </div>
-  </div>
-
-  <div class="detail-stage" id="stage-mentors">
-    <div class="detail-slot" id="slot-a-mentors"></div>
-    <div class="detail-slot" id="slot-b-mentors"></div>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- MY HOME                                         -->
-<!-- ═══════════════════════════════════════════════ -->
-<div class="chapter" id="home">
-  <div class="chapter-header">
-    <div class="chapter-label">Chapter 04</div>
-    <div class="chapter-title">My Home</div>
-  </div>
-
-  <div class="person-grid" id="grid-home">
-    <div class="person-card" onclick="openPerson(this,'frances','home')">
+    <!-- My Home -->
+    <div class="person-card" onclick="openPerson(this,'frances')">
       <div class="card-photo"><img src="portraits/frances.jpg" alt="Frances Leung"></div>
-      <div class="card-info"><div class="card-name">Frances Leung</div></div>
+      <div class="card-info">
+        <div class="card-name">Frances Leung</div>
+        <div class="card-tag">My Home</div>
+      </div>
     </div>
-    <div class="person-card" onclick="openPerson(this,'ericka','home')">
+    <div class="person-card" onclick="openPerson(this,'ericka')">
       <div class="card-photo"><img src="portraits/ericka.jpg" alt="Ericka Familia"></div>
-      <div class="card-info"><div class="card-name">Ericka Familia</div></div>
+      <div class="card-info">
+        <div class="card-name">Ericka Familia</div>
+        <div class="card-tag">My Home</div>
+      </div>
     </div>
-    <div class="person-card" onclick="openPerson(this,'mariama','home')">
+    <div class="person-card" onclick="openPerson(this,'mariama')">
       <div class="card-photo"><img src="portraits/mariama.jpg" alt="Mariama Mansaray"></div>
-      <div class="card-info"><div class="card-name">Mariama Mansaray</div></div>
+      <div class="card-info">
+        <div class="card-name">Mariama Mansaray</div>
+        <div class="card-tag">My Home</div>
+      </div>
     </div>
-    <div class="person-card" onclick="openPerson(this,'grace','home')">
+    <div class="person-card" onclick="openPerson(this,'grace')">
       <div class="card-photo"><img src="portraits/grace.jpg" alt="Grace Maines"></div>
-      <div class="card-info"><div class="card-name">Grace Maines</div></div>
+      <div class="card-info">
+        <div class="card-name">Grace Maines</div>
+        <div class="card-tag">My Home</div>
+      </div>
     </div>
   </div>
 
-  <div class="detail-stage" id="stage-home">
-    <div class="detail-slot" id="slot-a-home"></div>
-    <div class="detail-slot" id="slot-b-home"></div>
+  <!-- 2-slot detail stage -->
+  <div class="detail-stage" id="stage-all">
+    <div class="detail-slot" id="slot-a-all"></div>
+    <div class="detail-slot" id="slot-b-all"></div>
   </div>
 </div>
 
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- ABOUT ME                                        -->
-<!-- ═══════════════════════════════════════════════ -->
-<div class="chapter" id="about">
-  <div class="chapter-header">
-    <div class="chapter-label">Chapter 05</div>
-    <div class="chapter-title">About Me</div>
-  </div>
-
-  <div class="about-section">
-    <div class="about-photo"><img src="portraits/about me.JPG" alt="Amanda Cui"></div>
-    <div class="about-name">Amanda Cui</div>
-    <div class="about-role">1st Year IEM-ETF · Taichung</div>
-    <div class="about-quote">"People"</div>
-    <p>Amanda Cui is a first-year IEM-ETF in Taichung. Originally from New York City, she graduated from the University of Pennsylvania with a degree in finance and minor in fine arts. She has always loved storytelling, photography, and documenting moments that reflect community and place-making. Through videography, pottery, and other creative work, she explores cultural exchange, human connection, and the ways identity is shaped through life abroad.</p>
-    <p>Creating <em>Taiwan Through Our Eyes</em> was a way for me to slow down and truly listen. Rather than trying to explain Taiwan in my own words, I wanted to understand it through the people who have shaped my daily life here. Each conversation reminded me that belonging is built through small, repeated acts of care. This film became both a record of those voices and a reflection of my own growth — showing me that home is not a single place, but something created through relationships.</p>
-    <p>In addition, through my work as a Fulbright ETA, I was able to create Humans of Shi Yuan, a storytelling project that highlights the voices of students, teachers, and staff within the school community. The opportunity to be present in classrooms and everyday school life allowed me to listen more deeply and build meaningful relationships beyond teaching English.</p>
-    <p class="thanks">I am incredibly grateful to everyone who took the time to speak with me, trusted me with their stories, and allowed me to be part of their lives. Thank you to Fulbright Taiwan, my schools, and the friends and mentors who supported this project from start to finish.</p>
-    <p class="thanks" style="margin-top:2rem">Thank you for watching and reading. ♡</p>
-  </div>
+<!-- ── About ──────────────────────────────────────── -->
+<div class="about-section" id="about">
+  <div class="about-photo"><img src="portraits/about me.JPG" alt="Amanda Cui"></div>
+  <div class="about-name">Amanda Cui</div>
+  <div class="about-role">1st Year IEM-ETF · Taichung</div>
+  <div class="about-quote">"People"</div>
+  <p>Amanda Cui is a first-year IEM-ETF in Taichung. Originally from New York City, she graduated from the University of Pennsylvania with a degree in finance and minor in fine arts. She has always loved storytelling, photography, and documenting moments that reflect community and place-making. Through videography, pottery, and other creative work, she explores cultural exchange, human connection, and the ways identity is shaped through life abroad.</p>
+  <p>Creating <em>Taiwan Through Our Eyes</em> was a way for me to slow down and truly listen. Rather than trying to explain Taiwan in my own words, I wanted to understand it through the people who have shaped my daily life here. Each conversation reminded me that belonging is built through small, repeated acts of care. This film became both a record of those voices and a reflection of my own growth — showing me that home is not a single place, but something created through relationships.</p>
+  <p>In addition, through my work as a Fulbright ETA, I was able to create Humans of Shi Yuan, a storytelling project that highlights the voices of students, teachers, and staff within the school community. The opportunity to be present in classrooms and everyday school life allowed me to listen more deeply and build meaningful relationships beyond teaching English.</p>
+  <p class="thanks">I am incredibly grateful to everyone who took the time to speak with me, trusted me with their stories, and allowed me to be part of their lives. Thank you to Fulbright Taiwan, my schools, and the friends and mentors who supported this project from start to finish.</p>
+  <p class="thanks" style="margin-top:2rem">Thank you for watching and reading. ♡</p>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- PERSON CONTENT TEMPLATES (hidden)               -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ── Person content templates ──────────────────── -->
 
 <div hidden id="tpl-simon">
   <div class="slot-body">
@@ -617,26 +564,23 @@
 
 
 <script>
-  // queues[chapterId] = [personId, personId?]  (max 2, FIFO)
-  var queues = {};
+  var queue = []; // global, max 2
 
-  function openPerson(cardEl, personId, chapterId) {
-    var queue = queues[chapterId] ? queues[chapterId].slice() : [];
-    var grid  = document.getElementById('grid-' + chapterId);
-    var stage = document.getElementById('stage-' + chapterId);
-    var slotA = document.getElementById('slot-a-' + chapterId);
-    var slotB = document.getElementById('slot-b-' + chapterId);
+  function openPerson(cardEl, personId) {
+    var slotA = document.getElementById('slot-a-all');
+    var slotB = document.getElementById('slot-b-all');
+    var stage = document.getElementById('stage-all');
+    var allCards = document.querySelectorAll('.person-card');
 
     var idx = queue.indexOf(personId);
     if (idx !== -1) {
-      // Already open — deselect it
+      // Deselect
       queue.splice(idx, 1);
       cardEl.classList.remove('active');
     } else {
-      // If queue is full, evict oldest
       if (queue.length >= 2) {
         var evicted = queue.shift();
-        grid.querySelectorAll('.person-card').forEach(function(c) {
+        allCards.forEach(function(c) {
           if (c.getAttribute('onclick').indexOf("'" + evicted + "'") !== -1) {
             c.classList.remove('active');
           }
@@ -646,14 +590,9 @@
       cardEl.classList.add('active');
     }
 
-    queues[chapterId] = queue;
-    renderStage(stage, slotA, slotB, queue);
-  }
-
-  function renderStage(stage, slotA, slotB, queue) {
     var wasEmpty = !slotA.classList.contains('slot-active') && !slotB.classList.contains('slot-active');
 
-    // Slot A
+    // Fill slot A
     if (queue[0]) {
       slotA.innerHTML = document.getElementById('tpl-' + queue[0]).innerHTML;
       slotA.classList.add('slot-active');
@@ -662,7 +601,7 @@
       slotA.classList.remove('slot-active');
     }
 
-    // Slot B
+    // Fill slot B
     if (queue[1]) {
       slotB.innerHTML = document.getElementById('tpl-' + queue[1]).innerHTML;
       slotB.classList.add('slot-active');
@@ -671,14 +610,8 @@
       slotB.classList.remove('slot-active');
     }
 
-    // 2-column layout only when both slots filled
-    if (queue.length === 2) {
-      stage.classList.add('has-two');
-    } else {
-      stage.classList.remove('has-two');
-    }
+    stage.classList.toggle('has-two', queue.length === 2);
 
-    // Scroll into view on first open
     if (wasEmpty && queue.length > 0) {
       setTimeout(function() {
         stage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
