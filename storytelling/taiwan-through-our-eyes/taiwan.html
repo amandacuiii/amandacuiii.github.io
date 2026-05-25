@@ -79,7 +79,7 @@
     .person-card.active .card-photo img { filter: grayscale(0%) brightness(1.03); }
     .card-info { padding: .55rem .05rem .4rem; border-bottom: 2px solid transparent; transition: border-color 0.2s; }
     .person-card.active .card-info { border-bottom-color: var(--accent); }
-    .card-name { font-family: var(--font-h); font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; transition: color 0.2s; }
+    .card-name { font-family: var(--font-h); font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; transition: color 0.2s; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .person-card.active .card-name { color: var(--accent); }
     .card-zh { font-size: .72rem; color: var(--muted); margin-top: .1rem; font-weight: 300; }
     .card-tag { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); opacity: .6; margin-top: .25rem; }
@@ -139,22 +139,45 @@
     /* ── Responsive ──────────────────────────────── */
     @media (max-width: 780px) {
       nav { padding: 0 1.25rem; }
-      .hero-text { padding: 3rem 5vw 2rem; }
-      .intro { padding: 3rem 5vw 3rem; }
-      .people-section { padding: 3rem 0 0; }
-      .person-grid { padding: 0 5vw 2rem; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+      .hero-text { padding: 2.5rem 5vw 2rem; }
+      .hero-award { font-size: .65rem; letter-spacing: .12em; padding: .38rem .8rem; }
+      .intro { padding: 2.5rem 5vw 2.5rem; }
+      .intro p { font-size: .98rem; }
+      .people-section { padding: 2.5rem 0 0; }
+      /* 3-column portrait grid on tablets/phones */
+      .person-grid { padding: 0 4vw 2rem; gap: .85rem; grid-template-columns: repeat(3, 1fr); }
+      .card-name { font-size: .72rem; }
       .detail-stage { padding: 0 5vw 3rem; }
+      /* Both slots always stack on mobile */
       .detail-stage.has-two { grid-template-columns: 1fr; }
       .detail-stage.has-two .detail-slot + .detail-slot { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 2rem; }
-      .slot-body, .detail-stage.has-two .slot-body { grid-template-columns: 130px 1fr; gap: 1.5rem; }
+      /* Compact side-by-side photo + content in each slot */
+      .slot-body,
+      .detail-stage.has-two .slot-body { grid-template-columns: 110px 1fr; gap: 1.25rem; }
       .slot-photo-wrap { position: static; }
-      .about-section { padding: 3rem 5vw 5rem; }
-      .about-photo { width: 180px; }
+      .person-name { font-size: 1.4rem !important; }
+      .person-quote { font-size: 1rem !important; margin-bottom: 1.1rem; }
+      .qa-a { font-size: .88rem; }
+      .about-section { padding: 2.5rem 5vw 4rem; }
+      .about-photo { width: 160px; }
     }
     @media (max-width: 480px) {
-      .person-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: .75rem; }
-      .slot-body, .detail-stage.has-two .slot-body { grid-template-columns: 1fr; }
-      .slot-photo-img { max-width: 140px; margin: 0 auto; }
+      nav { padding: 0 1rem; }
+      .hero-text { padding: 2rem 5vw 1.5rem; }
+      /* Keep 3 columns but tighter */
+      .person-grid { grid-template-columns: repeat(3, 1fr); gap: .6rem; padding: 0 3vw 1.5rem; }
+      .card-name { font-size: .64rem; letter-spacing: .05em; }
+      .card-zh { font-size: .6rem; }
+      .card-tag { font-size: .56rem; }
+      .detail-stage { padding: 0 4vw 2.5rem; }
+      /* Stack photo above content on small phones */
+      .slot-body,
+      .detail-stage.has-two .slot-body { grid-template-columns: 1fr; gap: .75rem; }
+      .slot-photo-img { max-width: 150px; margin: 0 auto 1rem; }
+      .photo-caption { margin-bottom: .5rem; }
+      .person-name { font-size: 1.25rem !important; }
+      .about-section { padding: 2rem 5vw 3rem; }
+      .about-photo { width: 140px; }
     }
   </style>
 </head>
