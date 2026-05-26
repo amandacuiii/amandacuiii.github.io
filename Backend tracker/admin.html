@@ -70,20 +70,22 @@
       background: var(--bg);
     }
     .toolbar-top {
-      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+      display: flex; gap: 10px; align-items: center;
       padding: .85rem 2rem;
     }
     .toolbar-filters {
-      padding: 0 2rem .75rem;
-      display: flex; flex-direction: column; gap: .45rem;
+      padding: 0 2rem .8rem;
+      display: flex; flex-direction: column; gap: .5rem;
+      border-top: 1px solid var(--border);
     }
     .toolbar-filters:empty { display: none; }
     .filter-row {
       display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+      padding-top: .6rem;
     }
     .filter-label {
-      font-size: .7rem; letter-spacing: .06em; text-transform: uppercase;
-      color: var(--muted); min-width: 60px; flex-shrink: 0;
+      font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--muted); min-width: 64px; flex-shrink: 0;
     }
     .filter-clear {
       background: none; border: none; cursor: pointer;
@@ -99,7 +101,6 @@
     }
     .toolbar input[type="text"]:focus { border-color: var(--clay); }
 
-    .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
     .filter-btn {
       padding: 5px 13px; border: 1.5px solid var(--border); border-radius: 20px;
       background: transparent; cursor: pointer; font-size: .78rem; font-family: var(--font);
@@ -366,7 +367,6 @@
 <div class="toolbar">
   <div class="toolbar-top">
     <input type="text" id="searchInput" placeholder="Search pieces…" oninput="render()" />
-    <div class="filter-group" id="filterGroup"></div>
     <select id="sortSelect" onchange="render()" style="padding:6px 11px; border:1.5px solid var(--border); border-radius:8px; background:#fff; font-size:.82rem; color:var(--muted); font-family:var(--font); outline:none; cursor:pointer;">
       <option value="incomplete">Needs info first</option>
       <option value="newest">Newest first</option>
@@ -785,16 +785,18 @@ function clearTypeFilters()     { activeTypeFilters.clear();     render(); }
 function clearLocationFilters() { activeLocationFilters.clear(); render(); }
 
 function renderFilters() {
-  // Stage buttons (single-select, existing behaviour)
-  const counts = {};
-  pieces.forEach(p => { counts[p.stage] = (counts[p.stage] || 0) + 1; });
-  document.getElementById('filterGroup').innerHTML =
-    ['All', ...STAGES.filter(s => counts[s])].map(s => {
-      const lbl = s === 'All' ? `All (${pieces.length})` : `${STAGE_LABELS[s]} (${counts[s]})`;
-      return `<button class="filter-btn${activeFilter===s?' active':''}" onclick="setFilter('${s}')">${lbl}</button>`;
-    }).join('');
+  let html = '';
 
-  // Type + Location multi-select filter rows
+  // Stage row (single-select)
+  const stageCounts = {};
+  pieces.forEach(p => { stageCounts[p.stage] = (stageCounts[p.stage] || 0) + 1; });
+  const stageButtons = ['All', ...STAGES.filter(s => stageCounts[s])].map(s => {
+    const lbl = s === 'All' ? `All (${pieces.length})` : `${STAGE_LABELS[s]} (${stageCounts[s]})`;
+    return `<button class="filter-btn${activeFilter===s?' active':''}" onclick="setFilter('${s}')">${lbl}</button>`;
+  }).join('');
+  html += `<div class="filter-row"><span class="filter-label">Stage</span>${stageButtons}</div>`;
+
+  // Type row (multi-select)
   const typeCounts = {};
   const locCounts  = {};
   pieces.forEach(p => {
@@ -803,7 +805,6 @@ function renderFilters() {
     if (norm) locCounts[norm] = (locCounts[norm] || 0) + 1;
   });
 
-  let html = '';
   const usedTypes = TYPES.filter(t => typeCounts[t]);
   if (usedTypes.length > 0) {
     const hasActive = activeTypeFilters.size > 0;
@@ -813,6 +814,8 @@ function renderFilters() {
       ${hasActive ? `<button class="filter-clear" onclick="clearTypeFilters()">clear</button>` : ''}
     </div>`;
   }
+
+  // Location row (multi-select)
   const LOC_OPTIONS = ['At the studio', 'Gifted', 'Sold'];
   const usedLocs = LOC_OPTIONS.filter(l => locCounts[l]);
   if (usedLocs.length > 0) {
@@ -823,6 +826,7 @@ function renderFilters() {
       ${hasActive ? `<button class="filter-clear" onclick="clearLocationFilters()">clear</button>` : ''}
     </div>`;
   }
+
   document.getElementById('allFilters').innerHTML = html;
 }
 
