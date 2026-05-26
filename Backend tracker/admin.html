@@ -65,11 +65,32 @@
 
     /* ── Toolbar ────────────────────────────────────── */
     .toolbar {
-      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
-      padding: .85rem 2rem;
+      display: flex; flex-direction: column; gap: 0;
       border-bottom: 1px solid var(--border);
       background: var(--bg);
     }
+    .toolbar-top {
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+      padding: .85rem 2rem;
+    }
+    .toolbar-filters {
+      padding: 0 2rem .75rem;
+      display: flex; flex-direction: column; gap: .45rem;
+    }
+    .toolbar-filters:empty { display: none; }
+    .filter-row {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: .7rem; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--muted); min-width: 60px; flex-shrink: 0;
+    }
+    .filter-clear {
+      background: none; border: none; cursor: pointer;
+      font-size: .7rem; color: var(--muted); padding: 0 4px;
+      text-decoration: underline; font-family: var(--font);
+    }
+    .filter-clear:hover { color: var(--clay); }
     .toolbar input[type="text"] {
       flex: 1; min-width: 160px; padding: 7px 13px;
       border: 1.5px solid var(--border); border-radius: 8px;
@@ -112,7 +133,11 @@
     .empty .icon { font-size: 3rem; margin-bottom: 12px; opacity: .3; }
     .empty p { font-size: 1rem; font-family: var(--font-h); }
 
-    /* ── Stage grouping ─────────────────────────────── */
+    /* ── Stage / type grouping ──────────────────────── */
+    .stage-group-header,
+    .stage-group-grid {
+      grid-column: 1 / -1; /* span full width inside .grid */
+    }
     .stage-group-header {
       padding: 1.5rem 2rem .6rem;
       display: flex; align-items: center; gap: .75rem;
@@ -339,26 +364,30 @@
 <div class="stats-bar" id="statsBar"></div>
 
 <div class="toolbar">
-  <input type="text" id="searchInput" placeholder="Search pieces…" oninput="render()" />
-  <div class="filter-group" id="filterGroup"></div>
-  <select id="sortSelect" onchange="render()" style="padding:6px 11px; border:1.5px solid var(--border); border-radius:8px; background:#fff; font-size:.82rem; color:var(--muted); font-family:var(--font); outline:none; cursor:pointer;">
-    <option value="incomplete">Needs info first</option>
-    <option value="newest">Newest first</option>
-    <option value="oldest">Oldest first</option>
-    <option value="date-newest">Date started ↓</option>
-    <option value="date-oldest">Date started ↑</option>
-    <option value="az">A → Z</option>
-    <option value="stage">Group by stage</option>
-  </select>
-  <div class="toolbar-actions">
-    <button class="btn-secondary" onclick="exportData()">Export backup</button>
-    <button class="btn-secondary" onclick="exportGallery()" title="Downloads pottery-data.json ready to push to the website">Export to gallery</button>
-    <label class="btn-secondary" style="cursor:pointer">
-      Import
-      <input type="file" accept=".json" style="display:none" onchange="importData(event)" />
-    </label>
-    <button class="btn-primary" onclick="openModal()">+ New Piece</button>
+  <div class="toolbar-top">
+    <input type="text" id="searchInput" placeholder="Search pieces…" oninput="render()" />
+    <div class="filter-group" id="filterGroup"></div>
+    <select id="sortSelect" onchange="render()" style="padding:6px 11px; border:1.5px solid var(--border); border-radius:8px; background:#fff; font-size:.82rem; color:var(--muted); font-family:var(--font); outline:none; cursor:pointer;">
+      <option value="incomplete">Needs info first</option>
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+      <option value="date-newest">Date started ↓</option>
+      <option value="date-oldest">Date started ↑</option>
+      <option value="az">A → Z</option>
+      <option value="stage">Group by stage</option>
+      <option value="type">Group by type</option>
+    </select>
+    <div class="toolbar-actions">
+      <button class="btn-secondary" onclick="exportData()">Export backup</button>
+      <button class="btn-secondary" onclick="exportGallery()" title="Downloads pottery-data.json ready to push to the website">Export to gallery</button>
+      <label class="btn-secondary" style="cursor:pointer">
+        Import
+        <input type="file" accept=".json" style="display:none" onchange="importData(event)" />
+      </label>
+      <button class="btn-primary" onclick="openModal()">+ New Piece</button>
+    </div>
   </div>
+  <div class="toolbar-filters" id="allFilters"></div>
 </div>
 
 <div class="grid" id="grid"></div>
@@ -469,16 +498,19 @@
 
 <script>
 const STAGES = ['Throwing','Trimming','LeatherHard','BoneDry','Bisque','Glazed','Complete'];
+const TYPES  = ['Mug','Bowl','Plate','Vase','Plant Pot','Incense Holder','Other'];
 const STAGE_LABELS = {
   Throwing:'Throwing', Trimming:'Trimming', LeatherHard:'Leather Hard',
   BoneDry:'Bone Dry', Bisque:'Bisque', Glazed:'Glazed', Complete:'Complete'
 };
 
-let pieces        = JSON.parse(localStorage.getItem('pottery') || 'null');
-let editId        = null;
-let activeFilter  = 'All';
-let currentPhotos = []; // {url: base64OrPath, key: storageKey, isNew: bool}
-let dragSrcIdx    = null;
+let pieces              = JSON.parse(localStorage.getItem('pottery') || 'null');
+let editId              = null;
+let activeFilter        = 'All';
+let activeTypeFilters    = new Set();
+let activeLocationFilters = new Set();
+let currentPhotos       = []; // {url: base64OrPath, key: storageKey, isNew: bool}
+let dragSrcIdx          = null;
 
 const PHOTO_BASE = 'Pottery Tracker/photos/';
 
@@ -581,9 +613,12 @@ function render() {
   renderStats();
   const q = document.getElementById('searchInput').value.toLowerCase();
   const filtered = pieces.filter(p => {
-    const matchStage  = activeFilter === 'All' || p.stage === activeFilter;
-    const matchSearch = !q || [p.name, p.type, p.clay, p.glaze, p.notes].join(' ').toLowerCase().includes(q);
-    return matchStage && matchSearch;
+    const matchStage    = activeFilter === 'All' || p.stage === activeFilter;
+    const matchSearch   = !q || [p.name, p.type, p.clay, p.glaze, p.notes].join(' ').toLowerCase().includes(q);
+    const matchType     = activeTypeFilters.size === 0 || activeTypeFilters.has(p.type);
+    const normLoc       = normalizeLocation(p.location);
+    const matchLocation = activeLocationFilters.size === 0 || activeLocationFilters.has(normLoc);
+    return matchStage && matchSearch && matchType && matchLocation;
   });
 
   const mode = document.getElementById('sortSelect')?.value || 'incomplete';
@@ -609,6 +644,29 @@ function render() {
       if (unknown.length) {
         html += `<div class="stage-group-header"><span style="font-size:.78rem;color:var(--muted)">Other</span></div>
         <div class="stage-group-grid">${unknown.map(cardHTML).join('')}</div>`;
+      }
+      grid.innerHTML = html;
+    }
+  } else if (mode === 'type') {
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="empty"><div class="icon">🏺</div><p>${pieces.length === 0 ? 'No pieces yet — add your first!' : 'No pieces match your filter.'}</p></div>`;
+    } else {
+      let html = '';
+      TYPES.forEach(type => {
+        const group = filtered.filter(p => p.type === type).sort((a,b) => a.name.localeCompare(b.name));
+        if (group.length === 0) return;
+        html += `<div class="stage-group-header">
+          <span style="font-size:.82rem;font-family:var(--font-h);font-weight:600;color:var(--accent)">${esc(type)}</span>
+          <span class="stage-group-count">${group.length} piece${group.length !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="stage-group-grid">${group.map(cardHTML).join('')}</div>`;
+      });
+      const untyped = filtered.filter(p => !p.type || !TYPES.includes(p.type));
+      if (untyped.length) {
+        html += `<div class="stage-group-header"><span style="font-size:.78rem;color:var(--muted)">No type set</span>
+          <span class="stage-group-count">${untyped.length} piece${untyped.length !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="stage-group-grid">${untyped.map(cardHTML).join('')}</div>`;
       }
       grid.innerHTML = html;
     }
@@ -704,7 +762,30 @@ function cardHTML(p) {
   </div>`;
 }
 
+function normalizeLocation(loc) {
+  if (!loc) return '';
+  const l = loc.toLowerCase();
+  if (l.includes('studio')) return 'At the studio';
+  if (l.includes('gift'))   return 'Gifted';
+  if (l.includes('sold'))   return 'Sold';
+  return loc;
+}
+
+function toggleTypeFilter(type) {
+  if (activeTypeFilters.has(type)) activeTypeFilters.delete(type);
+  else activeTypeFilters.add(type);
+  render();
+}
+function toggleLocationFilter(loc) {
+  if (activeLocationFilters.has(loc)) activeLocationFilters.delete(loc);
+  else activeLocationFilters.add(loc);
+  render();
+}
+function clearTypeFilters()     { activeTypeFilters.clear();     render(); }
+function clearLocationFilters() { activeLocationFilters.clear(); render(); }
+
 function renderFilters() {
+  // Stage buttons (single-select, existing behaviour)
   const counts = {};
   pieces.forEach(p => { counts[p.stage] = (counts[p.stage] || 0) + 1; });
   document.getElementById('filterGroup').innerHTML =
@@ -712,6 +793,37 @@ function renderFilters() {
       const lbl = s === 'All' ? `All (${pieces.length})` : `${STAGE_LABELS[s]} (${counts[s]})`;
       return `<button class="filter-btn${activeFilter===s?' active':''}" onclick="setFilter('${s}')">${lbl}</button>`;
     }).join('');
+
+  // Type + Location multi-select filter rows
+  const typeCounts = {};
+  const locCounts  = {};
+  pieces.forEach(p => {
+    if (p.type) typeCounts[p.type] = (typeCounts[p.type] || 0) + 1;
+    const norm = normalizeLocation(p.location);
+    if (norm) locCounts[norm] = (locCounts[norm] || 0) + 1;
+  });
+
+  let html = '';
+  const usedTypes = TYPES.filter(t => typeCounts[t]);
+  if (usedTypes.length > 0) {
+    const hasActive = activeTypeFilters.size > 0;
+    html += `<div class="filter-row">
+      <span class="filter-label">Type</span>
+      ${usedTypes.map(t => `<button class="filter-btn${activeTypeFilters.has(t) ? ' active' : ''}" onclick="toggleTypeFilter('${t}')">${esc(t)} (${typeCounts[t]})</button>`).join('')}
+      ${hasActive ? `<button class="filter-clear" onclick="clearTypeFilters()">clear</button>` : ''}
+    </div>`;
+  }
+  const LOC_OPTIONS = ['At the studio', 'Gifted', 'Sold'];
+  const usedLocs = LOC_OPTIONS.filter(l => locCounts[l]);
+  if (usedLocs.length > 0) {
+    const hasActive = activeLocationFilters.size > 0;
+    html += `<div class="filter-row">
+      <span class="filter-label">Location</span>
+      ${usedLocs.map(l => `<button class="filter-btn${activeLocationFilters.has(l) ? ' active' : ''}" onclick="toggleLocationFilter(${JSON.stringify(l)})">${esc(l)} (${locCounts[l]})</button>`).join('')}
+      ${hasActive ? `<button class="filter-clear" onclick="clearLocationFilters()">clear</button>` : ''}
+    </div>`;
+  }
+  document.getElementById('allFilters').innerHTML = html;
 }
 
 function renderStats() {
