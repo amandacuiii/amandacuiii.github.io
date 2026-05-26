@@ -64,11 +64,12 @@
     .stats-bar strong { color: var(--accent); font-family: var(--font-h); font-size: .92rem; }
     .stat-filter-btn {
       background: none; border: none; font-family: var(--font); font-size: .82rem;
-      color: var(--muted); cursor: pointer; padding: 0; text-decoration: underline;
-      text-decoration-color: transparent; transition: color .15s, text-decoration-color .15s;
+      color: var(--muted); cursor: pointer; padding: 3px 8px; border-radius: 20px;
+      transition: background .15s, color .15s; white-space: nowrap;
     }
-    .stat-filter-btn:hover { color: var(--clay); text-decoration-color: var(--clay); }
-    .stat-filter-btn.active { color: var(--clay); font-weight: 600; text-decoration-color: var(--clay); }
+    .stat-filter-btn:hover { background: rgba(194,113,79,.1); color: var(--clay); }
+    .stat-filter-btn.active { background: rgba(194,113,79,.15); color: var(--clay); font-weight: 600; }
+    .stat-filter-btn strong { font-family: var(--font-h); font-size: .92rem; color: inherit; }
 
     /* ── Toolbar ────────────────────────────────────── */
     .toolbar {
@@ -829,7 +830,7 @@ function renderFilters() {
     const hasActive = activeLocationFilters.size > 0;
     html += `<div class="filter-row">
       <span class="filter-label">Location</span>
-      ${usedLocs.map(l => `<button class="filter-btn${activeLocationFilters.has(l) ? ' active' : ''}" onclick="toggleLocationFilter(${JSON.stringify(l)})">${esc(l)} (${locCounts[l]})</button>`).join('')}
+      ${usedLocs.map(l => `<button class="filter-btn${activeLocationFilters.has(l) ? ' active' : ''}" onclick="toggleLocationFilter('${l}')">${esc(l)} (${locCounts[l]})</button>`).join('')}
       ${hasActive ? `<button class="filter-clear" onclick="clearLocationFilters()">clear</button>` : ''}
     </div>`;
   }
@@ -849,12 +850,8 @@ function renderStats() {
     <span><strong>${pieces.length}</strong> total</span>
     <span><strong>${inProgress}</strong> in progress</span>
     <span><strong>${complete}</strong> complete</span>
-    <span style="margin-left:auto"><strong>${atStudio}</strong>
-      <button class="stat-filter-btn${studioActive ? ' active' : ''}" onclick="toggleLocationFilter('At the studio')">at the studio</button>
-    </span>
-    <span><strong>${gifted}</strong>
-      <button class="stat-filter-btn${giftedActive ? ' active' : ''}" onclick="toggleLocationFilter('Gifted')">gifted</button>
-    </span>`;
+    <button class="stat-filter-btn${studioActive ? ' active' : ''}" style="margin-left:auto" onclick="toggleLocationFilter('At the studio')"><strong>${atStudio}</strong> at the studio</button>
+    <button class="stat-filter-btn${giftedActive ? ' active' : ''}" onclick="toggleLocationFilter('Gifted')"><strong>${gifted}</strong> gifted</button>`;
 }
 
 function setFilter(s) { activeFilter = s; render(); }
