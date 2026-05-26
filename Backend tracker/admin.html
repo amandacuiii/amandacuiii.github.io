@@ -62,6 +62,13 @@
       font-size: .82rem; color: var(--muted);
     }
     .stats-bar strong { color: var(--accent); font-family: var(--font-h); font-size: .92rem; }
+    .stat-filter-btn {
+      background: none; border: none; font-family: var(--font); font-size: .82rem;
+      color: var(--muted); cursor: pointer; padding: 0; text-decoration: underline;
+      text-decoration-color: transparent; transition: color .15s, text-decoration-color .15s;
+    }
+    .stat-filter-btn:hover { color: var(--clay); text-decoration-color: var(--clay); }
+    .stat-filter-btn.active { color: var(--clay); font-weight: 600; text-decoration-color: var(--clay); }
 
     /* ── Toolbar ────────────────────────────────────── */
     .toolbar {
@@ -832,16 +839,22 @@ function renderFilters() {
 
 function renderStats() {
   if (!pieces) return;
-  const complete  = pieces.filter(p => p.stage === 'Complete').length;
+  const complete   = pieces.filter(p => p.stage === 'Complete').length;
   const inProgress = pieces.length - complete;
-  const atStudio  = pieces.filter(p => (p.location || '').toLowerCase().includes('studio')).length;
-  const gifted    = pieces.filter(p => (p.location || '').toLowerCase().includes('gift')).length;
+  const atStudio   = pieces.filter(p => (p.location || '').toLowerCase().includes('studio')).length;
+  const gifted     = pieces.filter(p => (p.location || '').toLowerCase().includes('gift')).length;
+  const studioActive = activeLocationFilters.has('At the studio');
+  const giftedActive = activeLocationFilters.has('Gifted');
   document.getElementById('statsBar').innerHTML = `
     <span><strong>${pieces.length}</strong> total</span>
     <span><strong>${inProgress}</strong> in progress</span>
     <span><strong>${complete}</strong> complete</span>
-    <span style="margin-left:auto"><strong>${atStudio}</strong> at the studio</span>
-    <span><strong>${gifted}</strong> gifted</span>`;
+    <span style="margin-left:auto"><strong>${atStudio}</strong>
+      <button class="stat-filter-btn${studioActive ? ' active' : ''}" onclick="toggleLocationFilter('At the studio')">at the studio</button>
+    </span>
+    <span><strong>${gifted}</strong>
+      <button class="stat-filter-btn${giftedActive ? ' active' : ''}" onclick="toggleLocationFilter('Gifted')">gifted</button>
+    </span>`;
 }
 
 function setFilter(s) { activeFilter = s; render(); }
