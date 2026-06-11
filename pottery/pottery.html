@@ -101,6 +101,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 16px;
+            justify-items: center;
         }
 
         .piece {
@@ -117,9 +118,9 @@
         .piece-img-wrap img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
+            object-position: center;
             display: block;
-            filter: brightness(1.12) drop-shadow(0px 4px 12px rgba(61,46,28,0.18));
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
