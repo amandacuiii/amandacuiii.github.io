@@ -185,6 +185,12 @@
             margin-top: 2px;
         }
 
+        .piece-price {
+            font-size: 0.74rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
         /* Lightbox */
         .lightbox {
             display: none;
@@ -462,6 +468,18 @@
     <script>
         let pieces = [];
 
+        function getPriceLabel(piece) {
+            const loc = (piece.location || piece.home || '').toLowerCase();
+            if (loc.startsWith('gifted to ')) {
+                const name = (piece.location || piece.home || '').slice('gifted to '.length).trim();
+                return `<div class="piece-price">gifted to ${name}</div>`;
+            }
+            if (piece.suggestedPrice) {
+                return `<div class="piece-price">$${piece.suggestedPrice}</div>`;
+            }
+            return '';
+        }
+
         const STAGE_MAP = {
             'throwing':    { cls: 'badge-throwing',    label: 'Throwing' },
             'trimming':    { cls: 'badge-trimming',    label: 'Trimming' },
@@ -561,6 +579,7 @@
                     <div class="piece-info">
                         <div class="piece-name">${piece.name}</div>
                         ${piece.home ? `<div class="piece-home">${piece.home}</div>` : ''}
+                        ${getPriceLabel(piece)}
                     </div>
                 `;
                 gallery.appendChild(div);
@@ -605,6 +624,7 @@
                         ${piece.stage ? `<span>${piece.stage}</span>` : ''}
                         ${piece.clay  ? `<span>${piece.clay}</span>`  : ''}
                         ${piece.home  ? `<span>${piece.home}</span>`  : ''}
+                        ${getPriceLabel(piece)}
                     </div>
                     ${progressHtml}
                 </div>
