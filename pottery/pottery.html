@@ -121,6 +121,7 @@
             object-fit: contain;
             object-position: center;
             display: block;
+            filter: brightness(1.12);
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -469,13 +470,13 @@
         let pieces = [];
 
         function getPriceLabel(piece) {
-            const loc = (piece.location || piece.home || '').toLowerCase();
-            if (loc.startsWith('gifted to ')) {
-                const name = (piece.location || piece.home || '').slice('gifted to '.length).trim();
-                return `<div class="piece-price">gifted to ${name}</div>`;
-            }
             if (piece.suggestedPrice) {
                 return `<div class="piece-price">$${piece.suggestedPrice}</div>`;
+            }
+            const loc = piece.location || piece.home || '';
+            if (loc.toLowerCase().startsWith('gifted to ')) {
+                const name = loc.slice('gifted to '.length).trim();
+                return `<div class="piece-price">gifted to ${name}</div>`;
             }
             return '';
         }
