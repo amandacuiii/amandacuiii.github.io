@@ -483,6 +483,18 @@
         <input type="file" id="f-photo-file" accept="image/*" multiple style="display:none" onchange="filesChosen(event)" />
       </div>
 
+      <div class="form-section" id="pricing-section">Pricing</div>
+      <div class="form-grid-2" id="pricing-fields">
+        <div class="form-row">
+          <label>Suggested Price ($)</label>
+          <input type="number" id="f-suggested-price" placeholder="e.g. 45" min="0" step="0.01" />
+        </div>
+        <div class="form-row">
+          <label>Sold Price ($)</label>
+          <input type="number" id="f-sold-price" placeholder="e.g. 40" min="0" step="0.01" />
+        </div>
+      </div>
+
       <div class="form-section">Notes</div>
       <div class="form-row">
         <textarea id="f-notes" placeholder="Observations, measurements, what to try next…"></textarea>
@@ -758,8 +770,10 @@ function cardHTML(p) {
       <div class="card-meta">
         ${p.location  ? `<div class="row"><span class="lbl">Location</span>${esc(p.location)}</div>` : ''}
         ${p.clay      ? `<div class="row"><span class="lbl">Clay</span>${esc(p.clay)}${p.weight ? ` · ${p.weight}g` : ''}</div>` : ''}
-        ${p.glaze     ? `<div class="row"><span class="lbl">Glaze</span>${esc(p.glaze)}</div>` : ''}
-        ${p.dateStart ? `<div class="row"><span class="lbl">Started</span>${fmt(p.dateStart)}</div>` : ''}
+        ${p.glaze          ? `<div class="row"><span class="lbl">Glaze</span>${esc(p.glaze)}</div>` : ''}
+        ${p.dateStart      ? `<div class="row"><span class="lbl">Started</span>${fmt(p.dateStart)}</div>` : ''}
+        ${p.suggestedPrice ? `<div class="row"><span class="lbl">Suggested</span>$${esc(p.suggestedPrice)}</div>` : ''}
+        ${p.soldPrice      ? `<div class="row"><span class="lbl">Sold</span>$${esc(p.soldPrice)}</div>` : ''}
       </div>
       ${p.notes ? `<div class="card-notes">${esc(p.notes)}</div>` : ''}
     </div>
@@ -897,6 +911,8 @@ function openModal(id) {
     document.getElementById('f-gifted-to').value = '';
   }
   toggleGiftedTo();
+  document.getElementById('f-suggested-price').value = p?.suggestedPrice || '';
+  document.getElementById('f-sold-price').value       = p?.soldPrice      || '';
   document.getElementById('f-notes').value = p?.notes || '';
   currentPhotos = [];
   renderGallery();
@@ -937,7 +953,9 @@ function savePiece() {
                  ? `Gifted to ${document.getElementById('f-gifted-to').value.trim()}`
                  : document.getElementById('f-location').value,
     photos:    currentPhotos.map(p => p.key || p.url),
-    notes:     document.getElementById('f-notes').value.trim(),
+    suggestedPrice: document.getElementById('f-suggested-price').value,
+    soldPrice:      document.getElementById('f-sold-price').value,
+    notes:          document.getElementById('f-notes').value.trim(),
     updatedAt: Date.now(),
   };
 
@@ -987,16 +1005,145 @@ async function removeBg(e, i) {
   try {
     const { removeBackground } = await import('https://esm.sh/@imgly/background-removal@1.4.5');
     const blob = await removeBackground(currentPhotos[i].url);
-    const url = await new Promise(res => { const r = new FileReader(); r.onload = ev => res(ev.target.result); r.readAsDataURL(blob); });
-    const key = 'idb:' + uid();
-    await idbSave(key, url);
-    currentPhotos[i] = { url, key, isNew: true };
-    renderGallery();
+    const resultUrl = await new Promise(res => { const r = new FileReader(); r.onload = ev => res(ev.target.result); r.readAsDataURL(blob); });
+
+    // Show editor — returns final URL (possibly hand-edited) or null if discarded
+    const finalUrl = await showBgPreview(currentPhotos[i].url, resultUrl);
+    if (finalUrl) {
+      const key = 'idb:' + uid();
+      await idbSave(key, finalUrl);
+      currentPhotos[i] = { url: finalUrl, key, isNew: true };
+      renderGallery();
+    }
   } catch(err) {
     alert('Background removal failed: ' + err.message);
+  } finally {
     btn.disabled = false;
     btn.textContent = 'Remove BG';
   }
+}
+
+function showBgPreview(beforeUrl, afterUrl) {
+  return new Promise(resolve => {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.65);
+      display:flex;align-items:center;justify-content:center;`;
+
+    overlay.innerHTML = `
+      <div style="background:#fff;border-radius:14px;padding:22px;max-width:780px;width:95%;
+                  box-shadow:0 8px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:14px">
+        <div>
+          <div style="font-family:'Rubik',sans-serif;font-size:1rem;font-weight:600;color:#3d2e1c">Edit background removal</div>
+          <div style="font-size:.8rem;color:#9b8472;margin-top:2px">Paint to restore or erase areas. Use the slider to adjust brush size.</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button id="bg-mode-restore" style="padding:6px 16px;border-radius:20px;border:2px solid #c2714f;background:#c2714f;color:#fff;font-size:.82rem;font-weight:600;cursor:pointer">✏️ Restore</button>
+          <button id="bg-mode-erase"   style="padding:6px 16px;border-radius:20px;border:2px solid #ddd;background:#fff;color:#3d2e1c;font-size:.82rem;cursor:pointer">🧹 Erase</button>
+          <label style="font-size:.8rem;color:#9b8472;margin-left:8px">Brush
+            <input id="bg-brush-size" type="range" min="4" max="80" value="20" style="width:90px;margin-left:6px;vertical-align:middle">
+          </label>
+          <button id="bg-undo" style="padding:6px 14px;border-radius:20px;border:1px solid #ddd;background:#fff;font-size:.82rem;cursor:pointer;margin-left:auto">↩ Undo</button>
+        </div>
+        <div style="position:relative;border-radius:8px;overflow:hidden;border:1px solid #e0d4c8;
+                    background:repeating-conic-gradient(#ddd 0% 25%,#fff 0% 50%) 0 0/20px 20px;
+                    cursor:crosshair;line-height:0">
+          <canvas id="bg-canvas" style="display:block;max-width:100%;max-height:420px"></canvas>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button id="bg-discard" style="padding:8px 20px;border-radius:8px;border:1px solid #e0d4c8;background:#fff;font-size:.88rem;cursor:pointer;color:#3d2e1c">Discard</button>
+          <button id="bg-keep"    style="padding:8px 20px;border-radius:8px;border:none;background:#c2714f;color:#fff;font-size:.88rem;font-weight:600;cursor:pointer">Keep it</button>
+        </div>
+      </div>`;
+
+    document.body.appendChild(overlay);
+
+    const canvas  = overlay.querySelector('#bg-canvas');
+    const ctx     = canvas.getContext('2d');
+    let mode      = 'restore'; // 'restore' | 'erase'
+    let painting  = false;
+    let history   = [];
+
+    // Load both images, set up canvas at full resolution
+    const origImg   = new window.Image();
+    const resultImg = new window.Image();
+    let loaded = 0;
+    const onLoad = () => {
+      if (++loaded < 2) return;
+      canvas.width  = resultImg.naturalWidth;
+      canvas.height = resultImg.naturalHeight;
+      ctx.drawImage(resultImg, 0, 0);
+      pushHistory();
+    };
+    origImg.onload   = onLoad;
+    resultImg.onload = onLoad;
+    origImg.src   = beforeUrl;
+    resultImg.src = afterUrl;
+
+    function pushHistory() {
+      history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+      if (history.length > 30) history.shift();
+    }
+
+    function getPos(e) {
+      const rect  = canvas.getBoundingClientRect();
+      const scaleX = canvas.width  / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const src = e.touches ? e.touches[0] : e;
+      return [(src.clientX - rect.left) * scaleX, (src.clientY - rect.top) * scaleY];
+    }
+
+    function paint(x, y) {
+      const r = parseInt(overlay.querySelector('#bg-brush-size').value) *
+                (canvas.width / canvas.getBoundingClientRect().width);
+      if (mode === 'erase') {
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,0,0,1)'; ctx.fill();
+        ctx.restore();
+      } else {
+        // Restore: copy from original image
+        ctx.save();
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.clip();
+        ctx.drawImage(origImg, 0, 0, canvas.width, canvas.height);
+        ctx.restore();
+      }
+    }
+
+    canvas.addEventListener('mousedown',  e => { painting = true; pushHistory(); const [x,y] = getPos(e); paint(x,y); });
+    canvas.addEventListener('mousemove',  e => { if (!painting) return; const [x,y] = getPos(e); paint(x,y); });
+    canvas.addEventListener('mouseup',    () => { painting = false; });
+    canvas.addEventListener('mouseleave', () => { painting = false; });
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); painting = true; pushHistory(); const [x,y] = getPos(e); paint(x,y); }, {passive:false});
+    canvas.addEventListener('touchmove',  e => { e.preventDefault(); if (!painting) return; const [x,y] = getPos(e); paint(x,y); }, {passive:false});
+    canvas.addEventListener('touchend',   () => { painting = false; });
+
+    overlay.querySelector('#bg-mode-restore').onclick = () => {
+      mode = 'restore';
+      overlay.querySelector('#bg-mode-restore').style.cssText += 'background:#c2714f;color:#fff;border-color:#c2714f;font-weight:600';
+      overlay.querySelector('#bg-mode-erase').style.cssText   += 'background:#fff;color:#3d2e1c;border-color:#ddd;font-weight:400';
+    };
+    overlay.querySelector('#bg-mode-erase').onclick = () => {
+      mode = 'erase';
+      overlay.querySelector('#bg-mode-erase').style.cssText   += 'background:#c2714f;color:#fff;border-color:#c2714f;font-weight:600';
+      overlay.querySelector('#bg-mode-restore').style.cssText += 'background:#fff;color:#3d2e1c;border-color:#ddd;font-weight:400';
+    };
+    overlay.querySelector('#bg-undo').onclick = () => {
+      if (history.length > 1) { history.pop(); ctx.putImageData(history[history.length-1], 0, 0); }
+    };
+
+    overlay.querySelector('#bg-keep').onclick = () => {
+      const finalUrl = canvas.toDataURL('image/png');
+      document.body.removeChild(overlay);
+      resolve(finalUrl);
+    };
+    overlay.querySelector('#bg-discard').onclick = () => {
+      document.body.removeChild(overlay);
+      resolve(null);
+    };
+  });
 }
 
 function thumbDragStart(e, i) {
@@ -1127,7 +1274,9 @@ async function exportGallery() {
     dateStart: p.dateStart || '',
     createdAt: p.createdAt || 0,
     stage: p.stage || '',
-    clay: p.clay || ''
+    clay: p.clay || '',
+    suggestedPrice: p.suggestedPrice || '',
+    location: p.location || ''
   })));
   const blob = new Blob([JSON.stringify(gallery, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
@@ -1146,16 +1295,22 @@ function importData(e) {
       const imported = JSON.parse(ev.target.result);
       if (!Array.isArray(imported)) throw new Error('Invalid format');
       if (pieces.length > 0) {
-        if (!confirm(`You already have ${pieces.length} piece(s). Merge with imported data?`)) return;
-        const existingIds = new Set(pieces.map(p => p.id));
-        const newOnes = imported.filter(p => !existingIds.has(p.id));
-        pieces = [...pieces, ...newOnes];
-        alert(`Merged! Added ${newOnes.length} new piece(s).`);
+        const choice = confirm(`You already have ${pieces.length} piece(s).\n\nOK = Replace all (use imported data)\nCancel = Add only new pieces`);
+        if (choice) {
+          pieces = imported;
+          alert(`Replaced with ${pieces.length} piece(s) from backup.`);
+        } else {
+          const existingIds = new Set(pieces.map(p => p.id));
+          const newOnes = imported.filter(p => !existingIds.has(p.id));
+          if (newOnes.length === 0) { alert('No new pieces to add.'); return; }
+          pieces = [...pieces, ...newOnes];
+          alert(`Added ${newOnes.length} new piece(s).`);
+        }
       } else {
         pieces = imported;
         alert(`Imported ${pieces.length} piece(s)!`);
       }
-      save(); render();
+      migrateBase64Photos().then(() => { save(); render(); });
     } catch(err) {
       alert('Could not read file. Make sure it\'s a valid backup export.');
     }
@@ -1167,9 +1322,13 @@ function importData(e) {
 /* ── Helpers ─────────────────────────────────────────── */
 
 function toggleGiftedTo() {
-  const isGifted = document.getElementById('f-location').value === 'Gifted';
+  const loc = document.getElementById('f-location').value;
+  const isGifted = loc === 'Gifted';
   document.getElementById('giftedToRow').style.display = isGifted ? '' : 'none';
   if (!isGifted) document.getElementById('f-gifted-to').value = '';
+  const showPricing = !isGifted;
+  document.getElementById('pricing-section').style.display = showPricing ? '' : 'none';
+  document.getElementById('pricing-fields').style.display  = showPricing ? '' : 'none';
 }
 
 function esc(s) {
@@ -1199,15 +1358,11 @@ openPhotoDB().then(async () => {
     // First load — try to seed from server, otherwise prompt to import
     let seeded = false;
     try {
-      const r = await fetch('../pottery/pottery-data.json');
+      const r = await fetch('pottery-tracker-backup.json');
       if (r.ok) {
         const data = await r.json();
-        pieces = data.map(p => ({
-          ...p,
-          photos: (p.photos || []).map(f =>
-            f.startsWith('http') || f.startsWith('data:') || f.startsWith('Pottery') || f.startsWith('idb:') ? f : PHOTO_BASE + p.id + '/' + f
-          )
-        }));
+        pieces = data;
+        await migrateBase64Photos();
         save();
         seeded = true;
       }

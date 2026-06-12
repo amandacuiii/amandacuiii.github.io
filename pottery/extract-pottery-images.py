@@ -46,7 +46,7 @@ for piece in data:
             f.write(base64.b64decode(b64data))
         idx += 1
         extracted += 1
-        return f'pottery/{fname}'
+        return fname
 
     piece['mainImage'] = extract(piece.get('mainImage', ''))
 
