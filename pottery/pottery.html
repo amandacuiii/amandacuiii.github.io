@@ -669,7 +669,7 @@
                 <div class="lightbox-info">
                     <div class="lightbox-name">${piece.name}</div>
                     ${getPriceLabel(piece, false)}
-                    ${piece.description ? `<div class="lightbox-desc">${piece.description}</div>` : ''}
+                    ${piece.suggestedPrice && piece.description ? `<div class="lightbox-desc">${piece.description}</div>` : ''}
                     <div class="lightbox-meta">
                         ${piece.clay  ? `<span>${piece.clay}</span>`  : ''}
                     </div>
