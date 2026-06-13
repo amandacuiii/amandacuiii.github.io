@@ -511,7 +511,7 @@
 
         function pieceStatus(p) {
             const loc = (p.location || p.home || '').toLowerCase();
-            if (p.soldPrice) return 'sold';
+            if (p.soldPrice || loc === 'sold') return 'sold';
             if (loc.startsWith('gifted to') || loc === 'gifted') return 'gifted';
             if (p.suggestedPrice) return 'available';
             return 'other';
