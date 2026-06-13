@@ -1276,6 +1276,7 @@ async function exportGallery() {
     stage: p.stage || '',
     clay: p.clay || '',
     suggestedPrice: p.suggestedPrice || '',
+    soldPrice: p.soldPrice || '',
     location: p.location || ''
   })));
   const blob = new Blob([JSON.stringify(gallery, null, 2)], { type: 'application/json' });

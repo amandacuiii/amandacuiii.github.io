@@ -192,6 +192,14 @@
             font-style: italic;
         }
 
+        .piece-price.sold {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #c0392b;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
         /* Lightbox */
         .lightbox {
             display: none;
@@ -500,14 +508,19 @@
 
         function pieceStatus(p) {
             const loc = (p.location || p.home || '').toLowerCase();
+            if (p.soldPrice) return 'sold';
             if (loc.startsWith('gifted to') || loc === 'gifted') return 'gifted';
-            if (loc.includes('sold') || p.soldPrice) return 'sold';
             if (p.suggestedPrice) return 'available';
             return 'other';
         }
 
         function getPriceLabel(piece, forCard = true) {
             const status = pieceStatus(piece);
+            if (status === 'sold') {
+                return forCard
+                    ? `<div class="piece-price sold">Sold</div>`
+                    : `<div class="lightbox-price sold">Sold</div>`;
+            }
             if (piece.suggestedPrice) {
                 return forCard
                     ? `<div class="piece-price">$${piece.suggestedPrice}</div>`
