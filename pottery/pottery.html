@@ -144,7 +144,7 @@
             object-fit: contain;
             object-position: center;
             display: block;
-            filter: brightness(1.25);
+            filter: brightness(1.38);
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -469,6 +469,8 @@
         <button class="filter-btn" onclick="setFilter('gifted')">Gifted</button>
         <button class="filter-btn" onclick="setFilter('sold')">Sold</button>
         <div class="filter-divider"></div>
+        <button class="filter-btn sort-btn" id="sort-price-btn" onclick="toggleSortPrice()">Price ↑</button>
+        <div class="filter-divider"></div>
         <!-- Category filters injected by JS -->
     </div>
 
@@ -495,6 +497,7 @@
         let pieces = [];
         let activeFilter = 'all';
         let activeCat = '';
+        let sortByPrice = null; // null = default, 'asc', 'desc'
 
         function inferCategory(name) {
             const n = (name || '').toLowerCase();
@@ -542,6 +545,20 @@
             return p.split('/').map(s => encodeURIComponent(s)).join('/');
         }
 
+        function toggleSortPrice() {
+            const btn = document.getElementById('sort-price-btn');
+            if (!sortByPrice || sortByPrice === 'desc') {
+                sortByPrice = 'asc';
+                btn.textContent = 'Price ↑';
+                btn.classList.add('active');
+            } else {
+                sortByPrice = 'desc';
+                btn.textContent = 'Price ↓';
+                btn.classList.add('active');
+            }
+            renderGallery();
+        }
+
         function setFilter(f) {
             activeFilter = f;
             activeCat = '';
@@ -571,15 +588,22 @@
                 data = data.filter(p => inferCategory(p.name) === activeCat);
             }
 
-            // Sort: available first, then gifted, then others
-            const statusOrder = { available: 0, other: 1, gifted: 2, sold: 3 };
-            data.sort((a, b) => {
-                const sa = statusOrder[pieceStatus(a)] ?? 9;
-                const sb = statusOrder[pieceStatus(b)] ?? 9;
-                if (sa !== sb) return sa - sb;
-                // within same status: newest first
-                return (b.dateStart || '').localeCompare(a.dateStart || '');
-            });
+            if (sortByPrice) {
+                data.sort((a, b) => {
+                    const pa = parseFloat(a.suggestedPrice) || 0;
+                    const pb = parseFloat(b.suggestedPrice) || 0;
+                    return sortByPrice === 'asc' ? pa - pb : pb - pa;
+                });
+            } else {
+                // Sort: available first, then gifted, then others
+                const statusOrder = { available: 0, other: 1, gifted: 2, sold: 3 };
+                data.sort((a, b) => {
+                    const sa = statusOrder[pieceStatus(a)] ?? 9;
+                    const sb = statusOrder[pieceStatus(b)] ?? 9;
+                    if (sa !== sb) return sa - sb;
+                    return (b.dateStart || '').localeCompare(a.dateStart || '');
+                });
+            }
 
             pieces = data;
             const gallery = document.getElementById('gallery');
