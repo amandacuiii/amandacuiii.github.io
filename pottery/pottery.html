@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pottery Progress — Amanda Cui</title>
+    <title>Liminal — Amanda Cui</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
@@ -48,64 +48,87 @@
         @media (max-width: 600px) { .nav-links { display: none; } }
 
         .page-header {
-            padding: 5.5rem 6vw 2.5rem;
+            padding: 5.5rem 6vw 1.5rem;
         }
 
         .page-header h1 {
             font-family: var(--font-heading);
-            font-size: clamp(2rem, 5vw, 4rem);
+            font-size: clamp(1.6rem, 4vw, 3.2rem);
             font-weight: 700;
             letter-spacing: -0.02em;
+            line-height: 1.15;
         }
 
         .page-header p {
             margin-top: 0.75rem;
             font-size: 1rem;
             color: var(--muted);
-            max-width: 44ch;
+            max-width: 52ch;
             line-height: 1.6;
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            padding: 1.25rem 6vw 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 1px solid rgba(102,73,48,0.25);
+            border-radius: 20px;
+            padding: 5px 16px;
+            font-family: var(--font);
+            font-size: 0.82rem;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            background: rgba(102,73,48,0.07);
+            color: var(--text);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #f9f6f2;
+        }
+
+        .filter-divider {
+            width: 1px;
+            height: 18px;
+            background: rgba(102,73,48,0.2);
+            margin: 0 4px;
         }
 
         .piece-count {
             display: inline-block;
-            margin-top: 1rem;
-            font-size: 0.8rem;
+            padding: 1rem 6vw 0;
+            font-size: 0.75rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--muted);
         }
 
-        .event-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            margin-top: 1.25rem;
-            padding: 0.5rem 1.1rem;
-            border: 1px solid var(--accent);
-            border-radius: 2px;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .event-link:hover {
-            background: var(--accent);
-            color: #f9f6f2;
-        }
-
-        /* Gallery grid — aligned square grid */
+        /* Gallery grid */
         .gallery {
-            padding: 0 6vw 6rem;
+            padding: 1rem 6vw 6rem;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            gap: 20px;
             justify-items: center;
         }
 
         .piece {
-            cursor: default;
+            cursor: pointer;
+            width: 100%;
         }
 
         .piece-img-wrap {
@@ -121,7 +144,7 @@
             object-fit: contain;
             object-position: center;
             display: block;
-            filter: brightness(1.12);
+            filter: brightness(1.25);
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -143,31 +166,6 @@
             transform: scale(1.25);
         }
 
-        .piece-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-family: var(--font-heading);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        .badge-complete    { background: rgba(200,232,200,0.9); color: #2a6030; }
-        .badge-available   { background: rgba(168,208,208,0.9); color: #2a6060; }
-        .badge-in-progress { background: rgba(236,224,192,0.9); color: #705020; }
-        .badge-throwing    { background: rgba(212,232,240,0.9); color: #2a6080; }
-        .badge-trimming    { background: rgba(220,232,208,0.9); color: #3a6030; }
-        .badge-leatherhard { background: rgba(236,224,192,0.9); color: #705020; }
-        .badge-bonedry     { background: rgba(232,224,208,0.9); color: #605040; }
-        .badge-bisque      { background: rgba(232,196,168,0.9); color: #9e5438; }
-        .badge-glazed      { background: rgba(168,208,208,0.9); color: #2a6060; }
-
         .piece-info {
             padding: 10px 2px 4px;
             text-align: center;
@@ -180,16 +178,18 @@
             color: var(--text);
         }
 
-        .piece-home {
-            font-size: 0.78rem;
-            color: var(--muted);
-            margin-top: 2px;
+        .piece-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 3px;
         }
 
-        .piece-price {
-            font-size: 0.74rem;
+        .piece-price.gifted {
+            font-size: 0.8rem;
+            font-weight: 400;
             color: var(--muted);
-            margin-top: 2px;
+            font-style: italic;
         }
 
         /* Lightbox */
@@ -257,7 +257,21 @@
             font-size: clamp(1.5rem, 3vw, 2.5rem);
             font-weight: 500;
             line-height: 1.1;
+            margin-bottom: 0.75rem;
+        }
+
+        .lightbox-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #f9f6f2;
             margin-bottom: 1rem;
+        }
+
+        .lightbox-price.gifted {
+            font-size: 1rem;
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(249,246,242,0.6);
         }
 
         .lightbox-desc {
@@ -265,13 +279,6 @@
             line-height: 1.7;
             color: rgba(249,246,242,0.7);
             margin-bottom: 1.25rem;
-        }
-
-        .lightbox-home {
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: rgba(249,246,242,0.4);
         }
 
         .lightbox-meta {
@@ -303,10 +310,7 @@
             margin-bottom: 0.75rem;
         }
 
-        /* Slideshow */
-        .progress-slideshow {
-            position: relative;
-        }
+        .progress-slideshow { position: relative; }
 
         .progress-slide {
             position: relative;
@@ -401,29 +405,35 @@
 
         .img-overlay-close:hover { color: #fff; }
 
-        /* Loading */
         .loading {
             padding: 5rem 6vw;
             color: var(--muted);
             font-size: 0.9rem;
         }
 
+        /* Responsive */
         @media (max-width: 900px) {
             .lightbox-body { grid-template-columns: 1fr; gap: 1.5rem; }
+            .gallery { grid-template-columns: repeat(3, 1fr); }
         }
 
-        @media (max-width: 750px) {
+        @media (max-width: 650px) {
             nav { padding: 0 1.25rem; }
-            .page-header { padding: 4.5rem 5vw 2rem; }
-            .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 3vw 4rem; }
+            .page-header { padding: 4.5rem 5vw 1rem; }
+            .filter-bar { padding: 1rem 5vw 0; gap: 0.4rem; }
+            .filter-btn { font-size: 0.78rem; padding: 4px 12px; }
+            .piece-count { padding: 0.75rem 5vw 0; }
+            .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0.75rem 3vw 4rem; }
+            .piece-name { font-size: 0.8rem; }
+            .piece-price { font-size: 0.9rem; }
             .lightbox-body { padding: 3rem 1.25rem 4rem; }
             .lightbox-close { top: 1rem; right: 1rem; }
+            .lightbox-price { font-size: 1.2rem; }
         }
 
-        @media (max-width: 480px) {
-            .gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 2vw 4rem; }
-            .piece-name { font-size: 0.78rem; }
-            .piece-home { font-size: 0.7rem; }
+        @media (max-width: 400px) {
+            .gallery { gap: 8px; padding: 0.75rem 2vw 4rem; }
+            .piece-name { font-size: 0.75rem; }
             .lightbox-body { padding: 2.5rem 1rem 3rem; }
             .lightbox-name { font-size: 1.4rem; }
         }
@@ -441,14 +451,20 @@
     </nav>
 
     <div class="page-header">
-        <h1>pottery progress</h1>
-        <p>Liminal: A Record of Creation In Between Stages</p>
-        <span class="piece-count" id="piece-count"></span>
-        <br>
-        <a class="event-link" href="https://luma.com/j22ron9z" target="_blank" rel="noopener">
-            ✦ Pottery event — RSVP
-        </a>
+        <h1>Liminal: A record of creation between stages</h1>
+        <p>Thank you for coming to my exhibit. Below are the prices for each piece displayed. If interested in purchasing, please find Helen.</p>
     </div>
+
+    <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" onclick="setFilter('all')">All</button>
+        <button class="filter-btn" onclick="setFilter('available')">Available</button>
+        <button class="filter-btn" onclick="setFilter('gifted')">Gifted</button>
+        <button class="filter-btn" onclick="setFilter('sold')">Sold</button>
+        <div class="filter-divider"></div>
+        <!-- Category filters injected by JS -->
+    </div>
+
+    <div class="piece-count" id="piece-count"></div>
 
     <div class="gallery" id="gallery">
         <div class="loading">Loading pieces...</div>
@@ -467,119 +483,116 @@
     </div>
 
     <script>
+        let allPieces = [];
         let pieces = [];
+        let activeFilter = 'all';
+        let activeCat = '';
 
-        function getPriceLabel(piece) {
+        function inferCategory(name) {
+            const n = (name || '').toLowerCase();
+            if (/mug|cup/.test(n)) return 'Mug';
+            if (/bowl|matcha/.test(n)) return 'Bowl';
+            if (/vase/.test(n)) return 'Vase';
+            if (/plate/.test(n)) return 'Plate';
+            if (/pot|planter|container|holder/.test(n)) return 'Planter';
+            return 'Other';
+        }
+
+        function pieceStatus(p) {
+            const loc = (p.location || p.home || '').toLowerCase();
+            if (loc.startsWith('gifted to') || loc === 'gifted') return 'gifted';
+            if (loc.includes('sold') || p.soldPrice) return 'sold';
+            if (p.suggestedPrice) return 'available';
+            return 'other';
+        }
+
+        function getPriceLabel(piece, forCard = true) {
+            const status = pieceStatus(piece);
             if (piece.suggestedPrice) {
-                return `<div class="piece-price">$${piece.suggestedPrice}</div>`;
+                return forCard
+                    ? `<div class="piece-price">$${piece.suggestedPrice}</div>`
+                    : `<div class="lightbox-price">$${piece.suggestedPrice}</div>`;
             }
-            const loc = piece.location || piece.home || '';
-            if (loc.toLowerCase().startsWith('gifted to ')) {
-                const name = loc.slice('gifted to '.length).trim();
-                return `<div class="piece-price">gifted to ${name}</div>`;
+            if (status === 'gifted') {
+                const loc = piece.location || piece.home || '';
+                const name = loc.replace(/^gifted to\s*/i, '').trim();
+                return forCard
+                    ? `<div class="piece-price gifted">gifted to ${name}</div>`
+                    : `<div class="lightbox-price gifted">gifted to ${name}</div>`;
             }
             return '';
         }
 
-        const STAGE_MAP = {
-            'throwing':    { cls: 'badge-throwing',    label: 'Throwing' },
-            'trimming':    { cls: 'badge-trimming',    label: 'Trimming' },
-            'leatherhard': { cls: 'badge-leatherhard', label: 'Leather Hard' },
-            'leather hard':{ cls: 'badge-leatherhard', label: 'Leather Hard' },
-            'bone dry':    { cls: 'badge-bonedry',     label: 'Bone Dry' },
-            'bonedry':     { cls: 'badge-bonedry',     label: 'Bone Dry' },
-            'bisque':      { cls: 'badge-bisque',      label: 'Bisque' },
-            'glazed':      { cls: 'badge-glazed',      label: 'Glazed' },
-            'complete':    { cls: 'badge-complete',    label: 'Complete' },
-        };
-
-        function getBadge(home) {
-            if (!home) return null;
-            const h = home.toLowerCase().trim();
-            if (STAGE_MAP[h]) return STAGE_MAP[h];
-            if (h.includes('available') || h.includes('for sale')) return { cls: 'badge-available', label: 'Available' };
-            return { cls: 'badge-complete', label: home };
-        }
-
         function enc(p) {
             if (!p) return '';
-            // Don't encode base64 data URLs or already-encoded URLs
             if (p.startsWith('data:') || p.startsWith('http')) return p;
             return p.split('/').map(s => encodeURIComponent(s)).join('/');
         }
 
-        const STAGE_ORDER = {
-            'complete': 0,
-            'available': 1,
-            'for sale': 1,
-            'glazed': 2,
-            'bisque': 3,
-            'bone dry': 4,
-            'bonedry': 4,
-            'leatherhard': 5,
-            'leather hard': 5,
-            'trimming': 6,
-            'throwing': 7,
-            'in-progress': 8,
-        };
-
-        function stageRank(piece) {
-            const h = (piece.home || piece.stage || '').toLowerCase().trim();
-            if (h in STAGE_ORDER) return STAGE_ORDER[h];
-            if (h.includes('available') || h.includes('for sale')) return 1;
-            if (h.includes('complete')) return 0;
-            return 9;
+        function setFilter(f) {
+            activeFilter = f;
+            activeCat = '';
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            renderGallery();
         }
 
-        function buildGallery(data) {
-            // Only show pieces with background-removed (PNG) photos
-            data = data.filter(p =>
-                (p.mainImage || '').match(/\.png$/i) ||
-                (p.progressPhotos || []).some(ph => (ph || '').match(/\.png$/i))
-            );
+        function setCat(cat) {
+            activeCat = activeCat === cat ? '' : cat;
+            activeFilter = 'all';
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filter-btn').classList.add('active'); // re-activate "All"
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            if (activeCat) event.currentTarget.classList.add('active');
+            renderGallery();
+        }
 
-            // Sort oldest → newest to assign numbers
+        function renderGallery() {
+            let data = allPieces.slice();
+
+            if (activeFilter !== 'all') {
+                data = data.filter(p => pieceStatus(p) === activeFilter);
+            }
+            if (activeCat) {
+                data = data.filter(p => inferCategory(p.name) === activeCat);
+            }
+
+            // Sort: available first, then gifted, then others
+            const statusOrder = { available: 0, other: 1, gifted: 2, sold: 3 };
             data.sort((a, b) => {
-                const da = a.dateStart || '';
-                const db = b.dateStart || '';
-                if (da && db) return da.localeCompare(db);
-                if (da) return -1;
-                if (db) return 1;
-                return (a.createdAt || 0) - (b.createdAt || 0);
+                const sa = statusOrder[pieceStatus(a)] ?? 9;
+                const sb = statusOrder[pieceStatus(b)] ?? 9;
+                if (sa !== sb) return sa - sb;
+                // within same status: newest first
+                return (b.dateStart || '').localeCompare(a.dateStart || '');
             });
-            // Assign sequential numbers (oldest = 1)
-            data.forEach((p, i) => p._num = i + 1);
-            // Sort by stage (complete first), then newest first within each stage
-            data.sort((a, b) => {
-                const stageDiff = stageRank(a) - stageRank(b);
-                if (stageDiff !== 0) return stageDiff;
-                const da = a.dateStart || '';
-                const db = b.dateStart || '';
-                return db.localeCompare(da); // newest first within same stage
-            });
+
             pieces = data;
             const gallery = document.getElementById('gallery');
             const count = document.getElementById('piece-count');
-            count.textContent = `${pieces.length} pieces`;
+            count.textContent = `${pieces.length} piece${pieces.length !== 1 ? 's' : ''}`;
             gallery.innerHTML = '';
+
+            if (pieces.length === 0) {
+                gallery.innerHTML = '<div class="loading">No pieces found.</div>';
+                return;
+            }
 
             pieces.forEach((piece, i) => {
                 const div = document.createElement('div');
                 div.className = 'piece';
-
-                const badge = getBadge(piece.home);
+                div.onclick = () => openLightbox(i);
 
                 const imgHtml = piece.mainImage
                     ? `<img src="${enc(piece.mainImage)}" alt="${piece.name}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'piece-no-image',textContent:'no photo yet'}))">`
                     : `<div class="piece-no-image">no photo yet</div>`;
 
                 div.innerHTML = `
-                    <div class="piece-img-wrap">
-                        ${imgHtml}
-                    </div>
+                    <div class="piece-img-wrap">${imgHtml}</div>
                     <div class="piece-info">
                         <div class="piece-name">${piece.name}</div>
-                        ${getPriceLabel(piece)}
+                        ${getPriceLabel(piece, true)}
                     </div>
                 `;
                 gallery.appendChild(div);
@@ -617,14 +630,12 @@
             body.innerHTML = `
                 <img class="lightbox-main-img" src="${enc(piece.mainImage)}" alt="${piece.name}">
                 <div class="lightbox-info">
-                    <div class="lightbox-number">No. ${String(piece._num).padStart(2, '0')}</div>
                     <div class="lightbox-name">${piece.name}</div>
+                    ${getPriceLabel(piece, false)}
                     ${piece.description ? `<div class="lightbox-desc">${piece.description}</div>` : ''}
                     <div class="lightbox-meta">
                         ${piece.stage ? `<span>${piece.stage}</span>` : ''}
                         ${piece.clay  ? `<span>${piece.clay}</span>`  : ''}
-                        ${piece.home  ? `<span>${piece.home}</span>`  : ''}
-                        ${getPriceLabel(piece)}
                     </div>
                     ${progressHtml}
                 </div>
@@ -672,7 +683,26 @@
 
         fetch('pottery-data.json')
             .then(r => r.json())
-            .then(buildGallery)
+            .then(data => {
+                // Only show pieces with PNG main image
+                allPieces = data.filter(p =>
+                    (p.mainImage || '').match(/\.png$/i) ||
+                    (p.progressPhotos || []).some(ph => (ph || '').match(/\.png$/i))
+                );
+
+                // Build category filter buttons
+                const cats = [...new Set(allPieces.map(p => inferCategory(p.name)))].sort();
+                const bar = document.getElementById('filter-bar');
+                cats.forEach(cat => {
+                    const btn = document.createElement('button');
+                    btn.className = 'filter-btn cat-btn';
+                    btn.textContent = cat;
+                    btn.onclick = () => setCat(cat);
+                    bar.appendChild(btn);
+                });
+
+                renderGallery();
+            })
             .catch(() => {
                 document.getElementById('gallery').innerHTML =
                     '<div class="loading">Could not load pieces.</div>';
