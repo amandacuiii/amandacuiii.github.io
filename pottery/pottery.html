@@ -514,15 +514,15 @@
         function getPriceLabel(piece, forCard = true) {
             const status = pieceStatus(piece);
             if (status === 'sold') {
-                const soldAmt = piece.soldPrice ? ` · $${piece.soldPrice}` : '';
+                const soldAmt = piece.soldPrice ? ` · NTD ${piece.soldPrice}` : '';
                 return forCard
                     ? `<div class="piece-price sold">Sold${soldAmt}</div>`
                     : `<div class="lightbox-price sold">Sold${soldAmt}</div>`;
             }
             if (piece.suggestedPrice) {
                 return forCard
-                    ? `<div class="piece-price">$${piece.suggestedPrice}</div>`
-                    : `<div class="lightbox-price">$${piece.suggestedPrice}</div>`;
+                    ? `<div class="piece-price">NTD ${piece.suggestedPrice}</div>`
+                    : `<div class="lightbox-price">NTD ${piece.suggestedPrice}</div>`;
             }
             if (status === 'gifted') {
                 const loc = piece.location || piece.home || '';
