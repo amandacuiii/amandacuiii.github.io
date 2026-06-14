@@ -499,14 +499,8 @@
         let activeCat = '';
         let sortByPrice = null; // null = default, 'asc', 'desc'
 
-        function inferCategory(name) {
-            const n = (name || '').toLowerCase();
-            if (/mug|cup/.test(n)) return 'Mug';
-            if (/bowl|matcha/.test(n)) return 'Bowl';
-            if (/vase/.test(n)) return 'Vase';
-            if (/plate/.test(n)) return 'Plate';
-            if (/pot|planter|container|holder/.test(n)) return 'Planter';
-            return 'Other';
+        function inferCategory(piece) {
+            return piece.type || 'Other';
         }
 
         function pieceStatus(p) {
@@ -586,7 +580,7 @@
                 data = data.filter(p => pieceStatus(p) === activeFilter);
             }
             if (activeCat) {
-                data = data.filter(p => inferCategory(p.name) === activeCat);
+                data = data.filter(p => inferCategory(p) === activeCat);
             }
 
             if (sortByPrice) {
@@ -728,7 +722,7 @@
                 );
 
                 // Build category filter buttons
-                const cats = [...new Set(allPieces.map(p => inferCategory(p.name)))].sort();
+                const cats = [...new Set(allPieces.map(p => inferCategory(p)))].sort();
                 const bar = document.getElementById('filter-bar');
                 cats.forEach(cat => {
                     const btn = document.createElement('button');
