@@ -584,11 +584,14 @@
             }
 
             if (sortByPrice) {
-                data.sort((a, b) => {
+                const available = data.filter(p => pieceStatus(p) === 'available');
+                const rest = data.filter(p => pieceStatus(p) !== 'available');
+                available.sort((a, b) => {
                     const pa = parseFloat(a.suggestedPrice) || 0;
                     const pb = parseFloat(b.suggestedPrice) || 0;
                     return sortByPrice === 'asc' ? pa - pb : pb - pa;
                 });
+                data = [...available, ...rest];
             } else {
                 // Sort: available first, then gifted, then others
                 const statusOrder = { available: 0, other: 1, gifted: 2, sold: 3 };
