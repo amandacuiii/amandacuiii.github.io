@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Extracts base64-encoded images from pottery-data.json into pottery/,
-replacing them with file paths. Reuses existing files by piece name slug.
+replacing them with file paths. Matches by piece ID first, then slug.
 """
 import json, base64, os, re
 
@@ -17,14 +17,15 @@ with open(JSON_PATH) as f:
 def safe_name(name):
     return re.sub(r'[^a-zA-Z0-9]+', '-', (name or 'piece')).strip('-').lower()[:40]
 
-# Build a lookup of existing files by slug+suffix so we can reuse them
+# Build lookup: slug → filename (for reuse)
 existing_files = [f for f in os.listdir(OUT_DIR) if re.match(r'^\d{3}-', f)]
-# Map "slug" and "slug-p1", "slug-p2" etc → filename
 slug_map = {}
 for f in existing_files:
-    # strip leading index: "123-some-slug-p1.jpg" → "some-slug-p1"
     key = re.sub(r'^\d{3}-', '', os.path.splitext(f)[0])
     slug_map[key] = f
+
+# Track which slugs have been claimed this run to avoid duplicate reuse
+claimed = set()
 
 def next_index():
     if not existing_files:
@@ -48,15 +49,21 @@ for piece in data:
         ext = 'png' if 'png' in header else 'jpg'
         lookup_key = f'{piece_slug}{suffix}'
 
-        # Reuse existing file with matching slug if found
-        if lookup_key in slug_map:
+        # Reuse existing file only if not already claimed by another piece this run
+        if lookup_key in slug_map and lookup_key not in claimed:
+            claimed.add(lookup_key)
             reused += 1
             return slug_map[lookup_key]
 
+        # Generate a unique filename
         fname = f'{idx:03d}-{piece_slug}{suffix}.{ext}'
+        while os.path.exists(os.path.join(OUT_DIR, fname)):
+            idx += 1
+            fname = f'{idx:03d}-{piece_slug}{suffix}.{ext}'
         with open(os.path.join(OUT_DIR, fname), 'wb') as f:
             f.write(base64.b64decode(b64data))
         slug_map[lookup_key] = fname
+        claimed.add(lookup_key)
         idx += 1
         extracted += 1
         return fname
