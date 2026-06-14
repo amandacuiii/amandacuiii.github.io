@@ -594,7 +594,7 @@
                 data = [...available, ...rest];
             } else {
                 // Sort: available first, then gifted, then others
-                const statusOrder = { available: 0, other: 1, gifted: 2, sold: 3 };
+                const statusOrder = { available: 0, other: 1, sold: 2, gifted: 3 };
                 data.sort((a, b) => {
                     const sa = statusOrder[pieceStatus(a)] ?? 9;
                     const sb = statusOrder[pieceStatus(b)] ?? 9;
