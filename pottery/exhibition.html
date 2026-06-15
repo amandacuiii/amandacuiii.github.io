@@ -62,27 +62,14 @@
 
         /* ===== PHOTO BREAKS ===== */
         .photo-break {
-            height: 55vh;
+            height: 75vh;
             background-size: cover;
-            background-position: center;
-            position: relative;
+            background-position: center 50%;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1s ease;
         }
-        .photo-break::before,
-        .photo-break::after {
-            content: '';
-            position: absolute; left: 0; right: 0;
-            height: 30%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .photo-break::before {
-            top: 0;
-            background: linear-gradient(to bottom, #f9f6f2, transparent);
-        }
-        .photo-break::after {
-            bottom: 0;
-            background: linear-gradient(to top, #f9f6f2, transparent);
-        }
+        .photo-break.in-view { opacity: 1; }
         .hero-content {
             position: relative; z-index: 2;
             text-align: center; padding: 0 2rem;
@@ -448,6 +435,24 @@
         const y = window.scrollY;
         if (y < window.innerHeight * 1.5)
             heroBg.style.transform = `translateY(${y * 0.35}px) scale(1.08)`;
+    }, { passive: true });
+
+    // Photo break: fade-in + parallax
+    const photoBreaks = document.querySelectorAll('.photo-break');
+
+    const photoObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+    }, { threshold: 0.08 });
+    photoBreaks.forEach(pb => photoObs.observe(pb));
+
+    window.addEventListener('scroll', () => {
+        photoBreaks.forEach(pb => {
+            const rect = pb.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+            const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+            const offset = (progress - 0.5) * 80;
+            pb.style.backgroundPositionY = `calc(50% + ${offset}px)`;
+        });
     }, { passive: true });
 
     // Fade-up on scroll
