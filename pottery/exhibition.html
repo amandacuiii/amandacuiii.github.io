@@ -683,6 +683,13 @@
     }, { threshold: 0.05 });
     document.querySelectorAll('.video-break, .activity-inline-video').forEach(v => videoObs.observe(v));
 
+    // iOS: play all videos on first touch (required for autoplay on Safari)
+    document.addEventListener('touchstart', function() {
+        document.querySelectorAll('video').forEach(v => {
+            if (v.paused) v.play().catch(() => {});
+        });
+    }, { once: true });
+
     window.addEventListener('scroll', () => {
         photoBreaks.forEach(pb => {
             const rect = pb.getBoundingClientRect();
