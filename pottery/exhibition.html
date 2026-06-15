@@ -78,6 +78,7 @@
             overflow: hidden;
             opacity: 0;
             transition: opacity 1.2s ease;
+            background: var(--bg);
         }
         .video-break.in-view { opacity: 1; }
         .video-break video {
@@ -85,6 +86,15 @@
             height: 100%;
             display: block;
             object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .video-break {
+                height: auto;
+            }
+            .video-break video {
+                height: auto;
+                object-fit: contain;
+            }
         }
         .hero-content {
             position: relative; z-index: 2;
@@ -180,12 +190,59 @@
             color: var(--muted);
             writing-mode: vertical-rl;
         }
+        .activity:has(.activity-inner) .activity-stage { display: none; }
+        .activity-inner {
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+        .activity-inner .activity-text { flex: 1; min-width: 0; }
+        .activity-inline-video {
+            flex: 0 0 42%;
+            border-radius: 4px;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+        .activity-inline-video.in-view { opacity: 1; }
+        .activity-inline-video video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        @media (max-width: 768px) {
+            .activity-inner { flex-direction: column; }
+            .activity-inline-video { flex: none; width: 100%; }
+            .activity-inline-video video { min-height: 0; height: auto; object-fit: contain; }
+        }
 
         /* ===== THEME BLOCKS ===== */
         .theme-block {
             padding: 7rem 2rem;
             max-width: 680px;
             margin: 0 auto;
+        }
+        .theme-block.with-image {
+            max-width: 1100px;
+            display: flex;
+            gap: 4rem;
+            align-items: flex-start;
+        }
+        .theme-block.with-image .theme-content { flex: 1; min-width: 0; }
+        .theme-block.with-image .theme-photo {
+            flex: 0 0 40%;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .theme-block.with-image .theme-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .theme-block.with-image { flex-direction: column; }
+            .theme-block.with-image .theme-photo { flex: none; width: 100%; }
         }
 
         .theme-badge {
@@ -317,14 +374,6 @@
     </div>
 </section>
 
-<!-- ========== VIDEO 1 ========== -->
-<div class="video-break">
-    <video autoplay muted loop playsinline>
-        <source src="Liminal/video1.mp4" type="video/mp4">
-        <source src="Liminal/VIDEO 1.mov" type="video/quicktime">
-    </video>
-</div>
-
 <!-- ========== INTRODUCTION ========== -->
 <section class="intro">
     <p class="fade-up">During a year spent far from home, pottery became the way I stayed connected — to the people I love, to my own cultural identity, and to the present moment. From imprinted leaf plates to Qipao vases adorned with jade, each piece served as a point of exploration and connection.</p>
@@ -332,81 +381,111 @@
     <p class="fade-up">The sections throughout this space each explore a different threshold. I invite you to wander, read, and reflect on your own meaning of liminal.</p>
 </section>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3909.JPG'); background-size: cover;"></div>
+<!-- ========== VIDEO 1 ========== -->
+<div class="video-break">
+    <video muted loop playsinline preload="none">
+        <source src="Liminal/video1.mp4" type="video/mp4">
+        <source src="Liminal/VIDEO 1.mov" type="video/quicktime">
+    </video>
+</div>
+
+<div class="theme-block with-image fade-up" id="time">
+    <div class="theme-photo">
+        <img src="Liminal/Time.JPG" alt="" loading="lazy">
+    </div>
+    <div class="theme-content">
+        <h2 class="theme-badge">Time</h2>
+        <p class="theme-subtitle">for the time being</p>
+        <div class="theme-text">
+            <p>Inspired by Ruth Ozeki's novel, <em>A Tale For The Time Being</em>, this exhibit is about learning to be present: to exist fully in a moment and to find meaning in time that might slip away unnoticed.</p>
+            <p>I came to Taiwan on a Fulbright fellowship the year after I graduated. Being granted this time felt like a gift — an open stretch of days to explore the world and grow into a fuller version of myself. I wanted to use it intentionally.</p>
+            <p>Being in the studio suspended ordinary time. Hours would collapse into minutes, or stretch indefinitely. For the first time in a while, my mind was completely still. I was present.</p>
+            <p>These creations are a testament to time well spent.</p>
+        </div>
+    </div>
+</div>
 
 <!-- ========== ACTIVITY 1: FORM ========== -->
 <div class="activity fade-up">
     <div class="activity-stage">Bisque Painting · 素燒彩繪</div>
     <p class="activity-tag">Stages of Becoming</p>
     <h2 class="activity-title">Form</h2>
-    <div class="activity-body">
-        <p>Bisque firing is the first transformation in a ceramic piece's life. It exists in an in-between state: changed but not yet complete.</p>
-        <p>This is my 100th piece. Rather than finishing it myself, I want it to be shaped by everyone who walks through this space. Decorate this vase with underglaze; it will be glazed and fired again after the exhibition.</p>
-    </div>
-    <div class="activity-zh">
-        <p>素燒是一件陶瓷作品生命中的第一次轉化。此刻它存在於一種過渡狀態：已經改變，卻尚未完成。</p>
-        <p>這是我的第一百件作品。與其由我自己完成它，我希望它能被每一個走進這個空間的人所塑造。請用釉下彩裝飾這個花瓶；展覽結束後，它將再次上釉並入窯燒製。</p>
-    </div>
-</div>
-
-<div class="theme-block fade-up" id="time">
-    <h2 class="theme-badge">Time</h2>
-    <p class="theme-subtitle">for the time being</p>
-    <div class="theme-text">
-        <p>Inspired by Ruth Ozeki's novel, <em>A Tale For The Time Being</em>, this exhibit is about learning to be present: to exist fully in a moment and to find meaning in time that might slip away unnoticed.</p>
-        <p>I came to Taiwan on a Fulbright fellowship the year after I graduated. Being granted this time felt like a gift — an open stretch of days to explore the world and grow into a fuller version of myself. I wanted to use it intentionally.</p>
-        <p>Being in the studio suspended ordinary time. Hours would collapse into minutes, or stretch indefinitely. For the first time in a while, my mind was completely still. I was present.</p>
-        <p>These creations are a testament to time well spent.</p>
-    </div>
-</div>
-
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3936.JPG'); background-size: cover;"></div>
-
-<div class="theme-block fade-up" id="home">
-    <h2 class="theme-badge">Home</h2>
-    <p class="theme-subtitle">is not a place, but a feeling</p>
-    <div class="theme-text">
-        <p>There's something strange about building a life somewhere you know you'll leave soon. I spent this year forming community, establishing routines, and creating my own version of Taichung, even while knowing that it was all temporary.</p>
-        <p>I started calling my apartment on Yongchang Road "home" earlier than I expected. Similarly, I felt this sense of familiarity and comfort at the studio, in my workplace, and when visiting friends. Home, I realized, will always be defined by the people who share that space with me.</p>
-        <p>In honor of finding home here, I created a series of mugs depicting my apartment on Yongchang Road and the house I grew up in back in America. Mugs are home.</p>
-        <p>Thank you to everyone who helped make this place feel like home.</p>
+    <div class="activity-inner">
+        <div class="activity-text">
+            <div class="activity-body">
+                <p>Bisque firing is the first transformation in a ceramic piece's life. It exists in an in-between state: changed but not yet complete.</p>
+                <p>This is my 100th piece. Rather than finishing it myself, I want it to be shaped by everyone who walks through this space. Decorate this vase with underglaze; it will be glazed and fired again after the exhibition.</p>
+            </div>
+            <div class="activity-zh">
+                <p>素燒是一件陶瓷作品生命中的第一次轉化。此刻它存在於一種過渡狀態：已經改變，卻尚未完成。</p>
+                <p>這是我的第一百件作品。與其由我自己完成它，我希望它能被每一個走進這個空間的人所塑造。請用釉下彩裝飾這個花瓶；展覽結束後，它將再次上釉並入窯燒製。</p>
+            </div>
+        </div>
+        <div class="activity-inline-video">
+            <video muted loop playsinline preload="none">
+                <source src="Liminal/form.mp4" type="video/mp4">
+                <source src="Liminal/Form.mov" type="video/quicktime">
+            </video>
+        </div>
     </div>
 </div>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3813.JPG'); background-size: cover;"></div>
 
-<div class="theme-block fade-up" id="asia">
-    <h2 class="theme-badge">Asia</h2>
-    <p class="theme-subtitle">belonging</p>
-    <div class="theme-text">
-        <p>Growing up Cantonese American, I assumed that coming to Asia would bring me closer to that part of myself. Instead, the opposite happened. My Americanness became the loudest thing about me, and I found myself somewhere between two identities, belonging fully to neither.</p>
-        <p>The Qipao and lucky knot became the forms through which I explored that in-between. By integrating red string and jade into vases, I tied together my Chinese heritage, my American upbringing, and the person I was becoming in Taiwan.</p>
-        <p>Taiwan exists in its own kind of in-between: a place that holds space for tradition and modernity, contradiction and coexistence, and whose status as a country remains unresolved. Living here as a foreigner and a witness, I saw how much culture can thrive within uncertainty. Belonging can exist even in the most unresolved of places.</p>
+<div class="theme-block with-image fade-up" id="home">
+    <div class="theme-photo">
+        <img src="Liminal/Home.JPG" alt="" loading="lazy">
+    </div>
+    <div class="theme-content">
+        <h2 class="theme-badge">Home</h2>
+        <p class="theme-subtitle">is not a place, but a feeling</p>
+        <div class="theme-text">
+            <p>There's something strange about building a life somewhere you know you'll leave soon. I spent this year forming community, establishing routines, and creating my own version of Taichung, even while knowing that it was all temporary.</p>
+            <p>I started calling my apartment on Yongchang Road "home" earlier than I expected. Similarly, I felt this sense of familiarity and comfort at the studio, in my workplace, and when visiting friends. Home, I realized, will always be defined by the people who share that space with me.</p>
+            <p>In honor of finding home here, I created a series of mugs depicting my apartment on Yongchang Road and the house I grew up in back in America. Mugs are home.</p>
+            <p>Thank you to everyone who helped make this place feel like home.</p>
+        </div>
     </div>
 </div>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3829.JPG'); background-size: cover;"></div>
 
-<!-- ========== VIDEO: MARK ========== -->
-<div class="video-break">
-    <video autoplay muted loop playsinline>
-        <source src="Liminal/mark.mp4" type="video/mp4">
-        <source src="Liminal/Mark.mov" type="video/quicktime">
-    </video>
+<div class="theme-block with-image fade-up" id="asia">
+    <div class="theme-photo">
+        <img src="Liminal/Asia.JPG" alt="" loading="lazy">
+    </div>
+    <div class="theme-content">
+        <h2 class="theme-badge">Asia</h2>
+        <p class="theme-subtitle">belonging</p>
+        <div class="theme-text">
+            <p>Growing up Cantonese American, I assumed that coming to Asia would bring me closer to that part of myself. Instead, the opposite happened. My Americanness became the loudest thing about me, and I found myself somewhere between two identities, belonging fully to neither.</p>
+            <p>The Qipao and lucky knot became the forms through which I explored that in-between. By integrating red string and jade into vases, I tied together my Chinese heritage, my American upbringing, and the person I was becoming in Taiwan.</p>
+            <p>Taiwan exists in its own kind of in-between: a place that holds space for tradition and modernity, contradiction and coexistence, and whose status as a country remains unresolved. Living here as a foreigner and a witness, I saw how much culture can thrive within uncertainty. Belonging can exist even in the most unresolved of places.</p>
+        </div>
+    </div>
 </div>
+
 
 <!-- ========== ACTIVITY 2: MARK ========== -->
 <div class="activity fade-up" style="margin-top:4rem">
     <div class="activity-stage">Imprints · 拓印</div>
     <p class="activity-tag">Stages of Becoming</p>
     <h2 class="activity-title">Mark</h2>
-    <div class="activity-body">
-        <p>The leaf plates were made by pressing real leaves into clay, transforming the organic and temporary into a permanent mark. The impression that remains is its own kind of <em>liminal</em> object, suspending a living thing in between nature and artifice.</p>
-        <p>Here, you can try the same process on paper using ceramic stamps of Taiwan leaves.</p>
-    </div>
-    <div class="activity-zh">
-        <p>這些葉紋盤是將真實的葉子壓入陶土製成的，將有機而短暫的事物轉化為永久的印記。留下的壓痕本身就是一種閾限之物，將曾經鮮活的生命懸置於自然與人工之間。</p>
-        <p>在這裡，你可以用台灣葉片的陶瓷印章，在紙上嘗試同樣的過程。</p>
+    <div class="activity-inner">
+        <div class="activity-text">
+            <div class="activity-body">
+                <p>The leaf plates were made by pressing real leaves into clay, transforming the organic and temporary into a permanent mark. The impression that remains is its own kind of <em>liminal</em> object, suspending a living thing in between nature and artifice.</p>
+                <p>Here, you can try the same process on paper using ceramic stamps of Taiwan leaves.</p>
+            </div>
+            <div class="activity-zh">
+                <p>這些葉紋盤是將真實的葉子壓入陶土製成的，將有機而短暫的事物轉化為永久的印記。留下的壓痕本身就是一種閾限之物，將曾經鮮活的生命懸置於自然與人工之間。</p>
+                <p>在這裡，你可以用台灣葉片的陶瓷印章，在紙上嘗試同樣的過程。</p>
+            </div>
+        </div>
+        <div class="activity-inline-video">
+            <video muted loop playsinline preload="none">
+                <source src="Liminal/mark.mp4" type="video/mp4">
+                <source src="Liminal/Mark.mov" type="video/quicktime">
+            </video>
+        </div>
     </div>
 </div>
 
@@ -420,18 +499,27 @@
     </div>
 </div>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3863.JPG'); background-size: cover;"></div>
 
 <!-- ========== ACTIVITY 3: REFLECT ========== -->
 <div class="activity fade-up" style="margin-top:4rem; margin-bottom:0">
     <div class="activity-stage">Response Wall · 回應牆</div>
     <p class="activity-tag">Stages of Becoming</p>
     <h2 class="activity-title">Reflect</h2>
-    <div class="activity-body">
-        <p>This exhibition is about existing in an in-between state. Write a response to the prompt and add it to the wall. Your words sit alongside everyone else's, becoming a collective record of the in-between.</p>
-    </div>
-    <div class="activity-zh">
-        <p>這場展覽關於存在於過渡的狀態之中。將你對提示的回應寫在卡片上，貼到牆上。你的文字與所有人的並排而立，共同構成這段過渡時期的集體記錄。</p>
+    <div class="activity-inner">
+        <div class="activity-text">
+            <div class="activity-body">
+                <p>This exhibition is about existing in an in-between state. Write a response to the prompt and add it to the wall. Your words sit alongside everyone else's, becoming a collective record of the in-between.</p>
+            </div>
+            <div class="activity-zh">
+                <p>這場展覽關於存在於過渡的狀態之中。將你對提示的回應寫在卡片上，貼到牆上。你的文字與所有人的並排而立，共同構成這段過渡時期的集體記錄。</p>
+            </div>
+        </div>
+        <div class="activity-inline-video">
+            <video muted loop playsinline preload="none">
+                <source src="Liminal/reflection.mp4" type="video/mp4">
+                <source src="Liminal/Reflection.mov" type="video/quicktime">
+            </video>
+        </div>
     </div>
 </div>
 
@@ -443,7 +531,6 @@
     </div>
 </section>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3905.JPG'); background-size: cover;"></div>
 
 <!-- ========== THANK YOU ========== -->
 <section class="thankyou">
@@ -469,14 +556,35 @@
             heroBg.style.transform = `translateY(${y * 0.35}px) scale(1.08)`;
     }, { passive: true });
 
-    // Photo break: fade-in + parallax
+    // Photo break: lazy-load bg + fade-in + parallax
     const photoBreaks = document.querySelectorAll('.photo-break');
 
     const photoObs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
-    }, { threshold: 0.08 });
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            const el = e.target;
+            if (el.dataset.bg && !el.style.backgroundImage) {
+                el.style.backgroundImage = el.dataset.bg;
+            }
+            el.classList.add('in-view');
+        });
+    }, { threshold: 0.08, rootMargin: '200px 0px' });
     photoBreaks.forEach(pb => photoObs.observe(pb));
-    document.querySelectorAll('.video-break').forEach(v => photoObs.observe(v));
+
+    // Video break + inline video: lazy-load + play when in view
+    const videoObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            const vb = e.target;
+            const vid = vb.querySelector('video');
+            if (e.isIntersecting) {
+                vb.classList.add('in-view');
+                if (vid && vid.paused) { vid.load(); vid.play(); }
+            } else {
+                if (vid && !vid.paused) vid.pause();
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '100px 0px' });
+    document.querySelectorAll('.video-break, .activity-inline-video').forEach(v => videoObs.observe(v));
 
     window.addEventListener('scroll', () => {
         photoBreaks.forEach(pb => {
