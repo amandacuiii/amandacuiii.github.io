@@ -170,36 +170,13 @@
             writing-mode: vertical-rl;
         }
 
-        /* ===== STICKY SPLIT ===== */
-        .split {
-            display: grid;
-            grid-template-columns: 55% 45%;
-        }
-        .split-img-wrap { position: relative; }
-        .split-img-sticky {
-            position: sticky; top: 0;
-            height: 100vh; overflow: hidden;
-            background: var(--bg);
-        }
-        .split-img {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            object-fit: contain;
-            padding: 3rem 2rem;
-            opacity: 0;
-            transition: opacity 0.85s ease;
-        }
-        .split-img.active { opacity: 1; }
-
-        .split-steps { padding: 0 3.5rem; }
-        .split-step {
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            justify-content: center;
-            padding: 3rem 0;
+        /* ===== THEME BLOCKS ===== */
+        .theme-block {
+            padding: 7rem 2rem;
+            max-width: 680px;
+            margin: 0 auto;
         }
 
-        /* Theme intro step (step 0) */
         .theme-badge {
             font-size: clamp(3rem, 7vw, 6rem);
             font-weight: 300;
@@ -221,28 +198,6 @@
             max-width: 38ch;
         }
         .theme-text p + p { margin-top: 1.2rem; }
-
-        /* Piece step */
-        .piece-type {
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 1rem;
-        }
-        .piece-name {
-            font-size: clamp(2rem, 4.5vw, 3.5rem);
-            font-weight: 300;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-        }
-        .piece-status {
-            font-size: 0.8rem;
-            letter-spacing: 0.12em;
-            color: var(--accent);
-            text-transform: uppercase;
-        }
-        .piece-status.sold { color: var(--muted); }
 
         /* ===== SECTION DIVIDER ===== */
         .divider { height: 1px; background: var(--dim); margin: 0 2rem; }
@@ -379,157 +334,41 @@
     </div>
 </div>
 
-<div class="divider" style="margin-top:4rem"></div>
-
-<!-- ========== TIME ========== -->
-<section class="split" id="time">
-    <div class="split-img-wrap">
-        <div class="split-img-sticky" id="timeImgs">
-            <img src="578-morning-haze.png"           class="split-img active" data-i="0" alt="Morning Haze">
-            <img src="604-cloud.png"                  class="split-img"        data-i="1" alt="Cloud">
-            <img src="319-gaomei-wetlands-muted.png"  class="split-img"        data-i="2" alt="Gaomei Wetlands">
-            <img src="321-infinity.png"               class="split-img"        data-i="3" alt="Infinity">
-            <img src="584-garden.png"                 class="split-img"        data-i="4" alt="Garden">
-        </div>
+<div class="theme-block fade-up" id="time">
+    <h2 class="theme-badge">Time</h2>
+    <p class="theme-subtitle">for the time being</p>
+    <div class="theme-text">
+        <p>Inspired by Ruth Ozeki's novel, <em>A Tale For The Time Being</em>, this exhibit is about learning to be present: to exist fully in a moment and to find meaning in time that might slip away unnoticed.</p>
+        <p>I came to Taiwan on a Fulbright fellowship the year after I graduated. Being granted this time felt like a gift — an open stretch of days to explore the world and grow into a fuller version of myself. I wanted to use it intentionally.</p>
+        <p>Being in the studio suspended ordinary time. Hours would collapse into minutes, or stretch indefinitely. For the first time in a while, my mind was completely still. I was present.</p>
+        <p>These creations are a testament to time well spent.</p>
     </div>
-    <div class="split-steps" id="timeSteps">
-        <div class="split-step" data-step="0">
-            <h2 class="theme-badge">Time</h2>
-            <p class="theme-subtitle">for the time being</p>
-            <div class="theme-text">
-                <p>Inspired by Ruth Ozeki's novel, <em>A Tale For The Time Being</em>, this exhibit is about learning to be present: to exist fully in a moment and to find meaning in time that might slip away unnoticed.</p>
-                <p>I came to Taiwan on a Fulbright fellowship the year after I graduated. Being granted this time felt like a gift — an open stretch of days to explore the world and grow into a fuller version of myself. I wanted to use it intentionally.</p>
-                <p>Being in the studio suspended ordinary time. Hours would collapse into minutes, or stretch indefinitely. For the first time in a while, my mind was completely still. I was present.</p>
-                <p>These creations are a testament to time well spent.</p>
-            </div>
-        </div>
-        <div class="split-step" data-step="1">
-            <p class="piece-type">Plant Pot</p>
-            <h3 class="piece-name">Cloud</h3>
-            <p class="piece-status">NTD 600 · Available</p>
-        </div>
-        <div class="split-step" data-step="2">
-            <p class="piece-type">Bowl</p>
-            <h3 class="piece-name">Gaomei Wetlands</h3>
-            <p class="piece-status">NTD 700 · Available</p>
-        </div>
-        <div class="split-step" data-step="3">
-            <p class="piece-type">Vase</p>
-            <h3 class="piece-name">Infinity</h3>
-            <p class="piece-status sold">Sold · NTD 5,500</p>
-        </div>
-        <div class="split-step" data-step="4">
-            <p class="piece-type">Plant Pot</p>
-            <h3 class="piece-name">Garden</h3>
-            <p class="piece-status sold">Sold · NTD 900</p>
-        </div>
-    </div>
-</section>
+</div>
 
 <div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3936.JPG'); background-position: center 40%;"></div>
 
-<!-- ========== HOME ========== -->
-<section class="split" id="home">
-    <div class="split-img-wrap">
-        <div class="split-img-sticky" id="homeImgs">
-            <img src="328-home.png"             class="split-img active" data-i="0" alt="Home">
-            <img src="377-childhood-home-1.png" class="split-img"        data-i="1" alt="Childhood Home #1">
-            <img src="379-childhood-home-2.png" class="split-img"        data-i="2" alt="Childhood Home #2">
-            <img src="385-childhood-home-3.png" class="split-img"        data-i="3" alt="Childhood Home #3">
-            <img src="636-home-here.png"        class="split-img"        data-i="4" alt="Home Here">
-        </div>
+<div class="theme-block fade-up" id="home">
+    <h2 class="theme-badge">Home</h2>
+    <p class="theme-subtitle">is not a place, but a feeling</p>
+    <div class="theme-text">
+        <p>There's something strange about building a life somewhere you know you'll leave soon. I spent this year forming community, establishing routines, and creating my own version of Taichung, even while knowing that it was all temporary.</p>
+        <p>I started calling my apartment on Yongchang Road "home" earlier than I expected. Similarly, I felt this sense of familiarity and comfort at the studio, in my workplace, and when visiting friends. Home, I realized, will always be defined by the people who share that space with me.</p>
+        <p>In honor of finding home here, I created a series of mugs depicting my apartment on Yongchang Road and the house I grew up in back in America. Mugs are home.</p>
+        <p>Thank you to everyone who helped make this place feel like home.</p>
     </div>
-    <div class="split-steps" id="homeSteps">
-        <div class="split-step" data-step="0">
-            <h2 class="theme-badge">Home</h2>
-            <p class="theme-subtitle">is not a place, but a feeling</p>
-            <div class="theme-text">
-                <p>There's something strange about building a life somewhere you know you'll leave soon. I spent this year forming community, establishing routines, and creating my own version of Taichung, even while knowing that it was all temporary.</p>
-                <p>I started calling my apartment on Yongchang Road "home" earlier than I expected. Similarly, I felt this sense of familiarity and comfort at the studio, in my workplace, and when visiting friends. Home, I realized, will always be defined by the people who share that space with me.</p>
-                <p>In honor of finding home here, I created a series of mugs depicting my apartment on Yongchang Road and the house I grew up in back in America. Mugs are home.</p>
-                <p>Thank you to everyone who helped make this place feel like home.</p>
-            </div>
-        </div>
-        <div class="split-step" data-step="1">
-            <p class="piece-type">Mug</p>
-            <h3 class="piece-name">Childhood Home #1</h3>
-            <p class="piece-status sold">Sold · NTD 900</p>
-        </div>
-        <div class="split-step" data-step="2">
-            <p class="piece-type">Mug</p>
-            <h3 class="piece-name">Childhood Home #2</h3>
-            <p class="piece-status sold">Sold · NTD 900</p>
-        </div>
-        <div class="split-step" data-step="3">
-            <p class="piece-type">Mug</p>
-            <h3 class="piece-name">Childhood Home #3</h3>
-            <p class="piece-status sold">Sold · NTD 900</p>
-        </div>
-        <div class="split-step" data-step="4">
-            <p class="piece-type">Mug</p>
-            <h3 class="piece-name">Home Here</h3>
-            <p class="piece-status sold">Sold · NTD 900</p>
-        </div>
-    </div>
-</section>
+</div>
 
 <div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3813.JPG'); background-position: center 20%;"></div>
 
-<!-- ========== ASIA ========== -->
-<section class="split" id="asia">
-    <div class="split-img-wrap">
-        <div class="split-img-sticky" id="asiaImgs">
-            <img src="611-qipao-jade.png"              class="split-img active" data-i="0" alt="Qipao (jade)">
-            <img src="601-pink-qipao.png"              class="split-img"        data-i="1" alt="Pink Qipao">
-            <img src="606-qipao-magenta.png"           class="split-img"        data-i="2" alt="Qipao (magenta)">
-            <img src="373-lucky-knot.png"              class="split-img"        data-i="3" alt="Lucky Knot">
-            <img src="569-panchang-knot.png"           class="split-img"        data-i="4" alt="Panchang Knot">
-            <img src="452-inspired-by-amis.png"        class="split-img"        data-i="5" alt="Inspired By Amis">
-            <img src="582-cherry-blossoms-taiwan.png"  class="split-img"        data-i="6" alt="Cherry Blossoms, Taiwan">
-        </div>
+<div class="theme-block fade-up" id="asia">
+    <h2 class="theme-badge">Asia</h2>
+    <p class="theme-subtitle">belonging</p>
+    <div class="theme-text">
+        <p>Growing up Cantonese American, I assumed that coming to Asia would bring me closer to that part of myself. Instead, the opposite happened. My Americanness became the loudest thing about me, and I found myself somewhere between two identities, belonging fully to neither.</p>
+        <p>The Qipao and lucky knot became the forms through which I explored that in-between. By integrating red string and jade into vases, I tied together my Chinese heritage, my American upbringing, and the person I was becoming in Taiwan.</p>
+        <p>Taiwan exists in its own kind of in-between: a place that holds space for tradition and modernity, contradiction and coexistence, and whose status as a country remains unresolved. Living here as a foreigner and a witness, I saw how much culture can thrive within uncertainty. Belonging can exist even in the most unresolved of places.</p>
     </div>
-    <div class="split-steps" id="asiaSteps">
-        <div class="split-step" data-step="0">
-            <h2 class="theme-badge">Asia</h2>
-            <p class="theme-subtitle">belonging</p>
-            <div class="theme-text">
-                <p>Growing up Cantonese American, I assumed that coming to Asia would bring me closer to that part of myself. Instead, the opposite happened. My Americanness became the loudest thing about me, and I found myself somewhere between two identities, belonging fully to neither.</p>
-                <p>The Qipao and lucky knot became the forms through which I explored that in-between. By integrating red string and jade into vases, I tied together my Chinese heritage, my American upbringing, and the person I was becoming in Taiwan.</p>
-                <p>Taiwan exists in its own kind of in-between: a place that holds space for tradition and modernity, contradiction and coexistence, and whose status as a country remains unresolved. Living here as a foreigner and a witness, I saw how much culture can thrive within uncertainty. Belonging can exist even in the most unresolved of places.</p>
-            </div>
-        </div>
-        <div class="split-step" data-step="1">
-            <p class="piece-type">Vase</p>
-            <h3 class="piece-name">Pink Qipao</h3>
-            <p class="piece-status sold">Sold · NTD 2,400</p>
-        </div>
-        <div class="split-step" data-step="2">
-            <p class="piece-type">Vase</p>
-            <h3 class="piece-name">Qipao (magenta)</h3>
-            <p class="piece-status sold">Sold · NTD 2,000</p>
-        </div>
-        <div class="split-step" data-step="3">
-            <p class="piece-type">Vase</p>
-            <h3 class="piece-name">Lucky Knot</h3>
-            <p class="piece-status sold">Sold · NTD 2,000</p>
-        </div>
-        <div class="split-step" data-step="4">
-            <p class="piece-type">Vase</p>
-            <h3 class="piece-name">Panchang Knot</h3>
-            <p class="piece-status sold">Sold · NTD 3,300</p>
-        </div>
-        <div class="split-step" data-step="5">
-            <p class="piece-type">Other</p>
-            <h3 class="piece-name">Inspired By Amis</h3>
-            <p class="piece-status">NTD 1,500 · Available</p>
-        </div>
-        <div class="split-step" data-step="6">
-            <p class="piece-type">Vase</p>
-            <h3 class="piece-name">Cherry Blossoms, Taiwan</h3>
-            <p class="piece-status sold">Sold · NTD 1,650</p>
-        </div>
-    </div>
-</section>
+</div>
 
 <div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3829.JPG'); background-position: center 35%;"></div>
 
@@ -548,57 +387,15 @@
     </div>
 </div>
 
-<div class="divider" style="margin-top:4rem"></div>
-
-<!-- ========== ARTS ========== -->
-<section class="split" id="arts">
-    <div class="split-img-wrap">
-        <div class="split-img-sticky" id="artsImgs">
-            <img src="361-leaf-plate.png"                class="split-img active" data-i="0" alt="Leaf Plate">
-            <img src="326-leaf-bowl.png"                 class="split-img"        data-i="1" alt="Leaf Bowl">
-            <img src="364-sweet-potato-vine-leaf.png"    class="split-img"        data-i="2" alt="Sweet Potato Vine Leaf">
-            <img src="589-brushstrokes.png"              class="split-img"        data-i="3" alt="Brushstrokes">
-            <img src="434-fruits-of-your-labor.png"      class="split-img"        data-i="4" alt="Fruits of Your Labor">
-            <img src="427-familymart-chicken-museum-display.png" class="split-img" data-i="5" alt="Familymart Chicken">
-        </div>
+<div class="theme-block fade-up" id="arts">
+    <h2 class="theme-badge">Arts</h2>
+    <p class="theme-subtitle">I am not an artist, I just make art</p>
+    <div class="theme-text">
+        <p>This exhibition is the first time I've ever written an artist statement. As someone who studied finance and only recently started creating, I struggled to claim the identity of an "artist". The theme of this exhibition captures how I felt throughout my artistic journey this past year: in a constant state of becoming, discovery, and wonder.</p>
+        <p>While preparing for this show, I kept returning to memories of my mother and grandmother, watching them garden, make zongzi, and knit scarves. From them, I learned to create with intention and to use craft as a way of connecting with the people around me. I owe my love for art to them.</p>
+        <p style="margin-top:1.5rem; font-style:italic; font-size:0.85rem;">"Long before we called ourselves artists or crafters or creatives, we stitched, carved, wove, painted. We told stories in patterns, in pigments, in pots and cloth. We shaped the world around us with our hands; out of need, because of beauty, out of love. It's a part of being human, this impulse to create."<br>— Emily Charlotte Powell</p>
     </div>
-    <div class="split-steps" id="artsSteps">
-        <div class="split-step" data-step="0">
-            <h2 class="theme-badge">Arts</h2>
-            <p class="theme-subtitle">I am not an artist, I just make art</p>
-            <div class="theme-text">
-                <p>This exhibition is the first time I've ever written an artist statement. As someone who studied finance and only recently started creating, I struggled to claim the identity of an "artist". The theme of this exhibition captures how I felt throughout my artistic journey this past year: in a constant state of becoming, discovery, and wonder.</p>
-                <p>While preparing for this show, I kept returning to memories of my mother and grandmother, watching them garden, make zongzi, and knit scarves. From them, I learned to create with intention and to use craft as a way of connecting with the people around me. I owe my love for art to them.</p>
-                <p style="margin-top:1.5rem; font-style:italic; font-size:0.85rem;">"Long before we called ourselves artists or crafters or creatives, we stitched, carved, wove, painted. We told stories in patterns, in pigments, in pots and cloth. We shaped the world around us with our hands; out of need, because of beauty, out of love. It's a part of being human, this impulse to create."<br>— Emily Charlotte Powell</p>
-            </div>
-        </div>
-        <div class="split-step" data-step="1">
-            <p class="piece-type">Bowl</p>
-            <h3 class="piece-name">Leaf Bowl</h3>
-            <p class="piece-status">NTD 800 · Available</p>
-        </div>
-        <div class="split-step" data-step="2">
-            <p class="piece-type">Plate</p>
-            <h3 class="piece-name">Sweet Potato Vine Leaf</h3>
-            <p class="piece-status">NTD 450 · Available</p>
-        </div>
-        <div class="split-step" data-step="3">
-            <p class="piece-type">Plant Pot</p>
-            <h3 class="piece-name">Brushstrokes</h3>
-            <p class="piece-status">NTD 850 · Available</p>
-        </div>
-        <div class="split-step" data-step="4">
-            <p class="piece-type">Bowl</p>
-            <h3 class="piece-name">Fruits of Your Labor</h3>
-            <p class="piece-status sold">Sold · NTD 1,200</p>
-        </div>
-        <div class="split-step" data-step="5">
-            <p class="piece-type">Other</p>
-            <h3 class="piece-name">Familymart Chicken</h3>
-            <p class="piece-status">NTD 4,500 · Available</p>
-        </div>
-    </div>
-</section>
+</div>
 
 <div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3863.JPG'); background-position: center 60%;"></div>
 
@@ -648,27 +445,6 @@
         if (y < window.innerHeight * 1.5)
             heroBg.style.transform = `translateY(${y * 0.35}px) scale(1.08)`;
     }, { passive: true });
-
-    // Sticky image switching via IntersectionObserver
-    function initSplit(stepsId, imgsId) {
-        const steps = document.getElementById(stepsId).querySelectorAll('[data-step]');
-        const imgs  = document.getElementById(imgsId).querySelectorAll('.split-img');
-
-        const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (!e.isIntersecting) return;
-                const idx = parseInt(e.target.dataset.step);
-                imgs.forEach((img, i) => img.classList.toggle('active', i === idx));
-            });
-        }, { threshold: 0.5, rootMargin: '0px 0px -5% 0px' });
-
-        steps.forEach(s => obs.observe(s));
-    }
-
-    initSplit('timeSteps',  'timeImgs');
-    initSplit('homeSteps',  'homeImgs');
-    initSplit('asiaSteps',  'asiaImgs');
-    initSplit('artsSteps',  'artsImgs');
 
     // Fade-up on scroll
     const fadeObs = new IntersectionObserver(entries => {
