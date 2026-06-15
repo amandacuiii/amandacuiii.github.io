@@ -70,6 +70,20 @@
             transition: opacity 1s ease;
         }
         .photo-break.in-view { opacity: 1; }
+
+        /* ===== VIDEO BREAK ===== */
+        .video-break {
+            width: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .video-break.in-view { opacity: 1; }
+        .video-break video {
+            width: 100%;
+            display: block;
+            max-height: 90vh;
+            object-fit: cover;
+        }
         .hero-content {
             position: relative; z-index: 2;
             text-align: center; padding: 0 2rem;
@@ -301,6 +315,14 @@
     </div>
 </section>
 
+<!-- ========== VIDEO 1 ========== -->
+<div class="video-break">
+    <video autoplay muted loop playsinline>
+        <source src="Liminal/video1.mp4" type="video/mp4">
+        <source src="Liminal/VIDEO 1.mov" type="video/quicktime">
+    </video>
+</div>
+
 <!-- ========== INTRODUCTION ========== -->
 <section class="intro">
     <p class="fade-up">During a year spent far from home, pottery became the way I stayed connected — to the people I love, to my own cultural identity, and to the present moment. From imprinted leaf plates to Qipao vases adorned with jade, each piece served as a point of exploration and connection.</p>
@@ -444,6 +466,7 @@
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
     }, { threshold: 0.08 });
     photoBreaks.forEach(pb => photoObs.observe(pb));
+    document.querySelectorAll('.video-break').forEach(v => photoObs.observe(v));
 
     window.addEventListener('scroll', () => {
         photoBreaks.forEach(pb => {
