@@ -39,6 +39,11 @@
         .nav-brand { font-size: 0.85rem; letter-spacing: 0.08em; color: var(--text); }
         .nav-back  { font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; transition: color 0.3s; }
         .nav-back:hover { color: var(--text); }
+        .nav-tabs { display: flex; gap: 0; align-items: center; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; overflow: hidden; }
+        .nav-tab { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.9rem; color: var(--muted); transition: background 0.2s, color 0.2s; }
+        .nav-tab:hover { color: var(--text); }
+        .nav-tab.active { background: var(--accent); color: #1a1714; }
+        .nav-tab + .nav-tab { border-left: 1px solid rgba(255,255,255,0.15); }
 
         /* ===== HERO ===== */
         .hero {
@@ -319,7 +324,10 @@
 <!-- Nav -->
 <nav class="nav">
     <a href="../Title Page/index.html" class="nav-brand">Amanda Cui</a>
-    <a href="pottery.html" class="nav-back">← gallery</a>
+    <div class="nav-tabs">
+        <a href="pottery.html" class="nav-tab">Gallery</a>
+        <a href="exhibition.html" class="nav-tab active">Liminal</a>
+    </div>
 </nav>
 
 <!-- ========== HERO ========== -->
