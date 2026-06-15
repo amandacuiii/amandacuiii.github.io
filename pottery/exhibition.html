@@ -672,28 +672,11 @@
     }, { threshold: 0.08, rootMargin: '200px 0px' });
     photoBreaks.forEach(pb => photoObs.observe(pb));
 
-    // Video break + inline video: fade in + ensure playing when in view
+    // Video break + inline video: fade in only (autoplay handles playback)
     const videoObs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            const vb = e.target;
-            const vid = vb.querySelector('video');
-            if (!vid) return;
-            if (e.isIntersecting) {
-                vb.classList.add('in-view');
-                // Ensure playing — needed on iOS when video was hidden
-                if (vid.paused) {
-                    const p = vid.play();
-                    if (p && p.catch) p.catch(() => {});
-                }
-            }
-        });
-    }, { threshold: 0.05, rootMargin: '0px 0px' });
-    document.querySelectorAll('.video-break, .activity-inline-video').forEach(v => {
-        const vid = v.querySelector('video');
-        // Pre-load on mobile so autoplay fires when element becomes visible
-        if (vid) vid.load();
-        videoObs.observe(v);
-    });
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.video-break, .activity-inline-video').forEach(v => videoObs.observe(v));
 
     window.addEventListener('scroll', () => {
         photoBreaks.forEach(pb => {
