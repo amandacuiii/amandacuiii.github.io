@@ -4,758 +4,653 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liminal — Amanda Cui</title>
-    <meta name="description" content="Liminal: A record of creation between stages. Ceramics by Amanda Cui, 2024–2025.">
+    <meta name="description" content="Liminal: A Record of Creation In Between Stages. Ceramics exhibition by Amanda Cui, June 2025.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0d0d0d;
-            --text: #f0ebe0;
-            --muted: #7a7060;
-            --accent: #b8a888;
-            --dim: #2a2520;
-            --font: 'Neuton', serif;
+            --bg:      #0d0d0d;
+            --text:    #f0ebe0;
+            --muted:   #6e6758;
+            --accent:  #b8a888;
+            --dim:     #1e1c18;
+            --parch:   #f0ebe0;
+            --parch-dark: #2c2820;
+            --font:    'Neuton', serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: var(--font);
-            overflow-x: hidden;
-        }
-
+        body { background: var(--bg); color: var(--text); font-family: var(--font); overflow-x: hidden; }
         a { color: inherit; text-decoration: none; }
 
         /* ===== NAV ===== */
         .nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2rem;
-            background: linear-gradient(to bottom, rgba(13,13,13,0.8) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(13,13,13,0.85), transparent);
         }
-
-        .nav-brand {
-            font-size: 0.9rem;
-            letter-spacing: 0.08em;
-            color: var(--text);
-        }
-
-        .nav-back {
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
-            color: var(--muted);
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
-
+        .nav-brand { font-size: 0.85rem; letter-spacing: 0.08em; color: var(--text); }
+        .nav-back  { font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; transition: color 0.3s; }
         .nav-back:hover { color: var(--text); }
 
         /* ===== HERO ===== */
         .hero {
             position: relative;
-            height: 100vh;
-            height: 100svh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 100vh; height: 100svh;
+            display: flex; align-items: center; justify-content: center;
             overflow: hidden;
         }
-
         .hero-bg {
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background-image: url('612-qipao-jade-p1.jpg');
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.28);
+            background-size: cover; background-position: center;
+            filter: brightness(0.25);
             transform: scale(1.08);
             will-change: transform;
         }
-
         .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 0 2rem;
+            position: relative; z-index: 2;
+            text-align: center; padding: 0 2rem;
         }
-
-        .hero-title {
-            font-size: clamp(5rem, 16vw, 13rem);
+        .hero-en {
+            font-size: clamp(5rem, 15vw, 12rem);
             font-weight: 300;
             letter-spacing: 0.18em;
             line-height: 1;
-            color: var(--text);
         }
-
-        .hero-sub {
-            margin-top: 1.5rem;
-            font-size: clamp(0.75rem, 1.8vw, 1rem);
+        .hero-zh {
+            margin-top: 1rem;
+            font-size: clamp(1rem, 3vw, 1.8rem);
             letter-spacing: 0.3em;
             color: var(--accent);
             font-weight: 300;
+        }
+        .hero-sub {
+            margin-top: 0.6rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            color: var(--muted);
             text-transform: uppercase;
         }
-
-        .hero-year {
-            margin-top: 0.6rem;
-            font-size: 0.8rem;
+        .hero-date {
+            margin-top: 0.5rem;
+            font-size: 0.72rem;
             letter-spacing: 0.2em;
             color: var(--muted);
         }
-
         .scroll-hint {
-            display: block;
-            margin-top: 5rem;
-            font-size: 0.7rem;
-            letter-spacing: 0.35em;
-            color: var(--muted);
-            text-transform: uppercase;
+            display: block; margin-top: 4rem;
+            font-size: 0.68rem; letter-spacing: 0.35em;
+            color: var(--muted); text-transform: uppercase;
             animation: blink 2.5s ease infinite;
         }
-
-        @keyframes blink {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
+        @keyframes blink { 0%,100%{opacity:.3} 50%{opacity:1} }
 
         /* ===== INTRO ===== */
         .intro {
-            padding: 10rem 2rem;
+            padding: 9rem 2rem;
+            max-width: 680px; margin: 0 auto;
         }
-
-        .intro-inner {
-            max-width: 640px;
-            margin: 0 auto;
-        }
-
         .intro p {
-            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-            line-height: 1.8;
+            font-size: clamp(1rem, 2.2vw, 1.3rem);
+            line-height: 1.85; font-weight: 300;
+        }
+        .intro p + p { margin-top: 1.8rem; color: var(--muted); }
+        .intro p:last-child { margin-top: 2.5rem; color: var(--accent); font-style: italic; }
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activity {
+            margin: 0 2rem;
+            padding: 5rem 4rem;
+            background: var(--parch);
+            color: #1a1714;
+            position: relative;
+        }
+        .activity-tag {
+            font-size: 0.65rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: #8a7e6e;
+            margin-bottom: 1.5rem;
+        }
+        .activity-title {
+            font-size: clamp(1.4rem, 3.5vw, 2.2rem);
             font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            line-height: 1.2;
         }
-
-        .intro p + p {
+        .activity-body {
+            font-size: 1rem;
+            line-height: 1.85;
+            color: #4a4238;
+            max-width: 52ch;
+        }
+        .activity-body p + p { margin-top: 1.2rem; }
+        .activity-zh {
             margin-top: 2rem;
-            color: var(--muted);
+            padding-top: 2rem;
+            border-top: 1px solid #d8d0c0;
+            font-size: 0.9rem;
+            line-height: 1.85;
+            color: #8a7e6e;
+        }
+        .activity-stage {
+            position: absolute;
+            right: 4rem; top: 5rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: #b0a090;
+            writing-mode: vertical-rl;
         }
 
-        /* ===== SHARED: STICKY SPLIT ===== */
-        .split-section {
+        /* ===== STICKY SPLIT ===== */
+        .split {
             display: grid;
             grid-template-columns: 55% 45%;
         }
-
-        .split-image-wrap { position: relative; }
-
-        .split-image-sticky {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow: hidden;
+        .split-img-wrap { position: relative; }
+        .split-img-sticky {
+            position: sticky; top: 0;
+            height: 100vh; overflow: hidden;
             background: var(--bg);
         }
-
         .split-img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: contain;
+            padding: 3rem 2rem;
             opacity: 0;
             transition: opacity 0.85s ease;
         }
-
-        .split-img.finished {
-            object-fit: contain;
-            padding: 3rem 2rem;
-        }
-
         .split-img.active { opacity: 1; }
 
         .split-steps { padding: 0 3.5rem; }
-
         .split-step {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
             justify-content: center;
-            padding: 2rem 0;
+            padding: 3rem 0;
         }
 
-        /* ===== MAKING SECTION ===== */
-        .step-num {
-            font-size: 0.68rem;
-            letter-spacing: 0.3em;
-            color: var(--muted);
-            text-transform: uppercase;
-            margin-bottom: 1.2rem;
-        }
-
-        .step-title {
-            font-size: clamp(2rem, 4vw, 3.2rem);
+        /* Theme intro step (step 0) */
+        .theme-badge {
+            font-size: clamp(3rem, 7vw, 6rem);
             font-weight: 300;
-            line-height: 1.15;
-            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+            line-height: 1;
+            margin-bottom: 0.4rem;
         }
-
-        .step-body {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--muted);
-            max-width: 34ch;
-        }
-
-        .step-price {
-            margin-top: 2.5rem;
-            display: inline-block;
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            border: 1px solid var(--dim);
-            padding: 0.5rem 1.2rem;
-            text-transform: uppercase;
-        }
-
-        /* ===== PIECE SECTIONS ===== */
-        .piece-divider {
-            height: 1px;
-            background: var(--dim);
-            margin: 0 2rem;
-        }
-
-        .piece-label {
-            font-size: 0.68rem;
+        .theme-subtitle {
+            font-size: 0.72rem;
             letter-spacing: 0.3em;
-            color: var(--muted);
             text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2.5rem;
+        }
+        .theme-text {
+            font-size: 0.95rem;
+            line-height: 1.85;
+            color: var(--muted);
+            max-width: 38ch;
+        }
+        .theme-text p + p { margin-top: 1.2rem; }
+
+        /* Piece step */
+        .piece-type {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--muted);
             margin-bottom: 1rem;
         }
-
         .piece-name {
             font-size: clamp(2rem, 4.5vw, 3.5rem);
             font-weight: 300;
             line-height: 1.1;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
-
-        .piece-body {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--muted);
-            max-width: 34ch;
-        }
-
         .piece-status {
-            margin-top: 2rem;
             font-size: 0.8rem;
             letter-spacing: 0.12em;
             color: var(--accent);
             text-transform: uppercase;
         }
+        .piece-status.sold { color: var(--muted); }
 
-        .piece-status.sold {
-            color: var(--muted);
-            text-decoration: line-through;
-        }
+        /* ===== SECTION DIVIDER ===== */
+        .divider { height: 1px; background: var(--dim); margin: 0 2rem; }
 
-        /* ===== GALLERY GRID ===== */
-        .gallery-section {
-            padding: 8rem 2rem 6rem;
-        }
-
-        .gallery-head {
+        /* ===== PROMPT CARD ===== */
+        .prompt-section {
+            min-height: 70vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 6rem 2rem;
             text-align: center;
-            margin-bottom: 4rem;
         }
-
-        .gallery-head h2 {
-            font-size: clamp(1.2rem, 3vw, 2rem);
+        .prompt-text {
+            font-size: clamp(1.4rem, 3.5vw, 2.5rem);
             font-weight: 300;
-            letter-spacing: 0.15em;
+            line-height: 1.4;
+            max-width: 18ch;
+            color: var(--text);
+        }
+        .prompt-zh {
+            margin-top: 2rem;
+            font-size: 1rem;
+            line-height: 1.8;
             color: var(--muted);
-            text-transform: uppercase;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .g-item {
-            background: #161410;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .g-item img {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: contain;
-            display: block;
-            padding: 1rem;
-            transition: transform 0.5s ease, opacity 0.3s;
-            opacity: 0.85;
-        }
-
-        .g-item:hover img {
-            transform: scale(1.04);
-            opacity: 1;
-        }
-
-        .g-item-meta {
-            padding: 0.6rem 0.8rem 0.8rem;
-        }
-
-        .g-item-name {
-            font-size: 0.8rem;
-            color: var(--muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .g-item-price {
-            font-size: 0.75rem;
-            color: var(--accent);
-            margin-top: 0.2rem;
-        }
-
-        .g-item-price.sold { color: var(--muted); }
-
-        /* ===== CLOSING ===== */
-        .closing {
+        /* ===== THANK YOU ===== */
+        .thankyou {
             padding: 8rem 2rem 10rem;
-            text-align: center;
             border-top: 1px solid var(--dim);
         }
-
-        .closing h2 {
+        .thankyou-inner { max-width: 640px; margin: 0 auto; }
+        .thankyou h2 {
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 300;
-            letter-spacing: 0.1em;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
-
-        .closing p {
-            font-size: 1rem;
+        .thankyou p {
+            font-size: 0.95rem;
             line-height: 1.9;
             color: var(--muted);
-            max-width: 48ch;
-            margin: 0 auto;
+            margin-bottom: 1.4rem;
         }
+        .thankyou p strong { color: var(--text); font-weight: 400; }
+        .thankyou .final {
+            margin-top: 3rem;
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-style: italic;
+        }
+        .thankyou a { color: var(--accent); }
 
-        .closing a { color: var(--accent); }
+        /* ===== GALLERY LINK ===== */
+        .gallery-link {
+            display: block;
+            text-align: center;
+            padding: 4rem 2rem 6rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color 0.3s;
+        }
+        .gallery-link:hover { color: var(--text); }
 
-        /* ===== FADE IN ===== */
+        /* ===== FADE UP ===== */
         .fade-up {
-            opacity: 0;
-            transform: translateY(24px);
+            opacity: 0; transform: translateY(20px);
             transition: opacity 0.9s ease, transform 0.9s ease;
         }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
 
         /* ===== MOBILE ===== */
         @media (max-width: 768px) {
-            .split-section { grid-template-columns: 1fr; }
-
-            .split-image-sticky {
-                position: relative;
-                height: 70vw;
-            }
-
+            .split { grid-template-columns: 1fr; }
+            .split-img-sticky { position: relative; height: 65vw; }
+            .split-img { padding: 1.5rem; }
             .split-steps { padding: 0 1.5rem; }
-
-            .split-step {
-                height: auto;
-                padding: 3.5rem 0;
-                border-bottom: 1px solid var(--dim);
-            }
-
+            .split-step { min-height: auto; padding: 3.5rem 0; border-bottom: 1px solid var(--dim); }
             .split-step:last-child { border-bottom: none; }
-
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title { letter-spacing: 0.1em; }
+            .activity { margin: 0 1rem; padding: 3rem 1.5rem; }
+            .activity-stage { display: none; }
             .nav { padding: 1.2rem 1.25rem; }
             .intro { padding: 6rem 1.5rem; }
-            .gallery-grid { gap: 0.6rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-en { letter-spacing: 0.1em; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Nav -->
-    <nav class="nav">
-        <a href="../Title Page/index.html" class="nav-brand">Amanda Cui</a>
-        <a href="pottery.html" class="nav-back">← gallery</a>
-    </nav>
+<!-- Nav -->
+<nav class="nav">
+    <a href="../Title Page/index.html" class="nav-brand">Amanda Cui</a>
+    <a href="pottery.html" class="nav-back">← gallery</a>
+</nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-bg" id="heroBg"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">Liminal</h1>
-            <p class="hero-sub">A record of creation between stages</p>
-            <p class="hero-year">2024 – 2025</p>
-            <span class="scroll-hint">scroll</span>
-        </div>
-    </section>
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content">
+        <h1 class="hero-en">Liminal</h1>
+        <p class="hero-zh">閾限狀態陶藝展覽</p>
+        <p class="hero-sub">A Record of Creation In Between Stages</p>
+        <p class="hero-date">June 13, 2025 · Taichung</p>
+        <span class="scroll-hint">scroll</span>
+    </div>
+</section>
 
-    <!-- Intro -->
-    <section class="intro">
-        <div class="intro-inner">
-            <p class="fade-up">Clay begins as nothing — rough, formless, indifferent. Each piece in this exhibition started the same way: a lump of earth, shaped by hand across weeks of studio time.</p>
-            <p class="fade-up">Liminal is a record of the in-between. Not the idea, not the outcome — the threshold. Between raw material and finished object. Between making something and letting it go.</p>
-        </div>
-    </section>
+<!-- ========== INTRODUCTION ========== -->
+<section class="intro">
+    <p class="fade-up">During a year spent far from home, pottery became the way I stayed connected — to the people I love, to my own cultural identity, and to the present moment. From imprinted leaf plates to Qipao vases adorned with jade, each piece served as a point of exploration and connection.</p>
+    <p class="fade-up">Ceramics is shaped by a series of transformations. The process involves irreversible shifts where control transfers from the artist to the material, and finally to the heat of the kiln. This craft became a mirror for a year centered on process rather than outcome, teaching me to trust what emerges. I also found myself changing and growing into different versions of myself.</p>
+    <p class="fade-up">The sections throughout this space each explore a different threshold. I invite you to wander, read, and reflect on your own meaning of liminal.</p>
+</section>
 
-    <!-- Making: Qipao (jade) — 6 progress + finished -->
-    <section class="split-section" id="making">
-        <div class="split-image-wrap">
-            <div class="split-image-sticky" id="makingImages">
-                <img src="612-qipao-jade-p1.jpg"  class="split-img active" data-i="0" alt="">
-                <img src="613-qipao-jade-p2.jpg"  class="split-img"        data-i="1" alt="">
-                <img src="614-qipao-jade-p3.jpg"  class="split-img"        data-i="2" alt="">
-                <img src="615-qipao-jade-p4.jpg"  class="split-img"        data-i="3" alt="">
-                <img src="616-qipao-jade-p5.jpg"  class="split-img"        data-i="4" alt="">
-                <img src="617-qipao-jade-p6.jpg"  class="split-img"        data-i="5" alt="">
-                <img src="611-qipao-jade.png"      class="split-img finished" data-i="6" alt="Qipao (jade)">
-            </div>
+<!-- ========== ACTIVITY 1: FORM ========== -->
+<div class="activity fade-up">
+    <div class="activity-stage">Bisque Painting · 素燒彩繪</div>
+    <p class="activity-tag">Stages of Becoming</p>
+    <h2 class="activity-title">Form</h2>
+    <div class="activity-body">
+        <p>Bisque firing is the first transformation in a ceramic piece's life. It exists in an in-between state: changed but not yet complete.</p>
+        <p>This is my 100th piece. Rather than finishing it myself, I want it to be shaped by everyone who walks through this space. Decorate this vase with underglaze; it will be glazed and fired again after the exhibition.</p>
+    </div>
+    <div class="activity-zh">
+        <p>素燒是一件陶瓷作品生命中的第一次轉化。此刻它存在於一種過渡狀態：已經改變，卻尚未完成。</p>
+        <p>這是我的第一百件作品。與其由我自己完成它，我希望它能被每一個走進這個空間的人所塑造。請用釉下彩裝飾這個花瓶；展覽結束後，它將再次上釉並入窯燒製。</p>
+    </div>
+</div>
+
+<div class="divider" style="margin-top:4rem"></div>
+
+<!-- ========== TIME ========== -->
+<section class="split" id="time">
+    <div class="split-img-wrap">
+        <div class="split-img-sticky" id="timeImgs">
+            <img src="578-morning-haze.png"           class="split-img active" data-i="0" alt="Morning Haze">
+            <img src="604-cloud.png"                  class="split-img"        data-i="1" alt="Cloud">
+            <img src="319-gaomei-wetlands-muted.png"  class="split-img"        data-i="2" alt="Gaomei Wetlands">
+            <img src="321-infinity.png"               class="split-img"        data-i="3" alt="Infinity">
+            <img src="584-garden.png"                 class="split-img"        data-i="4" alt="Garden">
         </div>
-        <div class="split-steps" id="makingSteps">
-            <div class="split-step" data-step="0">
-                <span class="step-num">01 — raw clay</span>
-                <h2 class="step-title">The beginning</h2>
-                <p class="step-body">It starts with a block of earth, still cold from the studio shelf. Nothing about it suggests what it will become.</p>
-            </div>
-            <div class="split-step" data-step="1">
-                <span class="step-num">02 — taking shape</span>
-                <h2 class="step-title">Form</h2>
-                <p class="step-body">Pinching, rolling, coiling. The silhouette appears before the details do. Hands work by feel as much as intention.</p>
-            </div>
-            <div class="split-step" data-step="2">
-                <span class="step-num">03 — building</span>
-                <h2 class="step-title">Structure</h2>
-                <p class="step-body">Walls smoothed and thinned. Some changes are deliberate; others are accidents kept.</p>
-            </div>
-            <div class="split-step" data-step="3">
-                <span class="step-num">04 — detail</span>
-                <h2 class="step-title">Carving</h2>
-                <p class="step-body">Detail added by subtraction. A loop tool traces the pattern — careful, then less careful, then careful again.</p>
-            </div>
-            <div class="split-step" data-step="4">
-                <span class="step-num">05 — waiting</span>
-                <h2 class="step-title">Drying</h2>
-                <p class="step-body">The piece rests. Clay needs time to stiffen before it can go into the kiln. This part cannot be rushed.</p>
-            </div>
-            <div class="split-step" data-step="5">
-                <span class="step-num">06 — glaze</span>
-                <h2 class="step-title">Color</h2>
-                <p class="step-body">After bisque firing, glaze is painted on. The color looks nothing like the finished surface — it reveals itself only in the fire.</p>
-            </div>
-            <div class="split-step" data-step="6">
-                <span class="step-num">07 — finished</span>
-                <h2 class="step-title">Qipao (jade)</h2>
-                <p class="step-body">Six stages, several weeks. This is what was always inside the clay.</p>
-                <span class="step-price">NTD 2,650 · Available</span>
+    </div>
+    <div class="split-steps" id="timeSteps">
+        <div class="split-step" data-step="0">
+            <h2 class="theme-badge">Time</h2>
+            <p class="theme-subtitle">for the time being</p>
+            <div class="theme-text">
+                <p>Inspired by Ruth Ozeki's novel, <em>A Tale For The Time Being</em>, this exhibit is about learning to be present: to exist fully in a moment and to find meaning in time that might slip away unnoticed.</p>
+                <p>I came to Taiwan on a Fulbright fellowship the year after I graduated. Being granted this time felt like a gift — an open stretch of days to explore the world and grow into a fuller version of myself. I wanted to use it intentionally.</p>
+                <p>Being in the studio suspended ordinary time. Hours would collapse into minutes, or stretch indefinitely. For the first time in a while, my mind was completely still. I was present.</p>
+                <p>These creations are a testament to time well spent.</p>
             </div>
         </div>
-    </section>
+        <div class="split-step" data-step="1">
+            <p class="piece-type">Plant Pot</p>
+            <h3 class="piece-name">Cloud</h3>
+            <p class="piece-status">NTD 600 · Available</p>
+        </div>
+        <div class="split-step" data-step="2">
+            <p class="piece-type">Bowl</p>
+            <h3 class="piece-name">Gaomei Wetlands</h3>
+            <p class="piece-status">NTD 700 · Available</p>
+        </div>
+        <div class="split-step" data-step="3">
+            <p class="piece-type">Vase</p>
+            <h3 class="piece-name">Infinity</h3>
+            <p class="piece-status sold">Sold · NTD 5,500</p>
+        </div>
+        <div class="split-step" data-step="4">
+            <p class="piece-type">Plant Pot</p>
+            <h3 class="piece-name">Garden</h3>
+            <p class="piece-status sold">Sold · NTD 900</p>
+        </div>
+    </div>
+</section>
 
-    <div class="piece-divider"></div>
+<div class="divider"></div>
 
-    <!-- Piece: Lucky Knot -->
-    <section class="split-section piece-section">
-        <div class="split-image-wrap">
-            <div class="split-image-sticky">
-                <img src="374-lucky-knot-p1.jpg" class="split-img active" data-i="0" alt="">
-                <img src="375-lucky-knot-p2.jpg" class="split-img"        data-i="1" alt="">
-                <img src="376-lucky-knot-p3.jpg" class="split-img"        data-i="2" alt="">
-                <img src="373-lucky-knot.png"     class="split-img finished" data-i="3" alt="Lucky Knot">
+<!-- ========== HOME ========== -->
+<section class="split" id="home">
+    <div class="split-img-wrap">
+        <div class="split-img-sticky" id="homeImgs">
+            <img src="328-home.png"             class="split-img active" data-i="0" alt="Home">
+            <img src="377-childhood-home-1.png" class="split-img"        data-i="1" alt="Childhood Home #1">
+            <img src="379-childhood-home-2.png" class="split-img"        data-i="2" alt="Childhood Home #2">
+            <img src="385-childhood-home-3.png" class="split-img"        data-i="3" alt="Childhood Home #3">
+            <img src="636-home-here.png"        class="split-img"        data-i="4" alt="Home Here">
+        </div>
+    </div>
+    <div class="split-steps" id="homeSteps">
+        <div class="split-step" data-step="0">
+            <h2 class="theme-badge">Home</h2>
+            <p class="theme-subtitle">is not a place, but a feeling</p>
+            <div class="theme-text">
+                <p>There's something strange about building a life somewhere you know you'll leave soon. I spent this year forming community, establishing routines, and creating my own version of Taichung, even while knowing that it was all temporary.</p>
+                <p>I started calling my apartment on Yongchang Road "home" earlier than I expected. Similarly, I felt this sense of familiarity and comfort at the studio, in my workplace, and when visiting friends. Home, I realized, will always be defined by the people who share that space with me.</p>
+                <p>In honor of finding home here, I created a series of mugs depicting my apartment on Yongchang Road and the house I grew up in back in America. Mugs are home.</p>
+                <p>Thank you to everyone who helped make this place feel like home.</p>
             </div>
         </div>
-        <div class="split-steps">
-            <div class="split-step" data-step="0">
-                <span class="piece-label">Vase · in progress</span>
-                <h2 class="piece-name">Lucky Knot</h2>
-                <p class="piece-body">A traditional Chinese knot pressed into the clay surface. Symbol of good fortune — and the kind of thing that takes far longer than expected to get right.</p>
-            </div>
-            <div class="split-step" data-step="1">
-                <span class="piece-label">Building up</span>
-                <p class="piece-body">The neck narrows at the top, which requires patience to close without collapsing.</p>
-            </div>
-            <div class="split-step" data-step="2">
-                <span class="piece-label">Glaze</span>
-                <p class="piece-body">Painted before the final firing. The blue will deepen in the kiln — muted now, saturated after.</p>
-            </div>
-            <div class="split-step" data-step="3">
-                <span class="piece-label">Vase</span>
-                <h2 class="piece-name">Lucky Knot</h2>
-                <p class="piece-status sold">Sold · NTD 2,000</p>
+        <div class="split-step" data-step="1">
+            <p class="piece-type">Mug</p>
+            <h3 class="piece-name">Childhood Home #1</h3>
+            <p class="piece-status sold">Sold · NTD 900</p>
+        </div>
+        <div class="split-step" data-step="2">
+            <p class="piece-type">Mug</p>
+            <h3 class="piece-name">Childhood Home #2</h3>
+            <p class="piece-status sold">Sold · NTD 900</p>
+        </div>
+        <div class="split-step" data-step="3">
+            <p class="piece-type">Mug</p>
+            <h3 class="piece-name">Childhood Home #3</h3>
+            <p class="piece-status sold">Sold · NTD 900</p>
+        </div>
+        <div class="split-step" data-step="4">
+            <p class="piece-type">Mug</p>
+            <h3 class="piece-name">Home Here</h3>
+            <p class="piece-status sold">Sold · NTD 900</p>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========== ASIA ========== -->
+<section class="split" id="asia">
+    <div class="split-img-wrap">
+        <div class="split-img-sticky" id="asiaImgs">
+            <img src="611-qipao-jade.png"              class="split-img active" data-i="0" alt="Qipao (jade)">
+            <img src="601-pink-qipao.png"              class="split-img"        data-i="1" alt="Pink Qipao">
+            <img src="606-qipao-magenta.png"           class="split-img"        data-i="2" alt="Qipao (magenta)">
+            <img src="373-lucky-knot.png"              class="split-img"        data-i="3" alt="Lucky Knot">
+            <img src="569-panchang-knot.png"           class="split-img"        data-i="4" alt="Panchang Knot">
+            <img src="452-inspired-by-amis.png"        class="split-img"        data-i="5" alt="Inspired By Amis">
+            <img src="582-cherry-blossoms-taiwan.png"  class="split-img"        data-i="6" alt="Cherry Blossoms, Taiwan">
+        </div>
+    </div>
+    <div class="split-steps" id="asiaSteps">
+        <div class="split-step" data-step="0">
+            <h2 class="theme-badge">Asia</h2>
+            <p class="theme-subtitle">belonging</p>
+            <div class="theme-text">
+                <p>Growing up Cantonese American, I assumed that coming to Asia would bring me closer to that part of myself. Instead, the opposite happened. My Americanness became the loudest thing about me, and I found myself somewhere between two identities, belonging fully to neither.</p>
+                <p>The Qipao and lucky knot became the forms through which I explored that in-between. By integrating red string and jade into vases, I tied together my Chinese heritage, my American upbringing, and the person I was becoming in Taiwan.</p>
+                <p>Taiwan exists in its own kind of in-between: a place that holds space for tradition and modernity, contradiction and coexistence, and whose status as a country remains unresolved. Living here as a foreigner and a witness, I saw how much culture can thrive within uncertainty. Belonging can exist even in the most unresolved of places.</p>
             </div>
         </div>
-    </section>
+        <div class="split-step" data-step="1">
+            <p class="piece-type">Vase</p>
+            <h3 class="piece-name">Pink Qipao</h3>
+            <p class="piece-status sold">Sold · NTD 2,400</p>
+        </div>
+        <div class="split-step" data-step="2">
+            <p class="piece-type">Vase</p>
+            <h3 class="piece-name">Qipao (magenta)</h3>
+            <p class="piece-status sold">Sold · NTD 2,000</p>
+        </div>
+        <div class="split-step" data-step="3">
+            <p class="piece-type">Vase</p>
+            <h3 class="piece-name">Lucky Knot</h3>
+            <p class="piece-status sold">Sold · NTD 2,000</p>
+        </div>
+        <div class="split-step" data-step="4">
+            <p class="piece-type">Vase</p>
+            <h3 class="piece-name">Panchang Knot</h3>
+            <p class="piece-status sold">Sold · NTD 3,300</p>
+        </div>
+        <div class="split-step" data-step="5">
+            <p class="piece-type">Other</p>
+            <h3 class="piece-name">Inspired By Amis</h3>
+            <p class="piece-status">NTD 1,500 · Available</p>
+        </div>
+        <div class="split-step" data-step="6">
+            <p class="piece-type">Vase</p>
+            <h3 class="piece-name">Cherry Blossoms, Taiwan</h3>
+            <p class="piece-status sold">Sold · NTD 1,650</p>
+        </div>
+    </div>
+</section>
 
-    <div class="piece-divider"></div>
+<div class="divider"></div>
 
-    <!-- Piece: Brushstrokes -->
-    <section class="split-section piece-section">
-        <div class="split-image-wrap">
-            <div class="split-image-sticky">
-                <img src="590-brushstrokes-p1.jpg" class="split-img active" data-i="0" alt="">
-                <img src="591-brushstrokes-p2.jpg" class="split-img"        data-i="1" alt="">
-                <img src="592-brushstrokes-p3.jpg" class="split-img"        data-i="2" alt="">
-                <img src="593-brushstrokes-p4.jpg" class="split-img"        data-i="3" alt="">
-                <img src="589-brushstrokes.png"     class="split-img finished" data-i="4" alt="Brushstrokes">
+<!-- ========== ACTIVITY 2: MARK ========== -->
+<div class="activity fade-up" style="margin-top:4rem">
+    <div class="activity-stage">Imprints · 拓印</div>
+    <p class="activity-tag">Stages of Becoming</p>
+    <h2 class="activity-title">Mark</h2>
+    <div class="activity-body">
+        <p>The leaf plates were made by pressing real leaves into clay, transforming the organic and temporary into a permanent mark. The impression that remains is its own kind of <em>liminal</em> object, suspending a living thing in between nature and artifice.</p>
+        <p>Here, you can try the same process on paper using ceramic stamps of Taiwan leaves.</p>
+    </div>
+    <div class="activity-zh">
+        <p>這些葉紋盤是將真實的葉子壓入陶土製成的，將有機而短暫的事物轉化為永久的印記。留下的壓痕本身就是一種閾限之物，將曾經鮮活的生命懸置於自然與人工之間。</p>
+        <p>在這裡，你可以用台灣葉片的陶瓷印章，在紙上嘗試同樣的過程。</p>
+    </div>
+</div>
+
+<div class="divider" style="margin-top:4rem"></div>
+
+<!-- ========== ARTS ========== -->
+<section class="split" id="arts">
+    <div class="split-img-wrap">
+        <div class="split-img-sticky" id="artsImgs">
+            <img src="361-leaf-plate.png"                class="split-img active" data-i="0" alt="Leaf Plate">
+            <img src="326-leaf-bowl.png"                 class="split-img"        data-i="1" alt="Leaf Bowl">
+            <img src="364-sweet-potato-vine-leaf.png"    class="split-img"        data-i="2" alt="Sweet Potato Vine Leaf">
+            <img src="589-brushstrokes.png"              class="split-img"        data-i="3" alt="Brushstrokes">
+            <img src="434-fruits-of-your-labor.png"      class="split-img"        data-i="4" alt="Fruits of Your Labor">
+            <img src="427-familymart-chicken-museum-display.png" class="split-img" data-i="5" alt="Familymart Chicken">
+        </div>
+    </div>
+    <div class="split-steps" id="artsSteps">
+        <div class="split-step" data-step="0">
+            <h2 class="theme-badge">Arts</h2>
+            <p class="theme-subtitle">I am not an artist, I just make art</p>
+            <div class="theme-text">
+                <p>This exhibition is the first time I've ever written an artist statement. As someone who studied finance and only recently started creating, I struggled to claim the identity of an "artist". The theme of this exhibition captures how I felt throughout my artistic journey this past year: in a constant state of becoming, discovery, and wonder.</p>
+                <p>While preparing for this show, I kept returning to memories of my mother and grandmother, watching them garden, make zongzi, and knit scarves. From them, I learned to create with intention and to use craft as a way of connecting with the people around me. I owe my love for art to them.</p>
+                <p style="margin-top:1.5rem; font-style:italic; font-size:0.85rem;">"Long before we called ourselves artists or crafters or creatives, we stitched, carved, wove, painted. We told stories in patterns, in pigments, in pots and cloth. We shaped the world around us with our hands; out of need, because of beauty, out of love. It's a part of being human, this impulse to create."<br>— Emily Charlotte Powell</p>
             </div>
         </div>
-        <div class="split-steps">
-            <div class="split-step" data-step="0">
-                <span class="piece-label">Plant Pot · in progress</span>
-                <h2 class="piece-name">Brushstrokes</h2>
-                <p class="piece-body">Each marking made in one pass — ink-brush strokes translated into glaze. The gesture has to commit.</p>
-            </div>
-            <div class="split-step" data-step="1">
-                <p class="piece-body">Walls thinned, edges refined. A plant pot in form, but the surface carries the weight of the piece.</p>
-            </div>
-            <div class="split-step" data-step="2">
-                <p class="piece-body">The strokes are painted. Against the unfired clay they look flat. The kiln will change that.</p>
-            </div>
-            <div class="split-step" data-step="3">
-                <p class="piece-body">After firing, the glaze has settled into something quieter than expected. That too is the piece now.</p>
-            </div>
-            <div class="split-step" data-step="4">
-                <span class="piece-label">Plant Pot</span>
-                <h2 class="piece-name">Brushstrokes</h2>
-                <p class="piece-status">NTD 850 · Available</p>
-            </div>
+        <div class="split-step" data-step="1">
+            <p class="piece-type">Bowl</p>
+            <h3 class="piece-name">Leaf Bowl</h3>
+            <p class="piece-status">NTD 800 · Available</p>
         </div>
-    </section>
-
-    <div class="piece-divider"></div>
-
-    <!-- Piece: Fruits of Your Labor -->
-    <section class="split-section piece-section">
-        <div class="split-image-wrap">
-            <div class="split-image-sticky">
-                <img src="435-fruits-of-your-labor-p1.jpg" class="split-img active" data-i="0" alt="">
-                <img src="436-fruits-of-your-labor-p2.jpg" class="split-img"        data-i="1" alt="">
-                <img src="437-fruits-of-your-labor-p3.jpg" class="split-img"        data-i="2" alt="">
-                <img src="438-fruits-of-your-labor-p4.jpg" class="split-img"        data-i="3" alt="">
-                <img src="434-fruits-of-your-labor.png"    class="split-img finished" data-i="4" alt="Fruits of Your Labor">
-            </div>
+        <div class="split-step" data-step="2">
+            <p class="piece-type">Plate</p>
+            <h3 class="piece-name">Sweet Potato Vine Leaf</h3>
+            <p class="piece-status">NTD 450 · Available</p>
         </div>
-        <div class="split-steps">
-            <div class="split-step" data-step="0">
-                <span class="piece-label">Bowl · in progress</span>
-                <h2 class="piece-name">Fruits of Your Labor</h2>
-                <p class="piece-body">A bowl meant to hold things — fruit, small objects, a little nothing. The title came after.</p>
-            </div>
-            <div class="split-step" data-step="1">
-                <p class="piece-body">Clay coiled and smoothed. The rim pulled outward, then corrected, then left slightly imperfect.</p>
-            </div>
-            <div class="split-step" data-step="2">
-                <p class="piece-body">Surface textures pressed in by hand. Marks that will survive the firing.</p>
-            </div>
-            <div class="split-step" data-step="3">
-                <p class="piece-body">Glaze layered. The colors sit wet and dull on the bisqueware — the transformation is still ahead.</p>
-            </div>
-            <div class="split-step" data-step="4">
-                <span class="piece-label">Bowl</span>
-                <h2 class="piece-name">Fruits of Your Labor</h2>
-                <p class="piece-status sold">Sold · NTD 1,200</p>
-            </div>
+        <div class="split-step" data-step="3">
+            <p class="piece-type">Plant Pot</p>
+            <h3 class="piece-name">Brushstrokes</h3>
+            <p class="piece-status">NTD 850 · Available</p>
         </div>
-    </section>
-
-    <div class="piece-divider"></div>
-
-    <!-- Piece: Cloud Jade -->
-    <section class="split-section piece-section">
-        <div class="split-image-wrap">
-            <div class="split-image-sticky">
-                <img src="566-cloud-jade-p1.jpg" class="split-img active" data-i="0" alt="">
-                <img src="565-cloud-jade.png"     class="split-img finished" data-i="1" alt="Cloud Jade">
-            </div>
+        <div class="split-step" data-step="4">
+            <p class="piece-type">Bowl</p>
+            <h3 class="piece-name">Fruits of Your Labor</h3>
+            <p class="piece-status sold">Sold · NTD 1,200</p>
         </div>
-        <div class="split-steps">
-            <div class="split-step" data-step="0">
-                <span class="piece-label">Vase · in progress</span>
-                <h2 class="piece-name">Cloud Jade</h2>
-                <p class="piece-body">The jade glaze is mixed to be translucent in places, opaque in others. Where it pools in the carved lines, it darkens.</p>
-            </div>
-            <div class="split-step" data-step="1">
-                <span class="piece-label">Vase</span>
-                <h2 class="piece-name">Cloud Jade</h2>
-                <p class="piece-status">NTD 5,500 · Available</p>
-            </div>
+        <div class="split-step" data-step="5">
+            <p class="piece-type">Other</p>
+            <h3 class="piece-name">Familymart Chicken</h3>
+            <p class="piece-status">NTD 4,500 · Available</p>
         </div>
-    </section>
+    </div>
+</section>
 
-    <div class="piece-divider"></div>
+<div class="divider"></div>
 
-    <!-- Piece: Inspired By Amis -->
-    <section class="split-section piece-section">
-        <div class="split-image-wrap">
-            <div class="split-image-sticky">
-                <img src="453-inspired-by-amis-p1.jpg" class="split-img active" data-i="0" alt="">
-                <img src="454-inspired-by-amis-p2.jpg" class="split-img"        data-i="1" alt="">
-                <img src="452-inspired-by-amis.png"    class="split-img finished" data-i="2" alt="Inspired By Amis">
-            </div>
-        </div>
-        <div class="split-steps">
-            <div class="split-step" data-step="0">
-                <span class="piece-label">Other · in progress</span>
-                <h2 class="piece-name">Inspired By Amis</h2>
-                <p class="piece-body">Drawn from patterns of the Amis, one of the indigenous peoples of Taiwan. Geometry that carries history.</p>
-            </div>
-            <div class="split-step" data-step="1">
-                <p class="piece-body">Motifs painted carefully. Each line a study in repetition.</p>
-            </div>
-            <div class="split-step" data-step="2">
-                <span class="piece-label">Other</span>
-                <h2 class="piece-name">Inspired By Amis</h2>
-                <p class="piece-status">NTD 1,500 · Available</p>
-            </div>
-        </div>
-    </section>
+<!-- ========== ACTIVITY 3: REFLECT ========== -->
+<div class="activity fade-up" style="margin-top:4rem; margin-bottom:0">
+    <div class="activity-stage">Response Wall · 回應牆</div>
+    <p class="activity-tag">Stages of Becoming</p>
+    <h2 class="activity-title">Reflect</h2>
+    <div class="activity-body">
+        <p>This exhibition is about existing in an in-between state. Write a response to the prompt and add it to the wall. Your words sit alongside everyone else's, becoming a collective record of the in-between.</p>
+    </div>
+    <div class="activity-zh">
+        <p>這場展覽關於存在於過渡的狀態之中。將你對提示的回應寫在卡片上，貼到牆上。你的文字與所有人的並排而立，共同構成這段過渡時期的集體記錄。</p>
+    </div>
+</div>
 
-    <div class="piece-divider"></div>
+<!-- Prompt -->
+<section class="prompt-section">
+    <div>
+        <p class="prompt-text fade-up">Reflecting on your own journey, what is something you are in between right now?</p>
+        <p class="prompt-zh fade-up">回望你自己的旅程，<br>此刻你正處於什麼樣的過渡之中？</p>
+    </div>
+</section>
 
-    <!-- Mini gallery -->
-    <section class="gallery-section">
-        <div class="gallery-head fade-up">
-            <h2>The collection</h2>
-        </div>
-        <div class="gallery-grid" id="galleryGrid"></div>
-    </section>
+<!-- ========== THANK YOU ========== -->
+<section class="thankyou">
+    <div class="thankyou-inner">
+        <h2 class="fade-up">Thank you.</h2>
+        <p class="fade-up">Behind every piece in this room is a person who helped make it possible.</p>
+        <p class="fade-up">To <strong>Ian, 小黑, 楊老師</strong> from 南島星人工作室 — thank you for opening the studio, sharing your knowledge, and making space for this work to exist.</p>
+        <p class="fade-up">To <strong>Ericka, Grace, Ruby, Iris, Helen, Melody, and Frances</strong> — thank you for your friendship, your encouragement, and for inspiring my artistic practice throughout this year.</p>
+        <p class="fade-up">To <strong>Lulu, Terrence, Yuwen, Yvonne, Teresa, Jordan, and Simon</strong> — thank you for your mentorship and guidance throughout this year.</p>
+        <p class="fade-up">To those who traveled to be here — <strong>Tate, Tina, Daniel, Cameron, and Yuriko</strong> — and to my family, whose love and support carried across the distance.</p>
+        <p class="final fade-up">And to you, for taking the time to be present.</p>
+    </div>
+</section>
 
-    <!-- Closing -->
-    <section class="closing">
-        <h2 class="fade-up">Thank you for coming.</h2>
-        <p class="fade-up">To inquire about purchasing, reach me at<br>
-            <a href="mailto:amandacuicollab@gmail.com">amandacuicollab@gmail.com</a><br>
-            LINE: amandacuii · Instagram: <a href="https://instagram.com/amandacuii">@amandacuii</a>
-        </p>
-    </section>
+<a href="pottery.html" class="gallery-link">View the full collection →</a>
 
-    <script>
-        // === HERO PARALLAX ===
-        const heroBg = document.getElementById('heroBg');
-        window.addEventListener('scroll', () => {
-            const y = window.scrollY;
-            if (y < window.innerHeight * 1.5) {
-                heroBg.style.transform = `translateY(${y * 0.35}px) scale(1.08)`;
-            }
-        }, { passive: true });
+<script>
+    // Hero parallax
+    const heroBg = document.getElementById('heroBg');
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y < window.innerHeight * 1.5)
+            heroBg.style.transform = `translateY(${y * 0.35}px) scale(1.08)`;
+    }, { passive: true });
 
-        // === STICKY SPLIT IMAGE SWITCHING ===
-        function initSplitSection(stepsEl, imagesEl) {
-            const steps = stepsEl.querySelectorAll('[data-step]');
-            const imgs  = imagesEl.querySelectorAll('.split-img');
+    // Sticky image switching via IntersectionObserver
+    function initSplit(stepsId, imgsId) {
+        const steps = document.getElementById(stepsId).querySelectorAll('[data-step]');
+        const imgs  = document.getElementById(imgsId).querySelectorAll('.split-img');
 
-            const obs = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-                    const idx = parseInt(entry.target.dataset.step);
-                    imgs.forEach((img, i) => img.classList.toggle('active', i === idx));
-                });
-            }, {
-                threshold: 0.55,
-                rootMargin: '0px 0px -10% 0px'
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                const idx = parseInt(e.target.dataset.step);
+                imgs.forEach((img, i) => img.classList.toggle('active', i === idx));
             });
+        }, { threshold: 0.5, rootMargin: '0px 0px -5% 0px' });
 
-            steps.forEach(s => obs.observe(s));
-        }
+        steps.forEach(s => obs.observe(s));
+    }
 
-        // Making section
-        initSplitSection(
-            document.getElementById('makingSteps'),
-            document.getElementById('makingImages')
-        );
+    initSplit('timeSteps',  'timeImgs');
+    initSplit('homeSteps',  'homeImgs');
+    initSplit('asiaSteps',  'asiaImgs');
+    initSplit('artsSteps',  'artsImgs');
 
-        // All piece sections
-        document.querySelectorAll('.piece-section').forEach(section => {
-            const stepsEl  = section.querySelector('.split-steps');
-            const imagesEl = section.querySelector('.split-image-sticky');
-            if (stepsEl && imagesEl) initSplitSection(stepsEl, imagesEl);
-        });
+    // Fade-up on scroll
+    const fadeObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
 
-        // === FADE-UP ON SCROLL ===
-        const fadeObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
-
-        // === GALLERY GRID ===
-        const FEATURED = new Set([
-            '611-qipao-jade.png',
-            '373-lucky-knot.png',
-            '589-brushstrokes.png',
-            '434-fruits-of-your-labor.png',
-            '565-cloud-jade.png',
-            '452-inspired-by-amis.png',
-        ]);
-
-        fetch('pottery-data.json')
-            .then(r => r.json())
-            .then(data => {
-                const grid = document.getElementById('galleryGrid');
-
-                const pieces = data.filter(p =>
-                    p.mainImage && p.mainImage.endsWith('.png') && !FEATURED.has(p.mainImage)
-                );
-
-                pieces.forEach(p => {
-                    const status = p.soldPrice ? 'sold'
-                        : (p.location || '').toLowerCase().startsWith('gifted') ? 'gifted'
-                        : p.suggestedPrice ? 'available' : 'other';
-
-                    const priceLabel = status === 'sold'
-                        ? `Sold · NTD ${p.soldPrice}`
-                        : status === 'available'
-                        ? `NTD ${p.suggestedPrice}`
-                        : status === 'gifted'
-                        ? `Gifted`
-                        : '';
-
-                    const div = document.createElement('div');
-                    div.className = 'g-item fade-up';
-                    div.innerHTML = `
-                        <img src="${p.mainImage}" alt="${p.name}" loading="lazy">
-                        <div class="g-item-meta">
-                            <div class="g-item-name">${p.name}</div>
-                            ${priceLabel ? `<div class="g-item-price ${status}">${priceLabel}</div>` : ''}
-                        </div>
-                    `;
-                    grid.appendChild(div);
-                });
-
-                // Observe newly added fade-up items
-                grid.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
-            });
-    </script>
+    document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+</script>
 </body>
 </html>
