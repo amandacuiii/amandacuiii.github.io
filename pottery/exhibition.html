@@ -215,6 +215,7 @@
             object-fit: contain;
         }
         @media (max-width: 768px) {
+            .activity-inline-video { opacity: 1 !important; }
             .activity-inner { flex-direction: column; }
             .activity-inline-video { flex: none; width: 100%; }
             .activity-inline-video video { min-height: 0; height: auto; object-fit: contain; }
@@ -440,7 +441,7 @@
 
 <!-- ========== VIDEO 1 ========== -->
 <div class="video-break">
-    <video autoplay muted loop playsinline preload="metadata">
+    <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
         <source src="Liminal/video1.mp4" type="video/mp4">
         <source src="Liminal/VIDEO 1.mov" type="video/quicktime">
     </video>
@@ -489,7 +490,7 @@
             </div>
         </div>
         <div class="activity-inline-video">
-            <video autoplay muted loop playsinline preload="metadata">
+            <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
                 <source src="Liminal/form.mp4" type="video/mp4">
                 <source src="Liminal/Form.mov" type="video/quicktime">
             </video>
@@ -562,7 +563,7 @@
             </div>
         </div>
         <div class="activity-inline-video">
-            <video autoplay muted loop playsinline preload="metadata">
+            <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
                 <source src="Liminal/mark.mp4" type="video/mp4">
                 <source src="Liminal/Mark.mov" type="video/quicktime">
             </video>
@@ -617,7 +618,7 @@
             </div>
         </div>
         <div class="activity-inline-video">
-            <video autoplay muted loop playsinline preload="metadata">
+            <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
                 <source src="Liminal/reflection.mp4" type="video/mp4">
                 <source src="Liminal/Reflection.mov" type="video/quicktime">
             </video>
