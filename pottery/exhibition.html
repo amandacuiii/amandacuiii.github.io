@@ -74,14 +74,16 @@
         /* ===== VIDEO BREAK ===== */
         .video-break {
             width: 100%;
+            height: 75vh;
+            overflow: hidden;
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 1.2s ease;
         }
         .video-break.in-view { opacity: 1; }
         .video-break video {
             width: 100%;
+            height: 100%;
             display: block;
-            max-height: 90vh;
             object-fit: cover;
         }
         .hero-content {
