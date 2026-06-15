@@ -678,18 +678,31 @@
     }, { threshold: 0.08, rootMargin: '200px 0px' });
     photoBreaks.forEach(pb => photoObs.observe(pb));
 
-    // Video break + inline video: fade in only (autoplay handles playback)
+    // Play a video element, retrying if needed
+    function playVideo(v) { if (v.paused) v.play().catch(() => {}); }
+    function playAllVideos() { document.querySelectorAll('video').forEach(playVideo); }
+
+    // Video break + inline video: play when entering viewport
     const videoObs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('in-view');
+                const vid = e.target.tagName === 'VIDEO' ? e.target : e.target.querySelector('video');
+                if (vid) playVideo(vid);
+            }
+        });
     }, { threshold: 0.05 });
     document.querySelectorAll('.video-break, .activity-inline-video').forEach(v => videoObs.observe(v));
 
-    // iOS: play all videos on first touch (required for autoplay on Safari)
-    document.addEventListener('touchstart', function() {
-        document.querySelectorAll('video').forEach(v => {
-            if (v.paused) v.play().catch(() => {});
-        });
-    }, { once: true });
+    // Also observe the video elements themselves
+    document.querySelectorAll('video').forEach(v => videoObs.observe(v));
+
+    // iOS: play on any touch interaction (remove once so it retries on scroll-triggered touches)
+    document.addEventListener('touchstart', playAllVideos, { passive: true });
+
+    // Attempt play on load
+    document.addEventListener('DOMContentLoaded', playAllVideos);
+    window.addEventListener('load', playAllVideos);
 
     window.addEventListener('scroll', () => {
         photoBreaks.forEach(pb => {
