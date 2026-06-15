@@ -54,11 +54,24 @@
         }
         .hero-bg {
             position: absolute; inset: 0;
-            background-image: url('612-qipao-jade-p1.jpg');
-            background-size: cover; background-position: center;
-            filter: brightness(0.25);
+            background-image: url('Liminal/Event%20Photos%20/cover.JPG');
+            background-size: cover; background-position: center top;
+            filter: brightness(0.32);
             transform: scale(1.08);
             will-change: transform;
+        }
+
+        /* ===== PHOTO BREAKS ===== */
+        .photo-break {
+            height: 70vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .photo-break::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: rgba(13,13,13,0.18);
         }
         .hero-content {
             position: relative; z-index: 2;
@@ -349,6 +362,8 @@
     <p class="fade-up">The sections throughout this space each explore a different threshold. I invite you to wander, read, and reflect on your own meaning of liminal.</p>
 </section>
 
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3909.JPG'); background-position: center 30%;"></div>
+
 <!-- ========== ACTIVITY 1: FORM ========== -->
 <div class="activity fade-up">
     <div class="activity-stage">Bisque Painting · 素燒彩繪</div>
@@ -411,7 +426,7 @@
     </div>
 </section>
 
-<div class="divider"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3936.JPG'); background-position: center 40%;"></div>
 
 <!-- ========== HOME ========== -->
 <section class="split" id="home">
@@ -458,7 +473,7 @@
     </div>
 </section>
 
-<div class="divider"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3813.JPG'); background-position: center 20%;"></div>
 
 <!-- ========== ASIA ========== -->
 <section class="split" id="asia">
@@ -516,7 +531,7 @@
     </div>
 </section>
 
-<div class="divider"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3829.JPG'); background-position: center 35%;"></div>
 
 <!-- ========== ACTIVITY 2: MARK ========== -->
 <div class="activity fade-up" style="margin-top:4rem">
@@ -585,7 +600,7 @@
     </div>
 </section>
 
-<div class="divider"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3863.JPG'); background-position: center 60%;"></div>
 
 <!-- ========== ACTIVITY 3: REFLECT ========== -->
 <div class="activity fade-up" style="margin-top:4rem; margin-bottom:0">
@@ -607,6 +622,8 @@
         <p class="prompt-zh fade-up">回望你自己的旅程，<br>此刻你正處於什麼樣的過渡之中？</p>
     </div>
 </section>
+
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos%20/IMG_3905.JPG'); background-position: center 45%;"></div>
 
 <!-- ========== THANK YOU ========== -->
 <section class="thankyou">
