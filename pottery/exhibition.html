@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg:     #f2ede4;
+            --bg:     #f9f6f2;
             --text:   #1a1714;
             --muted:  #8a7e6e;
             --accent: #6b5d48;
@@ -32,7 +32,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2rem;
-            background: rgba(242,237,228,0.88);
+            background: rgba(249,246,242,0.92);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--dim);
@@ -62,9 +62,26 @@
 
         /* ===== PHOTO BREAKS ===== */
         .photo-break {
-            height: 70vh;
+            height: 55vh;
             background-size: cover;
             background-position: center;
+            position: relative;
+        }
+        .photo-break::before,
+        .photo-break::after {
+            content: '';
+            position: absolute; left: 0; right: 0;
+            height: 30%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .photo-break::before {
+            top: 0;
+            background: linear-gradient(to bottom, #f9f6f2, transparent);
+        }
+        .photo-break::after {
+            bottom: 0;
+            background: linear-gradient(to top, #f9f6f2, transparent);
         }
         .hero-content {
             position: relative; z-index: 2;
@@ -119,7 +136,7 @@
         .activity {
             margin: 0 2rem;
             padding: 5rem 4rem;
-            background: #e8e0d4;
+            background: #ede8e1;
             position: relative;
         }
         .activity-tag {
@@ -304,7 +321,7 @@
     <p class="fade-up">The sections throughout this space each explore a different threshold. I invite you to wander, read, and reflect on your own meaning of liminal.</p>
 </section>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3909.JPG'); background-position: center 30%;"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3909.JPG'); background-position: center center; background-size: contain; background-repeat: no-repeat;"></div>
 
 <!-- ========== ACTIVITY 1: FORM ========== -->
 <div class="activity fade-up">
@@ -332,7 +349,7 @@
     </div>
 </div>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3936.JPG'); background-position: center 40%;"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3936.JPG'); background-position: center center; background-size: contain; background-repeat: no-repeat;"></div>
 
 <div class="theme-block fade-up" id="home">
     <h2 class="theme-badge">Home</h2>
@@ -345,7 +362,7 @@
     </div>
 </div>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3813.JPG'); background-position: center 20%;"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3813.JPG'); background-position: center center; background-size: contain; background-repeat: no-repeat;"></div>
 
 <div class="theme-block fade-up" id="asia">
     <h2 class="theme-badge">Asia</h2>
@@ -357,7 +374,7 @@
     </div>
 </div>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3829.JPG'); background-position: center 35%;"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3829.JPG'); background-position: center center; background-size: contain; background-repeat: no-repeat;"></div>
 
 <!-- ========== ACTIVITY 2: MARK ========== -->
 <div class="activity fade-up" style="margin-top:4rem">
@@ -384,7 +401,7 @@
     </div>
 </div>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3863.JPG'); background-position: center 60%;"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3863.JPG'); background-position: center center; background-size: contain; background-repeat: no-repeat;"></div>
 
 <!-- ========== ACTIVITY 3: REFLECT ========== -->
 <div class="activity fade-up" style="margin-top:4rem; margin-bottom:0">
@@ -407,7 +424,7 @@
     </div>
 </section>
 
-<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3905.JPG'); background-position: center 45%;"></div>
+<div class="photo-break" style="background-image:url('Liminal/Event%20Photos/IMG_3905.JPG'); background-position: center center; background-size: contain; background-repeat: no-repeat;"></div>
 
 <!-- ========== THANK YOU ========== -->
 <section class="thankyou">
