@@ -196,7 +196,7 @@
         .activity-inner {
             display: flex;
             gap: 3rem;
-            align-items: flex-start;
+            align-items: center;
         }
         .activity-inner .activity-text { flex: 1; min-width: 0; }
         .activity-inline-video {
@@ -268,6 +268,31 @@
             max-width: 52ch;
         }
         .theme-text p + p { margin-top: 1.2rem; }
+
+        /* ===== PIECE STRIPS ===== */
+        .piece-strip {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 2.5rem;
+            padding: 4rem 3rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .piece-strip.visible { opacity: 1; transform: translateY(0); }
+        .piece-strip img {
+            height: 220px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+        .piece-strip img:hover { transform: translateY(-8px); }
+        @media (max-width: 768px) {
+            .piece-strip { gap: 1.5rem; padding: 3rem 1.5rem; }
+            .piece-strip img { height: 140px; }
+        }
 
         /* ===== SECTION DIVIDER ===== */
         .divider { height: 1px; background: var(--dim); margin: 0 2rem; }
@@ -474,6 +499,16 @@
     </div>
 </div>
 
+<div class="piece-strip">
+    <img src="images/328-home.png" alt="Home" loading="lazy">
+    <img src="images/377-childhood-home-1.png" alt="Childhood Home #1" loading="lazy">
+    <img src="images/379-childhood-home-2.png" alt="Childhood Home #2" loading="lazy">
+    <img src="images/385-childhood-home-3.png" alt="Childhood Home #3" loading="lazy">
+    <img src="images/542-childhood-home-4.png" alt="Childhood Home #4" loading="lazy">
+    <img src="images/504-home-is.png" alt="Home Is..." loading="lazy">
+    <img src="images/609-home-here.png" alt="Home Here" loading="lazy">
+    <img src="images/526-house-on-a-hill.png" alt="House On A Hill" loading="lazy">
+</div>
 
 <div class="theme-block with-image fade-up" id="asia">
     <div class="theme-photo">
@@ -490,6 +525,15 @@
     </div>
 </div>
 
+<div class="piece-strip">
+    <img src="images/390-qipao.png" alt="Qipao" loading="lazy">
+    <img src="images/601-pink-qipao.png" alt="Pink Qipao" loading="lazy">
+    <img src="images/606-qipao-magenta.png" alt="Qipao Magenta" loading="lazy">
+    <img src="images/611-qipao-jade.png" alt="Qipao Jade" loading="lazy">
+    <img src="images/373-lucky-knot.png" alt="Lucky Knot" loading="lazy">
+    <img src="images/569-panchang-knot.png" alt="Panchang Knot" loading="lazy">
+    <img src="images/565-cloud-jade.png" alt="Cloud Jade" loading="lazy">
+</div>
 
 <!-- ========== ACTIVITY 2: MARK ========== -->
 <div class="activity fade-up" style="margin-top:4rem">
@@ -626,6 +670,7 @@
     }, { threshold: 0.12 });
 
     document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
+    document.querySelectorAll('.piece-strip').forEach(el => fadeObs.observe(el));
 </script>
 </body>
 </html>
