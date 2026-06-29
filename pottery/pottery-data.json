@@ -48,7 +48,7 @@
     "clay": "Porcelain",
     "type": "Vase",
     "suggestedPrice": "5500",
-    "soldPrice": "",
+    "soldPrice": "5500",
     "location": "Sold"
   },
   {
@@ -193,8 +193,8 @@
     "clay": "Porcelain",
     "type": "Plant Pot",
     "suggestedPrice": "900",
-    "soldPrice": "900",
-    "location": "Sold"
+    "soldPrice": "",
+    "location": "At the studio"
   },
   {
     "id": "mpm6jhwgb7np76kgzk5",
@@ -340,8 +340,8 @@
     "clay": "Porcelain",
     "type": "Plant Pot",
     "suggestedPrice": "850",
-    "soldPrice": "",
-    "location": "At the studio"
+    "soldPrice": "850",
+    "location": "Sold"
   },
   {
     "id": "mpf0nmb6flefxubuucu",
@@ -379,7 +379,7 @@
     "clay": "Porcelain",
     "type": "Plant Pot",
     "suggestedPrice": "850",
-    "soldPrice": "",
+    "soldPrice": "850",
     "location": "Sold"
   },
   {
@@ -514,8 +514,8 @@
     "clay": "Porcelain",
     "type": "Plate",
     "suggestedPrice": "450",
-    "soldPrice": "",
-    "location": "At the studio"
+    "soldPrice": "450",
+    "location": "Sold"
   },
   {
     "id": "mowcruhwy6i0ic8406o",
@@ -723,7 +723,7 @@
     "type": "Bowl",
     "suggestedPrice": "400",
     "soldPrice": "",
-    "location": "At the studio"
+    "location": "Gifted to Joanne"
   },
   {
     "id": "mofv5xmr6jr0jsk8b6v",
@@ -840,8 +840,8 @@
     "clay": "",
     "type": "Plate",
     "suggestedPrice": "150",
-    "soldPrice": "",
-    "location": "At the studio"
+    "soldPrice": "150",
+    "location": "Sold"
   },
   {
     "id": "mo4g4ovowua07fdqpe8",
@@ -916,7 +916,7 @@
     "type": "Other",
     "suggestedPrice": "400",
     "soldPrice": "",
-    "location": "At the studio"
+    "location": "Gifted to Joanne"
   },
   {
     "id": "mo4fipn5uqn6fleoad",
@@ -1172,8 +1172,8 @@
     "clay": "Porcelain",
     "type": "Plate",
     "suggestedPrice": "250",
-    "soldPrice": "",
-    "location": "At the studio"
+    "soldPrice": "200",
+    "location": "Sold"
   },
   {
     "id": "mo40zwberdkemvxf67",
@@ -1463,8 +1463,8 @@
     "clay": "Porcelain",
     "type": "Plate",
     "suggestedPrice": "",
-    "soldPrice": "",
-    "location": "At the studio"
+    "soldPrice": "200",
+    "location": "Sold"
   },
   {
     "id": "mo3w41k546d29hp2028",
@@ -1499,8 +1499,8 @@
     "clay": "Porcelain",
     "type": "Bowl",
     "suggestedPrice": "750",
-    "soldPrice": "",
-    "location": "At the studio"
+    "soldPrice": "750",
+    "location": "Sold"
   },
   {
     "id": "mo3vtje5hixurdboo2o",
