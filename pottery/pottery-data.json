@@ -101,7 +101,7 @@
     "stage": "Complete",
     "clay": "Porcelain",
     "type": "Other",
-    "suggestedPrice": "1250",
+    "suggestedPrice": "900",
     "soldPrice": "",
     "location": "At the studio"
   },
@@ -192,7 +192,7 @@
     "stage": "Complete",
     "clay": "Porcelain",
     "type": "Plant Pot",
-    "suggestedPrice": "900",
+    "suggestedPrice": "850",
     "soldPrice": "",
     "location": "At the studio"
   },
@@ -474,7 +474,7 @@
     "createdAt": 1778211304832,
     "stage": "Complete",
     "clay": "Porcelain",
-    "type": "Plant Pot",
+    "type": "Plate",
     "suggestedPrice": "1500",
     "soldPrice": "",
     "location": "At the studio"
@@ -1171,7 +1171,7 @@
     "stage": "Complete",
     "clay": "Porcelain",
     "type": "Plate",
-    "suggestedPrice": "250",
+    "suggestedPrice": "200",
     "soldPrice": "200",
     "location": "Sold"
   },
@@ -1462,7 +1462,7 @@
     "stage": "Complete",
     "clay": "Porcelain",
     "type": "Plate",
-    "suggestedPrice": "",
+    "suggestedPrice": "200",
     "soldPrice": "200",
     "location": "Sold"
   },
