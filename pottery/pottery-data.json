@@ -38,7 +38,7 @@
     "name": "Cloud Jade",
     "mainImage": "565-cloud-jade.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "566-cloud-jade-p1.jpg"
     ],
@@ -192,9 +192,9 @@
     "stage": "Complete",
     "clay": "Porcelain",
     "type": "Plant Pot",
-    "suggestedPrice": "850",
-    "soldPrice": "",
-    "location": "At the studio"
+    "suggestedPrice": "900",
+    "soldPrice": "900",
+    "location": "Sold"
   },
   {
     "id": "mpm6jhwgb7np76kgzk5",
@@ -320,14 +320,14 @@
     "type": "Plate",
     "suggestedPrice": "450",
     "soldPrice": "",
-    "location": "Sold"
+    "location": "At the studio"
   },
   {
     "id": "mpf0og4vom2opdg2aa",
     "name": "Brushstrokes",
     "mainImage": "589-brushstrokes.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "590-brushstrokes-p1.jpg",
       "591-brushstrokes-p2.jpg",
@@ -379,8 +379,8 @@
     "clay": "Porcelain",
     "type": "Plant Pot",
     "suggestedPrice": "850",
-    "soldPrice": "850",
-    "location": "Sold"
+    "soldPrice": "",
+    "location": "At the studio"
   },
   {
     "id": "mp0s872x84cx6bi5doh",
@@ -484,7 +484,7 @@
     "name": "Leaf Plate",
     "mainImage": "361-leaf-plate.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "362-leaf-plate-p1.jpg",
       "363-leaf-plate-p2.jpg"
@@ -503,7 +503,7 @@
     "name": "Sweet Potato Vine Leaf",
     "mainImage": "364-sweet-potato-vine-leaf.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "365-sweet-potato-vine-leaf-p1.jpg",
       "366-sweet-potato-vine-leaf-p2.jpg"
@@ -616,7 +616,7 @@
     "name": "Home Here",
     "mainImage": "632-home-here.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "384-home-here-p1.jpg"
     ],
@@ -634,7 +634,7 @@
     "name": "Home Here",
     "mainImage": "640-home-here.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "641-home-here-p1.jpg"
     ],
@@ -712,7 +712,7 @@
     "name": "Carved floral bowl",
     "mainImage": "397-carved-floral-bowl.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Gifted to Joanne",
     "progressPhotos": [
       "398-carved-floral-bowl-p1.jpg"
     ],
@@ -830,7 +830,7 @@
     "name": "Half of a Leaf!",
     "mainImage": "419-half-of-a-leaf.png",
     "description": "(cracked leaf & matcha mug w/simon's pot)",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "420-half-of-a-leaf-p1.jpg"
     ],
@@ -904,7 +904,7 @@
     "name": "Ikebana",
     "mainImage": "431-ikebana.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Gifted to Joanne",
     "progressPhotos": [
       "432-ikebana-p1.jpg",
       "433-ikebana-p2.jpg"
@@ -1161,7 +1161,7 @@
     "name": "Arrangement (plant pot catcher)",
     "mainImage": "477-arrangement-plant-pot-catcher.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "478-arrangement-plant-pot-catcher-p1.jpg",
       "479-arrangement-plant-pot-catcher-p2.jpg"
@@ -1274,7 +1274,7 @@
     "name": "Valentines",
     "mainImage": "493-valentines.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "494-valentines-p1.jpg",
       "495-valentines-p2.jpg"
@@ -1452,7 +1452,7 @@
     "name": "Water Catcher",
     "mainImage": "514-water-catcher.jpg",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "515-water-catcher-p1.jpg",
       "577-water-catcher-p2.jpg"
@@ -1489,7 +1489,7 @@
     "name": "Beach",
     "mainImage": "518-beach.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "519-beach-p1.jpg"
     ],
@@ -1545,7 +1545,7 @@
     "name": "House On A Hill",
     "mainImage": "526-house-on-a-hill.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "527-house-on-a-hill-p1.jpg",
       "528-house-on-a-hill-p2.jpg",
@@ -1584,7 +1584,7 @@
     "name": "Cascade",
     "mainImage": "533-cascade.png",
     "description": "",
-    "home": "At the studio",
+    "home": "Sold",
     "progressPhotos": [
       "534-cascade-p1.jpg"
     ],
