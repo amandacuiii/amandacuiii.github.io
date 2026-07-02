@@ -858,13 +858,17 @@ function renderStats() {
   const inProgress = pieces.length - complete;
   const atStudio   = pieces.filter(p => (p.location || '').toLowerCase().includes('studio')).length;
   const gifted     = pieces.filter(p => (p.location || '').toLowerCase().includes('gift')).length;
-  const studioActive = activeLocationFilters.has('At the studio');
-  const giftedActive = activeLocationFilters.has('Gifted');
+  const sold       = pieces.filter(p => (p.location || '').toLowerCase().includes('sold')).length;
+  const available  = pieces.filter(p => !p.location || (p.location || '').toLowerCase().includes('studio')).length;
+  const studioActive    = activeLocationFilters.has('At the studio');
+  const giftedActive    = activeLocationFilters.has('Gifted');
+  const soldActive      = activeLocationFilters.has('Sold');
   document.getElementById('statsBar').innerHTML = `
     <span><strong>${pieces.length}</strong> total</span>
     <span><strong>${inProgress}</strong> in progress</span>
     <span><strong>${complete}</strong> complete</span>
-    <button class="stat-filter-btn${studioActive ? ' active' : ''}" style="margin-left:auto" onclick="toggleLocationFilter('At the studio')"><strong>${atStudio}</strong> at the studio</button>
+    <button class="stat-filter-btn${studioActive ? ' active' : ''}" style="margin-left:auto" onclick="toggleLocationFilter('At the studio')"><strong>${available}</strong> available</button>
+    <button class="stat-filter-btn${soldActive ? ' active' : ''}" onclick="toggleLocationFilter('Sold')"><strong>${sold}</strong> sold</button>
     <button class="stat-filter-btn${giftedActive ? ' active' : ''}" onclick="toggleLocationFilter('Gifted')"><strong>${gifted}</strong> gifted</button>`;
 }
 
