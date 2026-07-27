@@ -47,10 +47,24 @@
       font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
       color: var(--muted); margin-bottom: 1.2rem;
     }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 4.5rem;
+      align-items: start;
+    }
     .hero h1 {
-      font-size: clamp(2.5rem, 7vw, 6rem); font-weight: 300;
+      font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 300;
       line-height: 1.0; letter-spacing: -.03em;
       color: var(--text); max-width: 14ch;
+    }
+    .hero-about-label {
+      font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.1rem;
+    }
+    .hero-about p {
+      font-size: 1rem; font-weight: 300; line-height: 1.85;
+      color: rgba(242,237,232,0.72);
     }
     .hero-sub {
       margin-top: 1.8rem; font-size: 1rem; font-weight: 300;
@@ -64,6 +78,35 @@
       padding-bottom: .15rem; transition: opacity .2s;
     }
     .hero-contact:hover { opacity: .65; }
+
+    /* ── Stats strip ──────────────────────────────── */
+    .stats-band { border-bottom: 1px solid var(--border); }
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .stat {
+      padding: 2.2rem .9rem 2rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:nth-child(6n), .stat:last-child { border-right: none; }
+    .stats-note {
+      padding: 0 6vw 1.6rem;
+      font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); text-align: center;
+    }
+    .stat-number {
+      display: block;
+      font-size: clamp(1.6rem, 3.2vw, 2.6rem); font-weight: 300;
+      letter-spacing: -.02em; line-height: 1;
+      color: var(--accent);
+    }
+    .stat-label {
+      display: block; margin-top: .7rem;
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted);
+    }
 
     /* ── Reels section ────────────────────────────── */
     .reels-section {
@@ -227,6 +270,10 @@
     @media (max-width: 900px) {
       .reel-grid { grid-template-columns: repeat(3, 1fr); }
       .explore-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .stats-strip { grid-template-columns: repeat(3, 1fr); }
+      .stat:nth-child(3n) { border-right: none; }
+      .stat:nth-child(-n+3) { border-bottom: 1px solid var(--border); }
     }
     @media (max-width: 600px) {
       .hero { padding: 2.5rem 5vw 2rem; }
@@ -235,6 +282,11 @@
       .explore-grid { grid-template-columns: repeat(2, 1fr); }
       .explore-section { padding: 2rem 5vw 0; }
       .contact-footer { flex-direction: column; align-items: flex-start; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+      .stat { padding: 1.5rem .75rem 1.4rem; border-bottom: 1px solid var(--border); }
+      .stat:nth-child(2n) { border-right: none; }
+      .stat:nth-last-child(-n+2) { border-bottom: none; }
+      .stats-note { padding: 0 5vw 1.3rem; font-size: .62rem; }
     }
   </style>
 </head>
@@ -254,8 +306,35 @@
 <!-- ── Hero ─────────────────────────────────────────── -->
 <section class="hero">
   <div class="hero-eyebrow">Creative Collaborations</div>
-  <h1>creative work with brands I love</h1>
-  <p class="hero-sub">Instagram reels and content created with brands and people I believe in.</p>
+  <div class="hero-grid">
+    <div>
+      <h1>creative work with brands I love</h1>
+      <p class="hero-sub">Instagram reels and content created with brands and people I believe in.</p>
+      <a href="mailto:amandacuicollab@gmail.com" class="hero-contact">Work with me ↗</a>
+    </div>
+    <div class="hero-about">
+      <div class="hero-about-label">About</div>
+      <p>
+        Visual storyteller based in New York, currently working internationally.
+        Wharton → Fulbright → BCG → HBS. My work spans pottery and ceramics, the
+        creative process behind the craft, travel storytelling across Taiwan and
+        China, and personal narrative — @amandacuii · amandacui.com
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats strip ───────────────────────────────────── -->
+<section class="stats-band">
+  <div class="stats-strip">
+    <div class="stat"><span class="stat-number">18.3K</span><span class="stat-label">Followers</span></div>
+    <div class="stat"><span class="stat-number">1.28M</span><span class="stat-label">Views</span></div>
+    <div class="stat"><span class="stat-number">548K</span><span class="stat-label">Accounts Reached</span></div>
+    <div class="stat"><span class="stat-number">111K</span><span class="stat-label">Interactions</span></div>
+    <div class="stat"><span class="stat-number">61.3K</span><span class="stat-label">Accounts Engaged</span></div>
+    <div class="stat"><span class="stat-number">43.3K</span><span class="stat-label">Profile Visits</span></div>
+  </div>
+  <div class="stats-note">Instagram · followers as of today · all other figures last 30 days</div>
 </section>
 
 <!-- ── Reels ─────────────────────────────────────────── -->
@@ -393,7 +472,7 @@
         <svg viewBox="0 0 24 24" fill="#fff"><polygon points="6,3 20,12 6,21"/></svg>
       </div>
       <div class="reel-label">
-        <div class="reel-brand">Seal Stamp Carving</div>
+        <div class="reel-brand">Locopez Philly</div>
         <div class="reel-cta">Watch on Instagram ↗</div>
       </div>
     </a>
@@ -406,7 +485,7 @@
 <!-- ── Explore ───────────────────────────────────────── -->
 <section class="explore-section">
   <div class="section-label">Explore</div>
-  <div class="section-title">more of my work</div>
+  <div class="section-title">my projects outside of content creation</div>
   <div class="explore-grid">
 
     <a href="../pottery/pottery.html" class="explore-tile">
