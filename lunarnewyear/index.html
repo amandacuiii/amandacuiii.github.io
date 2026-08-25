@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Year of The... — Amanda Cui</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'Neuton', serif;
+      background: #0d0d0d;
+      color: #f2ede8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Nav ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 56px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 2rem;
+      background: rgba(13,13,13,0.9); backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(242,237,232,0.07);
+    }
+    .nav-name {
+      font-size: .88rem; font-weight: 500; letter-spacing: .08em;
+      transition: color .2s;
+    }
+    .nav-name:hover { color: #c8a882; }
+    .nav-label {
+      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(242,237,232,0.3);
+    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-link { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(242,237,232,0.4); transition: color 0.2s; }
+    .nav-link:hover { color: rgba(242,237,232,0.8); }
+    @media (max-width: 600px) { .nav-links { display: none; } }
+
+    /* ── Layout ──────────────────────────────────── */
+    .layout {
+      display: flex;
+      height: 100vh;
+      height: 100svh;
+      padding-top: 56px;
+    }
+
+    /* ── Sidebar ─────────────────────────────────── */
+    .sidebar {
+      width: 340px; flex-shrink: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 3rem 2.5rem;
+      border-right: 1px solid rgba(242,237,232,0.08);
+      overflow-y: auto; gap: 0;
+    }
+
+    .sidebar-hint {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.2); margin-bottom: 2rem;
+    }
+
+    .project-item {
+      padding: 1.8rem 1rem;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(242,237,232,0.07);
+      opacity: 0.38;
+      transition: opacity 0.3s ease, background 0.3s ease;
+      user-select: none; position: relative;
+      border-radius: 4px; margin: 0 -1rem;
+    }
+    .project-item:first-of-type { border-top: 1px solid rgba(242,237,232,0.07); }
+    .project-item.active { opacity: 1; background: rgba(242,237,232,0.05); }
+    .project-item:not(.active):hover { opacity: 0.7; background: rgba(242,237,232,0.03); }
+
+    .project-item::before {
+      content: '';
+      position: absolute; left: 0; top: 25%; bottom: 25%;
+      width: 3px; border-radius: 2px; background: #c8a882;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .project-item.active::before { opacity: 1; }
+
+    .project-item::after {
+      content: '→';
+      position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+      font-size: 1rem; color: #c8a882;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .project-item.active::after { opacity: 1; }
+
+    .project-num {
+      font-size: .65rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35); margin-bottom: .5rem; transition: color 0.3s;
+    }
+    .project-item.active .project-num { color: #c8a882; }
+
+    .project-title {
+      font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+      font-weight: 300; line-height: 1.2; letter-spacing: -0.01em;
+    }
+    .project-meta {
+      font-size: .75rem; letter-spacing: .06em;
+      color: rgba(242,237,232,0.3); margin-top: .45rem;
+    }
+
+    /* ── Content area ────────────────────────────── */
+    .content-area {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-panel {
+      position: absolute; inset: 0;
+      opacity: 0; pointer-events: none; visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+    }
+    .project-panel.active {
+      opacity: 1; pointer-events: all; visibility: visible;
+      transition: opacity 0.4s ease, visibility 0s linear 0s;
+    }
+
+    /* ── Placeholder panel ───────────────────────── */
+    .placeholder-panel {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.2rem;
+      position: relative; overflow: hidden;
+    }
+    .placeholder-panel .bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: brightness(0.25);
+    }
+    .placeholder-panel .ph-content {
+      position: relative; z-index: 1; text-align: center; padding: 0 2rem;
+    }
+    .placeholder-panel h2 {
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      font-weight: 300; letter-spacing: -.01em; margin-bottom: .6rem;
+    }
+    .placeholder-panel .ph-tag {
+      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35);
+    }
+    .placeholder-panel .ph-soon {
+      margin-top: 2rem;
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: #c8a882; opacity: .6;
+      border: 1px solid rgba(200,168,130,0.25); border-radius: 4px;
+      padding: .4rem .9rem; display: inline-block;
+    }
+
+    /* ── Year of The... sub-panel ───────────────── */
+    .lunar-panel {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+    }
+
+    .lunar-subnav, .camp-subnav {
+      display: flex; align-items: stretch;
+      border-bottom: 1px solid rgba(242,237,232,0.08);
+      flex-shrink: 0; height: 52px;
+      padding: 0 2.5rem; gap: 2rem;
+    }
+
+    .lunar-subtab, .camp-subtab {
+      display: flex; align-items: center; gap: .55rem;
+      font-size: .82rem; letter-spacing: .06em;
+      color: rgba(242,237,232,0.35);
+      cursor: pointer; position: relative;
+      transition: color 0.25s ease;
+      border: none; background: none; font-family: 'Neuton', serif;
+      padding: 0;
+    }
+    .lunar-subtab::after, .camp-subtab::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: #c8a882; border-radius: 2px 2px 0 0;
+      transform: scaleX(0); transition: transform 0.25s ease;
+    }
+    .lunar-subtab.active, .camp-subtab.active { color: #f2ede8; }
+    .lunar-subtab.active::after, .camp-subtab.active::after { transform: scaleX(1); }
+    .lunar-subtab:not(.active):hover,
+    .camp-subtab:not(.active):hover { color: rgba(242,237,232,0.65); }
+
+    .lunar-subtab .sub-year, .camp-subtab .sub-year {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: #c8a882; opacity: 0.6;
+    }
+    .lunar-subtab.active .sub-year,
+    .camp-subtab.active .sub-year { opacity: 1; }
+
+    .lunar-content, .camp-content {
+      flex: 1; position: relative; overflow: hidden;
+    }
+
+    .lunar-subpanel, .camp-subpanel {
+      position: absolute; inset: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .lunar-subpanel.active, .camp-subpanel.active {
+      opacity: 1; pointer-events: all;
+    }
+
+    /* ── PDF embed ───────────────────────────────── */
+    .pdf-embed {
+      margin-bottom: 2.5rem;
+    }
+    .pdf-embed-label {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.3); margin-bottom: .75rem;
+    }
+    .pdf-pages {
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .pdf-pages canvas {
+      width: 100%; height: auto; display: block;
+      border-radius: 3px;
+    }
+    .pdf-loading {
+      font-size: .75rem; color: rgba(242,237,232,0.3);
+      letter-spacing: .1em;
+    }
+
+    /* Snake panel */
+    .snake-panel {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      padding: 3rem 3rem 4rem;
+    }
+    .snake-header {
+      margin-bottom: 2.5rem;
+    }
+    .snake-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300; letter-spacing: -.01em; margin-bottom: .5rem;
+    }
+    .snake-header .snake-tag {
+      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35);
+    }
+    .snake-header .snake-desc {
+      margin-top: 1rem;
+      font-size: .95rem; line-height: 1.65;
+      color: rgba(242,237,232,0.55); max-width: 520px;
+    }
+    .snake-grid {
+      column-count: 3;
+      column-gap: 3px;
+    }
+    .snake-grid .photo-grid-item {
+      aspect-ratio: unset;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 3px;
+      break-inside: avoid;
+    }
+    .snake-grid .photo-grid-item img {
+      height: auto;
+      object-fit: initial;
+    }
+
+    /* Goat panel — coming soon */
+    .goat-panel {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.2rem; position: relative; overflow: hidden;
+    }
+    .goat-panel .bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(200,168,130,0.06) 0%, transparent 70%);
+    }
+    .goat-panel .goat-content {
+      position: relative; z-index: 1; text-align: center; padding: 0 2rem;
+    }
+    .goat-panel h2 {
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      font-weight: 300; letter-spacing: -.01em; margin-bottom: .6rem;
+    }
+    .goat-panel .goat-tag {
+      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35);
+    }
+    .goat-panel .goat-date {
+      margin-top: 1.2rem;
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: #c8a882; opacity: .6;
+      border: 1px solid rgba(200,168,130,0.25); border-radius: 4px;
+      padding: .4rem .9rem; display: inline-block;
+    }
+
+    /* ── Liminal panel ──────────────────────────── */
+    .liminal-panel {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: row;
+      align-items: center; justify-content: center;
+      gap: 4rem;
+      overflow-y: auto;
+      padding: 4rem 5vw;
+      position: relative;
+    }
+    .liminal-panel .bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: brightness(0.18);
+      pointer-events: none;
+    }
+    .liminal-content {
+      position: relative; z-index: 1;
+      max-width: 480px; flex-shrink: 0;
+    }
+    .liminal-flyer {
+      position: relative; z-index: 1;
+      flex-shrink: 0; width: clamp(160px, 22vw, 280px);
+    }
+    .liminal-flyer img {
+      width: 100%; display: block;
+      border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+    .liminal-flyer img:hover { transform: scale(1.02); }
+    .liminal-content h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300; letter-spacing: -.02em;
+      margin-bottom: .5rem;
+    }
+    .liminal-subtitle {
+      font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(242,237,232,0.3); margin-bottom: 2rem;
+    }
+    .liminal-definition {
+      margin-bottom: 2rem;
+      padding-left: 1rem;
+      border-left: 2px solid rgba(200,168,130,0.35);
+    }
+    .liminal-definition .def-word {
+      font-size: .78rem; letter-spacing: .1em; color: #c8a882;
+      margin-bottom: .25rem;
+    }
+    .liminal-definition .def-text {
+      font-size: .9rem; line-height: 1.65;
+      color: rgba(242,237,232,0.5); font-style: italic;
+    }
+    .liminal-body {
+      font-size: .95rem; line-height: 1.8;
+      color: rgba(242,237,232,0.65);
+      margin-bottom: 2.5rem;
+    }
+    .liminal-body p + p { margin-top: 1.2rem; }
+    .liminal-rsvp {
+      display: inline-block;
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+      color: #c8a882;
+      border: 1px solid rgba(200,168,130,0.4); border-radius: 4px;
+      padding: .6rem 1.4rem;
+      transition: background 0.2s, border-color 0.2s;
+      text-decoration: none;
+    }
+    .liminal-rsvp:hover {
+      background: rgba(200,168,130,0.1);
+      border-color: rgba(200,168,130,0.7);
+    }
+
+    /* ── Photo grid items (shared) ──────────────── */
+    .photo-grid-item {
+      cursor: pointer; overflow: hidden;
+      aspect-ratio: 4/3; border-radius: 3px;
+    }
+    .photo-grid-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+    .photo-grid-item:hover img { transform: scale(1.04); }
+
+    /* ── Camp panel ──────────────────────────────── */
+    .camp-panel {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      padding: 3rem 3rem 4rem;
+    }
+    .camp-header { margin-bottom: 2.5rem; }
+    .camp-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300; letter-spacing: -.01em; margin-bottom: .5rem;
+    }
+    .camp-header .camp-tag {
+      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35);
+    }
+    .camp-header .camp-desc {
+      margin-top: 1rem;
+      font-size: .95rem; line-height: 1.65;
+      color: rgba(242,237,232,0.55); max-width: 520px;
+    }
+    .camp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 3px;
+    }
+
+    /* ── Camp shell (sub-tabbed editions) ────────── */
+    .camp-shell {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+    }
+    .camp-subtab .sub-upcoming {
+      font-size: .55rem; letter-spacing: .18em; text-transform: uppercase;
+      color: #1a1714; background: #c8a882;
+      border-radius: 2px; padding: .12rem .4rem;
+    }
+
+    /* ── Section headings inside a camp edition ──── */
+    .camp-section { margin-top: 3.5rem; }
+    .camp-section:first-of-type { margin-top: 0; }
+    .camp-section-label {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.3);
+      margin-bottom: 1.1rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid rgba(242,237,232,0.08);
+    }
+    .camp-note {
+      font-size: .8rem; line-height: 1.6;
+      color: rgba(242,237,232,0.4); max-width: 560px;
+      margin-top: 1rem;
+    }
+
+    /* ── Instagram reels ─────────────────────────── */
+    .reel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .reel-card {
+      display: block; position: relative;
+      border-radius: 16px; overflow: hidden;
+      aspect-ratio: 9/16; background: #221e1a;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .reel-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .reel-thumb {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: transform 0.4s ease;
+    }
+    .reel-card:hover .reel-thumb { transform: scale(1.04); }
+    .reel-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.72) 100%);
+    }
+    .reel-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .reel-card:hover .reel-play {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.7);
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+    .reel-play svg { width: 18px; height: 18px; margin-left: 3px; }
+    .reel-ig-icon {
+      position: absolute; top: 12px; right: 12px; opacity: 0.65;
+    }
+    .reel-ig-icon svg { width: 18px; height: 18px; }
+    .reel-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: .9rem 1rem 1.1rem;
+    }
+    .reel-brand {
+      font-size: .85rem; font-weight: 400; color: #fff;
+      letter-spacing: .02em; margin-bottom: .2rem;
+    }
+    .reel-cta {
+      font-size: .56rem; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      opacity: 0; transform: translateY(4px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .reel-card:hover .reel-cta { opacity: 1; transform: translateY(0); }
+    .reel-card.placeholder {
+      border: 1px dashed rgba(242,237,232,0.15);
+      cursor: default;
+    }
+    .reel-card.placeholder:hover { transform: none; box-shadow: none; }
+    .reel-card.placeholder .reel-brand {
+      color: rgba(242,237,232,0.25); font-style: italic;
+    }
+    .reel-card.placeholder .reel-play { display: none; }
+
+    /* ── Empty state (photos not dropped in yet) ─── */
+    .camp-empty {
+      border: 1px dashed rgba(242,237,232,0.15);
+      border-radius: 4px;
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    .camp-empty .empty-title {
+      font-size: .85rem; color: rgba(242,237,232,0.45);
+      margin-bottom: .45rem;
+    }
+    .camp-empty .empty-path {
+      font-size: .72rem; letter-spacing: .04em;
+      color: #c8a882; opacity: .75;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    /* ── Upcoming camp (enrollment) ──────────────── */
+    .upcoming-hero {
+      display: flex; flex-wrap: wrap; gap: 2.5rem 3.5rem;
+      align-items: flex-start;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(242,237,232,0.08);
+      margin-bottom: 1rem;
+    }
+    .upcoming-hero-main { flex: 1 1 340px; }
+    .upcoming-facts {
+      display: flex; flex-direction: column; gap: 1.1rem;
+      flex: 0 1 220px;
+    }
+    .upcoming-fact .fact-label {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.3); margin-bottom: .3rem;
+    }
+    .upcoming-fact .fact-value {
+      font-size: .95rem; color: rgba(242,237,232,0.8); line-height: 1.4;
+    }
+    .upcoming-fact .fact-value.tba {
+      color: rgba(242,237,232,0.35); font-style: italic;
+    }
+    .camp-cta-row {
+      display: flex; flex-wrap: wrap; gap: .8rem; align-items: center;
+      margin-top: 1.6rem;
+    }
+    .camp-cta {
+      display: inline-block;
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: #c8a882; text-decoration: none;
+      border: 1px solid rgba(200,168,130,0.4); border-radius: 4px;
+      padding: .6rem 1.2rem;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    .camp-cta:hover {
+      background: rgba(200,168,130,0.1);
+      border-color: rgba(200,168,130,0.7);
+    }
+    .camp-cta.solid {
+      background: rgba(200,168,130,0.14);
+      border-color: rgba(200,168,130,0.55);
+    }
+    .camp-cta.solid:hover { background: rgba(200,168,130,0.24); }
+    .camp-spots {
+      font-size: .62rem; letter-spacing: .16em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35);
+    }
+
+    /* Included / itinerary lists */
+    .camp-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.6rem 2.5rem;
+    }
+    .camp-list { list-style: none; }
+    .camp-list li {
+      font-size: .88rem; line-height: 1.5;
+      color: rgba(242,237,232,0.6);
+      padding: .5rem 0 .5rem 1.1rem; position: relative;
+      border-bottom: 1px solid rgba(242,237,232,0.05);
+    }
+    .camp-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 1.05em;
+      width: 5px; height: 1px; background: rgba(200,168,130,0.6);
+    }
+    .camp-body {
+      font-size: .92rem; line-height: 1.75;
+      color: rgba(242,237,232,0.6); max-width: 620px;
+    }
+    .camp-body p + p { margin-top: 1.1rem; }
+
+    .camp-inline-link {
+      color: #c8a882; text-decoration: none;
+      border-bottom: 1px solid rgba(200,168,130,0.35);
+    }
+    .camp-inline-link:hover { border-bottom-color: #c8a882; }
+
+    /* ── Text with embedded media ────────────────── */
+    .camp-split {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 2.5rem; align-items: center;
+      margin-bottom: 2rem;
+    }
+    .camp-split .camp-body { max-width: none; }
+    .camp-split.reverse .camp-media { order: -1; }
+
+    .camp-figure { margin: 0; }
+    .camp-figure img {
+      width: 100%; display: block;
+      border-radius: 3px; cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+    .camp-figure:hover img { transform: scale(1.01); }
+    .camp-figure figcaption {
+      margin-top: .55rem;
+      font-size: .68rem; letter-spacing: .08em;
+      color: rgba(242,237,232,0.3);
+    }
+
+    .camp-figure-pair {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3px; margin-bottom: 2rem;
+    }
+    .camp-figure-wide { margin-bottom: 2rem; }
+
+    @media (max-width: 900px) {
+      .camp-split { grid-template-columns: 1fr; gap: 1.4rem; }
+      .camp-split.reverse .camp-media { order: 0; }
+    }
+
+    /* Testimonials */
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.4rem;
+    }
+    .quote-card {
+      border-left: 2px solid rgba(200,168,130,0.35);
+      padding: .3rem 0 .3rem 1.1rem;
+    }
+    .quote-card .quote-text {
+      font-size: .88rem; line-height: 1.7; font-style: italic;
+      color: rgba(242,237,232,0.6);
+    }
+    .quote-card .quote-attr {
+      margin-top: .7rem;
+      font-size: .68rem; letter-spacing: .1em;
+      color: rgba(242,237,232,0.35);
+    }
+
+    @media (max-width: 760px) {
+      .lunar-subnav, .camp-subnav {
+        padding: 0 1.2rem; gap: 1.2rem;
+        overflow-x: auto; scrollbar-width: none;
+      }
+      .lunar-subnav::-webkit-scrollbar,
+      .camp-subnav::-webkit-scrollbar { display: none; }
+      .lunar-subtab, .camp-subtab { flex-shrink: 0; }
+      .camp-panel { padding: 2rem 1.2rem 3rem; }
+    }
+
+    /* ── Lightbox ────────────────────────────────── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 90vh;
+      object-fit: contain; border-radius: 3px;
+      cursor: default;
+    }
+
+    /* ── Mobile ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      html, body { overflow: hidden; }
+
+      .layout { flex-direction: column; height: 100vh; height: 100svh; padding-top: 56px; }
+
+      .sidebar {
+        width: 100%; flex-direction: row;
+        justify-content: center; align-items: stretch;
+        padding: 0; border-right: none;
+        border-bottom: 1px solid rgba(242,237,232,0.08);
+        overflow-x: auto; overflow-y: hidden;
+        flex-shrink: 0; height: 54px;
+        scrollbar-width: none;
+      }
+      .sidebar::-webkit-scrollbar { display: none; }
+
+      .sidebar-hint { display: none; }
+      .project-item {
+        padding: 0 1.5rem; border-bottom: none; border-radius: 0;
+        border-right: 1px solid rgba(242,237,232,0.07);
+        border-top: none !important; margin: 0;
+        flex-shrink: 0; white-space: nowrap;
+        display: flex; flex-direction: column; justify-content: center;
+        background: transparent !important;
+      }
+      .project-item::before {
+        left: 50%; top: auto; bottom: 0; right: auto;
+        transform: translateX(-50%);
+        width: 0; height: 2px; border-radius: 0;
+        transition: width 0.35s ease; opacity: 1;
+      }
+      .project-item.active::before { width: 65%; height: 2px; opacity: 1; }
+      .project-item::after { display: none; }
+      .project-meta { display: none; }
+      .project-num { margin-bottom: .2rem; font-size: .6rem; }
+      .project-title { font-size: .95rem; }
+
+      .content-area { flex: 1; overflow: hidden; position: relative; min-height: 0; }
+      .project-panel { position: absolute; inset: 0; }
+
+
+      .placeholder-panel h2 { font-size: clamp(1.3rem, 6vw, 2rem); }
+
+      .liminal-panel {
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+        justify-content: flex-start;
+      }
+      .liminal-content { max-width: 100%; }
+      .liminal-flyer { width: min(200px, 55vw); }
+    }
+
+    @media (max-width: 420px) {
+      nav { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../Title%20Page/" class="nav-name">Amanda Cui</a>
+  <div class="nav-links">
+    <a href="../pottery/pottery.html" class="nav-link">Pottery</a>
+    <a href="../storytelling/storytelling.html" class="nav-link">Storytelling</a>
+    <a href="../About%20Me/about.html" class="nav-link">About</a>
+    <a href="../creative%20collaborations/creative-collaborations.html" class="nav-link">Collabs</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <!-- ── Sidebar ──────────────────────────────────── -->
+  <aside class="sidebar">
+
+    <div class="sidebar-hint">Select a project</div>
+
+    <div class="project-item" onclick="location.href='../saatomo/'">
+      <div class="project-num">01</div>
+      <div class="project-title">Sa'Atomo</div>
+      <div class="project-meta">Taiwan · 2026 – 2027</div>
+    </div>
+
+    <div class="project-item active" onclick="void 0">
+      <div class="project-num">02</div>
+      <div class="project-title">Year of The...</div>
+      <div class="project-meta">Lunar New Year · Ongoing</div>
+    </div>
+
+  </aside>
+
+  <!-- ── Content panels ───────────────────────────── -->
+  <main class="content-area">
+
+    <!-- 02 · Year of The... -->
+    <div class="project-panel active" id="panel-lunar">
+      <div class="lunar-panel">
+
+        <!-- Sub-nav -->
+        <div class="lunar-subnav">
+          <button class="lunar-subtab active" data-sub="snake" onclick="showSub('snake')">
+            <span>Year of the Snake</span>
+            <span class="sub-year">2025</span>
+          </button>
+          <button class="lunar-subtab" data-sub="goat" onclick="showSub('goat')">
+            <span>Year of the Goat</span>
+            <span class="sub-year">2027</span>
+          </button>
+        </div>
+
+        <!-- Sub-panels -->
+        <div class="lunar-content">
+
+          <!-- Snake -->
+          <div class="lunar-subpanel active" id="sub-snake">
+            <div class="snake-panel">
+              <div class="snake-header">
+                <h2>Year of the Snake</h2>
+                <div class="snake-tag">Lunar New Year · 2025</div>
+                <div class="snake-desc">Photos and memories from the Year of the Snake celebration.</div>
+              </div>
+              <div class="pdf-embed">
+                <div class="pdf-embed-label">Digital Program</div>
+                <div class="pdf-pages" id="pdf-pages"><span class="pdf-loading">Loading...</span></div>
+              </div>
+
+              <div class="snake-grid">
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5174.jpeg')"><img src="year-of-the-snake/464A5174.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5215.jpeg')"><img src="year-of-the-snake/464A5215.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5217.jpeg')"><img src="year-of-the-snake/464A5217.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5219.jpeg')"><img src="year-of-the-snake/464A5219.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5315.jpeg')"><img src="year-of-the-snake/464A5315.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5591.jpeg')"><img src="year-of-the-snake/464A5591.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5767.jpeg')"><img src="year-of-the-snake/464A5767.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/34990006.jpeg')"><img src="year-of-the-snake/34990006.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020014.jpeg')"><img src="year-of-the-snake/35020014.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020017.jpeg')"><img src="year-of-the-snake/35020017.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020021.jpeg')"><img src="year-of-the-snake/35020021.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020022.jpeg')"><img src="year-of-the-snake/35020022.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020024.jpeg')"><img src="year-of-the-snake/35020024.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1663.JPG')"><img src="year-of-the-snake/IMG_1663.JPG" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1664.JPG')"><img src="year-of-the-snake/IMG_1664.JPG" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1683.JPG')"><img src="year-of-the-snake/IMG_1683.JPG" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1691.JPG')"><img src="year-of-the-snake/IMG_1691.JPG" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_2668.jpeg')"><img src="year-of-the-snake/IMG_2668.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_2695.jpeg')"><img src="year-of-the-snake/IMG_2695.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_5048.jpeg')"><img src="year-of-the-snake/IMG_5048.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_5056.jpeg')"><img src="year-of-the-snake/IMG_5056.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_5111.jpeg')"><img src="year-of-the-snake/IMG_5111.jpeg" alt=""></div>
+                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_7964.jpeg')"><img src="year-of-the-snake/IMG_7964.jpeg" alt=""></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Goat -->
+          <div class="lunar-subpanel" id="sub-goat">
+            <div class="goat-panel">
+              <div class="bg"></div>
+              <div class="goat-content">
+                <h2>Year of the Goat</h2>
+                <div class="goat-tag">Lunar New Year · 2027</div>
+                <div class="goat-date">Coming February 2027</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /lunar-content -->
+      </div><!-- /lunar-panel -->
+    </div>
+
+  </main>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <img src="" alt="" onclick="event.stopPropagation()">
+</div>
+
+<script>
+  function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    lb.querySelector('img').src = src;
+    lb.classList.add('open');
+  }
+  function closeLightbox(e) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+  });
+
+  function showProject(id) {
+    document.querySelectorAll('.project-item').forEach(el =>
+      el.classList.toggle('active', el.dataset.project === id)
+    );
+    document.querySelectorAll('.project-panel').forEach(el =>
+      el.classList.toggle('active', el.id === 'panel-' + id)
+    );
+  }
+
+  function showCampSub(id) {
+    document.querySelectorAll('.camp-subtab').forEach(el =>
+      el.classList.toggle('active', el.dataset.campsub === id)
+    );
+    document.querySelectorAll('.camp-subpanel').forEach(el => {
+      const on = el.id === 'campsub-' + id;
+      el.classList.toggle('active', on);
+      if (on) { const sc = el.querySelector('.camp-panel'); if (sc) sc.scrollTop = 0; }
+    });
+  }
+
+  function showSub(id) {
+    document.querySelectorAll('.lunar-subtab').forEach(el =>
+      el.classList.toggle('active', el.dataset.sub === id)
+    );
+    document.querySelectorAll('.lunar-subpanel').forEach(el =>
+      el.classList.toggle('active', el.id === 'sub-' + id)
+    );
+  }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  (async function() {
+    const container = document.getElementById('pdf-pages');
+    try {
+      const pdf = await pdfjsLib.getDocument('year-of-the-snake/Digital%20Program.pdf').promise;
+      container.innerHTML = '';
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: 2 });
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+        container.appendChild(canvas);
+      }
+    } catch(e) {
+      container.innerHTML = '<a style="color:#c8a882;font-size:.8rem" href="year-of-the-snake/Digital%20Program.pdf" target="_blank">Open digital program</a>';
+    }
+  })();
+</script>
+</body>
+</html>

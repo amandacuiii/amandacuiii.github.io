@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ongoing Projects — Amanda Cui</title>
+  <title>Sa'Atomo — Amanda Cui</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@300;400;700;800&display=swap" rel="stylesheet">
@@ -608,6 +608,40 @@
     }
     .camp-inline-link:hover { border-bottom-color: #c8a882; }
 
+    /* ── Text with embedded media ────────────────── */
+    .camp-split {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 2.5rem; align-items: center;
+      margin-bottom: 2rem;
+    }
+    .camp-split .camp-body { max-width: none; }
+    .camp-split.reverse .camp-media { order: -1; }
+
+    .camp-figure { margin: 0; }
+    .camp-figure img {
+      width: 100%; display: block;
+      border-radius: 3px; cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+    .camp-figure:hover img { transform: scale(1.01); }
+    .camp-figure figcaption {
+      margin-top: .55rem;
+      font-size: .68rem; letter-spacing: .08em;
+      color: rgba(242,237,232,0.3);
+    }
+
+    .camp-figure-pair {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3px; margin-bottom: 2rem;
+    }
+    .camp-figure-wide { margin-bottom: 2rem; }
+
+    @media (max-width: 900px) {
+      .camp-split { grid-template-columns: 1fr; gap: 1.4rem; }
+      .camp-split.reverse .camp-media { order: 0; }
+    }
+
     /* Testimonials */
     .quote-grid {
       display: grid;
@@ -732,13 +766,13 @@
 
     <div class="sidebar-hint">Select a project</div>
 
-    <div class="project-item active" data-project="camp" onclick="showProject('camp')">
+    <div class="project-item active" onclick="void 0">
       <div class="project-num">01</div>
       <div class="project-title">Sa'Atomo</div>
       <div class="project-meta">Taiwan · 2026 – 2027</div>
     </div>
 
-    <div class="project-item" data-project="lunar" onclick="showProject('lunar')">
+    <div class="project-item" onclick="location.href='../lunarnewyear/'">
       <div class="project-num">02</div>
       <div class="project-title">Year of The...</div>
       <div class="project-meta">Lunar New Year · Ongoing</div>
@@ -779,7 +813,6 @@
                 <div class="upcoming-hero-main">
                   <h2>Sa'Atomo</h2>
                   <div class="camp-tag">Guangfu, Hualien · February 2026</div>
-                  <div class="camp-desc">The first Sa'Atomo camp. Clay gathered from the earth by hand, vessels built by pinching and coiling rather than thrown on a wheel, and a firing in an open pit rather than a kiln — learned alongside Amis artisans and elders.</div>
                   <div class="camp-cta-row">
                     <a class="camp-cta" href="#" onclick="showCampSub('jan2027');return false;">The next camp is January 2027 →</a>
                   </div>
@@ -802,27 +835,73 @@
 
               <div class="camp-section">
                 <div class="camp-section-label">How It Started</div>
-                <div class="camp-body">
-                  <p>In February 2026, I traveled to Guangfu Township, Hualien, for an Indigenous pottery camp led by my ceramics teacher.</p>
-                  <p>While there, we dug and prepared the clay, built by hand, and fired in an open pit.</p>
-                  <p>I documented my experience on Instagram, and the response was an outpouring of enthusiasm, intrigue, and excitement — with many people asking how they could come to Taiwan and experience it themselves.</p>
-                  <p>So I collaborated with Papay to launch an International Pottery Camp, taught with English translation, to make traditional Amis ceramic education accessible to students around the world. In July 2026, we hosted the first camp with 16 students from 8 countries.</p>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <p>In February 2026, I traveled to Guangfu Township, Hualien, for an Indigenous pottery camp led by my ceramics teacher.</p>
+                    <p>While there, we dug and prepared the clay, built by hand, and fired in an open pit.</p>
+                  </div>
+                  <div class="camp-media">
+                    <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/digging%20for%20clay.jpeg')">
+                      <img src="feb-2026-saatomo/digging%20for%20clay.jpeg" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split reverse">
+                  <div class="camp-body">
+                    <p>I documented my experience on Instagram, and the response was an outpouring of enthusiasm, intrigue, and excitement — with many people asking how they could come to Taiwan and experience it themselves.</p>
+                    <p>So I collaborated with Papay to launch an International Pottery Camp, taught with English translation, to make traditional Amis ceramic education accessible to students around the world. In July 2026, we hosted the first camp with 16 students from 8 countries.</p>
+                  </div>
+                  <div class="camp-media">
+                    <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/creating%20Amis%20vessels.jpeg')">
+                      <img src="feb-2026-saatomo/creating%20Amis%20vessels.jpeg" alt="" loading="lazy">
+                    </figure>
+                  </div>
                 </div>
               </div>
 
               <div class="camp-section">
                 <div class="camp-section-label">The Place</div>
-                <div class="camp-body">
-                  <p>Guangfu (光復) is a township on Taiwan's east coast in Hualien County, between the Central Mountain Range and the Pacific. It is one of the cultural heartlands of the Amis (阿美族), Taiwan's largest indigenous group.</p>
-                  <p>The Amis have kept a living tradition of pottery tied to the land for generations. The process is inseparable from its cultural and spiritual context — from the rituals around gathering soil to the communal nature of the firing. Pottery here is a form of cultural memory.</p>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <p>Guangfu (光復) is a township on Taiwan's east coast in Hualien County, between the Central Mountain Range and the Pacific. It is one of the cultural heartlands of the Amis (阿美族), Taiwan's largest indigenous group.</p>
+                    <p>The Amis have kept a living tradition of pottery tied to the land for generations. The process is inseparable from its cultural and spiritual context — from the rituals around gathering soil to the communal nature of the firing. Pottery here is a form of cultural memory.</p>
+                  </div>
+                  <div class="camp-media">
+                    <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/Sa%27atomo.jpg')">
+                      <img src="feb-2026-saatomo/Sa%27atomo.jpg" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-figure-pair">
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/collecting%20wood.jpeg')">
+                    <img src="feb-2026-saatomo/collecting%20wood.jpeg" alt="" loading="lazy">
+                  </figure>
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/collecting%20wood%20%28again%29.jpeg')">
+                    <img src="feb-2026-saatomo/collecting%20wood%20%28again%29.jpeg" alt="" loading="lazy">
+                  </figure>
                 </div>
               </div>
 
               <div class="camp-section">
                 <div class="camp-section-label">The Studio</div>
-                <div class="camp-body">
-                  <p>Sa'Atomo (阿美陶部落營隊) means "come make pottery" in Amis. The camp is run by Austronesian Alien Studio (南島星人工作室), an indigenous-led studio founded by Papay, a pottery teacher and cultural educator.</p>
-                  <p>The studio's aim is to widen access to indigenous culture — a place where both indigenous youth and visitors can learn traditional Amis pottery in its living context, not as a museum artifact but as a practiced tradition.</p>
+                <div class="camp-split reverse">
+                  <div class="camp-body">
+                    <p>Sa'Atomo (阿美陶部落營隊) means "come make pottery" in Amis. The camp is run by Austronesian Alien Studio (南島星人工作室), an indigenous-led studio founded by Papay, a pottery teacher and cultural educator.</p>
+                    <p>The studio's aim is to widen access to indigenous culture — a place where both indigenous youth and visitors can learn traditional Amis pottery in its living context, not as a museum artifact but as a practiced tradition.</p>
+                  </div>
+                  <div class="camp-media">
+                    <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/Ahma%21.jpg')">
+                      <img src="feb-2026-saatomo/Ahma%21.jpg" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-figure-pair">
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/more%20wood.jpeg')">
+                    <img src="feb-2026-saatomo/more%20wood.jpeg" alt="" loading="lazy">
+                  </figure>
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/offering.jpeg')">
+                    <img src="feb-2026-saatomo/offering.jpeg" alt="" loading="lazy">
+                  </figure>
                 </div>
               </div>
 
@@ -840,29 +919,42 @@
                     <li>Fired overnight, then made the offering</li>
                   </ul>
                 </div>
-              </div>
-
-              <div class="camp-section">
-                <div class="camp-section-label">Photographs</div>
-                <div class="camp-grid">
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/Feb%202026%20group!.jpg')"><img src="feb-2026-saatomo/Feb%202026%20group!.jpg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/digging%20for%20clay.jpeg')"><img src="feb-2026-saatomo/digging%20for%20clay.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/collecting%20wood.jpeg')"><img src="feb-2026-saatomo/collecting%20wood.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/collecting%20wood%20(again).jpeg')"><img src="feb-2026-saatomo/collecting%20wood%20(again).jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/more%20wood.jpeg')"><img src="feb-2026-saatomo/more%20wood.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/creating%20Amis%20vessels.jpeg')"><img src="feb-2026-saatomo/creating%20Amis%20vessels.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/Sa\'atomo.jpg')"><img src="feb-2026-saatomo/Sa'atomo.jpg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/Ahma!.jpg')"><img src="feb-2026-saatomo/Ahma!.jpg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/preparing%20the%20pit.jpeg')"><img src="feb-2026-saatomo/preparing%20the%20pit.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/pre-firing.jpeg')"><img src="feb-2026-saatomo/pre-firing.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/pre-firing.jpg')"><img src="feb-2026-saatomo/pre-firing.jpg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/fire%20pit.jpg')"><img src="feb-2026-saatomo/fire%20pit.jpg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/1000%20degrees.jpeg')"><img src="feb-2026-saatomo/1000%20degrees.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/warming%20up%20our%20creations.jpeg')"><img src="feb-2026-saatomo/warming%20up%20our%20creations.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/offering.jpeg')"><img src="feb-2026-saatomo/offering.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/me%20and%20the%20pit.jpeg')"><img src="feb-2026-saatomo/me%20and%20the%20pit.jpeg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/creations.jpg')"><img src="feb-2026-saatomo/creations.jpg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/plates%20and%20such.jpeg')"><img src="feb-2026-saatomo/plates%20and%20such.jpeg" alt="" loading="lazy"></div>
+                <div class="camp-figure-pair">
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/preparing%20the%20pit.jpeg')">
+                    <img src="feb-2026-saatomo/preparing%20the%20pit.jpeg" alt="" loading="lazy">
+                  </figure>
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/pre-firing.jpeg')">
+                    <img src="feb-2026-saatomo/pre-firing.jpeg" alt="" loading="lazy">
+                  </figure>
+                </div>
+                <div class="camp-figure-pair">
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/pre-firing.jpg')">
+                    <img src="feb-2026-saatomo/pre-firing.jpg" alt="" loading="lazy">
+                  </figure>
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/fire%20pit.jpg')">
+                    <img src="feb-2026-saatomo/fire%20pit.jpg" alt="" loading="lazy">
+                  </figure>
+                </div>
+                <div class="camp-figure-pair">
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/1000%20degrees.jpeg')">
+                    <img src="feb-2026-saatomo/1000%20degrees.jpeg" alt="" loading="lazy">
+                  </figure>
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/warming%20up%20our%20creations.jpeg')">
+                    <img src="feb-2026-saatomo/warming%20up%20our%20creations.jpeg" alt="" loading="lazy">
+                  </figure>
+                </div>
+                <div class="camp-figure-pair">
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/me%20and%20the%20pit.jpeg')">
+                    <img src="feb-2026-saatomo/me%20and%20the%20pit.jpeg" alt="" loading="lazy">
+                  </figure>
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/creations.jpg')">
+                    <img src="feb-2026-saatomo/creations.jpg" alt="" loading="lazy">
+                  </figure>
+                </div>
+                <div class="camp-figure-wide">
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/plates%20and%20such.jpeg')">
+                    <img src="feb-2026-saatomo/plates%20and%20such.jpeg" alt="" loading="lazy">
+                  </figure>
                 </div>
               </div>
 
@@ -959,6 +1051,15 @@
                       <div class="reel-cta">Watch on Instagram ↗</div>
                     </div>
                   </a>
+                </div>
+              </div>
+
+              <div class="camp-section">
+                <div class="camp-section-label">The Cohort</div>
+                <div class="camp-figure-wide">
+                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/Feb%202026%20group%21.jpg')">
+                    <img src="feb-2026-saatomo/Feb%202026%20group%21.jpg" alt="" loading="lazy">
+                  </figure>
                 </div>
               </div>
 
@@ -1158,82 +1259,6 @@
       </div>
     </div>
 
-    <!-- 02 · Year of The... -->
-    <div class="project-panel" id="panel-lunar">
-      <div class="lunar-panel">
-
-        <!-- Sub-nav -->
-        <div class="lunar-subnav">
-          <button class="lunar-subtab active" data-sub="snake" onclick="showSub('snake')">
-            <span>Year of the Snake</span>
-            <span class="sub-year">2025</span>
-          </button>
-          <button class="lunar-subtab" data-sub="goat" onclick="showSub('goat')">
-            <span>Year of the Goat</span>
-            <span class="sub-year">2027</span>
-          </button>
-        </div>
-
-        <!-- Sub-panels -->
-        <div class="lunar-content">
-
-          <!-- Snake -->
-          <div class="lunar-subpanel active" id="sub-snake">
-            <div class="snake-panel">
-              <div class="snake-header">
-                <h2>Year of the Snake</h2>
-                <div class="snake-tag">Lunar New Year · 2025</div>
-                <div class="snake-desc">Photos and memories from the Year of the Snake celebration.</div>
-              </div>
-              <div class="pdf-embed">
-                <div class="pdf-embed-label">Digital Program</div>
-                <div class="pdf-pages" id="pdf-pages"><span class="pdf-loading">Loading...</span></div>
-              </div>
-
-              <div class="snake-grid">
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5174.jpeg')"><img src="year-of-the-snake/464A5174.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5215.jpeg')"><img src="year-of-the-snake/464A5215.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5217.jpeg')"><img src="year-of-the-snake/464A5217.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5219.jpeg')"><img src="year-of-the-snake/464A5219.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5315.jpeg')"><img src="year-of-the-snake/464A5315.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5591.jpeg')"><img src="year-of-the-snake/464A5591.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/464A5767.jpeg')"><img src="year-of-the-snake/464A5767.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/34990006.jpeg')"><img src="year-of-the-snake/34990006.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020014.jpeg')"><img src="year-of-the-snake/35020014.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020017.jpeg')"><img src="year-of-the-snake/35020017.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020021.jpeg')"><img src="year-of-the-snake/35020021.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020022.jpeg')"><img src="year-of-the-snake/35020022.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/35020024.jpeg')"><img src="year-of-the-snake/35020024.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1663.JPG')"><img src="year-of-the-snake/IMG_1663.JPG" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1664.JPG')"><img src="year-of-the-snake/IMG_1664.JPG" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1683.JPG')"><img src="year-of-the-snake/IMG_1683.JPG" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_1691.JPG')"><img src="year-of-the-snake/IMG_1691.JPG" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_2668.jpeg')"><img src="year-of-the-snake/IMG_2668.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_2695.jpeg')"><img src="year-of-the-snake/IMG_2695.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_5048.jpeg')"><img src="year-of-the-snake/IMG_5048.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_5056.jpeg')"><img src="year-of-the-snake/IMG_5056.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_5111.jpeg')"><img src="year-of-the-snake/IMG_5111.jpeg" alt=""></div>
-                <div class="photo-grid-item" onclick="openLightbox('year-of-the-snake/IMG_7964.jpeg')"><img src="year-of-the-snake/IMG_7964.jpeg" alt=""></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Goat -->
-          <div class="lunar-subpanel" id="sub-goat">
-            <div class="goat-panel">
-              <div class="bg"></div>
-              <div class="goat-content">
-                <h2>Year of the Goat</h2>
-                <div class="goat-tag">Lunar New Year · 2027</div>
-                <div class="goat-date">Coming February 2027</div>
-              </div>
-            </div>
-          </div>
-
-        </div><!-- /lunar-content -->
-      </div><!-- /lunar-panel -->
-    </div>
-
   </main>
 </div>
 
@@ -1284,28 +1309,5 @@
   }
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-  (async function() {
-    const container = document.getElementById('pdf-pages');
-    try {
-      const pdf = await pdfjsLib.getDocument('year-of-the-snake/Digital%20Program.pdf').promise;
-      container.innerHTML = '';
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const viewport = page.getViewport({ scale: 2 });
-        const canvas = document.createElement('canvas');
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
-        container.appendChild(canvas);
-      }
-    } catch(e) {
-      container.innerHTML = '<a style="color:#c8a882;font-size:.8rem" href="year-of-the-snake/Digital%20Program.pdf" target="_blank">Open digital program</a>';
-    }
-  })();
-</script>
 </body>
 </html>
