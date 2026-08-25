@@ -164,14 +164,14 @@
       display: flex; flex-direction: column;
     }
 
-    .lunar-subnav {
+    .lunar-subnav, .camp-subnav {
       display: flex; align-items: stretch;
       border-bottom: 1px solid rgba(242,237,232,0.08);
       flex-shrink: 0; height: 52px;
       padding: 0 2.5rem; gap: 2rem;
     }
 
-    .lunar-subtab {
+    .lunar-subtab, .camp-subtab {
       display: flex; align-items: center; gap: .55rem;
       font-size: .82rem; letter-spacing: .06em;
       color: rgba(242,237,232,0.35);
@@ -180,32 +180,34 @@
       border: none; background: none; font-family: 'Neuton', serif;
       padding: 0;
     }
-    .lunar-subtab::after {
+    .lunar-subtab::after, .camp-subtab::after {
       content: '';
       position: absolute; bottom: 0; left: 0; right: 0;
       height: 2px; background: #c8a882; border-radius: 2px 2px 0 0;
       transform: scaleX(0); transition: transform 0.25s ease;
     }
-    .lunar-subtab.active { color: #f2ede8; }
-    .lunar-subtab.active::after { transform: scaleX(1); }
-    .lunar-subtab:not(.active):hover { color: rgba(242,237,232,0.65); }
+    .lunar-subtab.active, .camp-subtab.active { color: #f2ede8; }
+    .lunar-subtab.active::after, .camp-subtab.active::after { transform: scaleX(1); }
+    .lunar-subtab:not(.active):hover,
+    .camp-subtab:not(.active):hover { color: rgba(242,237,232,0.65); }
 
-    .lunar-subtab .sub-year {
+    .lunar-subtab .sub-year, .camp-subtab .sub-year {
       font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
       color: #c8a882; opacity: 0.6;
     }
-    .lunar-subtab.active .sub-year { opacity: 1; }
+    .lunar-subtab.active .sub-year,
+    .camp-subtab.active .sub-year { opacity: 1; }
 
-    .lunar-content {
+    .lunar-content, .camp-content {
       flex: 1; position: relative; overflow: hidden;
     }
 
-    .lunar-subpanel {
+    .lunar-subpanel, .camp-subpanel {
       position: absolute; inset: 0;
       opacity: 0; pointer-events: none;
       transition: opacity 0.35s ease;
     }
-    .lunar-subpanel.active {
+    .lunar-subpanel.active, .camp-subpanel.active {
       opacity: 1; pointer-events: all;
     }
 
@@ -411,6 +413,261 @@
       gap: 3px;
     }
 
+    /* ── Camp shell (sub-tabbed editions) ────────── */
+    .camp-shell {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+    }
+    .camp-subtab .sub-upcoming {
+      font-size: .55rem; letter-spacing: .18em; text-transform: uppercase;
+      color: #1a1714; background: #c8a882;
+      border-radius: 2px; padding: .12rem .4rem;
+    }
+
+    /* ── Section headings inside a camp edition ──── */
+    .camp-section { margin-top: 3.5rem; }
+    .camp-section:first-of-type { margin-top: 0; }
+    .camp-section-label {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.3);
+      margin-bottom: 1.1rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid rgba(242,237,232,0.08);
+    }
+    .camp-note {
+      font-size: .8rem; line-height: 1.6;
+      color: rgba(242,237,232,0.4); max-width: 560px;
+      margin-top: 1rem;
+    }
+
+    /* ── Schedule ────────────────────────────────── */
+    .schedule-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      background: rgba(242,237,232,0.08);
+      border: 1px solid rgba(242,237,232,0.08);
+      border-radius: 4px; overflow: hidden;
+    }
+    .schedule-day {
+      background: #1a1714;
+      padding: 1.4rem 1.3rem 1.6rem;
+    }
+    .schedule-day-num {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: #c8a882; margin-bottom: .5rem;
+    }
+    .schedule-day-title {
+      font-size: 1.02rem; font-weight: 300; line-height: 1.3;
+      margin-bottom: .9rem;
+    }
+    .schedule-items {
+      list-style: none; display: flex; flex-direction: column; gap: .5rem;
+    }
+    .schedule-items li {
+      font-size: .82rem; line-height: 1.5;
+      color: rgba(242,237,232,0.5);
+      padding-left: .9rem; position: relative;
+    }
+    .schedule-items li::before {
+      content: '';
+      position: absolute; left: 0; top: .58em;
+      width: 4px; height: 1px; background: rgba(200,168,130,0.6);
+    }
+
+    /* ── Instagram reels ─────────────────────────── */
+    .reel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .reel-card {
+      display: block; position: relative;
+      border-radius: 16px; overflow: hidden;
+      aspect-ratio: 9/16; background: #221e1a;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .reel-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .reel-thumb {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: transform 0.4s ease;
+    }
+    .reel-card:hover .reel-thumb { transform: scale(1.04); }
+    .reel-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.72) 100%);
+    }
+    .reel-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .reel-card:hover .reel-play {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.7);
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+    .reel-play svg { width: 18px; height: 18px; margin-left: 3px; }
+    .reel-ig-icon {
+      position: absolute; top: 12px; right: 12px; opacity: 0.65;
+    }
+    .reel-ig-icon svg { width: 18px; height: 18px; }
+    .reel-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: .9rem 1rem 1.1rem;
+    }
+    .reel-brand {
+      font-size: .85rem; font-weight: 400; color: #fff;
+      letter-spacing: .02em; margin-bottom: .2rem;
+    }
+    .reel-cta {
+      font-size: .56rem; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      opacity: 0; transform: translateY(4px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .reel-card:hover .reel-cta { opacity: 1; transform: translateY(0); }
+    .reel-card.placeholder {
+      border: 1px dashed rgba(242,237,232,0.15);
+      cursor: default;
+    }
+    .reel-card.placeholder:hover { transform: none; box-shadow: none; }
+    .reel-card.placeholder .reel-brand {
+      color: rgba(242,237,232,0.25); font-style: italic;
+    }
+    .reel-card.placeholder .reel-play { display: none; }
+
+    /* ── Empty state (photos not dropped in yet) ─── */
+    .camp-empty {
+      border: 1px dashed rgba(242,237,232,0.15);
+      border-radius: 4px;
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    .camp-empty .empty-title {
+      font-size: .85rem; color: rgba(242,237,232,0.45);
+      margin-bottom: .45rem;
+    }
+    .camp-empty .empty-path {
+      font-size: .72rem; letter-spacing: .04em;
+      color: #c8a882; opacity: .75;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    /* ── Upcoming camp (enrollment) ──────────────── */
+    .upcoming-hero {
+      display: flex; flex-wrap: wrap; gap: 2.5rem 3.5rem;
+      align-items: flex-start;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(242,237,232,0.08);
+      margin-bottom: 1rem;
+    }
+    .upcoming-hero-main { flex: 1 1 340px; }
+    .upcoming-facts {
+      display: flex; flex-direction: column; gap: 1.1rem;
+      flex: 0 1 220px;
+    }
+    .upcoming-fact .fact-label {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(242,237,232,0.3); margin-bottom: .3rem;
+    }
+    .upcoming-fact .fact-value {
+      font-size: .95rem; color: rgba(242,237,232,0.8); line-height: 1.4;
+    }
+    .upcoming-fact .fact-value.tba {
+      color: rgba(242,237,232,0.35); font-style: italic;
+    }
+    .camp-cta-row {
+      display: flex; flex-wrap: wrap; gap: .8rem; align-items: center;
+      margin-top: 1.6rem;
+    }
+    .camp-cta {
+      display: inline-block;
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: #c8a882; text-decoration: none;
+      border: 1px solid rgba(200,168,130,0.4); border-radius: 4px;
+      padding: .6rem 1.2rem;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    .camp-cta:hover {
+      background: rgba(200,168,130,0.1);
+      border-color: rgba(200,168,130,0.7);
+    }
+    .camp-cta.solid {
+      background: rgba(200,168,130,0.14);
+      border-color: rgba(200,168,130,0.55);
+    }
+    .camp-cta.solid:hover { background: rgba(200,168,130,0.24); }
+    .camp-spots {
+      font-size: .62rem; letter-spacing: .16em; text-transform: uppercase;
+      color: rgba(242,237,232,0.35);
+    }
+
+    /* Included / itinerary lists */
+    .camp-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.6rem 2.5rem;
+    }
+    .camp-list { list-style: none; }
+    .camp-list li {
+      font-size: .88rem; line-height: 1.5;
+      color: rgba(242,237,232,0.6);
+      padding: .5rem 0 .5rem 1.1rem; position: relative;
+      border-bottom: 1px solid rgba(242,237,232,0.05);
+    }
+    .camp-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 1.05em;
+      width: 5px; height: 1px; background: rgba(200,168,130,0.6);
+    }
+    .camp-body {
+      font-size: .92rem; line-height: 1.75;
+      color: rgba(242,237,232,0.6); max-width: 620px;
+    }
+    .camp-body p + p { margin-top: 1.1rem; }
+
+    /* Testimonials */
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.4rem;
+    }
+    .quote-card {
+      border-left: 2px solid rgba(200,168,130,0.35);
+      padding: .3rem 0 .3rem 1.1rem;
+    }
+    .quote-card .quote-text {
+      font-size: .88rem; line-height: 1.7; font-style: italic;
+      color: rgba(242,237,232,0.6);
+    }
+    .quote-card .quote-attr {
+      margin-top: .7rem;
+      font-size: .68rem; letter-spacing: .1em;
+      color: rgba(242,237,232,0.35);
+    }
+
+    @media (max-width: 760px) {
+      .lunar-subnav, .camp-subnav {
+        padding: 0 1.2rem; gap: 1.2rem;
+        overflow-x: auto; scrollbar-width: none;
+      }
+      .lunar-subnav::-webkit-scrollbar,
+      .camp-subnav::-webkit-scrollbar { display: none; }
+      .lunar-subtab, .camp-subtab { flex-shrink: 0; }
+      .camp-panel { padding: 2rem 1.2rem 3rem; }
+    }
+
     /* ── Lightbox ────────────────────────────────── */
     .lightbox {
       display: none; position: fixed; inset: 0; z-index: 1000;
@@ -506,8 +763,8 @@
 
     <div class="project-item active" data-project="camp" onclick="showProject('camp')">
       <div class="project-num">01</div>
-      <div class="project-title">Amis Pottery Camp</div>
-      <div class="project-meta">Taiwan · 2026</div>
+      <div class="project-title">Sa'Atomo</div>
+      <div class="project-meta">Taiwan · 2026 – 2027</div>
     </div>
 
     <div class="project-item" data-project="lunar" onclick="showProject('lunar')">
@@ -521,35 +778,269 @@
   <!-- ── Content panels ───────────────────────────── -->
   <main class="content-area">
 
-    <!-- 01 · Indigenous Pottery Camp -->
+    <!-- 01 · Sa'Atomo — Amis pottery camps -->
     <div class="project-panel active" id="panel-camp">
-      <div class="camp-panel">
-        <div class="camp-header">
-          <h2>Amis Pottery Camp</h2>
-          <div class="camp-tag">Taiwan · Feb 2026</div>
-          <div class="camp-desc">A traditional Amis pottery camp — collecting wood, digging clay from the earth, hand-building vessels, and firing them in an open pit. An ancient process, still very much alive.</div>
-          <div class="camp-desc">I'm hosting a second camp this July, welcoming 16 international attendees.</div>
+      <div class="camp-shell">
+
+        <!-- Sub-nav: one tab per camp -->
+        <div class="camp-subnav">
+          <button class="camp-subtab" data-campsub="feb2026" onclick="showCampSub('feb2026')">
+            <span>First Camp</span>
+            <span class="sub-year">Feb 2026</span>
+          </button>
+          <button class="camp-subtab active" data-campsub="jul2026" onclick="showCampSub('jul2026')">
+            <span>Second Camp</span>
+            <span class="sub-year">Jul 2026</span>
+          </button>
+          <button class="camp-subtab" data-campsub="jan2027" onclick="showCampSub('jan2027')">
+            <span>Third Camp</span>
+            <span class="sub-upcoming">Upcoming</span>
+          </button>
         </div>
-        <div class="camp-grid">
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/Feb%202026%20group!.jpg')"><img src="pottery-camp/Feb%202026%20group!.jpg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/digging%20for%20clay.jpeg')"><img src="pottery-camp/digging%20for%20clay.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/collecting%20wood.jpeg')"><img src="pottery-camp/collecting%20wood.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/collecting%20wood%20(again).jpeg')"><img src="pottery-camp/collecting%20wood%20(again).jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/more%20wood.jpeg')"><img src="pottery-camp/more%20wood.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/creating%20Amis%20vessels.jpeg')"><img src="pottery-camp/creating%20Amis%20vessels.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/Sa\'atomo.jpg')"><img src="pottery-camp/Sa'atomo.jpg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/Ahma!.jpg')"><img src="pottery-camp/Ahma!.jpg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/preparing%20the%20pit.jpeg')"><img src="pottery-camp/preparing%20the%20pit.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/pre-firing.jpeg')"><img src="pottery-camp/pre-firing.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/pre-firing.jpg')"><img src="pottery-camp/pre-firing.jpg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/fire%20pit.jpg')"><img src="pottery-camp/fire%20pit.jpg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/1000%20degrees.jpeg')"><img src="pottery-camp/1000%20degrees.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/warming%20up%20our%20creations.jpeg')"><img src="pottery-camp/warming%20up%20our%20creations.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/offering.jpeg')"><img src="pottery-camp/offering.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/me%20and%20the%20pit.jpeg')"><img src="pottery-camp/me%20and%20the%20pit.jpeg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/creations.jpg')"><img src="pottery-camp/creations.jpg" alt=""></div>
-          <div class="photo-grid-item" onclick="openLightbox('pottery-camp/plates%20and%20such.jpeg')"><img src="pottery-camp/plates%20and%20such.jpeg" alt=""></div>
-        </div>
+
+        <div class="camp-content">
+
+          <!-- ── Feb 2026 · the first camp ───────────── -->
+          <div class="camp-subpanel" id="campsub-feb2026">
+            <div class="camp-panel">
+              <div class="camp-header">
+                <h2>Sa'Atomo</h2>
+                <div class="camp-tag">Taiwan · February 2026</div>
+                <div class="camp-desc">A traditional Amis pottery camp — collecting wood, digging clay from the earth, hand-building vessels, and firing them in an open pit. An ancient process, still very much alive.</div>
+              </div>
+              <div class="camp-grid">
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/Feb%202026%20group!.jpg')"><img src="feb-2026-saatomo/Feb%202026%20group!.jpg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/digging%20for%20clay.jpeg')"><img src="feb-2026-saatomo/digging%20for%20clay.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/collecting%20wood.jpeg')"><img src="feb-2026-saatomo/collecting%20wood.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/collecting%20wood%20(again).jpeg')"><img src="feb-2026-saatomo/collecting%20wood%20(again).jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/more%20wood.jpeg')"><img src="feb-2026-saatomo/more%20wood.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/creating%20Amis%20vessels.jpeg')"><img src="feb-2026-saatomo/creating%20Amis%20vessels.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/Sa\'atomo.jpg')"><img src="feb-2026-saatomo/Sa'atomo.jpg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/Ahma!.jpg')"><img src="feb-2026-saatomo/Ahma!.jpg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/preparing%20the%20pit.jpeg')"><img src="feb-2026-saatomo/preparing%20the%20pit.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/pre-firing.jpeg')"><img src="feb-2026-saatomo/pre-firing.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/pre-firing.jpg')"><img src="feb-2026-saatomo/pre-firing.jpg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/fire%20pit.jpg')"><img src="feb-2026-saatomo/fire%20pit.jpg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/1000%20degrees.jpeg')"><img src="feb-2026-saatomo/1000%20degrees.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/warming%20up%20our%20creations.jpeg')"><img src="feb-2026-saatomo/warming%20up%20our%20creations.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/offering.jpeg')"><img src="feb-2026-saatomo/offering.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/me%20and%20the%20pit.jpeg')"><img src="feb-2026-saatomo/me%20and%20the%20pit.jpeg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/creations.jpg')"><img src="feb-2026-saatomo/creations.jpg" alt=""></div>
+              <div class="photo-grid-item" onclick="openLightbox('feb-2026-saatomo/plates%20and%20such.jpeg')"><img src="feb-2026-saatomo/plates%20and%20such.jpeg" alt=""></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── July 2026 · the second camp ─────────── -->
+          <div class="camp-subpanel active" id="campsub-jul2026">
+            <div class="camp-panel">
+              <div class="camp-header">
+                <h2>Sa'Atomo</h2>
+                <div class="camp-tag">Taiwan · July 2026</div>
+                <div class="camp-desc">The second camp, welcoming 16 international attendees. Five days of digging clay from the riverbed, gathering firewood, hand-building Amis vessels, and firing them together in an open pit.</div>
+              </div>
+
+              <!-- ══ Schedule ══════════════════════════
+                   EDIT ME — day titles and line items below are a
+                   skeleton drawn from the camp's usual arc. Replace
+                   with what actually ran in July.
+              -->
+              <div class="camp-section">
+                <div class="camp-section-label">Schedule</div>
+                <div class="schedule-list">
+                  <div class="schedule-day">
+                    <div class="schedule-day-num">Day 01</div>
+                    <div class="schedule-day-title">Arrival &amp; Welcome</div>
+                    <ul class="schedule-items">
+                      <li>Arrive at the village, settle in</li>
+                      <li>Introduction to Amis pottery traditions</li>
+                      <li>Opening meal together</li>
+                    </ul>
+                  </div>
+                  <div class="schedule-day">
+                    <div class="schedule-day-num">Day 02</div>
+                    <div class="schedule-day-title">Digging for Clay</div>
+                    <ul class="schedule-items">
+                      <li>Walk out to the clay source</li>
+                      <li>Dig, sort and wedge raw clay</li>
+                      <li>Learn how the Amis read good clay</li>
+                    </ul>
+                  </div>
+                  <div class="schedule-day">
+                    <div class="schedule-day-num">Day 03</div>
+                    <div class="schedule-day-title">Hand-Building</div>
+                    <ul class="schedule-items">
+                      <li>Coil and paddle traditional vessel forms</li>
+                      <li>Plates, bowls and cooking pots</li>
+                      <li>Set pieces out to dry</li>
+                    </ul>
+                  </div>
+                  <div class="schedule-day">
+                    <div class="schedule-day-num">Day 04</div>
+                    <div class="schedule-day-title">Collecting Wood &amp; Preparing the Pit</div>
+                    <ul class="schedule-items">
+                      <li>Gather and stack firewood</li>
+                      <li>Dig and line the firing pit</li>
+                      <li>Warm the pieces beside the fire</li>
+                    </ul>
+                  </div>
+                  <div class="schedule-day">
+                    <div class="schedule-day-num">Day 05</div>
+                    <div class="schedule-day-title">The Firing &amp; Offering</div>
+                    <ul class="schedule-items">
+                      <li>Open-pit firing to ~1000°C</li>
+                      <li>Offering and closing ceremony</li>
+                      <li>Unearth and take home the work</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ══ Photos ════════════════════════════
+                   Drop July photos into july-2026-saatomo/ then
+                   replace the empty state below with tiles like:
+                   <div class="camp-grid">
+                     <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/NAME.jpeg')"><img src="july-2026-saatomo/NAME.jpeg" alt=""></div>
+                   </div>
+              -->
+              <div class="camp-section">
+                <div class="camp-section-label">Photos</div>
+                <div class="camp-empty">
+                  <div class="empty-title">Photos from the July camp are still being sorted — coming soon.</div>
+                </div>
+              </div>
+
+              <!-- ══ Instagram videos ══════════════════
+                   HOW TO ADD A REEL:
+                   1. Replace the whole placeholder <div class="reel-card placeholder"> …
+                      with the <a class="reel-card"> form shown here.
+                   2. Set href to the Instagram reel URL.
+                   3. Save a cover image in july-2026-saatomo/ and point
+                      reel-thumb's background-image at it.
+
+                   <a class="reel-card" href="https://www.instagram.com/reel/XXXXX/" target="_blank" rel="noopener">
+                     <div class="reel-thumb" style="background-image:url('july-2026-saatomo/cover.jpg')"></div>
+                     <div class="reel-overlay"></div>
+                     <div class="reel-ig-icon"> …svg… </div>
+                     <div class="reel-play"><svg viewBox="0 0 24 24" fill="#fff"><polygon points="6,3 20,12 6,21"/></svg></div>
+                     <div class="reel-label">
+                       <div class="reel-brand">Digging for Clay</div>
+                       <div class="reel-cta">Watch on Instagram ↗</div>
+                     </div>
+                   </a>
+              -->
+              <div class="camp-section">
+                <div class="camp-section-label">From the Camp · Instagram</div>
+                <div class="camp-note">Videos I made about the camp are on Instagram — they'll be embedded here shortly.</div>
+                <div class="camp-cta-row">
+                  <a class="camp-cta" href="https://www.instagram.com/amandacuii" target="_blank" rel="noopener">Watch on Instagram ↗</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── Jan 2027 · upcoming ─────────────────── -->
+          <div class="camp-subpanel" id="campsub-jan2027">
+            <div class="camp-panel">
+
+              <div class="upcoming-hero">
+                <div class="upcoming-hero-main">
+                  <h2>Sa'Atomo</h2>
+                  <div class="camp-tag">Taiwan · January 2027</div>
+                  <div class="camp-desc">The third Amis pottery camp. Dig clay from the earth, gather wood, hand-build vessels the way they have been built here for generations, and fire them together in an open pit.</div>
+                  <div class="camp-cta-row">
+                    <a class="camp-cta solid" href="mailto:amandacuicollab@gmail.com?subject=Sa'Atomo%20January%202027%20—%20Inquiry">Inquire to join</a>
+                    <span class="camp-spots">Enrollment opens soon</span>
+                  </div>
+                </div>
+                <div class="upcoming-facts">
+                  <div class="upcoming-fact">
+                    <div class="fact-label">Dates</div>
+                    <div class="fact-value tba">January 2027 · TBA</div>
+                  </div>
+                  <div class="upcoming-fact">
+                    <div class="fact-label">Location</div>
+                    <div class="fact-value">Taiwan · Amis village</div>
+                  </div>
+                  <div class="upcoming-fact">
+                    <div class="fact-label">Group size</div>
+                    <div class="fact-value tba">TBA</div>
+                  </div>
+                  <div class="upcoming-fact">
+                    <div class="fact-label">Tuition</div>
+                    <div class="fact-value tba">TBA</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- EDIT ME — your own account of how the camp began. -->
+              <div class="camp-section">
+                <div class="camp-section-label">About the Camp</div>
+                <div class="camp-body">
+                  <p>Sa'Atomo is a traditional Amis pottery camp held in Taiwan. Everything begins with the land: the clay is dug from the earth nearby, the wood is gathered by hand, and the vessels are fired in a pit rather than a kiln.</p>
+                  <p>The first camp ran in February 2026. The second, in July 2026, welcomed 16 international attendees. The third is being planned for January 2027.</p>
+                </div>
+              </div>
+
+              <!-- EDIT ME — confirm what's actually taught. -->
+              <div class="camp-section">
+                <div class="camp-section-label">What You'll Learn</div>
+                <div class="camp-cols">
+                  <ul class="camp-list">
+                    <li>Sourcing and digging wild clay</li>
+                    <li>Processing and wedging by hand</li>
+                    <li>Coil-building Amis vessel forms</li>
+                    <li>Paddling and surface finishing</li>
+                  </ul>
+                  <ul class="camp-list">
+                    <li>Reading and gathering firewood</li>
+                    <li>Building and packing an open pit</li>
+                    <li>Open-pit firing to ~1000°C</li>
+                    <li>The offering and closing ceremony</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- EDIT ME — confirm inclusions before publishing. -->
+              <div class="camp-section">
+                <div class="camp-section-label">Included</div>
+                <div class="camp-cols">
+                  <ul class="camp-list">
+                    <li>All instruction, with English translation</li>
+                    <li>Clay, wood and firing materials</li>
+                    <li>Shared meals through the camp</li>
+                  </ul>
+                  <ul class="camp-list">
+                    <li>Accommodation for the length of the camp</li>
+                    <li>Local transport during the camp</li>
+                    <li>The pieces you make, to take home</li>
+                  </ul>
+                </div>
+                <div class="camp-note">Travel to and from Taiwan is not included. Full details will be published with the information packet.</div>
+              </div>
+
+              <!-- EDIT ME — swap in real attendee quotes. -->
+              <div class="camp-section">
+                <div class="camp-section-label">From Past Attendees</div>
+                <div class="camp-note">Reflections from the February and July 2026 camps are being collected — they'll be shared here soon.</div>
+              </div>
+
+              <div class="camp-section">
+                <div class="camp-section-label">Join Us</div>
+                <div class="camp-body">
+                  <p>Spots are limited and the camp is kept small on purpose. Reach out and I'll send details as soon as dates are set.</p>
+                </div>
+                <div class="camp-cta-row">
+                  <a class="camp-cta solid" href="mailto:amandacuicollab@gmail.com?subject=Sa'Atomo%20January%202027%20—%20Inquiry">Inquire to join</a>
+                  <a class="camp-cta" href="#" onclick="showCampSub('jul2026');return false;">See the July camp</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div><!-- /camp-content -->
       </div>
     </div>
 
@@ -656,6 +1147,17 @@
     document.querySelectorAll('.project-panel').forEach(el =>
       el.classList.toggle('active', el.id === 'panel-' + id)
     );
+  }
+
+  function showCampSub(id) {
+    document.querySelectorAll('.camp-subtab').forEach(el =>
+      el.classList.toggle('active', el.dataset.campsub === id)
+    );
+    document.querySelectorAll('.camp-subpanel').forEach(el => {
+      const on = el.id === 'campsub-' + id;
+      el.classList.toggle('active', on);
+      if (on) { const sc = el.querySelector('.camp-panel'); if (sc) sc.scrollTop = 0; }
+    });
   }
 
   function showSub(id) {

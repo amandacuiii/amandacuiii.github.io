@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Large source video (exceeds GitHub's 100MB file limit)
+*.MP4
+*.mp4
+
+# Claude Code worktrees
+.claude/worktrees/
