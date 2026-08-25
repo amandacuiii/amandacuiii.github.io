@@ -36,8 +36,6 @@
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
     .nav-link { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(242,237,232,0.4); transition: color 0.2s; }
     .nav-link:hover { color: rgba(242,237,232,0.8); }
-    @media (max-width: 600px) { .nav-links { display: none; } }
-
     /* ── Hero ─────────────────────────────────────── */
     .hero {
       padding: 5rem 6vw 2.5rem;
@@ -285,6 +283,41 @@
       .stat:nth-last-child(-n+2) { border-bottom: none; }
       .stats-note { padding: 0 5vw 1.3rem; font-size: .62rem; }
     }
+
+    /* ── Mobile navigation ───────────────────────── */
+    .nav-toggle { display: none; }
+    @media (max-width: 600px) {
+      .nav-toggle {
+        display: flex; flex-direction: column; justify-content: center;
+        gap: 4px; width: 44px; height: 44px;
+        margin-right: -10px; padding: 0 10px;
+        background: none; border: none; cursor: pointer;
+        color: inherit;
+      }
+      .nav-toggle span {
+        display: block; height: 1px; width: 20px;
+        background: currentColor; opacity: .75;
+        transition: transform .25s ease, opacity .2s ease;
+      }
+      .nav-toggle.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+      .nav-toggle.open span:nth-child(2) { opacity: 0; }
+      .nav-toggle.open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+      .nav-links {
+        display: flex; flex-direction: column; gap: 0;
+        position: fixed; top: 56px; left: 0; right: 0; z-index: 60;
+        background: #161311;
+        border-bottom: 1px solid rgba(242,237,232,0.1);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+        opacity: 0; transform: translateY(-6px); pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease;
+      }
+      .nav-links.open { opacity: 1; transform: none; pointer-events: auto; }
+      .nav-link {
+        padding: 1.05rem 1.4rem; font-size: .78rem;
+        border-bottom: 1px solid rgba(242,237,232,0.06);
+      }
+    }
   </style>
 </head>
 <body>
@@ -292,7 +325,8 @@
 <!-- ── Nav ──────────────────────────────────────────── -->
 <nav>
   <a href="../Title%20Page/" class="nav-name">Amanda Cui</a>
-  <div class="nav-links">
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" onclick="toggleNav()"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navLinks">
     <a href="../pottery/pottery.html" class="nav-link">Pottery</a>
     <a href="../storytelling/storytelling.html" class="nav-link">Storytelling</a>
     <a href="../saatomo/" class="nav-link">Gathering</a>
@@ -527,5 +561,22 @@
   <a href="mailto:amandacuicollab@gmail.com" class="contact-btn">Get in touch</a>
 </footer>
 
+<script>
+  function toggleNav() {
+    var links = document.getElementById('navLinks');
+    var btn = document.querySelector('.nav-toggle');
+    var open = links.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  document.addEventListener('click', function(e) {
+    var links = document.getElementById('navLinks');
+    if (!links || !links.classList.contains('open')) return;
+    if (e.target.closest('.nav-toggle')) return;
+    if (e.target.closest('.nav-link')) { toggleNav(); return; }
+    if (!e.target.closest('.nav-links')) toggleNav();
+  });
+</script>
 </body>
 </html>

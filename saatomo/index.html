@@ -41,7 +41,6 @@
     .nav-links { display: flex; gap: 1.5rem; align-items: center; }
     .nav-link { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(242,237,232,0.4); transition: color 0.2s; }
     .nav-link:hover { color: rgba(242,237,232,0.8); }
-    @media (max-width: 600px) { .nav-links { display: none; } }
 
     /* ── Layout ──────────────────────────────────── */
     .layout {
@@ -745,13 +744,78 @@
     @media (max-width: 420px) {
       nav { padding: 0 1rem; }
     }
+
+    /* ── Mobile navigation & density ─────────────── */
+    .nav-toggle { display: none; }
+
+    @media (max-width: 600px) {
+      .nav-toggle {
+        display: flex; flex-direction: column; justify-content: center;
+        gap: 4px; width: 44px; height: 44px;
+        margin-right: -10px; padding: 0 10px;
+        background: none; border: none; cursor: pointer;
+        color: inherit;
+      }
+      .nav-toggle span {
+        display: block; height: 1px; width: 20px;
+        background: currentColor; opacity: .75;
+        transition: transform .25s ease, opacity .2s ease;
+      }
+      .nav-toggle.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+      .nav-toggle.open span:nth-child(2) { opacity: 0; }
+      .nav-toggle.open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+      .nav-links {
+        display: flex; flex-direction: column; gap: 0;
+        position: fixed; top: 56px; left: 0; right: 0; z-index: 60;
+        background: #161311;
+        border-bottom: 1px solid rgba(242,237,232,0.1);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+        opacity: 0; transform: translateY(-6px); pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease;
+      }
+      .nav-links.open { opacity: 1; transform: none; pointer-events: auto; }
+      .nav-link {
+        padding: 1.05rem 1.4rem; font-size: .78rem;
+        border-bottom: 1px solid rgba(242,237,232,0.06);
+      }
+
+      /* Sub-tabs: dates only, so all of them fit without scrolling */
+      .camp-subnav, .lunar-subnav {
+        padding: 0 .5rem; gap: 0; overflow-x: visible;
+      }
+      .camp-subtab, .lunar-subtab {
+        flex: 1 1 0; justify-content: center; gap: .3rem;
+        min-height: 46px; padding: 0 .2rem;
+      }
+      .camp-subtab > span:first-child,
+      .lunar-subtab > span:first-child { display: none; }
+      .camp-subtab .sub-upcoming { display: none; }
+      .camp-subtab .sub-year, .lunar-subtab .sub-year { font-size: .66rem; }
+
+      /* Denser galleries — two across instead of one */
+      .camp-grid { grid-template-columns: repeat(2, 1fr); }
+      .snake-grid { column-count: 2; }
+      .reel-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .camp-cols { grid-template-columns: 1fr; gap: .2rem; }
+      .upcoming-hero { gap: 1.6rem; padding-bottom: 1.8rem; }
+      .upcoming-facts { flex-direction: row; flex-wrap: wrap; gap: 1rem 2rem; }
+
+      .camp-panel, .snake-panel { padding: 1.6rem 1rem 3rem; }
+      .camp-section { margin-top: 2.4rem; }
+      .camp-cta { padding: .7rem 1.1rem; }
+      .camp-cta-row { gap: .6rem; }
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <a href="../Title%20Page/" class="nav-name">Amanda Cui</a>
-  <div class="nav-links">
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
     <a href="../pottery/pottery.html" class="nav-link">Pottery</a>
     <a href="../storytelling/storytelling.html" class="nav-link">Storytelling</a>
     <a href="../About%20Me/about.html" class="nav-link">About</a>
@@ -799,6 +863,7 @@
           </button>
           <button class="camp-subtab" data-campsub="jan2027" onclick="showCampSub('jan2027')">
             <span>Third Camp</span>
+            <span class="sub-year">Jan 2027</span>
             <span class="sub-upcoming">Upcoming</span>
           </button>
         </div>
@@ -1267,6 +1332,22 @@
 </div>
 
 <script>
+  function toggleNav() {
+    var links = document.getElementById('navLinks');
+    var btn = document.querySelector('.nav-toggle');
+    var open = links.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  document.addEventListener('click', function(e) {
+    var links = document.getElementById('navLinks');
+    if (!links || !links.classList.contains('open')) return;
+    if (e.target.closest('.nav-toggle')) return;
+    if (e.target.closest('.nav-link')) { toggleNav(); return; }
+    if (!e.target.closest('.nav-links')) toggleNav();
+  });
+
   function openLightbox(src) {
     const lb = document.getElementById('lightbox');
     lb.querySelector('img').src = src;
