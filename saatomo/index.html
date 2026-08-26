@@ -641,6 +641,59 @@
       .camp-split.reverse .camp-media { order: 0; }
     }
 
+    /* ── Slideshow ───────────────────────────────── */
+    .slideshow { position: relative; }
+    .slide-stage {
+      position: relative; overflow: hidden;
+      background: #0f0d0c; border-radius: 3px;
+      aspect-ratio: 3 / 2;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .slide-stage img {
+      width: 100%; height: 100%; object-fit: contain;
+      display: block; cursor: zoom-in;
+    }
+    .slide-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(18,15,13,0.55);
+      border: 1px solid rgba(242,237,232,0.18);
+      color: #f2ede8; font-size: 1.4rem; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-family: 'Neuton', serif;
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .slide-nav:hover {
+      background: rgba(18,15,13,0.85); border-color: rgba(200,168,130,0.6);
+    }
+    .slide-nav.prev { left: 12px; }
+    .slide-nav.next { right: 12px; }
+    .slide-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1rem; margin-top: .8rem;
+    }
+    .slide-count {
+      font-size: .65rem; letter-spacing: .18em;
+      color: rgba(242,237,232,0.35); flex-shrink: 0;
+    }
+    .slide-dots { display: flex; gap: 5px; flex-wrap: wrap; }
+    .slide-dot {
+      width: 5px; height: 5px; border-radius: 50%; padding: 0;
+      background: rgba(242,237,232,0.2); border: none; cursor: pointer;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .slide-dot:hover { background: rgba(242,237,232,0.45); }
+    .slide-dot.active { background: #c8a882; transform: scale(1.3); }
+
+    @media (max-width: 600px) {
+      .slide-stage { aspect-ratio: 4 / 3; }
+      .slide-nav { width: 40px; height: 40px; }
+      .slide-nav.prev { left: 6px; }
+      .slide-nav.next { right: 6px; }
+      .slide-meta { flex-direction: column-reverse; align-items: flex-start; gap: .5rem; }
+    }
+
     /* Testimonials */
     .quote-grid {
       display: grid;
@@ -902,124 +955,37 @@
                 <div class="camp-section-label">How It Started</div>
                 <div class="camp-split">
                   <div class="camp-body">
-                    <p>In February 2026, I traveled to Guangfu Township, Hualien, for an Indigenous pottery camp led by my ceramics teacher.</p>
-                    <p>While there, we dug and prepared the clay, built by hand, and fired in an open pit.</p>
+                    <p>In February 2026, I traveled to Guangfu Township, Hualien, for an Indigenous pottery camp led by my ceramics teacher, Papay. He is part of the Amis tribe, and he started these camps as a way to share knowledge about the Amis and about Indigenous life in Taiwan. He invited my sister and me to join.</p>
                   </div>
                   <div class="camp-media">
-                    <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/digging%20for%20clay.jpeg')">
-                      <img src="feb-2026-saatomo/digging%20for%20clay.jpeg" alt="" loading="lazy">
+                    <!-- PHOTO 1 — swap the filename below once labelled -->
+                    <figure class="camp-figure" data-slot="photo-1" onclick="openLightbox('feb-2026-saatomo/photo%201.jpeg')">
+                      <img src="feb-2026-saatomo/photo%201.jpeg" alt="" loading="lazy">
                     </figure>
                   </div>
                 </div>
                 <div class="camp-split reverse">
                   <div class="camp-body">
-                    <p>I documented my experience on Instagram, and the response was an outpouring of enthusiasm, intrigue, and excitement — with many people asking how they could come to Taiwan and experience it themselves.</p>
+                    <p>While there, we learned about Amis culture and what ceramics mean to the community, and we made our own pieces from clay dug out of the earth. Learning from local elders, I came to understand why the rituals matter, and what it means to honor the land you live on.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- PHOTO 2 — swap the filename below once labelled -->
+                    <figure class="camp-figure" data-slot="photo-2" onclick="openLightbox('feb-2026-saatomo/photo%202.jpeg')">
+                      <img src="feb-2026-saatomo/photo%202.jpeg" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <p>I documented my experience on Instagram, and the response was an outpouring of enthusiasm, intrigue, and excitement. Many people asked how they could come to Taiwan and experience it themselves.</p>
                     <p>So I collaborated with Papay to launch an International Pottery Camp, taught with English translation, to make traditional Amis ceramic education accessible to students around the world. In July 2026, we hosted the first camp with 16 students from 8 countries.</p>
                   </div>
                   <div class="camp-media">
-                    <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/creating%20Amis%20vessels.jpeg')">
-                      <img src="feb-2026-saatomo/creating%20Amis%20vessels.jpeg" alt="" loading="lazy">
+                    <!-- PHOTO 3 — swap the filename below once labelled -->
+                    <figure class="camp-figure" data-slot="photo-3" onclick="openLightbox('feb-2026-saatomo/photo%203.jpg')">
+                      <img src="feb-2026-saatomo/photo%203.jpg" alt="" loading="lazy">
                     </figure>
                   </div>
-                </div>
-              </div>
-
-              <div class="camp-section">
-                <div class="camp-section-label">The Place</div>
-                <div class="camp-split">
-                  <div class="camp-body">
-                    <p>Guangfu (光復) is a township on Taiwan's east coast in Hualien County, between the Central Mountain Range and the Pacific. It is one of the cultural heartlands of the Amis (阿美族), Taiwan's largest indigenous group.</p>
-                    <p>The Amis have kept a living tradition of pottery tied to the land for generations. The process is inseparable from its cultural and spiritual context — from the rituals around gathering soil to the communal nature of the firing. Pottery here is a form of cultural memory.</p>
-                  </div>
-                  <div class="camp-media">
-                    <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/Sa%27atomo.jpg')">
-                      <img src="feb-2026-saatomo/Sa%27atomo.jpg" alt="" loading="lazy">
-                    </figure>
-                  </div>
-                </div>
-                <div class="camp-figure-pair">
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/collecting%20wood.jpeg')">
-                    <img src="feb-2026-saatomo/collecting%20wood.jpeg" alt="" loading="lazy">
-                  </figure>
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/collecting%20wood%20%28again%29.jpeg')">
-                    <img src="feb-2026-saatomo/collecting%20wood%20%28again%29.jpeg" alt="" loading="lazy">
-                  </figure>
-                </div>
-              </div>
-
-              <div class="camp-section">
-                <div class="camp-section-label">The Studio</div>
-                <div class="camp-split reverse">
-                  <div class="camp-body">
-                    <p>Sa'Atomo (阿美陶部落營隊) means "come make pottery" in Amis. The camp is run by Austronesian Alien Studio (南島星人工作室), an indigenous-led studio founded by Papay, a pottery teacher and cultural educator.</p>
-                    <p>The studio's aim is to widen access to indigenous culture — a place where both indigenous youth and visitors can learn traditional Amis pottery in its living context, not as a museum artifact but as a practiced tradition.</p>
-                  </div>
-                  <div class="camp-media">
-                    <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/Ahma%21.jpg')">
-                      <img src="feb-2026-saatomo/Ahma%21.jpg" alt="" loading="lazy">
-                    </figure>
-                  </div>
-                </div>
-                <div class="camp-figure-pair">
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/more%20wood.jpeg')">
-                    <img src="feb-2026-saatomo/more%20wood.jpeg" alt="" loading="lazy">
-                  </figure>
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/offering.jpeg')">
-                    <img src="feb-2026-saatomo/offering.jpeg" alt="" loading="lazy">
-                  </figure>
-                </div>
-              </div>
-
-              <div class="camp-section">
-                <div class="camp-section-label">What We Did</div>
-                <div class="camp-cols">
-                  <ul class="camp-list">
-                    <li>Gathered clay directly from the earth</li>
-                    <li>Cleaned, kneaded and conditioned it by hand</li>
-                    <li>Collected and stacked firewood</li>
-                  </ul>
-                  <ul class="camp-list">
-                    <li>Built vessels by pinching and coiling</li>
-                    <li>Dug and packed the open firing pit</li>
-                    <li>Fired overnight, then made the offering</li>
-                  </ul>
-                </div>
-                <div class="camp-figure-pair">
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/preparing%20the%20pit.jpeg')">
-                    <img src="feb-2026-saatomo/preparing%20the%20pit.jpeg" alt="" loading="lazy">
-                  </figure>
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/pre-firing.jpeg')">
-                    <img src="feb-2026-saatomo/pre-firing.jpeg" alt="" loading="lazy">
-                  </figure>
-                </div>
-                <div class="camp-figure-pair">
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/pre-firing.jpg')">
-                    <img src="feb-2026-saatomo/pre-firing.jpg" alt="" loading="lazy">
-                  </figure>
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/fire%20pit.jpg')">
-                    <img src="feb-2026-saatomo/fire%20pit.jpg" alt="" loading="lazy">
-                  </figure>
-                </div>
-                <div class="camp-figure-pair">
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/1000%20degrees.jpeg')">
-                    <img src="feb-2026-saatomo/1000%20degrees.jpeg" alt="" loading="lazy">
-                  </figure>
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/warming%20up%20our%20creations.jpeg')">
-                    <img src="feb-2026-saatomo/warming%20up%20our%20creations.jpeg" alt="" loading="lazy">
-                  </figure>
-                </div>
-                <div class="camp-figure-pair">
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/me%20and%20the%20pit.jpeg')">
-                    <img src="feb-2026-saatomo/me%20and%20the%20pit.jpeg" alt="" loading="lazy">
-                  </figure>
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/creations.jpg')">
-                    <img src="feb-2026-saatomo/creations.jpg" alt="" loading="lazy">
-                  </figure>
-                </div>
-                <div class="camp-figure-wide">
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/plates%20and%20such.jpeg')">
-                    <img src="feb-2026-saatomo/plates%20and%20such.jpeg" alt="" loading="lazy">
-                  </figure>
                 </div>
               </div>
 
@@ -1045,7 +1011,7 @@
                     </div>
                   </a>
                   <a class="reel-card" href="https://www.instagram.com/reel/DU3YblyErKU/" target="_blank" rel="noopener">
-                    <div class="reel-thumb" style="background-image:url('feb-2026-saatomo/creating%20Amis%20vessels.jpeg')"></div>
+                    <div class="reel-thumb" style="background-image:url('feb-2026-saatomo/photo%202.jpeg')"></div>
                     <div class="reel-overlay"></div>
                     <div class="reel-ig-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1120,11 +1086,32 @@
               </div>
 
               <div class="camp-section">
-                <div class="camp-section-label">The Cohort</div>
-                <div class="camp-figure-wide">
-                  <figure class="camp-figure" onclick="openLightbox('feb-2026-saatomo/Feb%202026%20group%21.jpg')">
-                    <img src="feb-2026-saatomo/Feb%202026%20group%21.jpg" alt="" loading="lazy">
-                  </figure>
+                <div class="camp-section-label">Photographs</div>
+                <div class="slideshow" id="slides-feb">
+                  <div class="slide-stage">
+                    <button class="slide-nav prev" aria-label="Previous photo" onclick="slideStep('feb',-1)">‹</button>
+                    <img id="slide-img-feb" src="feb-2026-saatomo/collecting%20wood.jpeg" alt="" onclick="openLightbox(this.getAttribute('src'))">
+                    <button class="slide-nav next" aria-label="Next photo" onclick="slideStep('feb',1)">›</button>
+                  </div>
+                  <div class="slide-meta">
+                    <span class="slide-count" id="slide-count-feb">1 / 14</span>
+                    <div class="slide-dots" id="slide-dots-feb">
+                    <button class="slide-dot active" aria-label="Photo 1" onclick="slideGo('feb',0)"></button>
+                    <button class="slide-dot" aria-label="Photo 2" onclick="slideGo('feb',1)"></button>
+                    <button class="slide-dot" aria-label="Photo 3" onclick="slideGo('feb',2)"></button>
+                    <button class="slide-dot" aria-label="Photo 4" onclick="slideGo('feb',3)"></button>
+                    <button class="slide-dot" aria-label="Photo 5" onclick="slideGo('feb',4)"></button>
+                    <button class="slide-dot" aria-label="Photo 6" onclick="slideGo('feb',5)"></button>
+                    <button class="slide-dot" aria-label="Photo 7" onclick="slideGo('feb',6)"></button>
+                    <button class="slide-dot" aria-label="Photo 8" onclick="slideGo('feb',7)"></button>
+                    <button class="slide-dot" aria-label="Photo 9" onclick="slideGo('feb',8)"></button>
+                    <button class="slide-dot" aria-label="Photo 10" onclick="slideGo('feb',9)"></button>
+                    <button class="slide-dot" aria-label="Photo 11" onclick="slideGo('feb',10)"></button>
+                    <button class="slide-dot" aria-label="Photo 12" onclick="slideGo('feb',11)"></button>
+                    <button class="slide-dot" aria-label="Photo 13" onclick="slideGo('feb',12)"></button>
+                    <button class="slide-dot" aria-label="Photo 14" onclick="slideGo('feb',13)"></button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1148,7 +1135,7 @@
               <div class="camp-header">
                 <h2>Sa'Atomo</h2>
                 <div class="camp-tag">Guangfu, Hualien · July 2026</div>
-                <div class="camp-desc">Papay and I brought 16 people from 8 countries to Guangfu for our first international camp. Five days of gathering clay in Fengbin, building by hand, and tending the fire together through the night — and what grew out of it was a community. We made beautiful things, and just as many memories.</div>
+                <div class="camp-desc">Papay and I brought 16 people from 8 countries to Guangfu for our first international camp. Five days of gathering clay in Fengbin, building by hand, and tending the fire together through the night, and what grew out of it was a community. We made beautiful things, and just as many memories.</div>
                 <div class="camp-desc">Seeing how much that group took away from the experience, and how much the exchange gave back to the studio and the community, made it clear this was worth running a second time.</div>
               </div>
 
@@ -1230,7 +1217,7 @@
                 <div class="upcoming-hero-main">
                   <h2>Sa'Atomo</h2>
                   <div class="camp-tag">Guangfu, Hualien · January 25–29, 2027</div>
-                  <div class="camp-desc">A five-day immersion in traditional Amis pottery, run with Austronesian Alien Studio (南島星人工作室) — from the soil gathering ritual through hand-building to an open pit firing. No prior pottery experience needed.</div>
+                  <div class="camp-desc">A five-day immersion in traditional Amis pottery, run with Austronesian Alien Studio (南島星人工作室), from the soil gathering ritual through hand-building to an open pit firing. No prior pottery experience needed.</div>
                   <div class="camp-cta-row">
                     <a class="camp-cta solid" href="https://forms.gle/3i9noMBz5REyjGyV9" target="_blank" rel="noopener">Apply to join ↗</a>
                     <span class="camp-spots">Applications close September 20, 2026</span>
@@ -1260,7 +1247,7 @@
                 <div class="camp-section-label">About the Camp</div>
                 <div class="camp-body">
                   <p>"Sa'atomo" (阿美陶部落營隊) means "come make pottery" in Amis. The camp is held in Guangfu, one of the cultural heartlands of the Amis, Taiwan's largest indigenous group. Clay is gathered by hand from the earth, shaped by pinching and coiling rather than thrown on a wheel, and fired in an open pit.</p>
-                  <p>The camp emphasises process over product — each step carries its cultural context, from the land offering ritual to what the firing means. It is run with Austronesian Alien Studio, an indigenous-led studio founded by Papay, and taught alongside Amis artisans and elders.</p>
+                  <p>The camp emphasises process over product. Each step carries its cultural context, from the land offering ritual to what the firing means. It is run with Austronesian Alien Studio, an indigenous-led studio founded by Papay, and taught alongside Amis artisans and elders.</p>
                 </div>
               </div>
 
@@ -1348,6 +1335,48 @@
     if (e.target.closest('.nav-link')) { toggleNav(); return; }
     if (!e.target.closest('.nav-links')) toggleNav();
   });
+
+  /* ── Slideshow ─────────────────────────────── */
+  var SLIDES = { feb: ["feb-2026-saatomo/collecting%20wood.jpeg", "feb-2026-saatomo/collecting%20wood%20%28again%29.jpeg", "feb-2026-saatomo/more%20wood.jpeg", "feb-2026-saatomo/preparing%20the%20pit.jpeg", "feb-2026-saatomo/pre-firing.jpeg", "feb-2026-saatomo/pre-firing.jpg", "feb-2026-saatomo/fire%20pit.jpg", "feb-2026-saatomo/1000%20degrees.jpeg", "feb-2026-saatomo/warming%20up%20our%20creations.jpeg", "feb-2026-saatomo/offering.jpeg", "feb-2026-saatomo/me%20and%20the%20pit.jpeg", "feb-2026-saatomo/creations.jpg", "feb-2026-saatomo/plates%20and%20such.jpeg", "feb-2026-saatomo/Feb%202026%20group%21.jpg"] };
+  var slideIdx = { feb: 0 };
+
+  function slideRender(key) {
+    var list = SLIDES[key], i = slideIdx[key];
+    document.getElementById('slide-img-' + key).src = list[i];
+    document.getElementById('slide-count-' + key).textContent = (i + 1) + ' / ' + list.length;
+    var dots = document.getElementById('slide-dots-' + key).children;
+    for (var d = 0; d < dots.length; d++) dots[d].classList.toggle('active', d === i);
+    // preload neighbours so stepping feels instant
+    [list[(i + 1) % list.length], list[(i - 1 + list.length) % list.length]]
+      .forEach(function(src) { var im = new Image(); im.src = src; });
+  }
+  function slideGo(key, i) {
+    var n = SLIDES[key].length;
+    slideIdx[key] = ((i % n) + n) % n;
+    slideRender(key);
+  }
+  function slideStep(key, d) { slideGo(key, slideIdx[key] + d); }
+
+  document.addEventListener('keydown', function(e) {
+    if (document.getElementById('lightbox').classList.contains('open')) return;
+    var box = document.getElementById('slides-feb');
+    if (!box || !box.closest('.camp-subpanel').classList.contains('active')) return;
+    if (e.key === 'ArrowLeft') slideStep('feb', -1);
+    if (e.key === 'ArrowRight') slideStep('feb', 1);
+  });
+
+  (function() {
+    var stage = document.querySelector('#slides-feb .slide-stage');
+    if (!stage) return;
+    var x0 = null;
+    stage.addEventListener('touchstart', function(e) { x0 = e.changedTouches[0].clientX; }, {passive: true});
+    stage.addEventListener('touchend', function(e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) slideStep('feb', dx < 0 ? 1 : -1);
+      x0 = null;
+    }, {passive: true});
+  })();
 
   function openLightbox(src) {
     const lb = document.getElementById('lightbox');
