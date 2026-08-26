@@ -694,6 +694,38 @@
       .slide-meta { flex-direction: column-reverse; align-items: flex-start; gap: .5rem; }
     }
 
+    /* ── Day-by-day cards ────────────────────────── */
+    .day-num {
+      font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+      color: #c8a882; margin-bottom: .45rem;
+    }
+    .day-title {
+      font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+      font-weight: 300; line-height: 1.25; letter-spacing: -.01em;
+      margin-bottom: .8rem;
+    }
+    .day-quote {
+      margin-top: 1.1rem; padding-left: 1rem;
+      border-left: 2px solid rgba(200,168,130,0.35);
+    }
+    .day-quote .quote-text {
+      font-size: .85rem; line-height: 1.7; font-style: italic;
+      color: rgba(242,237,232,0.55);
+    }
+    .day-quote .quote-attr {
+      margin-top: .5rem; font-size: .65rem; letter-spacing: .1em;
+      color: rgba(242,237,232,0.32);
+    }
+    .camp-days .camp-split { margin-bottom: 3rem; }
+    .camp-days .camp-split:last-child { margin-bottom: 0; }
+    .thanks-line {
+      font-size: .88rem; line-height: 1.7;
+      color: rgba(242,237,232,0.45);
+      padding-top: 1.1rem; margin-top: .4rem;
+      border-top: 1px solid rgba(242,237,232,0.08);
+      max-width: 620px;
+    }
+
     /* Testimonials */
     .quote-grid {
       display: grid;
@@ -1135,32 +1167,107 @@
               <div class="camp-header">
                 <h2>Sa'Atomo</h2>
                 <div class="camp-tag">Guangfu, Hualien · July 2026</div>
-                <div class="camp-desc">Papay and I brought 16 people from 8 countries to Guangfu for our first international camp. Five days of gathering clay in Fengbin, building by hand, and tending the fire together through the night, and what grew out of it was a community. We made beautiful things, and just as many memories.</div>
-                <div class="camp-desc">Seeing how much that group took away from the experience, and how much the exchange gave back to the studio and the community, made it clear this was worth running a second time.</div>
+                <div class="camp-desc">Papay and I brought 16 people from 8 different countries to join us in Guangfu, Hualien. Over five days we learned from members of the Indigenous Amis tribe, dug our own clay from the earth, and wedged it by hand (and by foot). We gathered our own firewood and built a pit fire that reached 1,000 degrees Celsius. Most importantly, we got to really know one another.</div>
+                <div class="camp-desc">Pottery became a shared language for us, and a medium for connection, creativity, and craft.</div>
+                <div class="thanks-line">Thank you to the 16 individuals who made the first cohort unforgettable: Aaliyah, Alicia, Angel, Cassie, Catharine, Chung, Dan, Hailey, Han, Jianna, Kimberlyn, Lee Rong, Nicole, Samantha, Natasha, and Tessa.</div>
               </div>
 
-              <div class="camp-section">
-                <div class="camp-section-label">Photos</div>
-                <div class="camp-grid">
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSCF3508_Original.JPG')"><img src="july-2026-saatomo/DSCF3508_Original.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSCF3577.JPG')"><img src="july-2026-saatomo/DSCF3577.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSCF3653.JPG')"><img src="july-2026-saatomo/DSCF3653.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSC06287.JPG')"><img src="july-2026-saatomo/DSC06287.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSC06312.JPG')"><img src="july-2026-saatomo/DSC06312.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSCF3673.JPG')"><img src="july-2026-saatomo/DSCF3673.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSCF3689.JPG')"><img src="july-2026-saatomo/DSCF3689.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSCF3737.JPG')"><img src="july-2026-saatomo/DSCF3737.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/IMG_0760.JPG')"><img src="july-2026-saatomo/IMG_0760.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/IMG_0761.JPG')"><img src="july-2026-saatomo/IMG_0761.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSCF3921.JPG')"><img src="july-2026-saatomo/DSCF3921.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSCF3991.JPG')"><img src="july-2026-saatomo/DSCF3991.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSCF4039.JPG')"><img src="july-2026-saatomo/DSCF4039.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/_DSF8942.jpg')"><img src="july-2026-saatomo/_DSF8942.jpg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/DSC06375.JPG')"><img src="july-2026-saatomo/DSC06375.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/000012950014.jpg')"><img src="july-2026-saatomo/000012950014.jpg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/000012950024.jpg')"><img src="july-2026-saatomo/000012950024.jpg" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/IMG_9307.JPG')"><img src="july-2026-saatomo/IMG_9307.JPG" alt="" loading="lazy"></div>
-                  <div class="photo-grid-item" onclick="openLightbox('july-2026-saatomo/IMG_9309.JPG')"><img src="july-2026-saatomo/IMG_9309.JPG" alt="" loading="lazy"></div>
+              <div class="camp-section camp-days">
+                <div class="camp-section-label">Five Days</div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <div class="day-num">Day 01</div>
+                    <div class="day-title">Arriving and Meeting the Clay</div>
+                    <p>The group came together in Guangfu and met the material for the first time, learning from members of the Amis tribe how the clay is read, gathered and cared for.</p>
+                    <!-- TESTIMONIAL: when a quote comes in for this day, uncomment and fill in
+                    <div class="day-quote">
+                      <div class="quote-text">Quote goes here.</div>
+                      <div class="quote-attr">Name, Country</div>
+                    </div>
+                    -->
+                  </div>
+                  <div class="camp-media">
+                    <!-- DAY 1 PHOTO: swap the filename below to change it -->
+                    <figure class="camp-figure" data-slot="day-1" onclick="openLightbox('july-2026-saatomo/DSC06287.JPG')">
+                      <img src="july-2026-saatomo/DSC06287.JPG" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split reverse">
+                  <div class="camp-body">
+                    <div class="day-num">Day 02</div>
+                    <div class="day-title">Digging and Wedging</div>
+                    <p>We dug our own clay from the earth and wedged it by hand, and by foot, until it was smooth enough to build with. The first vessels started taking shape.</p>
+                    <!-- TESTIMONIAL: when a quote comes in for this day, uncomment and fill in
+                    <div class="day-quote">
+                      <div class="quote-text">Quote goes here.</div>
+                      <div class="quote-attr">Name, Country</div>
+                    </div>
+                    -->
+                  </div>
+                  <div class="camp-media">
+                    <!-- DAY 2 PHOTO: swap the filename below to change it -->
+                    <figure class="camp-figure" data-slot="day-2" onclick="openLightbox('july-2026-saatomo/DSCF3508_Original.JPG')">
+                      <img src="july-2026-saatomo/DSCF3508_Original.JPG" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <div class="day-num">Day 03</div>
+                    <div class="day-title">Hand-Building and Finishing</div>
+                    <p>Pinching and coiling rather than throwing on a wheel, guided by Papay and the studio's artisans. Afternoons went to finishing, polishing and decorating.</p>
+                    <!-- TESTIMONIAL: when a quote comes in for this day, uncomment and fill in
+                    <div class="day-quote">
+                      <div class="quote-text">Quote goes here.</div>
+                      <div class="quote-attr">Name, Country</div>
+                    </div>
+                    -->
+                  </div>
+                  <div class="camp-media">
+                    <!-- DAY 3 PHOTO: swap the filename below to change it -->
+                    <figure class="camp-figure" data-slot="day-3" onclick="openLightbox('july-2026-saatomo/DSCF3577.JPG')">
+                      <img src="july-2026-saatomo/DSCF3577.JPG" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split reverse">
+                  <div class="camp-body">
+                    <div class="day-num">Day 04</div>
+                    <div class="day-title">Gathering Wood, Building the Pit</div>
+                    <p>We collected our own driftwood and firewood and built the open pit, packing it so the pieces would heat evenly through the night.</p>
+                    <!-- TESTIMONIAL: when a quote comes in for this day, uncomment and fill in
+                    <div class="day-quote">
+                      <div class="quote-text">Quote goes here.</div>
+                      <div class="quote-attr">Name, Country</div>
+                    </div>
+                    -->
+                  </div>
+                  <div class="camp-media">
+                    <!-- DAY 4 PHOTO: swap the filename below to change it -->
+                    <figure class="camp-figure" data-slot="day-4" onclick="openLightbox('july-2026-saatomo/DSCF3689.JPG')">
+                      <img src="july-2026-saatomo/DSCF3689.JPG" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <div class="day-num">Day 05</div>
+                    <div class="day-title">The Firing</div>
+                    <p>The pit reached 1,000 degrees Celsius, tended in shifts through the night. In the morning we opened it together and saw what the fire had made.</p>
+                    <!-- TESTIMONIAL: when a quote comes in for this day, uncomment and fill in
+                    <div class="day-quote">
+                      <div class="quote-text">Quote goes here.</div>
+                      <div class="quote-attr">Name, Country</div>
+                    </div>
+                    -->
+                  </div>
+                  <div class="camp-media">
+                    <!-- DAY 5 PHOTO: swap the filename below to change it -->
+                    <figure class="camp-figure" data-slot="day-5" onclick="openLightbox('july-2026-saatomo/DSCF3737.JPG')">
+                      <img src="july-2026-saatomo/DSCF3737.JPG" alt="" loading="lazy">
+                    </figure>
+                  </div>
                 </div>
               </div>
 
