@@ -953,11 +953,11 @@
             <span>First Camp</span>
             <span class="sub-year">Feb 2026</span>
           </button>
-          <button class="camp-subtab active" data-campsub="jul2026" onclick="showCampSub('jul2026')">
+          <button class="camp-subtab" data-campsub="jul2026" onclick="showCampSub('jul2026')">
             <span>Second Camp</span>
             <span class="sub-year">Jul 2026</span>
           </button>
-          <button class="camp-subtab" data-campsub="jan2027" onclick="showCampSub('jan2027')">
+          <button class="camp-subtab active" data-campsub="jan2027" onclick="showCampSub('jan2027')">
             <span>Third Camp</span>
             <span class="sub-year">Jan 2027</span>
             <span class="sub-upcoming">Upcoming</span>
@@ -1157,7 +1157,7 @@
           </div>
 
           <!-- ── July 2026 · the second camp ─────────── -->
-          <div class="camp-subpanel active" id="campsub-jul2026">
+          <div class="camp-subpanel" id="campsub-jul2026">
             <div class="camp-panel">
               <div class="camp-header">
                 <h2>Sa'Atomo</h2>
@@ -1311,11 +1311,41 @@
                 </div>
               </div>
 
+              <div class="camp-section">
+                <div class="camp-section-label">Photographs</div>
+                <div class="slideshow" id="slides-jul">
+                  <div class="slide-stage">
+                    <button class="slide-nav prev" aria-label="Previous photo" onclick="slideStep('jul',-1)">‹</button>
+                    <img id="slide-img-jul" src="july-2026-saatomo/DSCF3577.JPG" alt="" onclick="openLightbox(this.getAttribute('src'))">
+                    <button class="slide-nav next" aria-label="Next photo" onclick="slideStep('jul',1)">›</button>
+                  </div>
+                  <div class="slide-meta">
+                    <span class="slide-count" id="slide-count-jul">1 / 14</span>
+                    <div class="slide-dots" id="slide-dots-jul">
+                    <button class="slide-dot active" aria-label="Photo 1" onclick="slideGo('jul',0)"></button>
+                    <button class="slide-dot" aria-label="Photo 2" onclick="slideGo('jul',1)"></button>
+                    <button class="slide-dot" aria-label="Photo 3" onclick="slideGo('jul',2)"></button>
+                    <button class="slide-dot" aria-label="Photo 4" onclick="slideGo('jul',3)"></button>
+                    <button class="slide-dot" aria-label="Photo 5" onclick="slideGo('jul',4)"></button>
+                    <button class="slide-dot" aria-label="Photo 6" onclick="slideGo('jul',5)"></button>
+                    <button class="slide-dot" aria-label="Photo 7" onclick="slideGo('jul',6)"></button>
+                    <button class="slide-dot" aria-label="Photo 8" onclick="slideGo('jul',7)"></button>
+                    <button class="slide-dot" aria-label="Photo 9" onclick="slideGo('jul',8)"></button>
+                    <button class="slide-dot" aria-label="Photo 10" onclick="slideGo('jul',9)"></button>
+                    <button class="slide-dot" aria-label="Photo 11" onclick="slideGo('jul',10)"></button>
+                    <button class="slide-dot" aria-label="Photo 12" onclick="slideGo('jul',11)"></button>
+                    <button class="slide-dot" aria-label="Photo 13" onclick="slideGo('jul',12)"></button>
+                    <button class="slide-dot" aria-label="Photo 14" onclick="slideGo('jul',13)"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
           <!-- ── Jan 2027 · upcoming ─────────────────── -->
-          <div class="camp-subpanel" id="campsub-jan2027">
+          <div class="camp-subpanel active" id="campsub-jan2027">
             <div class="camp-panel">
 
               <div class="camp-header">
@@ -1336,8 +1366,8 @@
                   </div>
                   <div class="camp-media">
                     <!-- PHOTO-1: placeholder from a past camp, swap the filename once labelled -->
-                    <figure class="camp-figure" data-slot="photo-1" onclick="openLightbox('july-2026-saatomo/DSCF3508_Original.JPG')">
-                      <img src="july-2026-saatomo/DSCF3508_Original.JPG" alt="" loading="lazy">
+                    <figure class="camp-figure" data-slot="photo-1" onclick="openLightbox('july-2026-saatomo/Day%202.JPG')">
+                      <img src="july-2026-saatomo/Day%202.JPG" alt="" loading="lazy">
                     </figure>
                   </div>
                 </div>
@@ -1464,8 +1494,8 @@
                   </div>
                   <div class="camp-media">
                     <!-- ACTIVITY-7: placeholder from a past camp, swap the filename once labelled -->
-                    <figure class="camp-figure" data-slot="activity-7" onclick="openLightbox('july-2026-saatomo/DSCF3921.JPG')">
-                      <img src="july-2026-saatomo/DSCF3921.JPG" alt="" loading="lazy">
+                    <figure class="camp-figure" data-slot="activity-7" onclick="openLightbox('july-2026-saatomo/group.JPG')">
+                      <img src="july-2026-saatomo/group.JPG" alt="" loading="lazy">
                     </figure>
                   </div>
                 </div>
@@ -1557,8 +1587,9 @@
   });
 
   /* ── Slideshow ─────────────────────────────── */
-  var SLIDES = { feb: ["feb-2026-saatomo/collecting%20wood.jpeg", "feb-2026-saatomo/collecting%20wood%20%28again%29.jpeg", "feb-2026-saatomo/more%20wood.jpeg", "feb-2026-saatomo/preparing%20the%20pit.jpeg", "feb-2026-saatomo/pre-firing.jpeg", "feb-2026-saatomo/pre-firing.jpg", "feb-2026-saatomo/fire%20pit.jpg", "feb-2026-saatomo/1000%20degrees.jpeg", "feb-2026-saatomo/warming%20up%20our%20creations.jpeg", "feb-2026-saatomo/offering.jpeg", "feb-2026-saatomo/me%20and%20the%20pit.jpeg", "feb-2026-saatomo/creations.jpg", "feb-2026-saatomo/plates%20and%20such.jpeg", "feb-2026-saatomo/Feb%202026%20group%21.jpg"] };
-  var slideIdx = { feb: 0 };
+  var SLIDES = { feb: ["feb-2026-saatomo/collecting%20wood.jpeg", "feb-2026-saatomo/collecting%20wood%20%28again%29.jpeg", "feb-2026-saatomo/more%20wood.jpeg", "feb-2026-saatomo/preparing%20the%20pit.jpeg", "feb-2026-saatomo/pre-firing.jpeg", "feb-2026-saatomo/pre-firing.jpg", "feb-2026-saatomo/fire%20pit.jpg", "feb-2026-saatomo/1000%20degrees.jpeg", "feb-2026-saatomo/warming%20up%20our%20creations.jpeg", "feb-2026-saatomo/offering.jpeg", "feb-2026-saatomo/me%20and%20the%20pit.jpeg", "feb-2026-saatomo/creations.jpg", "feb-2026-saatomo/plates%20and%20such.jpeg", "feb-2026-saatomo/Feb%202026%20group%21.jpg"],
+                 jul: ["july-2026-saatomo/DSCF3577.JPG", "july-2026-saatomo/DSC06287.JPG", "july-2026-saatomo/DSC06312.JPG", "july-2026-saatomo/DSCF3673.JPG", "july-2026-saatomo/DSCF3737.JPG", "july-2026-saatomo/DSCF4039.JPG", "july-2026-saatomo/_DSF8942.jpg", "july-2026-saatomo/DSC06375.JPG", "july-2026-saatomo/group.JPG", "july-2026-saatomo/photo.JPG", "july-2026-saatomo/000012950014.jpg", "july-2026-saatomo/000012950024.jpg", "july-2026-saatomo/IMG_9307.JPG", "july-2026-saatomo/IMG_9309.JPG"] };
+  var slideIdx = { feb: 0, jul: 0 };
 
   function slideRender(key) {
     var list = SLIDES[key], i = slideIdx[key];
@@ -1566,7 +1597,6 @@
     document.getElementById('slide-count-' + key).textContent = (i + 1) + ' / ' + list.length;
     var dots = document.getElementById('slide-dots-' + key).children;
     for (var d = 0; d < dots.length; d++) dots[d].classList.toggle('active', d === i);
-    // preload neighbours so stepping feels instant
     [list[(i + 1) % list.length], list[(i - 1 + list.length) % list.length]]
       .forEach(function(src) { var im = new Image(); im.src = src; });
   }
@@ -1577,26 +1607,32 @@
   }
   function slideStep(key, d) { slideGo(key, slideIdx[key] + d); }
 
+  function activeSlideKey() {
+    var panel = document.querySelector('.camp-subpanel.active');
+    if (!panel) return null;
+    var box = panel.querySelector('.slideshow');
+    return box ? box.id.replace('slides-', '') : null;
+  }
+
   document.addEventListener('keydown', function(e) {
     if (document.getElementById('lightbox').classList.contains('open')) return;
-    var box = document.getElementById('slides-feb');
-    if (!box || !box.closest('.camp-subpanel').classList.contains('active')) return;
-    if (e.key === 'ArrowLeft') slideStep('feb', -1);
-    if (e.key === 'ArrowRight') slideStep('feb', 1);
+    var key = activeSlideKey();
+    if (!key) return;
+    if (e.key === 'ArrowLeft') slideStep(key, -1);
+    if (e.key === 'ArrowRight') slideStep(key, 1);
   });
 
-  (function() {
-    var stage = document.querySelector('#slides-feb .slide-stage');
-    if (!stage) return;
-    var x0 = null;
+  Array.prototype.forEach.call(document.querySelectorAll('.slideshow'), function(box) {
+    var key = box.id.replace('slides-', '');
+    var stage = box.querySelector('.slide-stage'), x0 = null;
     stage.addEventListener('touchstart', function(e) { x0 = e.changedTouches[0].clientX; }, {passive: true});
     stage.addEventListener('touchend', function(e) {
       if (x0 === null) return;
       var dx = e.changedTouches[0].clientX - x0;
-      if (Math.abs(dx) > 40) slideStep('feb', dx < 0 ? 1 : -1);
+      if (Math.abs(dx) > 40) slideStep(key, dx < 0 ? 1 : -1);
       x0 = null;
     }, {passive: true});
-  })();
+  });
 
   function openLightbox(src) {
     const lb = document.getElementById('lightbox');
