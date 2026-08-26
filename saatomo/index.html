@@ -726,6 +726,17 @@
       max-width: 620px;
     }
 
+    /* ── Activities & camp details ───────────────── */
+    .activity-cn {
+      font-size: .72rem; letter-spacing: .06em;
+      color: rgba(242,237,232,0.35); margin-bottom: .7rem;
+    }
+    .fact-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 1.5rem 2rem; margin-bottom: 2.2rem;
+    }
+    .camp-days .camp-split .day-title { margin-bottom: .2rem; }
+
     /* Testimonials */
     .quote-grid {
       display: grid;
@@ -959,27 +970,11 @@
           <div class="camp-subpanel" id="campsub-feb2026">
             <div class="camp-panel">
 
-              <div class="upcoming-hero">
-                <div class="upcoming-hero-main">
-                  <h2>Sa'Atomo</h2>
-                  <div class="camp-tag">Guangfu, Hualien · February 2026</div>
-                  <div class="camp-cta-row">
-                    <a class="camp-cta" href="#" onclick="showCampSub('jan2027');return false;">The next camp is January 2027 →</a>
-                  </div>
-                </div>
-                <div class="upcoming-facts">
-                  <div class="upcoming-fact">
-                    <div class="fact-label">When</div>
-                    <div class="fact-value">February 2026</div>
-                  </div>
-                  <div class="upcoming-fact">
-                    <div class="fact-label">Where</div>
-                    <div class="fact-value">Guangfu, Hualien, Taiwan</div>
-                  </div>
-                  <div class="upcoming-fact">
-                    <div class="fact-label">With</div>
-                    <div class="fact-value">Austronesian Alien Studio</div>
-                  </div>
+              <div class="camp-header">
+                <h2>Sa'Atomo</h2>
+                <div class="camp-tag">Guangfu, Hualien · February 2026</div>
+                <div class="camp-cta-row">
+                  <a class="camp-cta" href="#" onclick="showCampSub('jan2027');return false;">The next camp is January 2027 →</a>
                 </div>
               </div>
 
@@ -1170,6 +1165,9 @@
                 <div class="camp-desc">Papay and I brought 16 people from 8 different countries to join us in Guangfu, Hualien. Over five days we learned from members of the Indigenous Amis tribe, dug our own clay from the earth, and wedged it by hand (and by foot). We gathered our own firewood and built a pit fire that reached 1,000 degrees Celsius. Most importantly, we got to really know one another.</div>
                 <div class="camp-desc">Pottery became a shared language for us, and a medium for connection, creativity, and craft.</div>
                 <div class="thanks-line">Thank you to the 16 individuals who made the first cohort unforgettable: Aaliyah, Alicia, Angel, Cassie, Catharine, Chung, Dan, Hailey, Han, Jianna, Kimberlyn, Lee Rong, Nicole, Samantha, Natasha, and Tessa.</div>
+                <div class="camp-cta-row">
+                  <a class="camp-cta" href="#" onclick="showCampSub('jan2027');return false;">The next camp is January 2027 →</a>
+                </div>
               </div>
 
               <div class="camp-section camp-days">
@@ -1320,17 +1318,162 @@
           <div class="camp-subpanel" id="campsub-jan2027">
             <div class="camp-panel">
 
-              <div class="upcoming-hero">
-                <div class="upcoming-hero-main">
-                  <h2>Sa'Atomo</h2>
-                  <div class="camp-tag">Guangfu, Hualien · January 25–29, 2027</div>
-                  <div class="camp-desc">A five-day immersion in traditional Amis pottery, run with Austronesian Alien Studio (南島星人工作室), from the soil gathering ritual through hand-building to an open pit firing. No prior pottery experience needed.</div>
-                  <div class="camp-cta-row">
-                    <a class="camp-cta solid" href="https://forms.gle/3i9noMBz5REyjGyV9" target="_blank" rel="noopener">Apply to join ↗</a>
-                    <span class="camp-spots">Applications close September 20, 2026</span>
+              <div class="camp-header">
+                <h2>Sa'Atomo</h2>
+                <div class="camp-tag">Guangfu, Hualien · January 25–29, 2027</div>
+                <div class="camp-desc">A five-day immersion in traditional Amis pottery, run with Austronesian Alien Studio (南島星人工作室). No prior pottery experience needed.</div>
+                <div class="camp-cta-row">
+                  <a class="camp-cta solid" href="https://forms.gle/3i9noMBz5REyjGyV9" target="_blank" rel="noopener">Apply to join ↗</a>
+                  <span class="camp-spots">Applications close September 20, 2026</span>
+                </div>
+              </div>
+
+              <div class="camp-section">
+                <div class="camp-section-label">About the Camp</div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <p>"Sa'atomo" (阿美陶部落營隊) means "come make pottery" in Amis. The camp is held in Guangfu, one of the cultural heartlands of the Amis, Taiwan's largest indigenous group. Clay is gathered by hand from the earth, shaped by pinching and coiling rather than thrown on a wheel, and fired in an open pit.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- PHOTO-1: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="photo-1" onclick="openLightbox('july-2026-saatomo/DSCF3508_Original.JPG')">
+                      <img src="july-2026-saatomo/DSCF3508_Original.JPG" alt="" loading="lazy">
+                    </figure>
                   </div>
                 </div>
-                <div class="upcoming-facts">
+              </div>
+
+              <div class="camp-section">
+                <div class="camp-section-label">Background on Guangfu, Hualien, Taiwan</div>
+                <div class="camp-split reverse">
+                  <div class="camp-body">
+                    <p>Guangfu (光復) is a small township on the east coast of Taiwan in Hualien County, nestled between the Central Mountain Range and the Pacific Ocean.</p>
+                    <p>Guangfu was impacted by significant flooding in 2025. The studio and camp operations are continuing, and attending this camp is also a meaningful way to support the local community during its recovery. We will be visiting a local exhibition documenting the flood's impact on the local residents.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- PHOTO-2: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="photo-2" onclick="openLightbox('feb-2026-saatomo/photo%201.jpeg')">
+                      <img src="feb-2026-saatomo/photo%201.jpeg" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+              </div>
+
+              <div class="camp-section">
+                <div class="camp-section-label">About Austronesian Alien Studio (南島星人工作室)</div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <p>Austronesian Alien Studio is an indigenous-led creative studio based in Taichung, Taiwan, dedicated to preserving and sharing Amis cultural practices through hands-on education.</p>
+                    <p>The studio was founded by Papay, a pottery teacher and cultural educator who started Austronesian Alien with the goal of expanding access to indigenous culture, creating a space where both indigenous youth and visitors from around the world could learn traditional Amis pottery in its living context.</p>
+                    <p>I started my ceramics journey here.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- PHOTO-3: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="photo-3" onclick="openLightbox('feb-2026-saatomo/photo%203.jpg')">
+                      <img src="feb-2026-saatomo/photo%203.jpg" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+              </div>
+
+              <div class="camp-section camp-days">
+                <div class="camp-section-label">Activities Include</div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <div class="day-title">Soil Gathering Ritual</div>
+                    <div class="activity-cn">素材蒐集</div>
+                    <p>The camp begins not at a workbench but in the field. We travel to Fengbin to gather raw clay directly from the earth, taking part in the Amis ritual that marks the start of the pottery process.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- ACTIVITY-1: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="activity-1" onclick="openLightbox('feb-2026-saatomo/offering.jpeg')">
+                      <img src="feb-2026-saatomo/offering.jpeg" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split reverse">
+                  <div class="camp-body">
+                    <div class="day-title">Dig &amp; Work the Clay</div>
+                    <div class="activity-cn">挖土練土</div>
+                    <p>Learn to prepare raw gathered clay by hand: cleaning, kneading and conditioning it into workable material. This is the foundation of traditional Amis pottery, done entirely without a wheel.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- ACTIVITY-2: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="activity-2" onclick="openLightbox('july-2026-saatomo/DSC06287.JPG')">
+                      <img src="july-2026-saatomo/DSC06287.JPG" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <div class="day-title">Hand-Building &amp; Sculpting</div>
+                    <div class="activity-cn">陶器創作</div>
+                    <p>Using pinching and coiling techniques, you build your own pieces across multiple sessions, guided by indigenous artisans and elders. Afternoon and night sessions are given over to independent practice and developing your work.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- ACTIVITY-3: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="activity-3" onclick="openLightbox('feb-2026-saatomo/photo%202.jpeg')">
+                      <img src="feb-2026-saatomo/photo%202.jpeg" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split reverse">
+                  <div class="camp-body">
+                    <div class="day-title">Wild Pit Firing and Tool Making</div>
+                    <div class="activity-cn">陶器野燒 + 工具製作</div>
+                    <p>Rather than a kiln, Amis pottery is fired in an open pit, an ancient technique that produces distinctive, unpredictable results. You also make your own tools for the firing. On pit firing night, participants take turns tending the fire on a rotating overnight watch.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- ACTIVITY-4: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="activity-4" onclick="openLightbox('feb-2026-saatomo/fire%20pit.jpg')">
+                      <img src="feb-2026-saatomo/fire%20pit.jpg" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <div class="day-title">Plant Workshop</div>
+                    <div class="activity-cn">植物工作坊</div>
+                    <p>Explore the role of local plants and natural materials in Amis cultural and pottery practices.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- ACTIVITY-5: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="activity-5" onclick="openLightbox('july-2026-saatomo/DSC06312.JPG')">
+                      <img src="july-2026-saatomo/DSC06312.JPG" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split reverse">
+                  <div class="camp-body">
+                    <div class="day-title">Spirit Workshop</div>
+                    <div class="activity-cn">靈觀工作坊</div>
+                    <p>An evening session rooted in Amis spiritual traditions, offering context for the rituals woven throughout the camp.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- ACTIVITY-6: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="activity-6" onclick="openLightbox('july-2026-saatomo/DSCF3737.JPG')">
+                      <img src="july-2026-saatomo/DSCF3737.JPG" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+                <div class="camp-split">
+                  <div class="camp-body">
+                    <div class="day-title">Music &amp; Dance Workshop</div>
+                    <div class="activity-cn">樂舞工作坊</div>
+                    <p>An introduction to Amis music and dance as living cultural expression, rather than performance.</p>
+                  </div>
+                  <div class="camp-media">
+                    <!-- ACTIVITY-7: placeholder from a past camp, swap the filename once labelled -->
+                    <figure class="camp-figure" data-slot="activity-7" onclick="openLightbox('july-2026-saatomo/DSCF3921.JPG')">
+                      <img src="july-2026-saatomo/DSCF3921.JPG" alt="" loading="lazy">
+                    </figure>
+                  </div>
+                </div>
+              </div>
+
+              <div class="camp-section">
+                <div class="camp-section-label">Camp Details</div>
+                <div class="fact-grid">
                   <div class="upcoming-fact">
                     <div class="fact-label">Dates</div>
                     <div class="fact-value">January 25–29, 2027</div>
@@ -1348,36 +1491,6 @@
                     <div class="fact-value">$1,000 USD</div>
                   </div>
                 </div>
-              </div>
-
-              <div class="camp-section">
-                <div class="camp-section-label">About the Camp</div>
-                <div class="camp-body">
-                  <p>"Sa'atomo" (阿美陶部落營隊) means "come make pottery" in Amis. The camp is held in Guangfu, one of the cultural heartlands of the Amis, Taiwan's largest indigenous group. Clay is gathered by hand from the earth, shaped by pinching and coiling rather than thrown on a wheel, and fired in an open pit.</p>
-                  <p>The camp emphasises process over product. Each step carries its cultural context, from the land offering ritual to what the firing means. It is run with Austronesian Alien Studio, an indigenous-led studio founded by Papay, and taught alongside Amis artisans and elders.</p>
-                </div>
-              </div>
-
-              <div class="camp-section">
-                <div class="camp-section-label">What You'll Do</div>
-                <div class="camp-cols">
-                  <ul class="camp-list">
-                    <li>Soil gathering ritual (素材蒐集)</li>
-                    <li>Dig and work the clay (挖土練土)</li>
-                    <li>Hand-building &amp; sculpting (陶器創作)</li>
-                    <li>Wild pit firing + tool making (陶器野燒)</li>
-                  </ul>
-                  <ul class="camp-list">
-                    <li>Plant workshop (植物工作坊)</li>
-                    <li>Spirit workshop (靈觀工作坊)</li>
-                    <li>Music &amp; dance workshop (樂舞工作坊)</li>
-                    <li>Tree bark art</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="camp-section">
-                <div class="camp-section-label">Included</div>
                 <div class="camp-cols">
                   <ul class="camp-list">
                     <li>All materials and instruction</li>
